@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <UseWindowsForms>True</UseWindowsForms>
+    <TargetFramework>net35</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.SqliteClient">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Mono.Data.SqliteClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="Pathfinding.JsonFx">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Pathfinding.JsonFx.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.ClipperLib">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Pathfinding.ClipperLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Poly2Tri">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Pathfinding.Poly2Tri.dll</HintPath>
+    </Reference>
+    <Reference Include="uLink">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\uLink.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Behave.Unity.Runtime">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Behave.Unity.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="C5">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Flac">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\NAudio.Flac.dll</HintPath>
+    </Reference>
+    <Reference Include="uLobby">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\uLobby.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="Jboy.Core">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Jboy.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Jboy">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Jboy.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.CSharp">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Mono.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCLNetWin">
+      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\OpenCLNetWin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,33 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp\Assembly-CSharp.csproj", "{CFACEA8B-AE47-4700-961D-6942EFEF817B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-UnityScript", "Assembly-UnityScript\Assembly-UnityScript.csproj", "{011F63FC-8707-4A8B-996E-542DCF05756F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj", "{9EDDFA71-100C-4F83-86BE-1AB4009AF545}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFACEA8B-AE47-4700-961D-6942EFEF817B}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{CFACEA8B-AE47-4700-961D-6942EFEF817B}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{CFACEA8B-AE47-4700-961D-6942EFEF817B}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{CFACEA8B-AE47-4700-961D-6942EFEF817B}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{011F63FC-8707-4A8B-996E-542DCF05756F}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{011F63FC-8707-4A8B-996E-542DCF05756F}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{011F63FC-8707-4A8B-996E-542DCF05756F}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{011F63FC-8707-4A8B-996E-542DCF05756F}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{9EDDFA71-100C-4F83-86BE-1AB4009AF545}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{9EDDFA71-100C-4F83-86BE-1AB4009AF545}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{9EDDFA71-100C-4F83-86BE-1AB4009AF545}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{9EDDFA71-100C-4F83-86BE-1AB4009AF545}.Release|AnyCPU.Build.0 = Release|AnyCPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

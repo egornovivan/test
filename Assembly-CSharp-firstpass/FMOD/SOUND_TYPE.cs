@@ -1,0 +1,35 @@
+namespace FMOD;
+
+public enum SOUND_TYPE
+{
+	UNKNOWN,
+	AIFF,
+	ASF,
+	AT3,
+	DLS,
+	FLAC,
+	FSB,
+	GCADPCM,
+	IT,
+	MIDI,
+	MOD,
+	MPEG,
+	OGGVORBIS,
+	PLAYLIST,
+	RAW,
+	S3M,
+	USER,
+	WAV,
+	XM,
+	XMA,
+	VAG,
+	AUDIOQUEUE,
+	XWMA,
+	BCWAV,
+	AT9,
+	VORBIS,
+	MEDIA_FOUNDATION,
+	MEDIACODEC,
+	FADPCM,
+	MAX
+}

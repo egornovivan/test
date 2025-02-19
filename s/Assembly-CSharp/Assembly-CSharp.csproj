@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net35</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="uLink">
+      <HintPath>..\..\..\app_237870\asdsadas\Server\PE_Server_Data\Managed\uLink.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\app_237870\asdsadas\Server\PE_Server_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\app_237870\asdsadas\Server\PE_Server_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Data.SqliteClient">
+      <HintPath>..\..\..\app_237870\asdsadas\Server\PE_Server_Data\Managed\Mono.Data.SqliteClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Jboy">
+      <HintPath>..\..\..\app_237870\asdsadas\Server\PE_Server_Data\Managed\Jboy.dll</HintPath>
+    </Reference>
+    <Reference Include="Jboy.Core">
+      <HintPath>..\..\..\app_237870\asdsadas\Server\PE_Server_Data\Managed\Jboy.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
+    <Reference Include="uLobby">
+      <HintPath>..\..\..\app_237870\asdsadas\Server\PE_Server_Data\Managed\uLobby.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
