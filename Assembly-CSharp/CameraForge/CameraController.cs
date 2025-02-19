@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace CameraForge;
 
-[RequireComponent(typeof(Camera))]
 [AddComponentMenu("Camera Forge/Camera Controller")]
+[RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
 	public delegate void DEventNotify(CameraController camc);

@@ -70,11 +70,11 @@ public class ColonyNpcMgr
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			ColonyNpc colonyNpc = new ColonyNpc();
 			colonyNpc._npcID = reader.GetInt32(reader.GetOrdinal("id"));
-			int int2 = reader.GetInt32(reader.GetOrdinal("teamid"));
-			if (int2 == -1)
+			int @int = reader.GetInt32(reader.GetOrdinal("teamid"));
+			if (@int == -1)
 			{
 				continue;
 			}
@@ -95,7 +95,7 @@ public class ColonyNpcMgr
 				colonyNpc.trainingType = (ETrainingType)BufferHelper.ReadInt32(reader2);
 				colonyNpc.IsTraining = BufferHelper.ReadBoolean(reader2);
 			}
-			Add(int2, colonyNpc._npcID, colonyNpc);
+			Add(@int, colonyNpc._npcID, colonyNpc);
 			if (colonyNpc._refNpc == null)
 			{
 				continue;

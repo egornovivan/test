@@ -10,8 +10,6 @@ public class RequestCmpt : PeCmpt, IPeMsg
 
 	private const int Version_Current = 0;
 
-	private BehaveCmpt m_Behave;
-
 	private ViewCmpt m_View;
 
 	private Request[] m_Request = new Request[15];
@@ -108,7 +106,6 @@ public class RequestCmpt : PeCmpt, IPeMsg
 	public override void Start()
 	{
 		base.Start();
-		m_Behave = GetComponent<BehaveCmpt>();
 		m_View = GetComponent<ViewCmpt>();
 	}
 
@@ -132,14 +129,14 @@ public class RequestCmpt : PeCmpt, IPeMsg
 	public override void Deserialize(BinaryReader r)
 	{
 		base.Deserialize(r);
+		r.ReadInt32();
 		int num = r.ReadInt32();
-		int num2 = r.ReadInt32();
-		for (int i = 0; i < num2; i++)
+		for (int i = 0; i < num; i++)
 		{
-			int num3 = r.ReadInt32();
-			if (num3 != -1)
+			int num2 = r.ReadInt32();
+			if (num2 != -1)
 			{
-				Request request = Create((EReqType)num3);
+				Request request = Create((EReqType)num2);
 				request.Deserialize(r);
 				if (request.Type != EReqType.Dialogue)
 				{

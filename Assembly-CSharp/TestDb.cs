@@ -88,8 +88,6 @@ public class TestDb : MonoBehaviour
 	private bool read;
 
 	[SerializeField]
-	private Item[] list;
-
 	private void Update()
 	{
 		if (read)
@@ -101,6 +99,5 @@ public class TestDb : MonoBehaviour
 
 	private void Test()
 	{
-		list = DbReader.Read<Item>("PrototypeMonster").ToArray();
 	}
 }

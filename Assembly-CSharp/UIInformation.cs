@@ -9,10 +9,6 @@ public class UIInformation : UIStaticWnd
 		it_Conloy
 	}
 
-	private static UIInformation mIntence;
-
-	public static UIInformation Intence => mIntence;
-
 	public void AddInfo(infoType type, string info)
 	{
 	}

@@ -21,42 +21,6 @@ public class GameTime : UnityEngine.MonoBehaviour
 
 	public static UTimer PlayTime;
 
-	[SerializeField]
-	private string m_TimeString;
-
-	[SerializeField]
-	private string m_Tick;
-
-	[SerializeField]
-	private double m_Day;
-
-	[SerializeField]
-	private double m_Hour;
-
-	[SerializeField]
-	private double m_Minute;
-
-	[SerializeField]
-	private double m_Second;
-
-	[SerializeField]
-	private double m_TimeInDay;
-
-	[SerializeField]
-	private double m_HourInDay;
-
-	[SerializeField]
-	private double m_MinuteInDay;
-
-	[SerializeField]
-	private double m_SecondInDay;
-
-	[SerializeField]
-	private double m_CycleInDay;
-
-	[SerializeField]
-	private float m_ElapseSpeed;
-
 	private float savedElapseSpeed;
 
 	public static GameTime Instance => mInstance;
@@ -104,7 +68,6 @@ public class GameTime : UnityEngine.MonoBehaviour
 			return;
 		}
 		PlayTime.Update(Time.deltaTime);
-		double cycleInDay = Timer.CycleInDay;
 		Timer.Update(Time.deltaTime);
 		if (Timer.CycleInDay < -0.25)
 		{
@@ -144,20 +107,8 @@ public class GameTime : UnityEngine.MonoBehaviour
 				SyncTime();
 			}
 		}
-		if (Application.isEditor)
+		if (!Application.isEditor)
 		{
-			m_ElapseSpeed = Timer.ElapseSpeed;
-			m_Tick = Timer.Tick.ToString("#,##0");
-			m_Day = Timer.Day;
-			m_Hour = Timer.Hour;
-			m_Minute = Timer.Minute;
-			m_Second = Timer.Second;
-			m_TimeInDay = Timer.TimeInDay;
-			m_HourInDay = Timer.HourInDay;
-			m_MinuteInDay = Timer.MinuteInDay;
-			m_SecondInDay = Timer.SecondInDay;
-			m_CycleInDay = Timer.CycleInDay;
-			m_TimeString = Timer.FormatString("D hh:mm:ss AP");
 		}
 	}
 

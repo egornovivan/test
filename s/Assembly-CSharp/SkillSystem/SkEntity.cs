@@ -124,7 +124,7 @@ public class SkEntity : MonoBehaviour
 	{
 		if (dataReader.Read())
 		{
-			int @int = dataReader.GetInt32(dataReader.GetOrdinal("ver"));
+			dataReader.GetInt32(dataReader.GetOrdinal("ver"));
 			byte[] data = (byte[])dataReader.GetValue(dataReader.GetOrdinal("data"));
 			Import(data);
 			_hasRecord = true;

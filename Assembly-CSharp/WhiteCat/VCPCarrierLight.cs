@@ -4,8 +4,8 @@ namespace WhiteCat;
 
 public class VCPCarrierLight : VCPart
 {
-	[SerializeField]
 	[Min(0f)]
+	[SerializeField]
 	private float _energyExpendSpeed;
 
 	[SerializeField]

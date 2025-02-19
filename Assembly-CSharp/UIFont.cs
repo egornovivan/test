@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-[AddComponentMenu("NGUI/UI/Font")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/UI/Font")]
 public class UIFont : MonoBehaviour
 {
 	public enum Alignment
@@ -24,24 +24,24 @@ public class UIFont : MonoBehaviour
 	[SerializeField]
 	private Material mMat;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Rect mUVRect = new Rect(0f, 0f, 1f, 1f);
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private BMFont mFont = new BMFont();
 
 	[HideInInspector]
 	[SerializeField]
 	private int mSpacingX;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private int mSpacingY;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private UIAtlas mAtlas;
 
 	[SerializeField]

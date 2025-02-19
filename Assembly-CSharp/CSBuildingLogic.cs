@@ -242,13 +242,8 @@ public class CSBuildingLogic : DragItemLogic
 		OnHpChange(_skEntity, 0f);
 		PeSingleton<EntityMgr>.Instance.InitEntity(InstanceId, _peEntity.gameObject);
 		m_Entity.m_MgCreator.AddLogic(id, this);
-		if (CSMain.s_MgCreator == m_Entity.m_MgCreator && m_Entity is CSAssembly)
+		if (!(CSMain.s_MgCreator == m_Entity.m_MgCreator) || !(m_Entity is CSAssembly) || travelTrans != null)
 		{
-			Vector3 vector = base.gameObject.transform.position + new Vector3(0f, 2f, 0f);
-			if (travelTrans != null)
-			{
-				vector = travelTrans.position;
-			}
 		}
 		StartCoroutine(SetFirstConstruct());
 	}

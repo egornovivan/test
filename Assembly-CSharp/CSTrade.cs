@@ -5,7 +5,6 @@ using CSRecord;
 using ItemAsset;
 using Pathea;
 using Pathea.Operate;
-using TownData;
 using UnityEngine;
 
 public class CSTrade : CSElectric
@@ -170,12 +169,7 @@ public class CSTrade : CSElectric
 
 	public PeEntity GetTownNpc(VArtifactTown vat)
 	{
-		PeEntity result = new PeEntity();
-		List<VATownNpcInfo> npcList = vat.npcList;
-		foreach (VATownNpcInfo item in npcList)
-		{
-		}
-		return result;
+		return new PeEntity();
 	}
 
 	public void InitTradeData()

@@ -15,11 +15,9 @@ public class TRTrackPhscs : Trajectory
 
 	public float smoothPercent = 0.7f;
 
-	private new Transform target;
+	private Transform myTarget;
 
 	private float timeNow;
-
-	private Vector3 startPos;
 
 	private Vector3 startFwd;
 
@@ -45,7 +43,7 @@ public class TRTrackPhscs : Trajectory
 
 	public void Emit(Transform target, Vector3 emitFwd)
 	{
-		this.target = target;
+		myTarget = target;
 		startFwd = emitFwd;
 	}
 
@@ -54,7 +52,6 @@ public class TRTrackPhscs : Trajectory
 		if (GetComponent<Rigidbody>() != null)
 		{
 			GetComponent<Rigidbody>().useGravity = false;
-			startPos = base.transform.position;
 			base.transform.rotation = Quaternion.FromToRotation(Vector3.forward, startFwd);
 			traction = startFwd * maxTraction;
 			acceleration = traction + Vector3.down * gravity;
@@ -72,13 +69,13 @@ public class TRTrackPhscs : Trajectory
 
 	public override Vector3 Track(float deltaTime)
 	{
-		if (target == null)
+		if (myTarget == null)
 		{
 			return Vector3.zero;
 		}
 		timeNow += Time.deltaTime;
 		velocity = velocityNext;
-		targetPos = GetTargetCenter(target);
+		targetPos = GetTargetCenter(myTarget);
 		drag = velocity.normalized * 0.054707f * dragCoefficient * velocity.sqrMagnitude + Vector3.up * gravity;
 		subX = Vector3.Cross(velocity, targetPos - base.transform.position);
 		subY = Vector3.Cross(subX, velocity).normalized;

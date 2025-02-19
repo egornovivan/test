@@ -14,8 +14,6 @@ public class VoxelFileBA
 
 	private bool chkOfsInVectorForm;
 
-	private int chkOfsUnitLen;
-
 	private int chunkCount;
 
 	private int chunkRawDataLength;
@@ -71,7 +69,6 @@ public class VoxelFileBA
 		fileHeader.chunkCountZ = ByteArrayHelper.to_ushort(binaryBuffer, 10);
 		fileHeader.voxelRes = ByteArrayHelper.to_ushort(binaryBuffer, 12);
 		fileHeader.chunkOffsetDesc = binaryBuffer[14];
-		chkOfsUnitLen = fileHeader.chunkOffsetDesc & 7;
 		chkOfsInVectorForm = fileHeader.chunkOffsetDesc >> 4 > 0;
 		chunkRawDataLength = fileHeader.chunkSize * fileHeader.chunkSize * fileHeader.chunkSize * fileHeader.cellLength;
 		int num = 0;
@@ -157,7 +154,6 @@ public class VoxelFileBA
 		ByteArrayHelper.ushort_to(array2, 12, fileHeader.voxelRes);
 		array2[14] = fileHeader.chunkOffsetDesc;
 		fs.Write(array2, 0, 15);
-		chkOfsUnitLen = fileHeader.chunkOffsetDesc & 7;
 		chkOfsInVectorForm = fileHeader.chunkOffsetDesc >> 4 > 0;
 		int num = 4 + chunkDataList.Count * 11;
 		byte[] array3 = new byte[num];

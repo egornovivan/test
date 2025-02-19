@@ -220,6 +220,13 @@ public class IDoodad
 			_net.DestroyMapObj();
 			DeleteData();
 		}
+		if ((itemByID.protoId == 876 || itemByID.protoId == 877) && player.UseItem(itemByID.instanceId))
+		{
+			ItemObject item = ItemManager.CreateItem(itemByID.protoId, 1);
+			player.Package.AddItem(item);
+			player.SyncItem(item);
+			player.SyncPackageIndex();
+		}
 		SaveData();
 		_net.RPCOthers(EPacketType.PT_MO_RemoveItem, itemID);
 		TryToClearItemlist();
@@ -347,7 +354,7 @@ public class IDoodad
 	{
 		if (dataReader.Read())
 		{
-			int @int = dataReader.GetInt32(dataReader.GetOrdinal("ver"));
+			dataReader.GetInt32(dataReader.GetOrdinal("ver"));
 			_objType = dataReader.GetInt32(dataReader.GetOrdinal("objtype"));
 			byte[] array = (byte[])dataReader.GetValue(dataReader.GetOrdinal("data"));
 			if (array.Length > 0)

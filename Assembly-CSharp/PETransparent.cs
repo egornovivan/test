@@ -15,8 +15,6 @@ public class PETransparent : MonoBehaviour
 
 	private bool isDormant;
 
-	private float targetAlpha;
-
 	public float CurrentAlphaValue
 	{
 		get
@@ -55,7 +53,6 @@ public class PETransparent : MonoBehaviour
 	{
 		if (!(render == null) && !(Mathf.Abs(render.material.color.a - dstAlpha) < 0.1f))
 		{
-			targetAlpha = dstAlpha;
 			StopAllCoroutines();
 			StartCoroutine(AlphaUpdate(dstAlpha, time));
 		}

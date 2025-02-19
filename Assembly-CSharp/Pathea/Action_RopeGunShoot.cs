@@ -23,8 +23,6 @@ public class Action_RopeGunShoot : PEAction
 
 	private HookGunState mState;
 
-	private static readonly float HumanWith = 0.4f;
-
 	private Vector3 m_ShootDir;
 
 	private int m_CurrentMoveIndex;

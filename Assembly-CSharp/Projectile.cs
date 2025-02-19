@@ -41,11 +41,7 @@ public class Projectile : SkillRunner
 
 	private List<EnergyShieldCtrl> mShieldList = new List<EnergyShieldCtrl>();
 
-	private byte projectileIndex = 1;
-
 	private bool mValid;
-
-	private float random1;
 
 	private Trajectory mTrajectory;
 
@@ -103,20 +99,16 @@ public class Projectile : SkillRunner
 
 	public void Init(byte index, SkillRunner emitRunner, ISkillTarget target, Transform emitTransform, float rand1)
 	{
-		projectileIndex = index;
 		this.emitRunner = emitRunner;
 		this.emitTransform = emitTransform;
-		random1 = rand1;
 		SetupTrajectory(emitRunner, emitTransform, target);
 	}
 
 	public void Init(byte index, SkillRunner emitRunner, ISkillTarget target, Transform emitTransform, int damageSkillID, float rand1)
 	{
-		projectileIndex = index;
 		this.emitRunner = emitRunner;
 		this.emitTransform = emitTransform;
 		this.damageSkillID = damageSkillID;
-		random1 = rand1;
 		SetupTrajectory(emitRunner, emitTransform, target);
 	}
 

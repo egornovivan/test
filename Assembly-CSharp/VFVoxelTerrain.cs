@@ -54,8 +54,6 @@ public class VFVoxelTerrain : SkEntity, ILODNodeDataMan, IVxChunkHelperProc
 
 	private TransvoxelGoCreator _transGoCreator;
 
-	private List<SurfExtractReqMC> _lstReqsToFin = new List<SurfExtractReqMC>();
-
 	private int _idxInLODNodeData;
 
 	private static int _frameCnt;
@@ -97,10 +95,6 @@ public class VFVoxelTerrain : SkEntity, ILODNodeDataMan, IVxChunkHelperProc
 	public IVxSurfExtractor SurfExtractor => SurfExtractorsMan.VxSurfExtractor;
 
 	public int ChunkSig => 0;
-
-	public static event DirtyVoxelEvent onDirtyVoxel;
-
-	public static event DelegateChunksColliderRebuild ChunksColliderRebuildHandler;
 
 	private void InitSkEntity()
 	{

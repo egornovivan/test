@@ -142,8 +142,6 @@ public class UIServantWnd : UIBaseWnd
 	[SerializeField]
 	private N_ImageButton mFreeBtn;
 
-	private int mTabelIndex;
-
 	private int mSkillGridCount = 5;
 
 	private int mInteractionGridCount = 15;
@@ -169,8 +167,6 @@ public class UIServantWnd : UIBaseWnd
 	[SerializeField]
 	private UILabel m_BuffStrsLb;
 
-	private string m_BuffStrFormat = "+{0}";
-
 	private List<Grid_N> mSkillList;
 
 	private List<Grid_N> mInteractionList;
@@ -184,8 +180,6 @@ public class UIServantWnd : UIBaseWnd
 	private PeViewController _viewController;
 
 	private GameObject _viewModel;
-
-	private PlayerPackageCmpt playerPackageCmpt;
 
 	private PeEntity m_Servant;
 
@@ -383,7 +377,6 @@ public class UIServantWnd : UIBaseWnd
 			}
 			leaderCmpt = cmpt;
 			leaderCmpt.changeEventor.Subscribe(ServentChange);
-			playerPackageCmpt = GameUI.Instance.mMainPlayer.GetCmpt<PlayerPackageCmpt>();
 		}
 		GetServentCmpt();
 		ReflashSkill();
@@ -730,7 +723,6 @@ public class UIServantWnd : UIBaseWnd
 	{
 		if (isActive)
 		{
-			mTabelIndex = 0;
 			mPageInfo.SetActive(value: true);
 			mPageInventory.SetActive(value: false);
 			Refresh();
@@ -741,7 +733,6 @@ public class UIServantWnd : UIBaseWnd
 	{
 		if (isActive)
 		{
-			mTabelIndex = 1;
 			mPageInfo.SetActive(value: false);
 			mPageInventory.SetActive(value: true);
 			Refresh();
@@ -1084,7 +1075,7 @@ public class UIServantWnd : UIBaseWnd
 		}
 	}
 
-	private new void LateUpdate()
+	protected override void LateUpdate()
 	{
 		UpdateReposition();
 	}

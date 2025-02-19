@@ -11,15 +11,12 @@ public class RailwayTrain
 
 	private int _setCount = 4;
 
-	private ItemObject _trainItem;
-
 	public Vector3 _positon;
 
 	public Quaternion _rot;
 
 	public RailwayTrain(ItemObject obj, Route route)
 	{
-		_trainItem = obj;
 		m_SeatList = new List<int>();
 		for (int i = 0; i < _setCount; i++)
 		{

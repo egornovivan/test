@@ -41,7 +41,6 @@ public class CSUtils
 		{
 			return list;
 		}
-		int num = 0;
 		foreach (ColonyBase item in colonyItemsByItemId)
 		{
 			ColonyStorage colonyStorage = item as ColonyStorage;

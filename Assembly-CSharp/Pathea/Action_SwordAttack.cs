@@ -73,8 +73,6 @@ public class Action_SwordAttack : PEAction
 
 	private float animScaleStartTime;
 
-	private bool applyAnimSpeed;
-
 	[Header("Comb")]
 	private bool attackInAnimTime = true;
 
@@ -427,7 +425,6 @@ public class Action_SwordAttack : PEAction
 			base.motionMgr.Entity.SendMsg(EMsg.Battle_OnAttack, sword.m_AttackMode[m_AttackModeIndex], sword.transform, 0);
 		}
 		m_CombAttack = false;
-		applyAnimSpeed = true;
 		m_LastAtackTime = Time.time;
 	}
 
@@ -665,7 +662,6 @@ public class Action_SwordAttack : PEAction
 		{
 			m_SkillInst.SkipWaitMain = true;
 		}
-		applyAnimSpeed = false;
 		InactiveCol();
 		if (attackInAnimTime && m_CombAttack && !m_EndAction)
 		{

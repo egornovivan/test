@@ -49,8 +49,6 @@ public class CSUI_Storage : MonoBehaviour
 	[SerializeField]
 	private CSUI_SubStorageHistory m_SubHistoryPrefab;
 
-	private List<UILabel> m_HistoryLbs = new List<UILabel>();
-
 	private List<CSUI_SubStorageHistory> m_SubHistorys = new List<CSUI_SubStorageHistory>();
 
 	private int m_CurrentPickTab;

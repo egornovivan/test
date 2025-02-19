@@ -300,7 +300,6 @@ public abstract class AiCharacterMotor : MonoBehaviour
 
 	private bool CheckMovementValidSky(Vector3 movement)
 	{
-		float num = ((!(this is AiPhysicsCharacterMotor)) ? Time.deltaTime : Time.fixedDeltaTime);
 		return true;
 	}
 

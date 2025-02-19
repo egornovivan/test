@@ -7,8 +7,6 @@ namespace Pathea;
 
 public class Motion_Move_Motor : Motion_Move, IPeMsg
 {
-	private static int VERSION = 1;
-
 	private static string ground = string.Empty;
 
 	private static string water = string.Empty;
@@ -79,8 +77,6 @@ public class Motion_Move_Motor : Motion_Move, IPeMsg
 
 	private TargetCmpt m_target;
 
-	private MovementLimiter m_Limiter;
-
 	private BeatParam m_Param;
 
 	private float m_Speed;
@@ -92,8 +88,6 @@ public class Motion_Move_Motor : Motion_Move, IPeMsg
 	private Vector3 m_CurMovementDirection;
 
 	private Vector3 m_CurFaceDirection;
-
-	private Vector3 m_CurMoveDirection;
 
 	private Vector3 m_CurMoveDestination;
 
@@ -614,7 +608,6 @@ public class Motion_Move_Motor : Motion_Move, IPeMsg
 	{
 		if (!(m_Motor == null))
 		{
-			m_CurMoveDirection = m_MoveDirection;
 			m_CurFaceDirection = m_RotDirection;
 			m_CurMoveDestination = m_MoveDestination;
 			CalculateSpeed();
@@ -666,7 +659,6 @@ public class Motion_Move_Motor : Motion_Move, IPeMsg
 		m_Animator = base.Entity.GetCmpt<AnimatorCmpt>();
 		m_Attribute = base.Entity.GetCmpt<SkAliveEntity>();
 		m_target = GetComponent<TargetCmpt>();
-		m_Limiter = new MovementLimiter(this, m_Field);
 		if (m_Attribute != null)
 		{
 			m_Attribute.deathEvent += OnDeath;

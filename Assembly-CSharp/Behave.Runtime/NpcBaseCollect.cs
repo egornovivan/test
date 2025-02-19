@@ -14,15 +14,9 @@ public class NpcBaseCollect : BTNormal
 
 	private Vector3 m_Moveposition;
 
-	private Vector3 m_Backposition;
-
-	private Vector3 Backpos;
-
 	private bool m_Transparent;
 
 	private bool m_SetPos;
-
-	private bool Reached;
 
 	private Vector3 GetMovePosition()
 	{
@@ -56,18 +50,8 @@ public class NpcBaseCollect : BTNormal
 		}
 		m_SetPos = false;
 		m_Transparent = false;
-		Reached = false;
 		m_StartTime = Time.time;
 		m_Moveposition = GetMovePosition();
-		m_Backposition = GetCSWokePosition(base.WorkEntity);
-		if (base.WorkEntity.workTrans != null)
-		{
-			Backpos = base.WorkEntity.workTrans[Random.Range(0, base.WorkEntity.workTrans.Length)].position;
-		}
-		else
-		{
-			Backpos = PEUtil.GetRandomPosition(base.Creater.Assembly.Position, 4f, 9f);
-		}
 		return BehaveResult.Running;
 	}
 

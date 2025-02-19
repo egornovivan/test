@@ -32,8 +32,6 @@ public class HolotreeCutter : MonoBehaviour
 
 	private bool iscut3;
 
-	private bool loop;
-
 	private float ctime;
 
 	private float hppct = 1f;

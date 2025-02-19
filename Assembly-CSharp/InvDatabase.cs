@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Examples/Item Database")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/Examples/Item Database")]
 public class InvDatabase : MonoBehaviour
 {
 	private static InvDatabase[] mList;

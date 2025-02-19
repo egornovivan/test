@@ -137,8 +137,6 @@ public class PeCreature : ArchivableSingleton<PeCreature>
 
 	private EntityList mList = new EntityList(100);
 
-	private int mMainPlayerId = -1;
-
 	public Action<int> destoryEntityEvent;
 
 	public PeEntity mainPlayer => PeSingleton<MainPlayer>.Instance.entity;

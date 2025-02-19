@@ -9,8 +9,6 @@ public class UIMapArrow : MonoBehaviour
 		Other
 	}
 
-	private EArrowType m_ArrowType;
-
 	public ILabel trackLabel;
 
 	public float visualWidth = 190f;
@@ -21,7 +19,6 @@ public class UIMapArrow : MonoBehaviour
 
 	public void SetLabel(ILabel label, EArrowType arrow_type)
 	{
-		m_ArrowType = arrow_type;
 		trackLabel = label;
 	}
 

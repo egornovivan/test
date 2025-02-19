@@ -43,7 +43,6 @@ public class LightControl : MonoBehaviour
 			particleSystem.gameObject.SetActive(value: true);
 		}
 		Light[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Light>();
-		int num = 1 << base.gameObject.layer;
 		Light[] array2 = componentsInChildren2;
 		foreach (Light light in array2)
 		{

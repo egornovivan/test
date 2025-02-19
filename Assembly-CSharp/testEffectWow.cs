@@ -17,8 +17,6 @@ internal class testEffectWow : MonoBehaviour
 
 	private float startPosZ;
 
-	private float startDistance;
-
 	private float totalDistance;
 
 	private float distance;
@@ -47,19 +45,12 @@ internal class testEffectWow : MonoBehaviour
 
 	private float transAngle;
 
-	private float rand1;
-
-	private float rand2;
-
-	private float rand3;
-
 	private float magnitude;
 
 	public void Awake()
 	{
 		base.transform.position = Vector3.zero;
 		base.transform.forward = Vector3.forward;
-		startDistance = targetPosZ - startPosZ;
 		totalDistance = targetPosZ - startPosZ;
 	}
 
@@ -77,9 +68,6 @@ internal class testEffectWow : MonoBehaviour
 		}
 		distance += speed * speedScalar * Time.deltaTime;
 		progress = distance / totalDistance;
-		rand1 = UnityEngine.Random.value;
-		rand2 = UnityEngine.Random.value;
-		rand3 = UnityEngine.Random.value;
 		if (progress > maxProgress)
 		{
 			if (destroy)
@@ -90,7 +78,6 @@ internal class testEffectWow : MonoBehaviour
 			timeNow = -2f;
 			distance = 0f;
 			progress = 0f;
-			startDistance = targetPosZ - startPosZ;
 		}
 		else
 		{

@@ -9,8 +9,6 @@ public class DamageData
 {
 	private int m_ID;
 
-	private string m_Name;
-
 	private int[] m_Data;
 
 	private static Dictionary<int, DamageData> s_CampData;
@@ -25,7 +23,7 @@ public class DamageData
 			DamageData damageData = new DamageData();
 			damageData.m_Data = new int[num];
 			damageData.m_ID = Convert.ToInt32(sqliteDataReader.GetString(0));
-			damageData.m_Name = sqliteDataReader.GetString(1);
+			sqliteDataReader.GetString(1);
 			for (int i = 0; i < num; i++)
 			{
 				damageData.m_Data[i] = Convert.ToInt32(sqliteDataReader.GetString(i + 3));

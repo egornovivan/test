@@ -49,7 +49,6 @@ public class RandomDungeonData
 
 	public void SetPosByY(float dungeonY, Vector3 enterPos)
 	{
-		enterPos = enterPos;
 		revivePos = new Vector3(enterPos.x, dungeonY, enterPos.z);
 		genDunPos = revivePos + new Vector3(0f, 0f, 0f);
 	}

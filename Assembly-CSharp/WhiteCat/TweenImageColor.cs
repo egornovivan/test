@@ -5,8 +5,8 @@ using WhiteCat.Internal;
 
 namespace WhiteCat;
 
-[RequireComponent(typeof(Image))]
 [AddComponentMenu("White Cat/Tween/UI/Image Color")]
+[RequireComponent(typeof(Image))]
 public class TweenImageColor : TweenBase
 {
 	public Color from = Color.white;

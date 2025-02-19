@@ -6,8 +6,6 @@ public class TutorialGameData
 {
 	private YirdData mYirdData;
 
-	private string mDir;
-
 	private static readonly string s_WorldDir = "Mainland";
 
 	public YirdData yirdData => mYirdData;
@@ -20,7 +18,6 @@ public class TutorialGameData
 			return false;
 		}
 		mYirdData = new YirdData(directoryInfo.FullName);
-		mDir = dir;
 		return true;
 	}
 }

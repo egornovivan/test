@@ -275,7 +275,6 @@ public class AdRMRepository
 			array = @string.Split('_');
 			if (array.Length == 4)
 			{
-				AdMissionRand adMissionRand = default(AdMissionRand);
 				typeMonsterData.m_mr.refertoType = (ReferToType)Convert.ToInt32(array[0]);
 				typeMonsterData.m_mr.referToID = Convert.ToInt32(array[1]);
 				typeMonsterData.m_mr.radius1 = Convert.ToInt32(array[2]);
@@ -306,11 +305,13 @@ public class AdRMRepository
 			}
 			@string = sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("DestroyTown"));
 			array = @string.Split('_');
-			if (array.Length == 2)
+			if (array.Length >= 2)
 			{
 				typeMonsterData.m_destroyTown = true;
-				typeMonsterData.m_campID = Convert.ToInt32(array[0]);
-				typeMonsterData.m_townNum = Convert.ToInt32(array[1]);
+				typeMonsterData.m_campID.Add(Convert.ToInt32(array[0]));
+				typeMonsterData.m_townNum.Add(Convert.ToInt32(array[1]));
+				typeMonsterData.m_campID.Add(Convert.ToInt32(array[2]));
+				typeMonsterData.m_townNum.Add(Convert.ToInt32(array[3]));
 			}
 			AddAdTypeMonsterData(typeMonsterData.m_TargetID, typeMonsterData);
 		}

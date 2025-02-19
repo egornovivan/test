@@ -30,12 +30,6 @@ public class Motion_FootIK_Human : MonoBehaviour
 
 	private bool UPD;
 
-	private Vector3 leftFootPos = Vector3.zero;
-
-	private Vector3 rightFootPos = Vector3.zero;
-
-	private Vector3 bodyPos = Vector3.zero;
-
 	[HideInInspector]
 	public Vector3 FootDir;
 }

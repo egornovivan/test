@@ -69,25 +69,17 @@ public class UIBuildMenuControl : UIStaticWnd
 
 	public UICheckbox mVoxelSelectCB;
 
-	private float[] mRightWndPos_x = new float[2] { 215f, 299f };
-
 	public List<UIBuildWndItem> mMenuList = new List<UIBuildWndItem>();
 
 	public List<UIBuildMenuItemData> m_InitQuickBarData;
 
 	private bool m_Start;
 
-	private UICheckbox _checkedBox;
-
 	public GameObject DragObejct;
 
 	public UIBuildWndItem DragItem;
 
 	private bool _firstClickMenuBtn = true;
-
-	private int _selectBrushType;
-
-	public event OnClickFun BtnBrush;
 
 	public event OnClickFun BtnSave;
 
@@ -110,10 +102,6 @@ public class UIBuildMenuControl : UIStaticWnd
 	public event EventFuncItem MenuItemClick;
 
 	public event EventFuncItem MenuItemGetDrag;
-
-	public event EventFuncItem MenuItemSetNull;
-
-	public event EventFuncCkBtn CkBtnXuanQu;
 
 	public event ToolToipFunc ToolTip;
 
@@ -442,7 +430,6 @@ public class UIBuildMenuControl : UIStaticWnd
 
 	private void OnDisable()
 	{
-		_checkedBox = null;
 	}
 
 	private void OnBeginDragMeaterItem(UIBuildWndItem.ItemType mItemType, int mIndex)
@@ -746,7 +733,6 @@ public class UIBuildMenuControl : UIStaticWnd
 			mSelectBtn.checkedSprite.spriteName = "build_vx_all";
 			mSelectBtn.checkBox.isChecked = true;
 			mSelectBtn.checkedSprite.color = checkColor;
-			_selectBrushType = 0;
 			BtnBrush4_OnClick();
 			break;
 		case UIBrushMenuItem.BrushType.SelectDetail:
@@ -754,7 +740,6 @@ public class UIBuildMenuControl : UIStaticWnd
 			mSelectBtn.checkedSprite.spriteName = "build_vx_point";
 			mSelectBtn.checkBox.isChecked = true;
 			mSelectBtn.checkedSprite.color = checkColor;
-			_selectBrushType = 1;
 			BtnBrush4_OnClick();
 			break;
 		}

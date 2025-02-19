@@ -66,13 +66,7 @@ public class CSUI_TrainMgr : MonoBehaviour
 
 	private List<CSUI_SkillItem> m_InstructorSkillGrids = new List<CSUI_SkillItem>(1);
 
-	private Dictionary<string, int> _skNameIdLis = new Dictionary<string, int>();
-
 	public UILabel _skLabel;
-
-	private List<NpcAbility> _skillLis = new List<NpcAbility>();
-
-	private Dictionary<int, List<NpcAbility>> LevelDic = new Dictionary<int, List<NpcAbility>>();
 
 	private List<NpcAbility> m_StudyList = new List<NpcAbility>();
 
@@ -168,16 +162,6 @@ public class CSUI_TrainMgr : MonoBehaviour
 	[SerializeField]
 	private UITexture mTraineeFace_Skill;
 
-	private CSPersonnel mTraineeStats = new CSPersonnel();
-
-	private CSPersonnel mInstructorStats = new CSPersonnel();
-
-	private CSPersonnel mTraineeSkill = new CSPersonnel();
-
-	private CSPersonnel mInstructorSkill = new CSPersonnel();
-
-	private int count;
-
 	[SerializeField]
 	private UILabel mLbMoney;
 
@@ -201,8 +185,6 @@ public class CSUI_TrainMgr : MonoBehaviour
 	private List<Grid_N> mPrivateList;
 
 	private NpcCmpt npcCmpt;
-
-	private PlayerPackageCmpt playerPackageCmpt;
 
 	private int mPageIndex = 1;
 
@@ -819,7 +801,6 @@ public class CSUI_TrainMgr : MonoBehaviour
 
 	private void Reflash()
 	{
-		playerPackageCmpt = GameUI.Instance.mMainPlayer.GetCmpt<PlayerPackageCmpt>();
 		GetServentCmpt();
 		if (!(npcCmpt == null) && packageCmpt != null)
 		{

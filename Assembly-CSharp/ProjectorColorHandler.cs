@@ -17,8 +17,6 @@ public class ProjectorColorHandler : MonoBehaviour
 
 	private bool forwad;
 
-	private float _curFlareTime;
-
 	private Material _projMat;
 
 	private Projector _Projector;
@@ -41,7 +39,6 @@ public class ProjectorColorHandler : MonoBehaviour
 		_projMat.SetVector("_CenterAndRadius", new Vector4(position.x, position.y, position.z, _Projector.orthographicSize));
 		if (flare && !isFlaring)
 		{
-			_curFlareTime = 0f;
 			curColor = origColor;
 			isFlaring = true;
 			forwad = true;
@@ -63,7 +60,6 @@ public class ProjectorColorHandler : MonoBehaviour
 				_projMat.SetColor("_TintColor", curColor);
 				return;
 			}
-			float num = 0f;
 			curColor.r = Mathf.SmoothDamp(curColor.r, origColor.r, ref velocity, smoothTime);
 			curColor.g = Mathf.SmoothDamp(curColor.g, origColor.g, ref velocity, smoothTime);
 			curColor.b = Mathf.SmoothDamp(curColor.b, origColor.b, ref velocity, smoothTime);

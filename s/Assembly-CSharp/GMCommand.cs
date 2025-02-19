@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ItemAsset;
 using Pathea;
+using uLink;
 using UnityEngine;
 using Weather;
 
@@ -13,6 +14,8 @@ public class GMCommand
 	private static GMCommand _instance = new GMCommand();
 
 	private List<ForbidInfo> _forbidList = new List<ForbidInfo>();
+
+	private Player curPlayer;
 
 	private Dictionary<string, CMDEventHandler> cmdArray = new Dictionary<string, CMDEventHandler>();
 
@@ -39,6 +42,7 @@ public class GMCommand
 		cmdArray["forbid"] = forbid;
 		cmdArray["whosyourdaddy"] = whosyourdaddy;
 		cmdArray["youaremydaddy"] = youaremydaddy;
+		cmdArray["stat"] = statistics;
 	}
 
 	public bool ParsingCMD(Player player, string code)
@@ -54,6 +58,7 @@ public class GMCommand
 			{
 				return true;
 			}
+			curPlayer = player;
 			string text2 = code.Substring(1);
 			if (text2.Length > 0)
 			{
@@ -88,7 +93,20 @@ public class GMCommand
 			{
 				List<ItemObject> effItems = new List<ItemObject>(10);
 				player.Package.AddSameItems(num, count, ref effItems);
-				player.SyncItemList(effItems);
+				ChannelNetwork.SyncItemList(player.WorldId, effItems);
+				player.SyncPackageIndex();
+			}
+		}
+		else if (array.Count() == 1)
+		{
+			int num = int.Parse(array[0]);
+			int count = 1;
+			ItemProto itemData2 = ItemProto.GetItemData(num);
+			if (itemData2 != null)
+			{
+				List<ItemObject> effItems2 = new List<ItemObject>(10);
+				player.Package.AddSameItems(num, count, ref effItems2);
+				ChannelNetwork.SyncItemList(player.WorldId, effItems2);
 				player.SyncPackageIndex();
 			}
 		}
@@ -267,6 +285,11 @@ public class GMCommand
 		player.SetAllAttribute(AttribType.DebuffReduce10, 0f);
 	}
 
+	private void statistics(Player player, string str)
+	{
+		LobbyInterface.LobbyRPC(ELobbyMsgType.Statistics);
+	}
+
 	private ForbidInfo GetForbid(ulong steamId)
 	{
 		foreach (ForbidInfo forbid in _forbidList)
@@ -277,6 +300,16 @@ public class GMCommand
 			}
 		}
 		return null;
+	}
+
+	private uLink.NetworkPlayer GetCurPlayer()
+	{
+		return Player.GetPlayerPeer(curPlayer.Id);
+	}
+
+	public void SendStatisticsToGM(string str)
+	{
+		curPlayer.RPCPeer(GetCurPlayer(), EPacketType.PT_GM_Statistics, str);
 	}
 
 	public bool IsForbid(ulong steamId)

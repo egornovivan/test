@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Examples/Shader Quality")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/Examples/Shader Quality")]
 public class ShaderQuality : MonoBehaviour
 {
 	private int mCurrent = 600;

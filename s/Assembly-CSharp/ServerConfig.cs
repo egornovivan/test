@@ -15,12 +15,12 @@ public class ServerConfig
 {
 	public const string DataBaseFile = "DataBase/localData";
 
-	public const int CurrentVersion = 272;
+	public const int CurrentVersion = 273;
 
-	public static readonly int[] VersionCompatible = new int[12]
+	public static readonly int[] VersionCompatible = new int[15]
 	{
 		0, 256, 257, 258, 259, 260, 261, 262, 263, 264,
-		265, 272
+		265, 272, 273, 274, 275
 	};
 
 	public static string ServerShareDir = string.Empty;
@@ -53,7 +53,7 @@ public class ServerConfig
 
 	public static string UID = string.Empty;
 
-	public static string ServerVersion = "V1.1.0";
+	public static string ServerVersion = "V1.1.3";
 
 	public static ESceneMode SceneMode = ESceneMode.Adventure;
 
@@ -597,7 +597,6 @@ public class ServerConfig
 			MaxConnections = NumPerTeam;
 			MapSize = 0;
 			MonsterYes = true;
-			MoneyType = EMoneyType.Meat;
 			ScriptsAvailable = false;
 			break;
 		case ESceneMode.Build:
@@ -752,21 +751,30 @@ public class ServerConfig
 
 	public static void InitFromDB()
 	{
+		PrepareMoneyType();
 		IsNewServer = true;
 		LoadConfig();
 		if (LogFilter.logFatal)
 		{
-			Debug.LogFormat("Current server version:{0}", 272);
+			Debug.LogFormat("Current server version:{0}", 273);
 		}
 		if (!IsNewServer && !isCompatible && LogFilter.logError)
 		{
-			Debug.LogErrorFormat("Incompatible version:[{0}] with [{1}]", 272, RecordVersion);
+			Debug.LogErrorFormat("Incompatible version:[{0}] with [{1}]", 273, RecordVersion);
 		}
 		if (IsNewServer)
 		{
 			SyncSave();
 		}
 		PrepareData();
+	}
+
+	private static void PrepareMoneyType()
+	{
+		if (SceneMode == ESceneMode.Story)
+		{
+			MoneyType = EMoneyType.Meat;
+		}
 	}
 
 	private static void LoadConfig()

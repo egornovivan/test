@@ -62,7 +62,7 @@ public class VersionMgr
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			VersionData versionData = new VersionData();
 			versionData.id = reader.GetInt32(reader.GetOrdinal("id"));
 			versionData.versionName = reader.GetString(reader.GetOrdinal("versionname"));

@@ -21,8 +21,6 @@ public class NpcInHospital : BTNormal
 
 	private bool IsReadyTent;
 
-	private new bool IsReached;
-
 	private bool HasReached;
 
 	private bool HasLay;
@@ -30,8 +28,6 @@ public class NpcInHospital : BTNormal
 	private CSMedicalTent m_CSMedicalTent;
 
 	private Vector3 m_TentPos;
-
-	private Vector3 m_Moveposition;
 
 	private Sickbed m_sickbed;
 
@@ -87,7 +83,6 @@ public class NpcInHospital : BTNormal
 		{
 			base.Sleep.StopOperate(base.Operator, EOperationMask.Sleep);
 		}
-		m_Moveposition = m_sickbed.bedLay.m_StandTrans.position;
 		m_Roate = m_CSMedicalTent.workTrans[0].rotation.eulerAngles.y;
 		if (base.NpcMedicalState == ENpcMedicalState.In_Hospital)
 		{

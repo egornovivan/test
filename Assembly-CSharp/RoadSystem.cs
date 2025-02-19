@@ -18,15 +18,12 @@ public class RoadSystem : MonoBehaviour
 
 	public INTVECTOR2 m_Center = INTVECTOR2.zero;
 
-	private INTVECTOR2 m_LastCenter = INTVECTOR2.zero;
-
 	public static RoadSystem Instance => s_Instance;
 
 	public static RSDataSource DataSource => (!(s_Instance != null)) ? null : s_Instance.m_DataSource;
 
 	private void UpdateCenter()
 	{
-		m_LastCenter = m_Center;
 	}
 
 	private void Awake()

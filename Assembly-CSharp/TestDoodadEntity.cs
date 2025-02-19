@@ -17,7 +17,7 @@ public class TestDoodadEntity : MonoBehaviour
 		if (create)
 		{
 			create = false;
-			PeEntity peEntity = PeSingleton<PeEntityCreator>.Instance.CreateDoodad(id, protoId, base.transform.position, base.transform.rotation, base.transform.localScale);
+			PeSingleton<PeEntityCreator>.Instance.CreateDoodad(id, protoId, base.transform.position, base.transform.rotation, base.transform.localScale);
 		}
 	}
 }

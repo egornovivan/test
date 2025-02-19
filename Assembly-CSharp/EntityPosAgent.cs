@@ -16,8 +16,6 @@ public class EntityPosAgent : ISceneObjAgent
 
 	private IntVec2 m_Idx;
 
-	private bool bCreate;
-
 	public bool bMission;
 
 	public int m_MissionStep;

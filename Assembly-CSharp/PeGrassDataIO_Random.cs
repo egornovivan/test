@@ -215,8 +215,9 @@ public class PeGrassDataIO_Random : Chunk32DataIO, IRefreshDataDetect
 				Thread.Sleep(10);
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
+			Debug.LogError(ex.ToString());
 		}
 	}
 }

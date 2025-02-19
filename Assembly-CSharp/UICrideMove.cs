@@ -22,8 +22,6 @@ public class UICrideMove : MonoBehaviour
 
 	private Color mGuangColor;
 
-	private Color mBgColor = new Color(0.6f, 0.6f, 0.6f, 1f);
-
 	private bool bColorAdd = true;
 
 	private float mTime;

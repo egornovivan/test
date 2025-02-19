@@ -137,7 +137,7 @@ public class ChannelNetwork : NetworkInterface
 
 	private void RPC_S2C_Death(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		int scenarioId = stream.Read<int>(new object[0]);
 		if (null != PlayerNetwork.mainPlayer)
 		{
@@ -147,9 +147,9 @@ public class ChannelNetwork : NetworkInterface
 
 	private void RPC_S2C_Damage(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		int scenarioId = stream.Read<int>(new object[0]);
-		int num2 = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		int casterScenarioId = stream.Read<int>(new object[0]);
 		float damage = stream.Read<float>(new object[0]);
 		if (null != PlayerNetwork.mainPlayer)
@@ -160,7 +160,7 @@ public class ChannelNetwork : NetworkInterface
 
 	private void RPC_S2C_UseItem(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		int customId = stream.Read<int>(new object[0]);
 		int itemInstanceId = stream.Read<int>(new object[0]);
 		if (null != PlayerNetwork.mainPlayer)
@@ -171,7 +171,7 @@ public class ChannelNetwork : NetworkInterface
 
 	private void RPC_S2C_PutOutItem(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		int customId = stream.Read<int>(new object[0]);
 		int itemInstanceId = stream.Read<int>(new object[0]);
 		if (null != PlayerNetwork.mainPlayer)

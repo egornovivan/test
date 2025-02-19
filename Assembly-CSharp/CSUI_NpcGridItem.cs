@@ -79,8 +79,6 @@ public class CSUI_NpcGridItem : MonoBehaviour
 
 	public NpcGridEvent OnDestroySelf;
 
-	private bool m_Flag;
-
 	private int _minute;
 
 	private int _second;
@@ -238,7 +236,6 @@ public class CSUI_NpcGridItem : MonoBehaviour
 			m_IconTex.enabled = false;
 			m_IconSprite.enabled = false;
 			m_IconTex.mainTexture = null;
-			m_Flag = false;
 		}
 	}
 

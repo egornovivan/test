@@ -66,8 +66,6 @@ public class BuildingGui_N : MonoBehaviour
 
 	private BuildOpItem mPutOutItem;
 
-	private AssetReq mCurrentReq;
-
 	private List<CreateReq> mCreateReqList = new List<CreateReq>();
 
 	public GameObject mMalePerfab;
@@ -533,7 +531,6 @@ public class BuildingGui_N : MonoBehaviour
 		}
 		mSelectedItem = null;
 		mPutOutItem = null;
-		mCurrentReq = null;
 		mCurrentSelItem = null;
 	}
 

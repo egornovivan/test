@@ -55,8 +55,6 @@ public class BTFollowAround : BTNormal
 
 	private float m_Time;
 
-	private float m_LastTime;
-
 	private float m_StartTime;
 
 	private Vector3 m_HoverPosition;
@@ -95,7 +93,6 @@ public class BTFollowAround : BTNormal
 		}
 		m_HoverPosition = GetAroundPos();
 		m_StartTime = Time.time;
-		m_LastTime = Time.time;
 		m_Time = Random.Range(m_Data.minTime, m_Data.maxTime);
 		return BehaveResult.Running;
 	}

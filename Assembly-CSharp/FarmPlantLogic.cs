@@ -80,8 +80,6 @@ public class FarmPlantLogic : DragItemLogic, ISaveDataInScene
 
 	public bool IsRipe;
 
-	private double OneDaySecond = 93600.0;
-
 	public int curVersion = 2016110100;
 
 	public int mPlantInstanceId

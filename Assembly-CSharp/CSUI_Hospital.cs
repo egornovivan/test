@@ -27,8 +27,6 @@ public class CSUI_Hospital : MonoBehaviour
 
 	public CSUI_NpcGridItem m_ExaminedPatient;
 
-	private CSPersonnel ExaminedNpc;
-
 	public UILabel ExamineResultLabel;
 
 	public UILabel m_CheckTimeLabel;
@@ -45,8 +43,6 @@ public class CSUI_Hospital : MonoBehaviour
 
 	public CSUI_NpcGridItem m_TreatmentPatient;
 
-	private CSPersonnel TreatmentNpc;
-
 	public UILabel m_TreatTimeLabel;
 
 	private int _minute1;
@@ -58,10 +54,6 @@ public class CSUI_Hospital : MonoBehaviour
 	public CSUI_MedicineGrid m_MedicineAboutTreat_Use;
 
 	public MedicineRealOp mMedicineRealOp;
-
-	private Grid_N mGrid;
-
-	private ItemObject itemObj;
 
 	private bool _mission;
 
@@ -129,7 +121,6 @@ public class CSUI_Hospital : MonoBehaviour
 		set
 		{
 			m_ExaminedPatient.m_Npc = value;
-			ExaminedNpc = value;
 		}
 	}
 
@@ -138,7 +129,6 @@ public class CSUI_Hospital : MonoBehaviour
 		set
 		{
 			m_TreatmentPatient.m_Npc = value;
-			TreatmentNpc = value;
 		}
 	}
 
@@ -298,8 +288,6 @@ public class CSUI_Hospital : MonoBehaviour
 			SelectItem_N.Instance.SetItem(null);
 			return;
 		}
-		mGrid = grid;
-		itemObj = SelectItem_N.Instance.ItemObj;
 		UIItemPackageCtrl mItemPackageCtrl = GameUI.Instance.mItemPackageCtrl;
 		ItemPackage itemPackage = mItemPackageCtrl.ItemPackage;
 		if (itemPackage != null)

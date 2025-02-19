@@ -7,8 +7,6 @@ public abstract class UIBaseWnd : UIBaseWidget
 	private UIWndActivate mActivate;
 
 	[SerializeField]
-	private float testAlpha = 1f;
-
 	public UIAnchor mAnchor;
 
 	private bool deActive;

@@ -11,7 +11,6 @@ public class MetalScan : Cmpt
 		PeEntity mainPlayer = PeSingleton<PeCreature>.Instance.mainPlayer;
 		if (null != mainPlayer)
 		{
-			ReplicatorCmpt cmpt = mainPlayer.GetCmpt<ReplicatorCmpt>();
 			if (!MetalScanData.HasMetal(metalIds[0]))
 			{
 				return base.ProcessTooltip(text);

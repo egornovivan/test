@@ -19,8 +19,6 @@ public class ServantShowItem_N : MonoBehaviour
 
 	private EntityInfoCmpt entityInfo;
 
-	private bool mIsDead;
-
 	public PeEntity NPC => mNpc;
 
 	private void Update()
@@ -32,7 +30,6 @@ public class ServantShowItem_N : MonoBehaviour
 		mNpc = npc;
 		if ((bool)mNpc)
 		{
-			mIsDead = false;
 			mHead.mainTexture = npc.GetCmpt<EntityInfoCmpt>().faceTex;
 			mHead.enabled = true;
 			mDeadSpr.enabled = false;

@@ -11,8 +11,6 @@ public class PEAnimatorAttackTrigger : PEAnimatorAttack
 
 	public string[] bones;
 
-	private float m_StartTime;
-
 	private PEAttackTrigger[] m_Triggers;
 
 	internal override void Init(Animator animator)

@@ -9,8 +9,6 @@ public class MapCmpt : PeCmpt, ILabel, IPeMsg
 
 	private EntityInfoCmpt mEntityInfo;
 
-	private NpcCmpt mServant;
-
 	private CommonCmpt mCommon;
 
 	public CommonCmpt Common => mCommon;
@@ -126,6 +124,16 @@ public class MapCmpt : PeCmpt, ILabel, IPeMsg
 
 	bool ILabel.FastTravel()
 	{
+		if (PeGameMgr.IsSingle)
+		{
+			return false;
+		}
+		if (mEntityInfo != null && mEntityInfo.mapIcon == 11 && PeGameMgr.IsMulti)
+		{
+			bool flag = PlayerNetwork.mainPlayer != null && PlayerNetwork.mainPlayer._curSceneId == 0;
+			bool flag2 = mEntityInfo.Entity != null && mEntityInfo.Entity.netCmpt != null && mEntityInfo.Entity.netCmpt.network != null && mEntityInfo.Entity.netCmpt.network is PlayerNetwork && (mEntityInfo.Entity.netCmpt.network as PlayerNetwork)._curSceneId == 0;
+			return flag && flag2;
+		}
 		return false;
 	}
 
@@ -186,7 +194,6 @@ public class MapCmpt : PeCmpt, ILabel, IPeMsg
 		base.Start();
 		mTrans = base.Entity.peTrans;
 		mEntityInfo = base.Entity.GetCmpt<EntityInfoCmpt>();
-		mServant = base.Entity.GetCmpt<NpcCmpt>();
 		mCommon = base.Entity.GetCmpt<CommonCmpt>();
 	}
 

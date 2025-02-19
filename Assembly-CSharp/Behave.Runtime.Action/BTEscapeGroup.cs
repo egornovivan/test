@@ -7,8 +7,6 @@ namespace Behave.Runtime.Action;
 [BehaveAction(typeof(BTEscapeGroup), "EscapeGroup")]
 public class BTEscapeGroup : BTNormalGroup
 {
-	private float m_StartTime;
-
 	private float m_EscapeTime;
 
 	private float m_LastRandomTime;
@@ -43,7 +41,6 @@ public class BTEscapeGroup : BTNormalGroup
 		{
 			return BehaveResult.Failure;
 		}
-		m_StartTime = Time.time;
 		m_LastRandomTime = 0f;
 		behaveGroup.PauseMemberBehave(value: true);
 		return BehaveResult.Running;

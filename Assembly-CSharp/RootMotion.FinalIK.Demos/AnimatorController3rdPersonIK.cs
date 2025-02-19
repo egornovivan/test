@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace RootMotion.FinalIK.Demos;
 
-[RequireComponent(typeof(FullBodyBipedIK))]
 [RequireComponent(typeof(AimIK))]
+[RequireComponent(typeof(FullBodyBipedIK))]
 public class AnimatorController3rdPersonIK : AnimatorController3rdPerson
 {
 	[SerializeField]

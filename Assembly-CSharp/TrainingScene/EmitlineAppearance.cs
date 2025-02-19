@@ -8,8 +8,6 @@ public class EmitlineAppearance : MonoBehaviour
 
 	private float lineMaxAlpha = 0.4f;
 
-	private float signMaxColor = 0.5f;
-
 	private float fadeTime;
 
 	private float ctime;

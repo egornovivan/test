@@ -52,7 +52,7 @@ public class RQTalkMove : Request
 
 	public override void Deserialize(BinaryReader r)
 	{
-		int num = r.ReadInt32();
+		r.ReadInt32();
 		position.x = r.ReadSingle();
 		position.y = r.ReadSingle();
 		position.z = r.ReadSingle();

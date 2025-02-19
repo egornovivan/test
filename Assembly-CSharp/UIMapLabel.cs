@@ -25,8 +25,6 @@ public class UIMapLabel : MonoBehaviour
 	private BoxCollider mBoxCollider;
 
 	[SerializeField]
-	private float mBigMapIconRangeScale = 1.5f;
-
 	private float m_WorldMapConvert;
 
 	private ILabel m_Label;
@@ -90,6 +88,7 @@ public class UIMapLabel : MonoBehaviour
 		SetEnableClick(enable: true);
 		SetFriendlyLevelIcon(-1);
 		mSpr.depth = 0;
+		base.transform.localRotation = Quaternion.identity;
 	}
 
 	public void SetLabel(ILabel _label, bool _inMinMap = false)

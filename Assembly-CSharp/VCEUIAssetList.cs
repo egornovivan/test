@@ -61,12 +61,17 @@ public class VCEUIAssetList : MonoBehaviour
 
 	public void RepositionGrid()
 	{
+		Invoke("_RepositionGrid", 0f);
+	}
+
+	private void _RepositionGrid()
+	{
 		m_ItemGroup.GetComponent<UIGrid>().Reposition();
 	}
 
 	public void RepositionList()
 	{
-		Invoke("_RepositionList", 0f);
+		Invoke("_RepositionList", 0.05f);
 	}
 
 	private void _RepositionList()

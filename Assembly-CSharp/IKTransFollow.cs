@@ -3,8 +3,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class IKTransFollow : MonoBehaviour
 {
-	[SetProperty("FollowTarget")]
 	[SerializeField]
+	[SetProperty("FollowTarget")]
 	private Transform m_FollowTarget;
 
 	public Transform FollowTarget

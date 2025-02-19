@@ -28,17 +28,11 @@ public class FMODAudioSourceRTE : MonoBehaviour
 
 	public static bool showEditingPanel = true;
 
-	private float camDist;
-
 	private float listenDist = float.PositiveInfinity;
 
 	public Color gizmoColor = Color.yellow;
 
 	private string inputPath = "event:/";
-
-	private string mindist = string.Empty;
-
-	private string maxdist = string.Empty;
 
 	private bool boundactive;
 
@@ -122,7 +116,6 @@ public class FMODAudioSourceRTE : MonoBehaviour
 
 	private void Update()
 	{
-		camDist = Vector3.Distance(Camera.main.transform.position, base.transform.position);
 		listenDist = float.PositiveInfinity;
 		if (listener != null)
 		{

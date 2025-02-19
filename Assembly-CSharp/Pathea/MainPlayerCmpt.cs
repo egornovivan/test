@@ -118,6 +118,8 @@ public class MainPlayerCmpt : PeCmpt, IPeMsg
 
 	private PEAbnormalNotice[] m_AbnormalNotices;
 
+	private Quaternion _cameraRotation;
+
 	private Action_Hand m_Hand;
 
 	public bool AutoRun => m_AutoRun;
@@ -230,6 +232,11 @@ public class MainPlayerCmpt : PeCmpt, IPeMsg
 		UpdateUIState();
 		UpdateImpactDamage();
 		UpdateFirstPersonState();
+		UpdateAnimatorSpeed();
+	}
+
+	private void UpdateAnimatorSpeed()
+	{
 	}
 
 	private void InitReputationSystem()
@@ -289,18 +296,22 @@ public class MainPlayerCmpt : PeCmpt, IPeMsg
 		{
 			zero2 += Vector3.left;
 		}
+		if (!PeInput.Get(PeInput.LogicFunction.LiberatiePerspective))
+		{
+			_cameraRotation = PEUtil.MainCamTransform.rotation;
+		}
 		if (zero2 != Vector3.zero && (PeGameMgr.IsMulti || !PeGameMgr.gamePause))
 		{
-			zero2 = Vector3.ProjectOnPlane(PEUtil.MainCamTransform.rotation * zero2, Vector3.up).normalized;
+			zero2 = Vector3.ProjectOnPlane(_cameraRotation * zero2, Vector3.up).normalized;
 			mMove.Dodge(zero2);
 		}
 		if (mMove.state == MovementState.Water)
 		{
-			m_MoveDir = PEUtil.MainCamTransform.rotation * zero;
+			m_MoveDir = _cameraRotation * zero;
 		}
 		else
 		{
-			m_MoveDir = Vector3.ProjectOnPlane(PEUtil.MainCamTransform.rotation * zero, Vector3.up);
+			m_MoveDir = Vector3.ProjectOnPlane(_cameraRotation * zero, Vector3.up);
 		}
 		if (null != m_PhyCtrl && m_PhyCtrl.spineInWater)
 		{
@@ -767,6 +778,7 @@ public class MainPlayerCmpt : PeCmpt, IPeMsg
 			{
 				UISightingTelescope.Instance.Show((UISightingTelescope.SightingType)(int)args[0]);
 			}
+			SystemSettingData.Instance.holdGun = true;
 			break;
 		case EMsg.Battle_ExitShootMode:
 			m_InShootMode = false;
@@ -778,6 +790,7 @@ public class MainPlayerCmpt : PeCmpt, IPeMsg
 			{
 				UISightingTelescope.Instance.ExitShootMode();
 			}
+			SystemSettingData.Instance.holdGun = false;
 			break;
 		case EMsg.Battle_OnShoot:
 			if (null != UISightingTelescope.Instance)
@@ -870,7 +883,6 @@ public class MainPlayerCmpt : PeCmpt, IPeMsg
 			return;
 		}
 		int playerID = (int)m_Skill.GetAttribute(91);
-		SkEntity caster2 = PEUtil.GetCaster(caster);
 		PeEntity component = caster.GetComponent<PeEntity>();
 		if (component == base.Entity)
 		{

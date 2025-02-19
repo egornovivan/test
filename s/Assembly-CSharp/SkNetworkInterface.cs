@@ -513,14 +513,14 @@ public class SkNetworkInterface : GroupNetInterface, ISceneObject
 		}
 		Serialize.Import(array, delegate(BinaryReader _out)
 		{
-			int num = _out.ReadInt32();
-			for (float num2 = 0f - radius; num2 <= radius; num2 += 1f)
+			_out.ReadInt32();
+			for (float num = 0f - radius; num <= radius; num += 1f)
 			{
-				for (float num3 = 0f - radius; num3 <= radius; num3 += 1f)
+				for (float num2 = 0f - radius; num2 <= radius; num2 += 1f)
 				{
-					for (float num4 = 0f - radius; num4 <= radius; num4 += 1f)
+					for (float num3 = 0f - radius; num3 <= radius; num3 += 1f)
 					{
-						IntVector3 pos = new IntVector3((float)intPos.x + num2, (float)intPos.y + num4, (float)intPos.z + num3);
+						IntVector3 pos = new IntVector3((float)intPos.x + num, (float)intPos.y + num3, (float)intPos.z + num2);
 						BufferHelper.ReadVFVoxel(_out, out var _value);
 						world.ChangeTerrain(pos, targetType, _value);
 					}

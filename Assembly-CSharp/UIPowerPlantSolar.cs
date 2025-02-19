@@ -134,7 +134,7 @@ public class UIPowerPlantSolar : UIBaseWnd
 		_net.GetItem(grid.ItemObj.instanceId);
 	}
 
-	public new void OnClose()
+	protected override void OnClose()
 	{
 		_net = null;
 		mMachinePos = Vector3.zero;

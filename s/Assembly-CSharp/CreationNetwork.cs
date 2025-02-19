@@ -358,11 +358,20 @@ public class CreationNetwork : SkNetworkInterface
 		}
 		for (int i = 0; i < Seats.Count; i++)
 		{
-			if (null == Seats[i].CSPassanger)
+			if (passanger == Seats[i].CSPassanger)
 			{
 				index = i;
 				Seats[index].CSPassanger = passanger;
 				return Seats[i].CSType;
+			}
+		}
+		for (int j = 0; j < Seats.Count; j++)
+		{
+			if (null == Seats[j].CSPassanger)
+			{
+				index = j;
+				Seats[index].CSPassanger = passanger;
+				return Seats[j].CSType;
 			}
 		}
 		return EVCComponent.cpAbstract;
@@ -407,6 +416,15 @@ public class CreationNetwork : SkNetworkInterface
 			}
 		}
 		return EVCComponent.cpAbstract;
+	}
+
+	public void ResetAllPassangers()
+	{
+		for (int i = 0; i < Seats.Count; i++)
+		{
+			Seats[i].CSPassanger = null;
+			Seats[i].CSType = EVCComponent.cpAbstract;
+		}
 	}
 
 	public bool IsFullHP()

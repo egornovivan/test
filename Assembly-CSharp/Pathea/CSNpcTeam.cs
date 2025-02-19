@@ -774,7 +774,6 @@ public class CSNpcTeam : TeamAgent
 			if (flag2)
 			{
 				List<PeEntity> list = m_DicteamEnemies[1];
-				List<PeEntity> list2 = m_DicteamEnemies[0];
 				for (int k = 0; k < list.Count; k++)
 				{
 					DistributeByEquip(list[k], needNum);

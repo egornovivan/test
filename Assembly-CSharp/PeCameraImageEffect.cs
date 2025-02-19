@@ -47,9 +47,9 @@ public class PeCameraImageEffect : MonoBehaviour
 
 	private SkAliveEntity mainPlayerAliveEntity;
 
-	[SerializeField]
 	[Header("Poison")]
 	[Range(0f, 1f)]
+	[SerializeField]
 	private float foodPoisonStrength;
 
 	private float foodPoisonStrengthCurrent;
@@ -67,8 +67,8 @@ public class PeCameraImageEffect : MonoBehaviour
 	private float poisonMaxIntensityAtNight = 0.35f;
 
 	[Range(0f, 1f)]
-	[SerializeField]
 	[Header("Dizzy")]
+	[SerializeField]
 	private float dizzyStrength;
 
 	[SerializeField]
@@ -123,23 +123,8 @@ public class PeCameraImageEffect : MonoBehaviour
 	[SerializeField]
 	private AnimationCurve blurStrengthAnimation;
 
-	[Header("Screen Dirt")]
 	[SerializeField]
-	private Texture2D[] dirtTextures = new Texture2D[0];
-
-	[SerializeField]
-	private int sprayDirtIndex;
-
-	private bool sprayDirt;
-
-	[SerializeField]
-	private float dirtMaxIntensityAtDaytime = 0.7f;
-
-	[SerializeField]
-	private float dirtMaxIntensityAtNight = 0.15f;
-
 	[Header("Screen Mask")]
-	[SerializeField]
 	private Texture2D[] maskTextures = new Texture2D[0];
 
 	[SerializeField]
@@ -147,8 +132,6 @@ public class PeCameraImageEffect : MonoBehaviour
 
 	[SerializeField]
 	private float screenMaskDuration = 10f;
-
-	private int maskIndex;
 
 	private bool maskenabled;
 
@@ -202,7 +185,6 @@ public class PeCameraImageEffect : MonoBehaviour
 		{
 			inst.ScreenMaskMat.mainTexture = inst.maskTextures[maskIndex];
 			inst.screenMaskTime = 0f;
-			inst.maskIndex = maskIndex;
 			inst.maskenabled = show;
 			inst.screenMaskDuration = duration;
 		}

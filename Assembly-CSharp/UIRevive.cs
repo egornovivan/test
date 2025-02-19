@@ -51,10 +51,6 @@ public class UIRevive : UIBaseWnd
 
 	private ItemSample item;
 
-	private float m_DelayTime = 100000f;
-
-	private bool mStartReciprocal;
-
 	private NpcCmpt mServantRevided;
 
 	public override void OnCreate()
@@ -108,7 +104,6 @@ public class UIRevive : UIBaseWnd
 		playerPackage = GameUI.Instance.mMainPlayer.GetCmpt<PlayerPackageCmpt>();
 		mTsPlayer.gameObject.SetActive(currentState == ReivieState.Reivie_Player);
 		mTsServant.gameObject.SetActive(currentState == ReivieState.Reivie_Servant);
-		mStartReciprocal = true;
 	}
 
 	public void mUpdate()
@@ -174,7 +169,6 @@ public class UIRevive : UIBaseWnd
 
 	public void HideServantRevive()
 	{
-		mStartReciprocal = false;
 		if (currentState == ReivieState.Reivie_Servant || currentEntity == null)
 		{
 			Hide();

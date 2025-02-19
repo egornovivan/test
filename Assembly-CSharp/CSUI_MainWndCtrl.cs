@@ -86,9 +86,6 @@ public class CSUI_MainWndCtrl : UIBaseWnd
 	public CSUI_WorkWnd m_WorkWnd;
 
 	[SerializeField]
-	private GameObject mSelectedWndPart;
-
-	[SerializeField]
 	private CSUI_LeftMenuItem mSelectedMenuItem;
 
 	[SerializeField]

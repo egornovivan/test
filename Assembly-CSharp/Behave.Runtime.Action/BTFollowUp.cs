@@ -84,8 +84,6 @@ public class BTFollowUp : BTNormal
 
 	private Data m_Data;
 
-	private float Radius_2 = 0.001f;
-
 	private BehaveResult Tick(Tree sender)
 	{
 		if (!GetData(sender, ref m_Data))

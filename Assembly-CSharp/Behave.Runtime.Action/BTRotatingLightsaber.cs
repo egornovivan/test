@@ -101,8 +101,6 @@ public class BTRotatingLightsaber : BTAttackBase
 
 	private float m_StartTime;
 
-	private float m_Angle;
-
 	private bool m_Arrived;
 
 	private Vector3 m_TargetPosition;
@@ -126,7 +124,6 @@ public class BTRotatingLightsaber : BTAttackBase
 			return BehaveResult.Failure;
 		}
 		StopMove();
-		m_Angle = 0f;
 		m_Arrived = false;
 		m_StartTime = Time.time;
 		Vector3 vector = base.attackEnemy.position - base.position;

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Interaction/Table")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/Interaction/Table")]
 public class UITable : MonoBehaviour
 {
 	public enum Direction

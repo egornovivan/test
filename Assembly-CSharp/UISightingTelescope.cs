@@ -29,9 +29,6 @@ public class UISightingTelescope : UIBaseWidget
 	private float mValue;
 
 	[SerializeField]
-	private bool bShoot;
-
-	[SerializeField]
 	private GameObject m_OrthoAimGoDefault;
 
 	[SerializeField]
@@ -84,6 +81,10 @@ public class UISightingTelescope : UIBaseWidget
 		{
 			GameUI.Instance.mMissionTrackWnd.EnableWndDrag(enable: false);
 		}
+		if (GameUI.Instance.mItemsTrackWnd.isShow)
+		{
+			GameUI.Instance.mItemsTrackWnd.EnableWndDrag(enable: false);
+		}
 	}
 
 	public void ExitShootMode()
@@ -95,6 +96,10 @@ public class UISightingTelescope : UIBaseWidget
 		if (GameUI.Instance.mMissionTrackWnd.isShow)
 		{
 			GameUI.Instance.mMissionTrackWnd.EnableWndDrag(enable: true);
+		}
+		if (GameUI.Instance.mItemsTrackWnd.isShow)
+		{
+			GameUI.Instance.mItemsTrackWnd.EnableWndDrag(enable: true);
 		}
 	}
 

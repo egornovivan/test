@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(UIPanel))]
 [AddComponentMenu("NGUI/Interaction/Draggable Panel")]
 [ExecuteInEditMode]
+[RequireComponent(typeof(UIPanel))]
 public class UIDraggablePanel : IgnoreTimeScale
 {
 	public enum DragEffect

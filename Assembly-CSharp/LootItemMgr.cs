@@ -12,8 +12,6 @@ public class LootItemMgr : ArchivableSingleton<LootItemMgr>
 
 	private static readonly float GenerateSqrDis = 2304f;
 
-	private static readonly float DestroySqrDis = 4096f;
-
 	private static readonly int UpdateNumPerFrame = 30;
 
 	private static readonly float SqrFetchRange = 16f;

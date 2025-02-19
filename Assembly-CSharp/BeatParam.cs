@@ -30,8 +30,8 @@ public class BeatParam : MonoBehaviour
 
 	public Transform m_ApplyWentflyBone;
 
-	[Header("RepulsedParamMonster")]
 	[Range(0f, 1f)]
+	[Header("RepulsedParamMonster")]
 	public float repulsedProb = 0.3f;
 
 	[Range(0f, 1f)]

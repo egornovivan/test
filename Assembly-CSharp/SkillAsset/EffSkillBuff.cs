@@ -82,8 +82,6 @@ public class EffSkillBuff
 
 	public int m_changeCamp;
 
-	private static int mMaxBuffId;
-
 	public static List<string> s_tblEffSkillBuffsColName_CN;
 
 	public static List<string> s_tblEffSkillBuffsColName_EN;
@@ -209,7 +207,6 @@ public class EffSkillBuff
 
 	public static void LoadData()
 	{
-		mMaxBuffId = 0;
 		SqliteDataReader sqliteDataReader = LocalDatabase.Instance.ReadFullTable("buff");
 		int fieldCount = sqliteDataReader.FieldCount;
 		s_tblEffSkillBuffsColName_CN = new List<string>(fieldCount);

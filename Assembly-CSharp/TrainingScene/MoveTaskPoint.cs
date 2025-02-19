@@ -10,8 +10,6 @@ public class MoveTaskPoint : MonoBehaviour
 
 	private Camera maincmr;
 
-	private Camera uicmr;
-
 	private Vector3 scrPos;
 
 	private RectTransform targetSign;
@@ -40,7 +38,6 @@ public class MoveTaskPoint : MonoBehaviour
 	{
 		playerTransform = PeSingleton<PeCreature>.Instance.mainPlayer.peTrans.trans;
 		maincmr = Camera.main;
-		uicmr = GameUI.Instance.mUICamera;
 		screenBorder = MoveTask.Instance.screenBorder;
 	}
 

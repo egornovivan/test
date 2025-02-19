@@ -11,7 +11,7 @@ public class TRTrack : Trajectory
 
 	public float maxMagnitude = 0.3f;
 
-	private new Transform target;
+	private Transform myTarget;
 
 	private Vector3 startPos;
 
@@ -58,10 +58,10 @@ public class TRTrack : Trajectory
 
 	public void Emit(Transform target)
 	{
-		this.target = target;
+		myTarget = target;
 		startPos = base.transform.position;
 		startTime = Time.time;
-		dynamicDir = (GetPredictPosition(this.target, startPos, speed) - base.transform.position).normalized;
+		dynamicDir = (GetPredictPosition(myTarget, startPos, speed) - base.transform.position).normalized;
 	}
 
 	public override Vector3 Track(float deltaTime)

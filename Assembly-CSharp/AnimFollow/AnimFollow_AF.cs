@@ -191,8 +191,6 @@ public class AnimFollow_AF : MonoBehaviour
 
 	private JointDrive jointDrive = default(JointDrive);
 
-	private bool mDirty;
-
 	private bool mActive;
 
 	public bool active

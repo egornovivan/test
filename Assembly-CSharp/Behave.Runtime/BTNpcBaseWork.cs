@@ -8,8 +8,6 @@ namespace Behave.Runtime;
 [BehaveAction(typeof(BTNpcBaseWork), "NpcBaseWork")]
 public class BTNpcBaseWork : BTNormal
 {
-	private Vector3 mStandPostion;
-
 	private bool mChangePlace;
 
 	private float startEndActionTime;
@@ -72,7 +70,6 @@ public class BTNpcBaseWork : BTNormal
 			return BehaveResult.Failure;
 		}
 		SetNpcState(ENpcState.Prepare);
-		mStandPostion = mWork.Trans.position;
 		mChangePlace = false;
 		return BehaveResult.Running;
 	}
@@ -100,7 +97,6 @@ public class BTNpcBaseWork : BTNormal
 		if (base.NpcJobStae == ENpcState.Work && pEMachine != null && !mMachine.Equals(pEMachine))
 		{
 			mChangePlace = true;
-			mStandPostion = mWork.Trans.position;
 		}
 		if (!base.Work.ContainsOperator(base.Operator))
 		{
@@ -134,7 +130,6 @@ public class BTNpcBaseWork : BTNormal
 				SetNpcState(ENpcState.Work);
 				MoveToPosition(Vector3.zero);
 				mWork = mMachine.GetStartOperate(EOperationMask.Work) as PEWork;
-				mStandPostion = mWork.Trans.position;
 				mChangePlace = false;
 				mWork.StartOperate(base.Operator, EOperationMask.Work);
 			}

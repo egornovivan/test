@@ -57,8 +57,6 @@ public class VoxelPaintXMLParser
 
 	private int terrainSectionsMapW;
 
-	private int terrainSectionsMapH;
-
 	private Color32[] terrainSectionsCols32;
 
 	private byte defType;
@@ -94,7 +92,6 @@ public class VoxelPaintXMLParser
 			if (texture2D != null)
 			{
 				terrainSectionsMapW = texture2D.width;
-				terrainSectionsMapH = texture2D.height;
 				terrainSectionsCols32 = texture2D.GetPixels32();
 			}
 			else
@@ -587,26 +584,25 @@ public class VoxelPaintXMLParser
 	{
 		int startX = terTile.tileX << 5;
 		int startZ = terTile.tileZ << 5;
-		int num = 1 << terTile.tileL;
 		for (int i = 0; i < 32; i += szCell)
 		{
-			int num2 = i + 1;
-			double[] array = tileNoiseBuf[num2];
-			float[] array2 = tileHeightBuf[num2];
-			float[] array3 = tileGradTanBuf[num2];
-			byte[][] array4 = terTile.terraVoxels[num2];
+			int num = i + 1;
+			double[] array = tileNoiseBuf[num];
+			float[] array2 = tileHeightBuf[num];
+			float[] array3 = tileGradTanBuf[num];
+			byte[][] array4 = terTile.terraVoxels[num];
 			for (int j = 0; j < 32; j += szCell)
 			{
-				int num3 = j + 1;
-				float num4 = array2[num3];
-				byte[] array5 = array4[num3];
-				byte vType = array5[(int)num4 * 2 + 1];
+				int num2 = j + 1;
+				float num3 = array2[num2];
+				byte[] array5 = array4[num2];
+				byte vType = array5[(int)num3 * 2 + 1];
 				if (VFDataRTGen.IsNoPlantType(vType))
 				{
 					continue;
 				}
-				float num5 = array3[num3];
-				if (num5 >= noVegeTan1 || num5 >= noVegeTan2)
+				float num4 = array3[num2];
+				if (num4 >= noVegeTan1 || num4 >= noVegeTan2)
 				{
 					continue;
 				}
@@ -616,8 +612,8 @@ public class VoxelPaintXMLParser
 				{
 					continue;
 				}
-				double num6 = (array[num3] + 1.0) * 128.0;
-				if (!(num6 >= (double)newgrasses.start) && (!(num6 > (double)newgrasses.startFadeIn) || !(myRand.NextDouble() <= (num6 - (double)newgrasses.startFadeIn) / (double)(newgrasses.start - newgrasses.startFadeIn))))
+				double num5 = (array[num2] + 1.0) * 128.0;
+				if (!(num5 >= (double)newgrasses.start) && (!(num5 > (double)newgrasses.startFadeIn) || !(myRand.NextDouble() <= (num5 - (double)newgrasses.startFadeIn) / (double)(newgrasses.start - newgrasses.startFadeIn))))
 				{
 					continue;
 				}
@@ -626,7 +622,7 @@ public class VoxelPaintXMLParser
 				PlantHeightDesc[] plantHeightDescValues = newgrasses.PlantHeightDescValues;
 				foreach (PlantHeightDesc plantHeightDesc2 in plantHeightDescValues)
 				{
-					if ((float)plantHeightDesc2.start <= num4 && (float)plantHeightDesc2.end > num4)
+					if ((float)plantHeightDesc2.start <= num3 && (float)plantHeightDesc2.end > num3)
 					{
 						plantHeightDesc = plantHeightDesc2;
 					}
@@ -638,19 +634,19 @@ public class VoxelPaintXMLParser
 				PlantGradientDesc[] plantGradientDescValues = plantHeightDesc.PlantGradientDescValues;
 				foreach (PlantGradientDesc plantGradientDesc2 in plantGradientDescValues)
 				{
-					if ((float)plantGradientDesc2.start <= num5 && (float)plantGradientDesc2.end > num5)
+					if ((float)plantGradientDesc2.start <= num4 && (float)plantGradientDesc2.end > num4)
 					{
 						plantGradientDesc = plantGradientDesc2;
 					}
 				}
 				if (plantGradientDesc != null)
 				{
-					float num7 = ((float)num6 - newgrasses.startFadeIn) / (newgrasses.start - newgrasses.startFadeIn);
-					if (num7 > 1f)
+					float num6 = ((float)num5 - newgrasses.startFadeIn) / (newgrasses.start - newgrasses.startFadeIn);
+					if (num6 > 1f)
 					{
-						num7 = 1f;
+						num6 = 1f;
 					}
-					PlantANewGrass(startX, startZ, j, i, num7, plantGradientDesc.PlantDescArrayValues, tileHeightBuf, outlstGrassInst);
+					PlantANewGrass(startX, startZ, j, i, num6, plantGradientDesc.PlantDescArrayValues, tileHeightBuf, outlstGrassInst);
 				}
 			}
 		}

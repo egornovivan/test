@@ -27,8 +27,6 @@ public class BTPlayLoopAnimation : BTNormal
 		[Behave]
 		public float MaxTime;
 
-		public int AnimPlayTimes;
-
 		public float mStartPlayTime;
 
 		public float m_starIntervlTime;

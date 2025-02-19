@@ -169,7 +169,7 @@ public class CustomGameData
 		{
 			if (reader.Read())
 			{
-				int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+				reader.GetInt32(reader.GetOrdinal("ver"));
 				byte[] buffer = (byte[])reader.GetValue(reader.GetOrdinal("data"));
 				BufferHelper.Import(buffer, delegate(BinaryReader r)
 				{

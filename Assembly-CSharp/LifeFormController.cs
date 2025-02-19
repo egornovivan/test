@@ -18,8 +18,6 @@ public class LifeFormController : MonoBehaviour
 
 	private SkillRunner mSkillRunner;
 
-	private float FoodCheckInterval;
-
 	private void Awake()
 	{
 		mActiveRules = new List<int>();
@@ -36,7 +34,6 @@ public class LifeFormController : MonoBehaviour
 			AddRule(mRule);
 		}
 		mSkillRunner = GetComponent<SkillRunner>();
-		FoodCheckInterval = 1f;
 	}
 
 	private void Update()

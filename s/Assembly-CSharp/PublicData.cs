@@ -30,8 +30,8 @@ public class PublicData
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
-			int int2 = reader.GetInt32(reader.GetOrdinal("id"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("id"));
 			byte[] buff = (byte[])reader.GetValue(reader.GetOrdinal("data"));
 			Serialize.Import(buff, delegate(BinaryReader r)
 			{

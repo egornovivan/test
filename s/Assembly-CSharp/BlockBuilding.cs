@@ -12,8 +12,6 @@ public class BlockBuilding
 
 	public string mPath;
 
-	private string mNpcIdNum;
-
 	public Vector3 BoundSize = Vector3.zero;
 
 	public static void LoadBuilding()
@@ -25,7 +23,6 @@ public class BlockBuilding
 			BlockBuilding blockBuilding = new BlockBuilding();
 			blockBuilding.mId = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("ID")));
 			blockBuilding.mPath = sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("FilePath"));
-			blockBuilding.mNpcIdNum = sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("NPCId_Num"));
 			s_tblBlockBuildingMap[blockBuilding.mId] = blockBuilding;
 		}
 	}

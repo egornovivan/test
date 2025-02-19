@@ -33,8 +33,6 @@ public class Block45Building : MonoBehaviour
 
 	public GameObject VizCube;
 
-	private Dictionary<IntVector3, B45Block> mInitChunkData = new Dictionary<IntVector3, B45Block>();
-
 	private bool colliderBuilding;
 
 	private cpuBlock45 b45proc;

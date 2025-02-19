@@ -75,17 +75,16 @@ public class GameLog : MonoBehaviour
 
 	private void Start()
 	{
-		Application.RegisterLogCallback(HandleLog);
 	}
 
 	private void OnEnable()
 	{
-		Application.RegisterLogCallback(HandleLog);
+		Application.logMessageReceived += HandleLog;
 	}
 
 	private void OnDisable()
 	{
-		Application.RegisterLogCallback(null);
+		Application.logMessageReceived -= HandleLog;
 	}
 
 	private void OnGUI()

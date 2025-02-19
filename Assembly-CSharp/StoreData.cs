@@ -5,8 +5,6 @@ public class StoreData
 {
 	public int npcid;
 
-	private List<int> _itemList = new List<int>();
-
 	public string iconname;
 
 	public List<int> itemListstory = new List<int>();

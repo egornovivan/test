@@ -454,15 +454,10 @@ public class PECameraMan : MonoBehaviour
 
 	private void UpdateCameraCursor()
 	{
-		if (null == m_Controller)
+		if (!(null == m_Controller))
 		{
-			return;
-		}
-		CamMode currentMode = m_Controller.currentMode;
-		if (!(null == currentMode))
-		{
-			bool flag = currentMode is CameraFirstPerson;
-			if ((currentMode.m_Tag & 1) != 0 && UIStateMgr.Instance != null)
+			CamMode currentMode = m_Controller.currentMode;
+			if (!(null == currentMode) && (currentMode.m_Tag & 1) != 0 && UIStateMgr.Instance != null)
 			{
 				currentMode.m_LockCursor = !UIStateMgr.Instance.CurShowGui;
 				currentMode.m_ShowTarget = !UIStateMgr.Instance.CurShowGui;

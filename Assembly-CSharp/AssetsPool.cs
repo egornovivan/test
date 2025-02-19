@@ -11,10 +11,6 @@ public static class AssetsPool
 
 	private static readonly string[] s_PooledPrefabs;
 
-	private static Object[] s_preloadAnimClips;
-
-	private static Object[] s_preloadMaterials;
-
 	private static Dictionary<string, Object> s_CacheMap;
 
 	static AssetsPool()
@@ -26,8 +22,6 @@ public static class AssetsPool
 			"EntityPlayer", "EntityNpc", "EntityNpcNative", "EntityTower", "EntityDoodad", "EntityMonster", "EntityGroup", "Prefab/Npc/Component/OverHead", "Prefab/Item/Equip/Weapon/Other/Gloves", "AiPrefab/MonsterSpecialItem/Monster_feces01",
 			"AiPrefab/MonsterSpecialItem/Monster_feces02", "AiPrefab/MonsterSpecialItem/Monster_feces03"
 		};
-		s_preloadAnimClips = null;
-		s_preloadMaterials = null;
 		s_CacheMap = new Dictionary<string, Object>();
 	}
 
@@ -63,8 +57,6 @@ public static class AssetsPool
 	public static void Clear()
 	{
 		s_CacheMap.Clear();
-		s_preloadAnimClips = null;
-		s_preloadMaterials = null;
 	}
 
 	public static IEnumerator Cleanup()

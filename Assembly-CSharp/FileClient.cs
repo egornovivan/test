@@ -20,10 +20,6 @@ public class FileClient : IDisposable
 
 	private long _pos;
 
-	private EFileStatus _status;
-
-	private bool _disposed;
-
 	internal TcpClient Client => _client;
 
 	internal string FilePath => _path;
@@ -40,8 +36,6 @@ public class FileClient : IDisposable
 
 	internal string Account => _account;
 
-	internal event CommonEventHandler SendFileEvent;
-
 	internal event CommonEventHandler DisposedEvent;
 
 	internal event CommonEventHandler CompleteEvent;
@@ -50,8 +44,6 @@ public class FileClient : IDisposable
 
 	internal FileClient()
 	{
-		_status = EFileStatus.NULL;
-		_disposed = false;
 		this.CompleteEvent = (CommonEventHandler)Delegate.Combine(this.CompleteEvent, new CommonEventHandler(OnComplete));
 	}
 
@@ -119,7 +111,6 @@ public class FileClient : IDisposable
 	{
 		try
 		{
-			_status = EFileStatus.OPEN;
 			_fileData.FileLength = data.Length;
 			_fileData.FileName = name + ".~vcres";
 			_stream = new MemoryStream(data);
@@ -139,10 +130,8 @@ public class FileClient : IDisposable
 		try
 		{
 			_client.EndConnect(ar);
-			_status = EFileStatus.CHECKING;
 			_fileData.HashCode = CRC64.Compute(_stream);
 			_stream.Position = 0L;
-			_status = EFileStatus.SENDING;
 			NetworkStream stream = _client.GetStream();
 			BinaryWriter binaryWriter = new BinaryWriter(stream);
 			byte value = 221;
@@ -299,7 +288,6 @@ public class FileClient : IDisposable
 
 	protected virtual void Dispose(bool dispose)
 	{
-		_disposed = true;
 		if (this.DisposedEvent != null)
 		{
 			this.DisposedEvent(this, null);

@@ -544,6 +544,15 @@ public class RailwayOperate : PeSingleton<RailwayOperate>
 
 	public void DoResetPointTime(int pointID, float time)
 	{
-		PeSingleton<Manager>.Instance.GetRouteByPointId(pointID)?.SetStayTime(pointID, time);
+		Point point = PeSingleton<Manager>.Instance.GetPoint(pointID);
+		if (point != null)
+		{
+			point.stayTime = time;
+		}
+	}
+
+	public void DoSyncRunState(int routeId, int moveDir, int nextPoint, float time)
+	{
+		PeSingleton<Manager>.Instance.GetRoute(routeId)?.mRunState.SyncRunState(moveDir, nextPoint, time);
 	}
 }

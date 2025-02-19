@@ -18,7 +18,6 @@ public class SkillTreeInfo
 	{
 		_skillTreeInfo = new Dictionary<int, Dictionary<int, Dictionary<int, SkillTreeUnit>>>();
 		SqliteDataReader sqliteDataReader = LocalDatabase.Instance.ReadFullTable("skilltree");
-		int fieldCount = sqliteDataReader.FieldCount;
 		while (sqliteDataReader.Read())
 		{
 			int id = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("id")));
@@ -227,7 +226,6 @@ public class SkillTreeInfo
 	{
 		_skillMainTypeInfo = new Dictionary<int, List<SkillMainType>>();
 		SqliteDataReader sqliteDataReader = LocalDatabase.Instance.ReadFullTable("skilltreemt");
-		int fieldCount = sqliteDataReader.FieldCount;
 		while (sqliteDataReader.Read())
 		{
 			SkillMainType skillMainType = new SkillMainType();

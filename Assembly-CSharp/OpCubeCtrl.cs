@@ -6,8 +6,6 @@ public class OpCubeCtrl : MonoBehaviour
 
 	private bool mEnable;
 
-	private float Size = 1f;
-
 	public bool Active
 	{
 		get

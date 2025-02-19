@@ -72,8 +72,6 @@ public class UITalkBoxCtrl : MonoBehaviour
 
 	private float mWndBgHeight;
 
-	private int Movetemp;
-
 	public void AddMsg(string userName, string strMsg, string strColor)
 	{
 		bool isChinese = strMsg.Contains("[lang:cn]");
@@ -265,7 +263,6 @@ public class UITalkBoxCtrl : MonoBehaviour
 		if (!IsHide && !IsWndMove)
 		{
 			mWndBgHeight = mWndBg.gameObject.transform.localScale.y;
-			Movetemp = Convert.ToInt32((mWndBgHeight - mMoveHeight) / (float)FixedTimeCount);
 			IsHide = true;
 			IsWndMove = true;
 			mBtnDown.SetActive(value: false);

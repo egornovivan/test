@@ -51,14 +51,6 @@ public class UIBuildBlock : MonoBehaviour
 
 	public Color menuItemRemoveColor = Color.red;
 
-	private int mCurrentBrushID = 1;
-
-	private int mCurrentItemId = 30200001;
-
-	private int mMatPage;
-
-	private int mBrushPage;
-
 	private EBSBrushMode pointMode;
 
 	private EBSBrushMode boxMode;

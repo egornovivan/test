@@ -9,8 +9,6 @@ public class RGScene : MonoBehaviour
 {
 	private INTVECTOR2 mCenter = new INTVECTOR2(-10000, -10000);
 
-	private INTVECTOR2 mSafeCenter = new INTVECTOR2(-10000, -10000);
-
 	public EvniAsset evniAsset;
 
 	public Transform tracedObj;

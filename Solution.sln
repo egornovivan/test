@@ -2,11 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp\Assembly-CSharp.csproj", "{CFACEA8B-AE47-4700-961D-6942EFEF817B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp\Assembly-CSharp.csproj", "{C034AC2D-5C19-4AC1-A977-67AC3B6F0092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-UnityScript", "Assembly-UnityScript\Assembly-UnityScript.csproj", "{011F63FC-8707-4A8B-996E-542DCF05756F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-UnityScript", "Assembly-UnityScript\Assembly-UnityScript.csproj", "{A3099DF4-C070-407A-ACC6-84ABA81CA024}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj", "{9EDDFA71-100C-4F83-86BE-1AB4009AF545}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj", "{D06C20BF-A00F-454F-A6B8-9159892ACE52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,18 +14,18 @@ Global
 		Release|AnyCPU = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CFACEA8B-AE47-4700-961D-6942EFEF817B}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{CFACEA8B-AE47-4700-961D-6942EFEF817B}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{CFACEA8B-AE47-4700-961D-6942EFEF817B}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{CFACEA8B-AE47-4700-961D-6942EFEF817B}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{011F63FC-8707-4A8B-996E-542DCF05756F}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{011F63FC-8707-4A8B-996E-542DCF05756F}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{011F63FC-8707-4A8B-996E-542DCF05756F}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{011F63FC-8707-4A8B-996E-542DCF05756F}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{9EDDFA71-100C-4F83-86BE-1AB4009AF545}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{9EDDFA71-100C-4F83-86BE-1AB4009AF545}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{9EDDFA71-100C-4F83-86BE-1AB4009AF545}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{9EDDFA71-100C-4F83-86BE-1AB4009AF545}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{C034AC2D-5C19-4AC1-A977-67AC3B6F0092}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{C034AC2D-5C19-4AC1-A977-67AC3B6F0092}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{C034AC2D-5C19-4AC1-A977-67AC3B6F0092}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{C034AC2D-5C19-4AC1-A977-67AC3B6F0092}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{A3099DF4-C070-407A-ACC6-84ABA81CA024}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{A3099DF4-C070-407A-ACC6-84ABA81CA024}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{A3099DF4-C070-407A-ACC6-84ABA81CA024}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{A3099DF4-C070-407A-ACC6-84ABA81CA024}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{D06C20BF-A00F-454F-A6B8-9159892ACE52}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{D06C20BF-A00F-454F-A6B8-9159892ACE52}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{D06C20BF-A00F-454F-A6B8-9159892ACE52}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{D06C20BF-A00F-454F-A6B8-9159892ACE52}.Release|AnyCPU.Build.0 = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

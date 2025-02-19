@@ -68,7 +68,7 @@ public class TreeCutDown : MonoBehaviour
 			radius /= 2f;
 			this.footsPos = footsPos;
 		}
-		int num = (int)Math.Ceiling(radius);
+		Math.Ceiling(radius);
 		this.radius = ((radius >= 7f) ? 8 : ((radius >= 5f) ? 6 : ((!(radius >= 3f)) ? 2 : 4)));
 		this.height = height;
 		animaCur = Anim;

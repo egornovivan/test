@@ -4,8 +4,8 @@ using WhiteCat.Internal;
 
 namespace WhiteCat;
 
-[RequireComponent(typeof(RectTransform))]
 [AddComponentMenu("White Cat/Tween/Rect Transform/Pivot")]
+[RequireComponent(typeof(RectTransform))]
 public class TweenPivot : TweenBase
 {
 	public Vector2 from;

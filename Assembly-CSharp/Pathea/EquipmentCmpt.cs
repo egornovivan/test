@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ItemAsset;
+using Pathea.Effect;
 using Pathea.PeEntityExt;
 using PeEvent;
 using SkillSystem;
+using SoundAsset;
 using UnityEngine;
 
 namespace Pathea;
@@ -43,8 +45,6 @@ public class EquipmentCmpt : PeCmpt, IPeMsg
 
 	[HideInInspector]
 	public bool mShowModel;
-
-	private ISkillTree mSkillTree;
 
 	public Receiver mItemReciver;
 
@@ -132,7 +132,6 @@ public class EquipmentCmpt : PeCmpt, IPeMsg
 
 	public void SetSkillBook(ISkillTree skillTree)
 	{
-		mSkillTree = skillTree;
 	}
 
 	public override void Awake()
@@ -647,6 +646,45 @@ public class EquipmentCmpt : PeCmpt, IPeMsg
 			HideEquipmentByVehicle(component, m_HideEquipmentByVehicle);
 			HidEquipmentByRagdoll(component, m_HideEquipmentByRagdoll);
 			mMotionEquip.SetEquipment(component, isPutOn: true);
+			PreLoadEquipmentEffect(component);
+		}
+	}
+
+	private void PreLoadEquipmentEffect(PEEquipment equipment)
+	{
+		if (!(equipment is PEGun))
+		{
+			return;
+		}
+		PEGun pEGun = equipment as PEGun;
+		SkData value = null;
+		SkData.s_SkillTbl.TryGetValue(pEGun.m_ShootSoundID, out value);
+		if (value != null && value._effMainOneTime != null && value._effMainOneTime._seId > 0)
+		{
+			int seId = value._effMainOneTime._seId;
+			SESoundBuff sESoundData = SESoundBuff.GetSESoundData(seId);
+			if (sESoundData != null && AudioManager.instance != null)
+			{
+				AudioManager.instance.GetAudioClip(sESoundData.mName);
+			}
+		}
+		value = null;
+		SkData.s_SkillTbl.TryGetValue(pEGun.GetSkillID(), out value);
+		if (value == null || value._effMainOneTime == null || value._effMainOneTime._effId == null || value._effMainOneTime._effId.Length <= 0)
+		{
+			return;
+		}
+		int[] effId = value._effMainOneTime._effId;
+		foreach (int num in effId)
+		{
+			if (num > 0)
+			{
+				EffectData effCastData = EffectData.GetEffCastData(num);
+				if (effCastData != null && !string.IsNullOrEmpty(effCastData.m_path) && Singleton<EffectBuilder>.Instance != null)
+				{
+					Singleton<EffectBuilder>.Instance.GetEffect(effCastData.m_path);
+				}
+			}
 		}
 	}
 

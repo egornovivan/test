@@ -454,10 +454,9 @@ public class UIMissionGoalWndInterpreter : MonoBehaviour
 
 	private void OnSetRewardItemContent(Grid_N grid)
 	{
-		int num = _rewardItemIds[grid.ItemIndex];
+		int itemId = _rewardItemIds[grid.ItemIndex];
 		int stackCount = _rewardItemCount[grid.ItemIndex];
-		ItemProto itemData = ItemProto.GetItemData(num);
-		ItemSample itemGrid = new ItemSample(num, stackCount);
+		ItemSample itemGrid = new ItemSample(itemId, stackCount);
 		grid.SetItem(itemGrid);
 	}
 

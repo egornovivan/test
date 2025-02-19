@@ -7,7 +7,7 @@ internal class LoadRandomDungeon : PeLauncher.ILaunchable
 	void PeLauncher.ILaunchable.Launch()
 	{
 		Object original = Resources.Load("Prefab/RandomDunGen/RandomDungenMgr");
-		GameObject gameObject = Object.Instantiate(original) as GameObject;
+		Object.Instantiate(original);
 		RandomDungenMgr.Instance.Init();
 		if (PeGameMgr.yirdName == AdventureScene.Dungen.ToString())
 		{

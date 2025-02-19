@@ -2,15 +2,12 @@ using CSRecord;
 
 public class ColonyDwellings : ColonyBase
 {
-	private CSDwellingsData _MyData;
-
 	private int[] _Npcs;
 
 	public ColonyDwellings(ColonyNetwork network)
 	{
 		SetNetwork(network);
 		_RecordData = new CSDwellingsData();
-		_MyData = (CSDwellingsData)_RecordData;
 		_Npcs = new int[4];
 		for (int i = 0; i < _Npcs.Length; i++)
 		{

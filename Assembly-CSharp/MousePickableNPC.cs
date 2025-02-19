@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class MousePickableNPC : MousePickablePeEntity
 {
-	private PeEntity m_SelfEntity;
-
 	private Vector3 mainPlayerPos => (!(null != PeSingleton<PeCreature>.Instance.mainPlayer)) ? Vector3.zero : PeSingleton<PeCreature>.Instance.mainPlayer.position;
 
 	public NpcCmpt npc { get; set; }
@@ -12,7 +10,6 @@ public class MousePickableNPC : MousePickablePeEntity
 	protected override void OnStart()
 	{
 		base.OnStart();
-		m_SelfEntity = GetComponent<PeEntity>();
 		npc = GetComponent<NpcCmpt>();
 		operateDistance = 4.5f;
 	}

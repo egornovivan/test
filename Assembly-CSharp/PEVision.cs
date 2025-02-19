@@ -16,8 +16,6 @@ public class PEVision : PEPerception
 
 	private ulong m_FrameCount;
 
-	private byte m_CurCount;
-
 	public List<PeEntity> Entities => m_Entities;
 
 	public void AddBuff(float value, float time)
@@ -27,7 +25,6 @@ public class PEVision : PEPerception
 
 	private void Start()
 	{
-		m_CurCount = (byte)Random.Range(15, 30);
 		m_Entities = new List<PeEntity>();
 	}
 

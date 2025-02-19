@@ -51,7 +51,7 @@ public class UILoadScenceEffect : MonoBehaviour
 
 	public static UILoadScenceEffect Instance => mInstance;
 
-	public bool isInProgress => base.isActiveAndEnabled ? true : false;
+	public bool isInProgress => base.isActiveAndEnabled && mLogoState != LogoState.Null;
 
 	private event CallbackEnvet e_BeginScenceOK;
 

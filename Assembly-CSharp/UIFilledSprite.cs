@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[ExecuteInEditMode]
 [AddComponentMenu("NGUI/UI/Sprite (Filled)")]
+[ExecuteInEditMode]
 public class UIFilledSprite : UISprite
 {
 	public enum FillDirection
@@ -14,8 +14,8 @@ public class UIFilledSprite : UISprite
 		Radial360
 	}
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private FillDirection mFillDirection = FillDirection.Radial360;
 
 	[HideInInspector]

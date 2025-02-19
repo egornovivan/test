@@ -13,8 +13,6 @@ public class PECureSleep : MonoBehaviour
 
 	private bool mIsPase;
 
-	private bool mIsStop;
-
 	public float REOVE_TIME;
 
 	private bool hasOperator => Operator != null && !Operator.Equals(null);

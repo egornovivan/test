@@ -26,8 +26,6 @@ public class UIHelpCtrl : UIBaseWidget
 
 	private int mTabIndex;
 
-	private int mCurrentID = -1;
-
 	private bool UpdateHelpGrid;
 
 	public override void OnCreate()
@@ -154,7 +152,6 @@ public class UIHelpCtrl : UIBaseWidget
 		}
 		mBackUpItem = itemByID;
 		mHelpTex.enabled = true;
-		mCurrentID = ID;
 		mTitle.text = TutorialData.s_tblTutorialData[ID].mContent;
 		if (null != mHelpTex.mainTexture)
 		{

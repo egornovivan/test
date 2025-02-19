@@ -83,7 +83,7 @@ public static class FileUtil
 		binaryReader.Close();
 		fileStream.Close();
 		string @string = Encoding.UTF8.GetString(bytes);
-		Material material = new Material(@string);
+		Material material = new Material(Shader.Find(@string));
 		return material.shader;
 	}
 

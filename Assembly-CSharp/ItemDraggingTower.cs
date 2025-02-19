@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ItemDraggingTower : ItemDraggingBase
 {
-	private bool bPut;
-
 	public GameObject headTips;
 
 	public bool needVoxel;

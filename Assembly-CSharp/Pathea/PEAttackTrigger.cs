@@ -110,7 +110,7 @@ public class PEAttackTrigger : MonoBehaviour
 			UpdatePartsInfo();
 			UpdateHitState();
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
 			if (null != m_PEEntity.animCmpt && null != m_PEEntity.animCmpt.animator)
 			{
@@ -125,7 +125,7 @@ public class PEAttackTrigger : MonoBehaviour
 				{
 					text = text + list[j].clip.name + "\n";
 				}
-				Debug.LogError(text);
+				Debug.LogError(text + ex.ToString());
 			}
 		}
 	}

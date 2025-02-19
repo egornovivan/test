@@ -33,7 +33,7 @@ public class uLinkNetwork : UnityEngine.MonoBehaviour
 			uLink.Network.minimumAllocatableViewIDs = 50000;
 			uLink.Network.minimumUsedViewIDs = 10;
 			uLink.Network.sendRate = 10f;
-			uLink.Network.privateKey = new PrivateKey("<RSAKeyValue><Modulus>s9xPzYdYVTSz1K2JZUgcfCTBDcvGxKCsmkmKqum0P+m4iaF0zKfl/rl5Ub/HzR5R+LvUF/69uNQ68qS1FlMM+GAgoOD8C1x8ADESgW5qOdr5CUoW3H5wQREuhIFhWkCim0rHxeQFXYBPNUVUwVqXvPb9XiLbZVDXng6xuPMmrCM=</Modulus><Exponent>EQ==</Exponent><P>/Y3eRovuH/b8WCyfP+tNJ7OYhLZmKJyAzUcK7x1uXCyD8X2nT2DDTThaUFXEQV0qyhHlgZQMj0LPq3WtuyZ7VQ==</P><Q>tZh2i52LARQKxP1gvfa3yg6B8ZY11cPHqkLEIsE+IAZDgL89t6yERp/GiV6bKOKtACJZflyrPI/MIFk8sgY5lw==</Q><DP>HdR0gMUrEtHDVarljwyfqlFdPMoqIuU8VGK1/gN2ZTJp4Czmgc8mCRWwRa+8vGVQVAIbAC+JAcuf9g3YNCKlGQ==</DP><DQ>gC9ivOetaixD1liAhheQyt0QbkvpxBG6HdTGrx7+rTGZD5YNcpfk5o7mfxWas3LUeJC3pH2mDKG9RALBbpr7eQ==</DQ><InverseQ>VEr7KIjEfYHUz70dxjtf0DZyeG9dyjq0Yrqm8tR7goMgUZ11aysbwEzENHjgqUGwhzU1SiQ8NgY1abi75FyGMw==</InverseQ><D>aczjphNhIw/xT+2cHXW2ZySty+FHvvUaPKO6+yAPrSASMtdx4cws8DDd89o5S3s/RwUTWWir1iJ9BzO10OWPJ7ELtET0VgTZCvym4rqqeXogUEBY2qWvCrS7PYzjdUZf5gboSAmC37hGDAMTDG9CwwtJIV/VVwLz4zZnTE7PRiE=</D></RSAKeyValue>");
+			uLink.Network.privateKey = new PrivateKey("<RSAKeyValue><Modulus>oipCMkge/+BwcenDk3XdJMeBXwW+V6WVEtP/U7YKoFfJokNbqffWW65zUCSCUCJyalnqtKen5fbQiOtFyNwsuxdksUTiRDTSwW/gMOtyZ84YAED+W8OOmLRCWtnt/YBqxIVnKUVX2oT3aQ/pGOxmtZS7krThKyuO2RwDAWoETDM=</Modulus><Exponent>EQ==</Exponent><P>3gJwo5guBEA+Ed3p/NjnHsRJhK/O3cJFOO0sOBFB7YQk3Xk4DiBr7w3DYnbsynmgyQ1gVuTG301EvF8osQZhDQ==</P><Q>uv4+MaoSMGuJTNzRwGj0nHh7y/GqHUpRL76ezPtl7opzpxM/Ulz4ywxydLWJYVvEs3NNa0THtKmQW1Mt7j2SPw==</Q><DP>ttTVO25EA4AzHcXPwSsYr+zxQBhQAetIEMNRl5W90qkPTPpqZfyVHziCyY8dW3M5HgsEC1L+IU6xE5mpCkF9GQ==</DP><DQ>Qf9hPrR+4+m3/QKkYgbs6+5Jz4J4RpKzPgcK3u9RJwOwWRXaHRHBOJr7OEASXpjcAxmi2pC+9HgU1PAuVBW7JQ==</DQ><InverseQ>VGV2xXk5hNJyKaEJvdscLGb/rGdjz/GhtePY2wg35qCPC/VLZlU6MLGOldgmkauiihEtu85Qrz6P/ma8kp0uSA==</InverseQ><D>CYoD5NcQ4eAGnUn8chX98xrLX/FHbpFFARuHfWUPrxQ5CYt93NJX50Z/QPMWuWtwJF+kZPrNpB2Ty9GasXZc+9pCHkLNLWlrtFtcjmwg+S5JIZWrHGYlw+ZUJpQNQUXnTeHuvyuUYUgrISF0ggtT14j0Z9IKzPnbxABA+vzeI1k=</D></RSAKeyValue>");
 			uLink.Network.incomingPassword = ServerConfig.Password;
 			NetInterface.InitializeServer(ServerConfig.MaxConnections, ServerConfig.ServerPort, ServerConfig.UseProxy);
 		}
@@ -145,6 +145,7 @@ public class uLinkNetwork : UnityEngine.MonoBehaviour
 			AllocateColorIndex(peer);
 			NetInterface.Instantiate(peer, PrefabManager.Self.BaseProxy, PrefabManager.Self.BaseOwner, PrefabManager.Self.BaseCreator, Vector3.zero, Quaternion.identity, 100, roleInfo);
 			uLobbyNetwork.UpdateServerInfo();
+			LobbyInterface.LobbyRPC(ELobbyMsgType.PlayerEnterGS, (int)ServerConfig.GameType, (int)ServerConfig.SceneMode, ServerConfig.ServerID);
 			if (LogFilter.logDebug)
 			{
 				Debug.LogFormat("Role[{0}] has connected", roleInfo.name);

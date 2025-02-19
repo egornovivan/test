@@ -22,12 +22,6 @@ public class TargetCmpt : PeCmpt, IPeMsg
 
 	public Action<PeEntity, PeEntity, float> HatredEvent;
 
-	private float m_VisionRadius = 50f;
-
-	private float m_VisionAngle = 75f;
-
-	private float m_HearingRadius = 10f;
-
 	private bool m_FirstDamage;
 
 	private bool m_CanSearch;
@@ -46,13 +40,9 @@ public class TargetCmpt : PeCmpt, IPeMsg
 
 	private Motion_Equip m_Equipment;
 
-	private IKAimCtrl m_IKAim;
-
 	private CommonCmpt m_Common;
 
 	private NpcCmpt m_Npc;
-
-	private Motion_Move_Motor m_Motor;
 
 	private PEMonster m_Monster;
 
@@ -127,8 +117,6 @@ public class TargetCmpt : PeCmpt, IPeMsg
 	private bool m_beSkillTarget;
 
 	private List<NpcCmpt> mAllys = new List<NpcCmpt>();
-
-	private float hideDistance = 5f;
 
 	private Vector3 direction = Vector3.back;
 
@@ -651,7 +639,6 @@ public class TargetCmpt : PeCmpt, IPeMsg
 		m_Equipment = GetComponent<Motion_Equip>();
 		m_Common = GetComponent<CommonCmpt>();
 		m_Npc = GetComponent<NpcCmpt>();
-		m_Motor = GetComponent<Motion_Move_Motor>();
 		PESkEntity pESkEntity = m_Entity.skEntity as PESkEntity;
 		if (pESkEntity != null)
 		{
@@ -855,8 +842,6 @@ public class TargetCmpt : PeCmpt, IPeMsg
 	{
 		int num = (int)m_Entity.GetAttribute(AttribType.DefaultPlayerID);
 		int num2 = (int)entity.GetAttribute(AttribType.DefaultPlayerID);
-		int num3 = (int)m_Entity.GetAttribute(AttribType.CampID);
-		int num4 = (int)entity.GetAttribute(AttribType.CampID);
 		int src = Convert.ToInt32(m_Entity.GetAttribute(AttribType.DamageID));
 		int dst = Convert.ToInt32(entity.GetAttribute(AttribType.DamageID));
 		return PEUtil.CanDamageReputation(num, num2) && Singleton<ForceSetting>.Instance.Conflict(num, num2) && DamageData.GetValue(src, dst) != 0;
@@ -985,7 +970,6 @@ public class TargetCmpt : PeCmpt, IPeMsg
 		{
 			return;
 		}
-		hideDistance = 5f;
 		if (m_Enemies != null && m_Enemies.Count > 0)
 		{
 			mdirs.Clear();
@@ -1096,14 +1080,9 @@ public class TargetCmpt : PeCmpt, IPeMsg
 					{
 						if (m_Equipment.Weapon == null || m_Equipment.Weapon.Equals(null))
 						{
-							Vector3 forward = Vector3.ProjectOnPlane(base.Entity.peTrans.trans.forward, Vector3.up);
-							Vector3 direction = Vector3.ProjectOnPlane(m_Enemy.Direction, Vector3.up);
-							float angle = Vector3.Angle(forward, direction);
-							bool canHold = (base.Entity.Race != ERace.Puja && base.Entity.Race != ERace.Paja) || angle < 45f;
 							if (!weapon.HoldReady)
 							{
 								weapon.HoldWeapon(hold: true);
-								float startTime = Time.time;
 								while (weapon != null && !weapon.Equals(null) && !weapon.HoldReady && Time.time < 5f)
 								{
 									yield return new WaitForSeconds(1f);
@@ -1684,21 +1663,15 @@ public class TargetCmpt : PeCmpt, IPeMsg
 			m_Monster = biologyViewRoot.monster;
 			break;
 		}
-		case EMsg.View_Prefab_Build:
-		{
-			BiologyViewCmpt biologyViewCmpt = args[0] as BiologyViewCmpt;
-			m_IKAim = biologyViewCmpt.monoIKAimCtrl;
-			break;
-		}
 		case EMsg.Battle_HPChange:
 		{
-			SkEntity skEntity = (SkEntity)args[0];
+			SkEntity skEntity2 = (SkEntity)args[0];
 			float num = (float)args[1];
-			if (!(skEntity != null) || !(num < float.Epsilon))
+			if (!(skEntity2 != null) || !(num < float.Epsilon))
 			{
 				break;
 			}
-			SkEntity caster = PEUtil.GetCaster(skEntity);
+			SkEntity caster = PEUtil.GetCaster(skEntity2);
 			if (!(caster != null))
 			{
 				break;
@@ -1716,10 +1689,10 @@ public class TargetCmpt : PeCmpt, IPeMsg
 		}
 		case EMsg.Battle_TargetSkill:
 		{
-			SkEntity skEntity2 = (SkEntity)args[0];
-			if (skEntity2 != null)
+			SkEntity skEntity = (SkEntity)args[0];
+			if (skEntity != null)
 			{
-				OnTargetSkill(skEntity2);
+				OnTargetSkill(skEntity);
 			}
 			break;
 		}

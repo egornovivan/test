@@ -6,13 +6,42 @@ using UnityEngine;
 
 public class AiTowerDefense : AiCommonTD
 {
-	private static List<int> _tdList = new List<int>();
+	public class TDInfo
+	{
+		public int missionId;
+
+		public int teamId;
+
+		public TDInfo(int mId, int t)
+		{
+			missionId = mId;
+			teamId = t;
+		}
+	}
+
+	public static List<TDInfo> _tdList = new List<TDInfo>();
 
 	protected int _missionId;
 
 	protected int _targetId;
 
 	protected bool isStart;
+
+	public static void AddTowerInfo(int mId, int t)
+	{
+		bool flag = false;
+		foreach (TDInfo td in _tdList)
+		{
+			if (td.teamId == t)
+			{
+				flag = true;
+			}
+		}
+		if (!flag)
+		{
+			_tdList.Add(new TDInfo(mId, t));
+		}
+	}
 
 	protected override void OnPEInstantiate(uLink.NetworkMessageInfo info)
 	{
@@ -23,10 +52,7 @@ public class AiTowerDefense : AiCommonTD
 		_teamId = info.networkView.initialData.Read<int>(new object[0]);
 		_worldId = info.networkView.group.id;
 		isStart = false;
-		if (_missionId == -1 && !_tdList.Contains(base.TeamId))
-		{
-			_tdList.Add(base.TeamId);
-		}
+		AddTowerInfo(_missionId, _teamId);
 		Player.PlayerDisconnected += OnPlayerDisconnect;
 		if (LogFilter.logDebug)
 		{
@@ -47,9 +73,13 @@ public class AiTowerDefense : AiCommonTD
 		Player.PlayerDisconnected -= OnPlayerDisconnect;
 		StopAllCoroutines();
 		base.OnPEDestroy();
-		if (_missionId == -1 && _tdList.Contains(base.TeamId))
+		foreach (TDInfo td in _tdList)
 		{
-			_tdList.Remove(base.TeamId);
+			if (td.teamId == base.TeamId)
+			{
+				_tdList.Remove(td);
+				break;
+			}
 		}
 	}
 
@@ -107,10 +137,6 @@ public class AiTowerDefense : AiCommonTD
 		{
 			string questVariable = curPlayerMissionByMissionId.GetQuestVariable(_missionId, "TDMONS" + num);
 			string[] array = questVariable.Split('_');
-			if (array.Length < 2 && LogFilter.logDebug)
-			{
-				Debug.LogError("[TaskTowerDef]:Wrong Quest Var:" + questVariable);
-			}
 			int num2 = ((array.Length >= 2) ? Convert.ToInt32(array[1]) : 0);
 			num2++;
 			if (num2 < typeTowerDefendsData.m_Count)
@@ -127,9 +153,29 @@ public class AiTowerDefense : AiCommonTD
 		}
 	}
 
-	public static bool IsOnlyOneLimit(int teamId)
+	public static bool IsOnlyOneLimit(int mId, int teamId)
 	{
-		return _tdList.Contains(teamId);
+		if (mId == -1)
+		{
+			foreach (TDInfo td in _tdList)
+			{
+				if (td.teamId == teamId)
+				{
+					return true;
+				}
+			}
+		}
+		else
+		{
+			foreach (TDInfo td2 in _tdList)
+			{
+				if (td2.teamId == teamId && td2.missionId == mId)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public static void OnTDMonsterInstantiate(int tdId, AiObject ai)

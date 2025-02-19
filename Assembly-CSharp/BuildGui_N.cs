@@ -10,14 +10,6 @@ public class BuildGui_N : UIStaticWnd
 
 	public UISlicedSprite mBgSpr;
 
-	private int mCurrentBrushID = 1;
-
-	private int mCurrentItemId = 30200001;
-
-	private int mMatPage;
-
-	private int mBrushPage;
-
 	private void Awake()
 	{
 		mInstance = this;

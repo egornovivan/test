@@ -405,15 +405,14 @@ public class SceneAgentsContoller : PeCustomScene.SceneElement, ISceneController
 			RaycastHit[] array = Physics.RaycastAll(new Vector3(curPos.x, curPos.y + (float)num, curPos.z), Vector3.down, num * 2, SceneMan.DependenceLayer);
 			if (array != null && array.Length != 0)
 			{
-				float num2 = (curPos - array[0].point).sqrMagnitude;
+				float sqrMagnitude = (curPos - array[0].point).sqrMagnitude;
 				RaycastHit raycastHit = array[0];
 				for (int i = 1; i < array.Length; i++)
 				{
-					float sqrMagnitude = (curPos - array[i].point).sqrMagnitude;
-					if (num2 > sqrMagnitude)
+					float sqrMagnitude2 = (curPos - array[i].point).sqrMagnitude;
+					if (sqrMagnitude > sqrMagnitude2)
 					{
 						raycastHit = array[i];
-						num2 = num2;
 					}
 				}
 				outPutPos = raycastHit.point;
@@ -439,15 +438,15 @@ public class SceneAgentsContoller : PeCustomScene.SceneElement, ISceneController
 			{
 				array3[j] = array2[j].y;
 			}
-			float num3 = Mathf.Min(array3) - 4f;
-			float num4 = Mathf.Max(array3) + 4f;
-			RaycastHit[] array4 = Physics.RaycastAll(new Vector3(curPos.x, num4, curPos.z), Vector3.down, num4 - num3, SceneMan.DependenceLayer);
+			float num2 = Mathf.Min(array3) - 4f;
+			float num3 = Mathf.Max(array3) + 4f;
+			RaycastHit[] array4 = Physics.RaycastAll(new Vector3(curPos.x, num3, curPos.z), Vector3.down, num3 - num2, SceneMan.DependenceLayer);
 			if (array4 != null && array4.Length != 0)
 			{
-				float num5 = 100000f;
+				float num4 = 100000f;
 				for (int k = 0; k < array4.Length; k++)
 				{
-					if (!(num5 > array4[k].distance))
+					if (!(num4 > array4[k].distance))
 					{
 						continue;
 					}
@@ -455,14 +454,14 @@ public class SceneAgentsContoller : PeCustomScene.SceneElement, ISceneController
 					if (monsterSpawnPoint.bound.Contains(point2))
 					{
 						outPutPos = array4[k].point;
-						num5 = array4[k].distance;
+						num4 = array4[k].distance;
 						continue;
 					}
 					if (outPutPos.y > array4[k].point.y)
 					{
 						outPutPos.y = array4[k].point.y + 0.5f;
 					}
-					num5 = array4[k].distance;
+					num4 = array4[k].distance;
 				}
 				return true;
 			}

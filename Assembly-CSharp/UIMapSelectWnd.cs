@@ -19,7 +19,7 @@ public class UIMapSelectWnd : UIBaseWnd
 
 		public Texture MapTexture;
 
-		public Vector3 size;
+		public Vector3 size = Vector3.zero;
 
 		public List<string> roles = new List<string>();
 

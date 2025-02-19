@@ -39,8 +39,6 @@ public class IKAnimEffect
 
 	private Vector3 m_StartPos;
 
-	private Vector3 m_DeltaDir;
-
 	private float m_RemainingTime;
 
 	public EffectortLink[] m_Effects;
@@ -54,7 +52,6 @@ public class IKAnimEffect
 			m_EffectDir = dir;
 			m_Weight = weight;
 			m_StartPos = solver.GetRoot().position;
-			m_DeltaDir = Vector3.zero;
 			m_RemainingTime = m_StepTime;
 		}
 	}

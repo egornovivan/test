@@ -268,7 +268,6 @@ public class MonsterCmpt : PeCmpt, IPeMsg
 			break;
 		case EMsg.View_Model_Build:
 		{
-			GameObject gameObject = args[0] as GameObject;
 			BiologyViewRoot biologyViewRoot = args[1] as BiologyViewRoot;
 			m_Native = biologyViewRoot.native;
 			PEMotor motor = biologyViewRoot.motor;

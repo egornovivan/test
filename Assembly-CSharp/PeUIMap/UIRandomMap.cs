@@ -11,8 +11,6 @@ public class UIRandomMap : UIMap
 
 	private Texture2D mTex2d;
 
-	private Material mTexMat;
-
 	[SerializeField]
 	private Color colUnknow;
 
@@ -143,7 +141,6 @@ public class UIRandomMap : UIMap
 		}
 		mTex2d.Apply();
 		mMapTex.mainTexture = mTex2d;
-		mTexMat = mMapTex.material;
 		PeSingleton<MaskTile.Mgr>.Instance.eventor.Subscribe(ReflashMaskTile);
 		int mLength = PeSingleton<MaskTile.Mgr>.Instance.mLength;
 		int num = PeSingleton<MaskTile.Mgr>.Instance.mNumPerSide * 128;

@@ -788,7 +788,7 @@ public class UIShopWnd : UIBaseWnd
 		isShopping = false;
 	}
 
-	public bool InitNpcShopWhenMultiMode(int npcid, int[] ids)
+	public void InitNpcShopWhenMultiMode(int npcid, int[] ids)
 	{
 		if (!mInit)
 		{
@@ -824,7 +824,10 @@ public class UIShopWnd : UIBaseWnd
 		}
 		m_CurNpcID = npcid;
 		ResetItem();
-		return true;
+		if (!isShow)
+		{
+			Show();
+		}
 	}
 
 	public bool InitShopWhenMutipleMode(int[] objIDs)

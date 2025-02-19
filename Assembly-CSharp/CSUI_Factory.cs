@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,8 +17,6 @@ public class CSUI_Factory : MonoBehaviour
 
 	private int m_ItemType;
 
-	private List<UICompoundWndListItem> m_MenuItems = new List<UICompoundWndListItem>();
-
 	public CSUI_FactoryReplicator FactoryReplicator;
 
 	public CSUI_CompoundItem m_CompoundItemPrefab;
@@ -29,6 +28,8 @@ public class CSUI_Factory : MonoBehaviour
 	public UIScriptItem_N m_UIScriptItemPrefab;
 
 	public int mScriptItemPaddingX = 30;
+
+	public UICheckbox ckItemTrack;
 
 	private Queue<UIScriptItem_N> mScriptItemPool = new Queue<UIScriptItem_N>();
 
@@ -52,6 +53,18 @@ public class CSUI_Factory : MonoBehaviour
 
 	private Replicator m_Replicator => UIGraphControl.GetReplicator();
 
+	private UIGraphControl mGraphCtrl
+	{
+		get
+		{
+			if (FactoryReplicator == null || FactoryReplicator.m_MiddleContent == null || FactoryReplicator.m_MiddleContent.graphCtrl == null)
+			{
+				return null;
+			}
+			return FactoryReplicator.m_MiddleContent.graphCtrl;
+		}
+	}
+
 	public void SetEntity(CSEntity enti)
 	{
 		if (enti == null)
@@ -71,7 +84,7 @@ public class CSUI_Factory : MonoBehaviour
 
 	private CSUI_CompoundItem _createCompoundItem()
 	{
-		CSUI_CompoundItem cSUI_CompoundItem = Object.Instantiate(m_CompoundItemPrefab);
+		CSUI_CompoundItem cSUI_CompoundItem = UnityEngine.Object.Instantiate(m_CompoundItemPrefab);
 		cSUI_CompoundItem.transform.parent = m_CompoundItemRoot.transform;
 		cSUI_CompoundItem.transform.localPosition = Vector3.zero;
 		cSUI_CompoundItem.transform.localRotation = Quaternion.identity;
@@ -650,6 +663,7 @@ public class CSUI_Factory : MonoBehaviour
 					uIGraphNode2.mCtrl.ItemClick += OnGraphItemClick;
 				}
 			}
+			UpdateItemsTrackState(formula);
 		}
 		FactoryReplicator.DrawGraph();
 		return true;
@@ -762,6 +776,11 @@ public class CSUI_Factory : MonoBehaviour
 		{
 			m_Replicator.eventor.Subscribe(UpdateLeftListEventHandler);
 			UpdateLeftList();
+			if (GameUI.Instance.mItemsTrackWnd != null)
+			{
+				UIItemsTrackCtrl mItemsTrackWnd = GameUI.Instance.mItemsTrackWnd;
+				mItemsTrackWnd.ScriptTrackChanged = (Action<int, bool>)Delegate.Combine(mItemsTrackWnd.ScriptTrackChanged, new Action<int, bool>(OnScriptTrackChanged));
+			}
 		}
 	}
 
@@ -770,6 +789,11 @@ public class CSUI_Factory : MonoBehaviour
 		if (m_Replicator != null)
 		{
 			m_Replicator.eventor.Unsubscribe(UpdateLeftListEventHandler);
+			if (GameUI.Instance.mItemsTrackWnd != null)
+			{
+				UIItemsTrackCtrl mItemsTrackWnd = GameUI.Instance.mItemsTrackWnd;
+				mItemsTrackWnd.ScriptTrackChanged = (Action<int, bool>)Delegate.Remove(mItemsTrackWnd.ScriptTrackChanged, new Action<int, bool>(OnScriptTrackChanged));
+			}
 		}
 	}
 
@@ -834,7 +858,7 @@ public class CSUI_Factory : MonoBehaviour
 		}
 		else
 		{
-			GameObject gameObject = Object.Instantiate(m_UIScriptItemPrefab.gameObject);
+			GameObject gameObject = UnityEngine.Object.Instantiate(m_UIScriptItemPrefab.gameObject);
 			gameObject.transform.parent = mScriptListParent;
 			gameObject.transform.localPosition = Vector3.zero;
 			gameObject.transform.localScale = Vector3.one;
@@ -901,6 +925,36 @@ public class CSUI_Factory : MonoBehaviour
 		{
 			mCurScriptItemList[0].SelectItem(execEvent);
 			m_BackupScriptItem = mCurScriptItemList[0];
+		}
+	}
+
+	private void OnScriptTrackChanged(int scriptID, bool add)
+	{
+		if (mGraphCtrl.rootNode != null && mGraphCtrl.rootNode.ms != null && mGraphCtrl.rootNode.ms.id == scriptID)
+		{
+			ckItemTrack.isChecked = add;
+		}
+	}
+
+	private void UpdateItemsTrackState(Replicator.Formula ms)
+	{
+		bool isChecked = GameUI.Instance.mItemsTrackWnd.ContainsScript(ms.id);
+		ckItemTrack.isChecked = isChecked;
+	}
+
+	private void OnItemTrackCk(bool isChecked)
+	{
+		if (mGraphCtrl.rootNode != null && mGraphCtrl.rootNode.ms != null)
+		{
+			if (isChecked)
+			{
+				int multiple = mGraphCtrl.rootNode.getCount / mGraphCtrl.rootNode.ms.m_productItemCount;
+				GameUI.Instance.mItemsTrackWnd.UpdateOrAddScript(mGraphCtrl.rootNode.ms, multiple);
+			}
+			else
+			{
+				GameUI.Instance.mItemsTrackWnd.RemoveScript(mGraphCtrl.rootNode.ms.id);
+			}
 		}
 	}
 }

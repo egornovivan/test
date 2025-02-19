@@ -13,8 +13,6 @@ public class PhysicsCharacterMotor : MonoBehaviour
 	[HideInInspector]
 	public float maxSidewaysSpeed = 18f;
 
-	private float maxVelocityChange = 10f;
-
 	public float gravity = 10f;
 
 	private float mImpactTime;
@@ -32,10 +30,6 @@ public class PhysicsCharacterMotor : MonoBehaviour
 	public float SpeedReduce = 0.1f;
 
 	public bool ExStop;
-
-	private float MaxMoveAngle = 80f;
-
-	private Vector3 forwardVector = Vector3.forward;
 
 	protected Quaternion alignCorrection;
 
@@ -116,7 +110,6 @@ public class PhysicsCharacterMotor : MonoBehaviour
 		maxForwardSpeed = mspeed;
 		maxBackwardsSpeed = maxForwardSpeed * 0.75f;
 		maxSidewaysSpeed = maxForwardSpeed * 0.95f;
-		maxVelocityChange = maxForwardSpeed * 0.3f;
 	}
 
 	private void Awake()

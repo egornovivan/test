@@ -136,7 +136,7 @@ public class ZXCameraCtrl : MonoBehaviour
 		base.transform.LookAt(_Target);
 		if (Mathf.Cos(_Pitch / 180f * (float)Math.PI) < 0f)
 		{
-			base.transform.RotateAround(base.transform.forward, (float)Math.PI);
+			base.transform.Rotate(base.transform.forward, (float)Math.PI);
 		}
 	}
 

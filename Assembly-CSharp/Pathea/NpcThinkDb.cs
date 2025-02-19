@@ -60,9 +60,8 @@ public class NpcThinkDb
 		if (!npcCmpt.ThinkAgent.CanDo(_newtThink))
 		{
 			EThinkingType nowDo = npcCmpt.ThinkAgent.GetNowDo();
-			NpcThinking npcThinking = Get(nowDo);
-			NpcThinking npcThinking2 = Get(_newtThink);
-			if (npcThinking2.GetMask(nowDo) == EThinkingMask.Block)
+			NpcThinking npcThinking = Get(_newtThink);
+			if (npcThinking.GetMask(nowDo) == EThinkingMask.Block)
 			{
 				npcCmpt.ThinkAgent.RemoveThink(nowDo);
 				npcCmpt.ThinkAgent.RemoveThink(_newtThink);
@@ -70,7 +69,7 @@ public class NpcThinkDb
 				npcCmpt.ThinkAgent.AddThink(_newtThink);
 				return true;
 			}
-			if (npcThinking2.GetMask(nowDo) == EThinkingMask.Blocked)
+			if (npcThinking.GetMask(nowDo) == EThinkingMask.Blocked)
 			{
 				npcCmpt.ThinkAgent.RemoveThink(_newtThink);
 				npcCmpt.ThinkAgent.RemoveThink(nowDo);
@@ -78,13 +77,13 @@ public class NpcThinkDb
 				npcCmpt.ThinkAgent.AddThink(nowDo);
 				return false;
 			}
-			if (npcThinking2.GetMask(nowDo) == EThinkingMask.Delete)
+			if (npcThinking.GetMask(nowDo) == EThinkingMask.Delete)
 			{
 				npcCmpt.ThinkAgent.RemoveThink(nowDo);
 				npcCmpt.ThinkAgent.AddThink(_newtThink);
 				return true;
 			}
-			if (npcThinking2.GetMask(nowDo) == EThinkingMask.Deleted)
+			if (npcThinking.GetMask(nowDo) == EThinkingMask.Deleted)
 			{
 				return false;
 			}

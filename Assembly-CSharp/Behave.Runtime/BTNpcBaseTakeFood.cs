@@ -60,8 +60,6 @@ public class BTNpcBaseTakeFood : BTNormal
 
 		public float m_CurEatTime;
 
-		public float m_LastEatTime;
-
 		private bool m_Init;
 
 		private CSStorage m_Storage;

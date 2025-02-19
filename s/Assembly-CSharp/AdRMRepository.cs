@@ -492,7 +492,6 @@ public class AdRMRepository
 			typeUseItemData.m_Type = 1;
 			typeUseItemData.m_ItemID = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("ItemID")));
 			typeUseItemData.m_UseNum = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("UseNum")));
-			MissionRand missionRand = default(MissionRand);
 			string @string = sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("Pos"));
 			string[] array = @string.Split(';');
 			for (int i = 0; i < array.Length; i++)

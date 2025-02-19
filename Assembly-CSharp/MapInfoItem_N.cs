@@ -7,8 +7,6 @@ public class MapInfoItem_N : MonoBehaviour
 
 	public int mMissionId;
 
-	private Vector3 mMissionPos;
-
 	public MonoBehaviour mAiObj;
 
 	public UISprite mIcon;
@@ -32,7 +30,6 @@ public class MapInfoItem_N : MonoBehaviour
 		mIsBigMap = worldMap;
 		mIsMissionTrack = true;
 		mMissionId = missionId;
-		mMissionPos = pos;
 		if (worldMap)
 		{
 			mIcon.spriteName = "MissionTrack";

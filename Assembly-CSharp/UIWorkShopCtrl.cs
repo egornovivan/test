@@ -40,8 +40,6 @@ public class UIWorkShopCtrl : UIBaseWnd
 
 	private static UIWorkShopCtrl m_Instance;
 
-	private int mTitleIndex = -1;
-
 	public event OnGuiBtnClicked e_BtnClose;
 
 	private void Awake()
@@ -73,49 +71,37 @@ public class UIWorkShopCtrl : UIBaseWnd
 
 	private void OnActivate_0(bool isActivate)
 	{
-		if (isActivate)
+		if (isActivate && !mObjPageWorkShop_0.activeSelf)
 		{
-			if (!mObjPageWorkShop_0.activeSelf)
-			{
-				Page0AdaptiveCtrl.UpdateSizeByScreen(m_CurColumnCount, GridWidth);
-				mObjPageWorkShop_0.SetActive(value: true);
-				mObjPageMyUpLoad_1.SetActive(value: false);
-				mObjPageLocal_2.SetActive(value: false);
-				mVCERightPanel.SetActive(value: false);
-			}
-			mTitleIndex = 0;
+			Page0AdaptiveCtrl.UpdateSizeByScreen(m_CurColumnCount, GridWidth);
+			mObjPageWorkShop_0.SetActive(value: true);
+			mObjPageMyUpLoad_1.SetActive(value: false);
+			mObjPageLocal_2.SetActive(value: false);
+			mVCERightPanel.SetActive(value: false);
 		}
 	}
 
 	private void OnActivate_1(bool isActivate)
 	{
-		if (isActivate)
+		if (isActivate && !mObjPageMyUpLoad_1.activeSelf)
 		{
-			if (!mObjPageMyUpLoad_1.activeSelf)
-			{
-				Page1AdaptiveCtrl.UpdateSizeByScreen(m_CurColumnCount, GridWidth);
-				mObjPageWorkShop_0.SetActive(value: false);
-				mObjPageMyUpLoad_1.SetActive(value: true);
-				mObjPageLocal_2.SetActive(value: false);
-				mVCERightPanel.SetActive(value: false);
-			}
-			mTitleIndex = 1;
+			Page1AdaptiveCtrl.UpdateSizeByScreen(m_CurColumnCount, GridWidth);
+			mObjPageWorkShop_0.SetActive(value: false);
+			mObjPageMyUpLoad_1.SetActive(value: true);
+			mObjPageLocal_2.SetActive(value: false);
+			mVCERightPanel.SetActive(value: false);
 		}
 	}
 
 	private void OnActivate_2(bool isActivate)
 	{
-		if (isActivate)
+		if (isActivate && !mObjPageLocal_2.activeSelf)
 		{
-			if (!mObjPageLocal_2.activeSelf)
-			{
-				Page2AdaptiveCtrl.UpdateSizeByScreen(m_CurColumnCount + 1, GridWidth);
-				mObjPageWorkShop_0.SetActive(value: false);
-				mObjPageMyUpLoad_1.SetActive(value: false);
-				mObjPageLocal_2.SetActive(value: true);
-				mVCERightPanel.SetActive(value: false);
-			}
-			mTitleIndex = 2;
+			Page2AdaptiveCtrl.UpdateSizeByScreen(m_CurColumnCount + 1, GridWidth);
+			mObjPageWorkShop_0.SetActive(value: false);
+			mObjPageMyUpLoad_1.SetActive(value: false);
+			mObjPageLocal_2.SetActive(value: true);
+			mVCERightPanel.SetActive(value: false);
 		}
 	}
 

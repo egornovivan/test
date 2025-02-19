@@ -18,8 +18,6 @@ public class EulerianFluidProcessor
 
 	private List<VFVoxelChunkData> _tmpDirtyChunks = new List<VFVoxelChunkData>();
 
-	private HashSet<IntVector4> _allDirtyChunkPosList = new HashSet<IntVector4>();
-
 	public int Viscosity = 4;
 
 	public List<IntVector4> DirtyChunkPosList => _dirtyChunkPosList;

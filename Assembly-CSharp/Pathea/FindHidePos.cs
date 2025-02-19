@@ -7,11 +7,7 @@ public class FindHidePos
 {
 	private Transform _player;
 
-	private float _radius;
-
 	private static float PLAYER_R = 3f;
-
-	private static float ENEMY_R = 10f;
 
 	private static float K_R = 0.1f;
 
@@ -25,7 +21,6 @@ public class FindHidePos
 
 	public FindHidePos(float radius, bool needHide, float enemyR = 10f)
 	{
-		_radius = radius;
 		_bNeedHide = needHide;
 		_mEnemyR = enemyR;
 	}

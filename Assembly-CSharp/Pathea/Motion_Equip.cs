@@ -30,16 +30,16 @@ public class Motion_Equip : PeCmpt, IPeMsg
 	[HideInInspector]
 	private Action_TwoHandWeaponPutOff m_TwoHandWeaponPutOff;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Action_TwoHandWeaponAttack m_TwoHandWeaponAttack;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Action_SheildHold m_SheildHold;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private Action_GunHold m_GunHold;
 
 	[HideInInspector]
@@ -58,8 +58,8 @@ public class Motion_Equip : PeCmpt, IPeMsg
 	[SerializeField]
 	private Action_BowHold m_BowHold;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private Action_BowPutOff m_BowPutOff;
 
 	[SerializeField]

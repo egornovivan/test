@@ -32,7 +32,6 @@ public class RandomDunGenUtil
 
 	public static List<int> PickIdFromWeightList(System.Random rand, List<IdWeight> pool, int pickAmount)
 	{
-		List<int> list = new List<int>();
 		WeightPool weightPool = new WeightPool();
 		foreach (IdWeight item in pool)
 		{

@@ -16,8 +16,6 @@ public class VABuildingManager : MonoBehaviour
 
 	public List<BuildingNpcIdStand> createdNpcIdList;
 
-	private static int itemSum;
-
 	public static VABuildingManager Instance => mInstance;
 
 	private void Awake()
@@ -35,7 +33,6 @@ public class VABuildingManager : MonoBehaviour
 		mBuildingInfoMap.Clear();
 		mCreatedNpcBuildingID.Clear();
 		createdNpcIdList.Clear();
-		itemSum = 0;
 	}
 
 	public VABuildingInfo GetBuildingInfoByBuildingID(BuildingID buildingid)

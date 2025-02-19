@@ -54,10 +54,9 @@ public class EvaluateMgr
 			evaluateInfo.SetRangeFir(1f);
 		}
 		float attribute = npc.GetAttribute(AttribType.Hp);
-		float attribute2 = npc.GetAttribute(AttribType.Atk);
-		float attribute3 = npc.GetAttribute(AttribType.Def);
-		float attribute4 = enemy.entityTarget.GetAttribute(AttribType.Atk);
-		bool flag = ((attribute4 - attribute3 > attribute * 0.1f && attackMode.type == AttackType.Ranged) ? true : false);
+		float attribute2 = npc.GetAttribute(AttribType.Def);
+		float attribute3 = enemy.entityTarget.GetAttribute(AttribType.Atk);
+		bool flag = ((attribute3 - attribute2 > attribute * 0.1f && attackMode.type == AttackType.Ranged) ? true : false);
 		if (enemy.entityTarget.Field == MovementField.Sky || enemy.entityTarget.IsBoss || flag)
 		{
 			if (attackMode.type == AttackType.Ranged)
@@ -101,7 +100,6 @@ public class EvaluateMgr
 			if (cmpt != null)
 			{
 				int num3 = cmpt.count / Mathf.Max(weaponInfo.costPerShoot, 1);
-				float attribute5 = npc.GetAttribute(AttribType.Energy);
 				if (num3 > 3)
 				{
 					evaluateInfo.SetSurplusCnt(1f);

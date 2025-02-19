@@ -41,15 +41,6 @@ public class GameUI : MonoBehaviour
 	private Transform tsCenterOther;
 
 	[SerializeField]
-	private Transform tsLeft;
-
-	[SerializeField]
-	private Transform tsRightTop;
-
-	[SerializeField]
-	private Transform tsRight;
-
-	[SerializeField]
 	private GameObject buildPrefab;
 
 	[SerializeField]
@@ -69,9 +60,6 @@ public class GameUI : MonoBehaviour
 
 	[SerializeField]
 	private GameObject worldMapPrefab;
-
-	[SerializeField]
-	private GameObject limitWorldMapPrefab;
 
 	[SerializeField]
 	private GameObject npcStoragePrefab;
@@ -162,6 +150,9 @@ public class GameUI : MonoBehaviour
 
 	[SerializeField]
 	private GameObject mNpcTalkHistoryPrefab;
+
+	[SerializeField]
+	private GameObject itemsTrackWndPrefab;
 
 	[SerializeField]
 	private BoxCollider mSystemUIMaskCollider;
@@ -297,6 +288,9 @@ public class GameUI : MonoBehaviour
 
 	[HideInInspector]
 	public NpcTalkHistoryWnd mNpcTalkHistoryWnd;
+
+	[HideInInspector]
+	public UIItemsTrackCtrl mItemsTrackWnd;
 
 	private List<UIBaseWidget> mShowSystemWnds;
 
@@ -541,6 +535,10 @@ public class GameUI : MonoBehaviour
 		gameObject.SetActive(value: false);
 		gameObject = AddUIPrefab(mNpcTalkHistoryPrefab, tsCenter);
 		mNpcTalkHistoryWnd = gameObject.GetComponent<NpcTalkHistoryWnd>();
+		gameObject.SetActive(value: false);
+		gameObject = AddUIPrefab(itemsTrackWndPrefab, tsCenterOther);
+		mItemsTrackWnd = gameObject.GetComponent<UIItemsTrackCtrl>();
+		mItemsTrackWnd.transform.localPosition = mMissionTrackWnd.transform.localPosition + new Vector3(0f, 170f, 0f);
 		gameObject.SetActive(value: false);
 	}
 

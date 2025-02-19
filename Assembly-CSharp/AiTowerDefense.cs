@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class AiTowerDefense : AiCommonTD
 {
-	private static AiTowerDefense mInstance;
+	public static AiTowerDefense mInstance;
 
 	private EntityMonsterBeacon _mbEntity;
 
@@ -163,33 +163,39 @@ public class AiTowerDefense : AiCommonTD
 
 	private void OnActivate()
 	{
-		if (null != _mbEntity)
+		if (!(null != _mbEntity))
 		{
-			isStart = false;
-			EntityMonsterBeacon mbEntity = _mbEntity;
-			mbEntity.handlerNewWave = (Action<AISpawnTDWavesData.TDWaveSpData, int>)Delegate.Combine(mbEntity.handlerNewWave, new Action<AISpawnTDWavesData.TDWaveSpData, int>(OnNewWave));
-			EntityMonsterBeacon mbEntity2 = _mbEntity;
-			mbEntity2.handerNewEntity = (Action<SceneEntityPosAgent>)Delegate.Combine(mbEntity2.handerNewEntity, new Action<SceneEntityPosAgent>(OnNewEntity));
-			if (MissionId == -1 && TargetId == -1)
+			return;
+		}
+		isStart = false;
+		EntityMonsterBeacon mbEntity = _mbEntity;
+		mbEntity.handlerNewWave = (Action<AISpawnTDWavesData.TDWaveSpData, int>)Delegate.Combine(mbEntity.handlerNewWave, new Action<AISpawnTDWavesData.TDWaveSpData, int>(OnNewWave));
+		EntityMonsterBeacon mbEntity2 = _mbEntity;
+		mbEntity2.handerNewEntity = (Action<SceneEntityPosAgent>)Delegate.Combine(mbEntity2.handerNewEntity, new Action<SceneEntityPosAgent>(OnNewEntity));
+		if (MissionId == -1 && TargetId == -1)
+		{
+			Vector3 pos = base._pos;
+		}
+		else
+		{
+			GetTdGenPos(out var pos);
+			Vector3 vector = pos;
+			_mbEntity.TargetPosition = vector;
+			vector = vector;
+			base.transform.position = vector;
+			base._pos = vector;
+		}
+		if (_mbEntity.SpData != null)
+		{
+			float num = _mbEntity.SpData._timeToStart + _mbEntity.SpData._waveDatas[0]._delayTime;
+			TypeTowerDefendsData typeTowerDefendsData = MissionManager.GetTypeTowerDefendsData(TargetId);
+			if (PeGameMgr.IsMultiStory && typeTowerDefendsData != null)
 			{
-				Vector3 pos = base._pos;
+				num = typeTowerDefendsData.m_Time;
 			}
-			else
-			{
-				GetTdGenPos(out var pos);
-				Vector3 vector = pos;
-				_mbEntity.TargetPosition = vector;
-				vector = vector;
-				base.transform.position = vector;
-				base._pos = vector;
-			}
-			if (_mbEntity.SpData != null)
-			{
-				float num = _mbEntity.SpData._timeToStart + _mbEntity.SpData._waveDatas[0]._delayTime;
-				totalWave = _mbEntity.SpData._waveDatas.Count;
-				_mbEntity.UpdateUI(_missionId, 0, totalWave, num);
-				SyncTDStartInfo(totalWave, num);
-			}
+			totalWave = _mbEntity.SpData._waveDatas.Count;
+			_mbEntity.UpdateUI(_missionId, 0, totalWave, num);
+			SyncTDStartInfo(totalWave, num);
 		}
 	}
 

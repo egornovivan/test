@@ -78,6 +78,7 @@ public class Block45Constants
 
 	public static IntVector4 ToWorldUnitPos(int x, int y, int z, int lod)
 	{
+		IntVector4 zero = IntVector4.Zero;
 		return new IntVector4(x >> 1, y >> 1, z >> 1, lod);
 	}
 

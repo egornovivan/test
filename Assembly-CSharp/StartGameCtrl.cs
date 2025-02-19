@@ -67,7 +67,6 @@ public class StartGameCtrl : MonoBehaviour
 					UnityEngine.Object.Instantiate(Resources.Load(_preloadAssets[i]));
 				}
 				stopwatch.Stop();
-				UnityEngine.Debug.LogError("Load " + i + ":" + stopwatch.ElapsedMilliseconds);
 				stopwatch.Reset();
 			}
 		}

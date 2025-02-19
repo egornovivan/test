@@ -337,7 +337,6 @@ public class CSMain : MonoBehaviour
 		int height = width;
 		Vector3 int_pos = new Vector3(Mathf.FloorToInt(assem.Position.x), Mathf.FloorToInt(assem.Position.y), Mathf.FloorToInt(assem.Position.z));
 		Vector3 min_pos = int_pos - new Vector3(width, length, height);
-		Vector3 max_pos = int_pos + new Vector3(width, length, height);
 		Vector3 pos = min_pos;
 		float sqrRadius = assem.LargestRadius * assem.LargestRadius;
 		length *= 2;

@@ -8,12 +8,12 @@ public class LockedDoor : MonoBehaviour, IKeyLock
 
 	public Vector3 OpenPositionOffset = new Vector3(0f, -3f, 0f);
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private int keyID;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private KeyManager keyManager;
 
 	private Vector3 initialPosition;

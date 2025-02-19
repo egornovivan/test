@@ -92,12 +92,6 @@ public class PECommandLine
 		}
 		try
 		{
-			Activation.Instance.CheckActivatation();
-			if (!Activation.Instance.Activated)
-			{
-				Debug.Log("Not Activated, game quit.");
-				Application.Quit();
-			}
 			string commandLine = Environment.CommandLine;
 			CmdLine cmdLine = new CmdLine();
 			if (!cmdLine.Parse(commandLine))

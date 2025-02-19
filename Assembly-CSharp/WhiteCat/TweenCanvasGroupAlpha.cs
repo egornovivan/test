@@ -3,8 +3,8 @@ using WhiteCat.Internal;
 
 namespace WhiteCat;
 
-[RequireComponent(typeof(CanvasGroup))]
 [AddComponentMenu("White Cat/Tween/UI/Canvas Group Alpha")]
+[RequireComponent(typeof(CanvasGroup))]
 public class TweenCanvasGroupAlpha : TweenBase
 {
 	[Range(0f, 1f)]

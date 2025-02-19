@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[AddComponentMenu("NGUI/UI/Sprite (Tiled)")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/UI/Sprite (Tiled)")]
 public class UITiledSprite : UISlicedSprite
 {
 	public override Vector4 border => Vector4.zero;

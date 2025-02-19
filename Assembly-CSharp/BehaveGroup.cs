@@ -10,8 +10,6 @@ public class BehaveGroup : MonoBehaviour, IAgent, IBehave
 
 	private PeEntity m_Leader;
 
-	private int m_BehaveID;
-
 	private int m_MaxCount;
 
 	private List<PeEntity> m_Entities = new List<PeEntity>();
@@ -180,7 +178,7 @@ public class BehaveGroup : MonoBehaviour, IAgent, IBehave
 
 	public void SetBehavePath(string behavePath)
 	{
-		m_BehaveID = Behave.Runtime.Singleton<BTLauncher>.Instance.Instantiate(behavePath, this);
+		Behave.Runtime.Singleton<BTLauncher>.Instance.Instantiate(behavePath, this);
 	}
 
 	public void RegisterMember(PeEntity skEntity)

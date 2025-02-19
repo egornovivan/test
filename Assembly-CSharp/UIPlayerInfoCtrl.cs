@@ -114,8 +114,6 @@ public class UIPlayerInfoCtrl : UIBaseWnd
 	[SerializeField]
 	private UILabel m_BuffStrsLb;
 
-	private string m_BuffStrFormat = "+{0}";
-
 	private PeEntity m_Player;
 
 	private BiologyViewCmpt viewCmpt;
@@ -123,8 +121,6 @@ public class UIPlayerInfoCtrl : UIBaseWnd
 	private CommonCmpt commonCmpt;
 
 	private EquipmentCmpt m_EquipmentCmpt;
-
-	private PlayerPackageCmpt packageCmpt;
 
 	private EntityInfoCmpt entityInfoCmpt;
 
@@ -398,7 +394,6 @@ public class UIPlayerInfoCtrl : UIBaseWnd
 			viewCmpt = player.biologyViewCmpt;
 			commonCmpt = player.commonCmpt;
 			equipmentCmpt = player.equipmentCmpt;
-			packageCmpt = player.GetCmpt<PlayerPackageCmpt>();
 			entityInfoCmpt = player.enityInfoCmpt;
 			playerArmorCmpt = player.GetCmpt<PlayerArmorCmpt>();
 		}

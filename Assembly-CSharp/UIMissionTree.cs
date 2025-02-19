@@ -81,7 +81,7 @@ public class UIMissionTree : UIComponent
 		if (parentNode == null)
 		{
 			component.transform.parent = mContentTable.gameObject.transform;
-			component.mTablePartent = mContentTable.gameObject.GetComponent<UITable>();
+			component.mTablePartent = mContentTable;
 		}
 		else
 		{

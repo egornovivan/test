@@ -40,10 +40,6 @@ public class UITipListControl : MonoBehaviour
 
 	private EPhase m_FadeInNextPhase;
 
-	private float m_AddMsgInterval;
-
-	private bool m_AddMsg;
-
 	private bool m_AwalysOn;
 
 	public UITipList TipList => tipList;

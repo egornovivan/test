@@ -80,6 +80,7 @@ public static class PeInput
 		QuickBar10,
 		PrevQuickBar,
 		NextQuickBar,
+		LiberatiePerspective,
 		MoveForward,
 		DodgeForward,
 		MoveBackward,
@@ -635,6 +636,7 @@ public static class PeInput
 		QuickBar10,
 		PrevQuickBar,
 		NextQuickBar,
+		LiberatiePerspective,
 		Max
 	}
 
@@ -734,10 +736,6 @@ public static class PeInput
 
 	private static float s_curAxisV;
 
-	private static int s_curAxisHKeyState;
-
-	private static int s_curAxisVKeyState;
-
 	private static KeyCode s_keyAxisU;
 
 	private static KeyCode s_keyAxisD;
@@ -807,19 +805,17 @@ public static class PeInput
 		s_arrowAxisEnable = false;
 		s_curAxisH = 0f;
 		s_curAxisV = 0f;
-		s_curAxisHKeyState = 0;
-		s_curAxisVKeyState = 0;
 		s_inputConfRootName = "InputSettings";
 		s_inputConfVersion = "20161114";
-		s_strIdGeneral = new int[46]
+		s_strIdGeneral = new int[47]
 		{
 			10100, 10289, 10183, 10184, 10185, 10287, 10286, 10102, 10284, 10285,
 			10103, 10104, 10101, 10114, 10123, 10124, 10125, 10126, 10116, 10127,
 			10128, 10129, 10130, 10131, 10132, 10133, 10134, 10148, 10288, 10150,
 			10152, 10156, 10157, 10158, 10138, 10139, 10140, 10141, 10142, 10143,
-			10144, 10145, 10146, 10147, 10282, 10283
+			10144, 10145, 10146, 10147, 10282, 10283, 10081
 		};
-		s_settingsGeneral = new KeyJoySettingPair[46]
+		s_settingsGeneral = new KeyJoySettingPair[47]
 		{
 			new KeyJoySettingPair(KeyCode.Mouse0, InputControlType.Action3, lock0: false, lock1: false, string.Empty, string.Empty),
 			new KeyJoySettingPair(KeyCode.Mouse0, InputControlType.RightTrigger, lock0: false, lock1: false, string.Empty, string.Empty),
@@ -866,9 +862,10 @@ public static class PeInput
 			KeyCode.Alpha9,
 			KeyCode.Alpha0,
 			KeyCode.Comma,
-			KeyCode.Period
+			KeyCode.Period,
+			KeyCode.LeftAlt
 		};
-		s_settingsGeneralDef = new KeyJoySettingPair[46]
+		s_settingsGeneralDef = new KeyJoySettingPair[47]
 		{
 			new KeyJoySettingPair(KeyCode.Mouse0, InputControlType.Action3, lock0: false, lock1: false, string.Empty, string.Empty),
 			new KeyJoySettingPair(KeyCode.Mouse0, InputControlType.RightTrigger, lock0: false, lock1: false, string.Empty, string.Empty),
@@ -915,7 +912,8 @@ public static class PeInput
 			KeyCode.Alpha9,
 			KeyCode.Alpha0,
 			KeyCode.Comma,
-			KeyCode.Period
+			KeyCode.Period,
+			KeyCode.LeftAlt
 		};
 		s_strIdChrCtrl = new int[9] { 10105, 10107, 10109, 10111, 10113, 10115, 10118, 10119, 10120 };
 		s_settingsChrCtrl = new KeyJoySettingPair[9]
@@ -1116,6 +1114,7 @@ public static class PeInput
 			new LogicInput(s_settingsGeneral[43], null, KeyPressType.Click),
 			new LogicInput(s_settingsGeneral[44], null, KeyPressType.Click),
 			new LogicInput(s_settingsGeneral[45], null, KeyPressType.Click),
+			new LogicInput(s_settingsGeneral[46], null, KeyPressType.Press),
 			new LogicInput(s_settingsChrCtrl[0], null, KeyPressType.DirU),
 			new LogicInput(s_settingsChrCtrl[0], null, KeyPressType.DoublePress, null, KeyPressType.JoyStickUpDoublePress),
 			new LogicInput(s_settingsChrCtrl[1], null, KeyPressType.DirD),

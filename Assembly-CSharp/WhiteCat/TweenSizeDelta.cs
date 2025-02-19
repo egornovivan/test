@@ -4,8 +4,8 @@ using WhiteCat.Internal;
 
 namespace WhiteCat;
 
-[AddComponentMenu("White Cat/Tween/Rect Transform/Size Delta")]
 [RequireComponent(typeof(RectTransform))]
+[AddComponentMenu("White Cat/Tween/Rect Transform/Size Delta")]
 public class TweenSizeDelta : TweenBase
 {
 	public Vector2 from;

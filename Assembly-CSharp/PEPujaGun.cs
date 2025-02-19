@@ -34,7 +34,7 @@ public class PEPujaGun : PEGun
 			return;
 		}
 		m_Anim.SetBool(m_AimAnim, aimState);
-		if (PeGameMgr.IsMulti && null != m_Entity.netCmpt)
+		if (PeGameMgr.IsMulti && null != m_Entity.netCmpt && !m_Entity.netCmpt.network.hasOwnerAuth)
 		{
 			AiNetwork aiNetwork = m_Entity.netCmpt.network as AiNetwork;
 			if (null != aiNetwork)

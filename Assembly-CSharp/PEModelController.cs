@@ -69,11 +69,7 @@ public class PEModelController : MonoBehaviour
 	{
 		if (m_Renderers != null && m_Renderers.Length > 0)
 		{
-			int num = 0;
-			if (num < m_Renderers.Length)
-			{
-				return m_Renderers[num].materials;
-			}
+			return m_Renderers[0].materials;
 		}
 		return null;
 	}

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Pathea;
 using UnityEngine;
 
 public class MinBossGenerator : MonoBehaviour
@@ -35,7 +34,7 @@ public class MinBossGenerator : MonoBehaviour
 		if (list != null && list.Count != 0)
 		{
 			List<int> list2 = RandomDunGenUtil.PickIdFromWeightList(rand, list, 1);
-			PeEntity peEntity = MonsterEntityCreator.CreateDungeonMonster(list2[0], pos, RandomDungenMgrData.DungeonId, buff);
+			MonsterEntityCreator.CreateDungeonMonster(list2[0], pos, RandomDungenMgrData.DungeonId, buff);
 		}
 	}
 

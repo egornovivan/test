@@ -15,8 +15,6 @@ public class BackgroundAudio : MonoBehaviour
 
 	private Dictionary<int, BGAInst> bga;
 
-	private List<SPOTInst> spot;
-
 	private GameObject bga_group_go;
 
 	private GameObject spot_group_go;
@@ -91,7 +89,6 @@ public class BackgroundAudio : MonoBehaviour
 		bgm.audioSrc.path = string.Empty;
 		bgm.audioSrc.playOnReset = true;
 		bga = new Dictionary<int, BGAInst>();
-		spot = new List<SPOTInst>();
 	}
 
 	private void Start()

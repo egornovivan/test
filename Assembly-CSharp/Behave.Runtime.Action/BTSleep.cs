@@ -32,8 +32,6 @@ public class BTSleep : BTNormal
 		[Behave]
 		public float checkTime;
 
-		public float m_Time;
-
 		public float m_StartTime;
 
 		public float m_LastCDTime = -1000f;

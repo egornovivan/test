@@ -123,15 +123,7 @@ public class ThirdPersonFollow : ScriptModifier
 			float num6 = Mathf.Clamp(Time.deltaTime, 0.001f, 0.1f);
 			Vector3 zero = Vector3.zero;
 			Vector3 up = Vector3.up;
-			if (!(transform2 != null))
-			{
-				zero = ((!(transform != null)) ? vector : transform.position);
-			}
-			else
-			{
-				zero = ((!(transform3 != null) || !(transform4 != null)) ? transform2.position : Vector3.Lerp(transform2.position, ((!@bool) ? transform3 : transform4).position, AnimFactor.value.value_f));
-				up = transform2.up;
-			}
+			zero = ((!(transform != null)) ? vector : transform.position);
 			float num7 = 0f;
 			float num8 = 0f;
 			float num9 = (0f - num5) * 8f;
@@ -267,7 +259,7 @@ public class ThirdPersonFollow : ScriptModifier
 			{
 				num17 = value_f5;
 			}
-			value.position = zero - num17 * vector2 + vector5;
+			value.position = zero - num17 * vector2;
 			value.lockCursor = value_b;
 			if (Mathf.Abs(value_f8) > 0.001f)
 			{

@@ -378,10 +378,10 @@ public class VCECamera : MonoBehaviour
 			position += _Target;
 			base.transform.position = position;
 			base.transform.LookAt(_Target);
-			base.transform.RotateAround(base.transform.forward, _Roll / 180f * (float)Math.PI);
+			base.transform.Rotate(base.transform.forward, _Roll / 180f * (float)Math.PI);
 			if (Mathf.Cos(_Pitch / 180f * (float)Math.PI) < 0f)
 			{
-				base.transform.RotateAround(base.transform.forward, (float)Math.PI);
+				base.transform.Rotate(base.transform.forward, (float)Math.PI);
 			}
 		}
 		else if (ControlMode == 2)

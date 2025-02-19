@@ -22,8 +22,6 @@ public class NpcPackageCmpt : PackageCmpt
 
 	public AutoIncreaseMoney mAutoIncreaseMoney;
 
-	private List<ItemObject> _mEquipObjs = new List<ItemObject>();
-
 	public void InitAutoIncreaseMoney(int max, int valuePerDay)
 	{
 		mAutoIncreaseMoney = new AutoIncreaseMoney(base.money, max, valuePerDay, added: true);

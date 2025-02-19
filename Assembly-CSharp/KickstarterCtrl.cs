@@ -214,11 +214,9 @@ public class KickstarterCtrl : UIBaseWnd
 		int childCount = m_ItemParent.childCount;
 		Vector3 zero = Vector3.zero;
 		Vector3 vector = new Vector3(0f, m_PaddingY, 0f);
-		ManyPeopleItem manyPeopleItem = null;
 		for (int i = 0; i < childCount; i++)
 		{
 			Transform child = m_ItemParent.GetChild(i);
-			manyPeopleItem = child.GetComponent<ManyPeopleItem>();
 			child.localPosition = zero - vector;
 			Bounds bounds = NGUIMath.CalculateRelativeWidgetBounds(child);
 			zero.y = child.localPosition.y - bounds.size.y;

@@ -95,6 +95,7 @@ public class DoodadMgr
 			if (item.Value._pos == pos)
 			{
 				item.Value._net.DestroyMapObj();
+				item.Value.DeleteData();
 				break;
 			}
 		}
@@ -183,7 +184,6 @@ public class DoodadMgr
 
 	public static void SyncDoodaItems(Player player)
 	{
-		List<ItemObject> list = new List<ItemObject>();
 		foreach (KeyValuePair<int, IDoodad> item in _doodadMgr)
 		{
 			item.Value.SyncItemObjs(player.OwnerView.owner);

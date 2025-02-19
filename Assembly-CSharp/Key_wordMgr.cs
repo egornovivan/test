@@ -60,7 +60,7 @@ public class Key_wordMgr : MonoBehaviour
 		UIBaseWnd uIBaseWnd = null;
 		foreach (UIBaseWnd item in mBaseWndList)
 		{
-			if (item == GameUI.Instance.mMissionTrackWnd || item == GameUI.Instance.mCustomMissionTrack.missionInterpreter.missionTrackWnd || item == GameUI.Instance.mRevive || !item.isShow || !item.Active)
+			if (item == GameUI.Instance.mMissionTrackWnd || item == GameUI.Instance.mItemsTrackWnd || item == GameUI.Instance.mCustomMissionTrack.missionInterpreter.missionTrackWnd || item == GameUI.Instance.mRevive || !item.isShow || !item.Active)
 			{
 				continue;
 			}
@@ -154,43 +154,43 @@ public class Key_wordMgr : MonoBehaviour
 		}
 		if (enableQuickKey)
 		{
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar1))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar1) || (Input.GetKeyDown(KeyCode.Alpha1) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(0);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar2))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar2) || (Input.GetKeyDown(KeyCode.Alpha2) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(1);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar3))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar3) || (Input.GetKeyDown(KeyCode.Alpha3) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(2);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar4))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar4) || (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(3);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar5))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar5) || (Input.GetKeyDown(KeyCode.Alpha5) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(4);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar6))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar6) || (Input.GetKeyDown(KeyCode.Alpha6) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(5);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar7))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar7) || (Input.GetKeyDown(KeyCode.Alpha7) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(6);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar8))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar8) || (Input.GetKeyDown(KeyCode.Alpha8) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(7);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar9))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar9) || (Input.GetKeyDown(KeyCode.Alpha9) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(8);
 			}
-			if (PeInput.Get(PeInput.LogicFunction.QuickBar10))
+			if (PeInput.Get(PeInput.LogicFunction.QuickBar10) || (Input.GetKeyDown(KeyCode.Alpha0) && Input.GetKey(KeyCode.LeftShift)))
 			{
 				KeyFunc_QuickBar(9);
 			}

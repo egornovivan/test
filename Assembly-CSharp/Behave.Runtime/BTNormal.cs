@@ -61,8 +61,6 @@ public class BTNormal : BTAction
 
 	private MonsterCmpt m_Monster;
 
-	private AbnormalConditionCmpt m_Abnormal;
-
 	internal PeEntity entity => m_Entity;
 
 	internal SkEntity skEntity => m_SkEntity;
@@ -332,7 +330,6 @@ public class BTNormal : BTAction
 			m_Common = m_Entity.commonCmpt;
 			m_Passenger = m_Entity.passengerCmpt;
 			m_Monster = m_Entity.monster;
-			m_Abnormal = m_Entity.Alnormal;
 			m_Motion = m_Entity.motionMgr;
 			m_IKAim = m_Entity.biologyViewCmpt.monoIKAimCtrl;
 		}

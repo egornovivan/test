@@ -74,8 +74,6 @@ public class CSUI_NPCGrid : MonoBehaviour
 
 	public NpcGridEvent OnDestroySelf;
 
-	private bool m_Flag;
-
 	public Transform NpcIconRadio
 	{
 		get
@@ -243,7 +241,6 @@ public class CSUI_NPCGrid : MonoBehaviour
 			m_IconTex.enabled = false;
 			m_IconSprite.enabled = false;
 			m_IconTex.mainTexture = null;
-			m_Flag = false;
 		}
 	}
 

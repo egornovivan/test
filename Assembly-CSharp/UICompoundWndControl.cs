@@ -65,6 +65,8 @@ public class UICompoundWndControl : UIBaseWnd
 
 	public UIEfficientGrid m_LeftList;
 
+	public UICheckbox ckItemTrack;
+
 	[SerializeField]
 	private GameObject m_OpComponentParent;
 
@@ -105,8 +107,6 @@ public class UICompoundWndControl : UIBaseWnd
 
 	private bool isActiveClearBtn = true;
 
-	private int ProgressCount;
-
 	private float mListBoxPos_Z;
 
 	private List<Replicator.Formula> m_QueryFormula = new List<Replicator.Formula>();
@@ -114,10 +114,6 @@ public class UICompoundWndControl : UIBaseWnd
 	private Dictionary<int, List<Replicator.KnownFormula>> m_Formulas = new Dictionary<int, List<Replicator.KnownFormula>>();
 
 	private List<ItemProto> m_ItemDataList = new List<ItemProto>();
-
-	private int[] m_ProductItemList;
-
-	private List<int> m_NeedShowItem = new List<int>(1);
 
 	public bool _updateLeftList = true;
 
@@ -213,37 +209,39 @@ public class UICompoundWndControl : UIBaseWnd
 		{
 			OnShow();
 		}
-		if (!IsCompounding)
+		if (IsCompounding)
 		{
-			return;
-		}
-		GameUI.Instance.PlayCompoundAudioEffect();
-		Replicator.RunningReplicate runningReplicate = replicator.runningReplicate;
-		if (runningReplicate == null)
-		{
-			return;
-		}
-		UpdateCurItemScriptList(runningReplicate.formula.productItemId);
-		if (m_Formulas.ContainsKey(runningReplicate.formula.productItemId))
-		{
-			List<Replicator.KnownFormula> list = m_Formulas[runningReplicate.formula.productItemId];
-			for (int i = 0; i < list.Count; i++)
+			GameUI.Instance.PlayCompoundAudioEffect();
+			Replicator.RunningReplicate runningReplicate = replicator.runningReplicate;
+			if (runningReplicate != null)
 			{
-				if (runningReplicate.formulaID == list[i].id && mCurScriptItemList.Count > i)
+				UpdateCurItemScriptList(runningReplicate.formula.productItemId);
+				if (m_Formulas.ContainsKey(runningReplicate.formula.productItemId))
 				{
-					mCurScriptItemList[i].SelectItem();
-					m_BackupScriptItem = mCurScriptItemList[i];
-					UpdateCompoundCount(runningReplicate.leftCount * runningReplicate.formula.m_productItemCount);
-					break;
+					List<Replicator.KnownFormula> list = m_Formulas[runningReplicate.formula.productItemId];
+					for (int i = 0; i < list.Count; i++)
+					{
+						if (runningReplicate.formulaID == list[i].id && mCurScriptItemList.Count > i)
+						{
+							mCurScriptItemList[i].SelectItem();
+							m_BackupScriptItem = mCurScriptItemList[i];
+							UpdateCompoundCount(runningReplicate.leftCount * runningReplicate.formula.m_productItemCount);
+							break;
+						}
+					}
 				}
+				IsCompounding = true;
 			}
 		}
-		IsCompounding = true;
+		UIItemsTrackCtrl mItemsTrackWnd = GameUI.Instance.mItemsTrackWnd;
+		mItemsTrackWnd.ScriptTrackChanged = (Action<int, bool>)Delegate.Combine(mItemsTrackWnd.ScriptTrackChanged, new Action<int, bool>(OnScriptTrackChanged));
 	}
 
 	protected override void OnClose()
 	{
 		replicator.eventor.Unsubscribe(UpdateLeftListEventHandler);
+		UIItemsTrackCtrl mItemsTrackWnd = GameUI.Instance.mItemsTrackWnd;
+		mItemsTrackWnd.ScriptTrackChanged = (Action<int, bool>)Delegate.Remove(mItemsTrackWnd.ScriptTrackChanged, new Action<int, bool>(OnScriptTrackChanged));
 		base.OnClose();
 	}
 
@@ -343,7 +341,6 @@ public class UICompoundWndControl : UIBaseWnd
 		if (!replicator.HasEnoughPackage(mGraphCtrl.rootNode.GetItemID(), mGraphCtrl.rootNode.getCount))
 		{
 			IsCompounding = false;
-			ProgressCount = 0;
 			CompoundFixedTimeCount = 0;
 			mCompoundSlider.sliderValue = 0f;
 			MessageBox_N.ShowOkBox(PELocalization.GetString(8000050));
@@ -367,7 +364,6 @@ public class UICompoundWndControl : UIBaseWnd
 			}
 		}
 		IsCompounding = false;
-		ProgressCount = 0;
 		CompoundFixedTimeCount = 0;
 		mCompoundSlider.sliderValue = 0f;
 	}
@@ -464,6 +460,7 @@ public class UICompoundWndControl : UIBaseWnd
 					uIGraphNode2.mCtrl.ItemClick += GraphItemOnClick;
 				}
 			}
+			UpdateItemsTrackState(formula);
 		}
 		mGraphCtrl.DrawGraph();
 		return true;
@@ -797,6 +794,36 @@ public class UICompoundWndControl : UIBaseWnd
 		}
 	}
 
+	private void OnScriptTrackChanged(int scriptID, bool add)
+	{
+		if (mGraphCtrl.rootNode != null && mGraphCtrl.rootNode.ms != null && mGraphCtrl.rootNode.ms.id == scriptID)
+		{
+			ckItemTrack.isChecked = add;
+		}
+	}
+
+	private void UpdateItemsTrackState(Replicator.Formula ms)
+	{
+		bool isChecked = GameUI.Instance.mItemsTrackWnd.ContainsScript(ms.id);
+		ckItemTrack.isChecked = isChecked;
+	}
+
+	private void OnItemTrackCk(bool isChecked)
+	{
+		if (mGraphCtrl.rootNode != null && mGraphCtrl.rootNode.ms != null)
+		{
+			if (isChecked)
+			{
+				int multiple = mGraphCtrl.rootNode.getCount / mGraphCtrl.rootNode.ms.m_productItemCount;
+				GameUI.Instance.mItemsTrackWnd.UpdateOrAddScript(mGraphCtrl.rootNode.ms, multiple);
+			}
+			else
+			{
+				GameUI.Instance.mItemsTrackWnd.RemoveScript(mGraphCtrl.rootNode.ms.id);
+			}
+		}
+	}
+
 	private void Ck0AllOnClick()
 	{
 		if (Input.GetMouseButtonUp(0) && mRootType != 0)
@@ -910,8 +937,6 @@ public class UICompoundWndControl : UIBaseWnd
 
 	private void NewListItemOnClick(int index)
 	{
-		ItemProto itemData = ItemProto.GetItemData(m_NeedShowItem[index]);
-		Replicator.KnownFormula[] knowFormulasByProductItemId = replicator.GetKnowFormulasByProductItemId(m_NeedShowItem[index]);
 	}
 
 	private void GraphItemOnClick(int index)
@@ -1058,7 +1083,6 @@ public class UICompoundWndControl : UIBaseWnd
 	private void OnEndRepulicate()
 	{
 		IsCompounding = false;
-		ProgressCount = 0;
 		CompoundFixedTimeCount = 0;
 		mCompoundSlider.sliderValue = 0f;
 		m_ProgressLbl.text = string.Empty;

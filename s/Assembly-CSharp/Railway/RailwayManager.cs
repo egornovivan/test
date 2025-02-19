@@ -25,11 +25,9 @@ public class RailwayManager : MonoBehaviour
 
 	private static RailwayManager mInstance;
 
-	private bool _hasRecord;
+	public static float DefaultStayTime = 120f;
 
-	public static float DefaultStayTime = 60f;
-
-	public static float TrainSteerSpeed = 1.6666666f;
+	public static float TrainSteerSpeed = 3.3333333f;
 
 	private Dictionary<int, Point> mPointDic = new Dictionary<int, Point>();
 
@@ -38,6 +36,10 @@ public class RailwayManager : MonoBehaviour
 	public int saveVersion;
 
 	private static Transform sRailRoot;
+
+	private static bool useGameTime;
+
+	private static double lastGameTime;
 
 	public static RailwayManager Instance => mInstance;
 
@@ -56,7 +58,6 @@ public class RailwayManager : MonoBehaviour
 	private void Awake()
 	{
 		mInstance = this;
-		_hasRecord = false;
 	}
 
 	public void UpdateTrain(float deltaTime)
@@ -109,7 +110,7 @@ public class RailwayManager : MonoBehaviour
 			point.stayTime = DefaultStayTime;
 			break;
 		case Point.EType.End:
-			point.stayTime = DefaultStayTime / 2f;
+			point.stayTime = DefaultStayTime;
 			break;
 		default:
 			point.stayTime = 0f;
@@ -404,12 +405,11 @@ public class RailwayManager : MonoBehaviour
 	{
 		if (dataReader.Read())
 		{
-			int @int = dataReader.GetInt32(dataReader.GetOrdinal("ver"));
+			dataReader.GetInt32(dataReader.GetOrdinal("ver"));
 			byte[] array = (byte[])dataReader.GetValue(dataReader.GetOrdinal("data"));
 			if (array.Length > 0)
 			{
 				Import(array);
-				_hasRecord = true;
 			}
 		}
 	}
@@ -472,5 +472,30 @@ public class RailwayManager : MonoBehaviour
 			}
 		});
 		return ret;
+	}
+
+	private static float deltaTime()
+	{
+		if (!useGameTime)
+		{
+			return Time.deltaTime * 12f;
+		}
+		float result = (float)(GameTime.Timer.Second - lastGameTime);
+		lastGameTime = GameTime.Timer.Second;
+		return result;
+	}
+
+	public static void SetTime(bool value)
+	{
+		useGameTime = value;
+		if (useGameTime)
+		{
+			lastGameTime = GameTime.Timer.Second;
+		}
+	}
+
+	private void Update()
+	{
+		UpdateTrain(deltaTime());
 	}
 }

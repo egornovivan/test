@@ -92,8 +92,6 @@ public class UIPhoneWnd : UIBaseWnd
 	[HideInInspector]
 	public PageSelect CurSelectPage;
 
-	private bool bUpdateOnce;
-
 	private UIBaseWidget selectPage;
 
 	private UIBaseWidget curDiplomacyWnd;

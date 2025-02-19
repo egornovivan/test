@@ -11,7 +11,7 @@ public class TRMultiPara : Trajectory
 
 	public float angleScope = 160f;
 
-	private new Transform target;
+	private Transform myTarget;
 
 	private Vector3 startPos;
 
@@ -58,9 +58,9 @@ public class TRMultiPara : Trajectory
 
 	public void Emit(Transform target)
 	{
-		this.target = target;
+		myTarget = target;
 		startPos = base.transform.position;
-		subZ = GetPredictPosition(this.target, startPos, speed) - startPos;
+		subZ = GetPredictPosition(myTarget, startPos, speed) - startPos;
 		totalLength = subZ.magnitude;
 		subZ = subZ.normalized;
 		base.transform.forward = subZ;

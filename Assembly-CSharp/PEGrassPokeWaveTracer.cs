@@ -15,8 +15,6 @@ public class PEGrassPokeWaveTracer : PokeWaveTracer
 
 	public float TweeFactor = 0.5f;
 
-	private float _curScale;
-
 	private float _targetScale;
 
 	private float _curTime;
@@ -39,18 +37,16 @@ public class PEGrassPokeWaveTracer : PokeWaveTracer
 			return;
 		}
 		float num = position.x - Length * 0.5f;
-		float y = position.y;
 		float num2 = position.z - Width * 0.5f;
 		float num3 = position.x + Length * 0.5f;
-		float num4 = position.y + Height;
-		float num5 = position.z + Width * 0.5f;
+		float num4 = position.z + Width * 0.5f;
 		WaterHeight = position.y;
 		bool flag = false;
-		for (float num6 = num; num6 <= num3 + 0.5f; num6 += 1f)
+		for (float num5 = num; num5 <= num3 + 0.5f; num5 += 1f)
 		{
-			for (float num7 = num2; num7 <= num5 + 0.5f; num7 += 1f)
+			for (float num6 = num2; num6 <= num4 + 0.5f; num6 += 1f)
 			{
-				flag = PE.PointInTerrain(new Vector3(num6, position.y, num7)) > 0.52f;
+				flag = PE.PointInTerrain(new Vector3(num5, position.y, num6)) > 0.52f;
 				if (flag)
 				{
 					break;
@@ -62,7 +58,6 @@ public class PEGrassPokeWaveTracer : PokeWaveTracer
 		{
 			Ray ray = new Ray(new Vector3(position.x, position.y, position.z), Vector3.down);
 			Vector3 point = Vector3.zero;
-			float num8 = 0f;
 			if (PE.RaycastVoxel(ray, out point, Mathf.CeilToInt(Height), 1, 1))
 			{
 				m_GenWave = true;

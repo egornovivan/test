@@ -177,14 +177,6 @@ public class MissionManager : UnityEngine.MonoBehaviour
 
 	private List<int> iHadTalkedMap = new List<int>();
 
-	public List<SceneBasicObjAgent> DienShips = new List<SceneBasicObjAgent>();
-
-	public SceneBasicObjAgent L1Ship;
-
-	public SceneBasicObjAgent PajaShip;
-
-	public SceneBasicObjAgent Launchcenter;
-
 	private static MissionManager mInstance;
 
 	private PeEntity _entityToSet;
@@ -263,7 +255,6 @@ public class MissionManager : UnityEngine.MonoBehaviour
 			StroyManager.Instance.InitMission();
 		}
 		UIMissionMgr.Instance.e_DeleteMission += AbortMission;
-		MultiScenePrafeb();
 		yield return 0;
 	}
 
@@ -538,115 +529,6 @@ public class MissionManager : UnityEngine.MonoBehaviour
 		PlayerNetwork.mainPlayer.RequestChangeScene(sceneId);
 	}
 
-	public void EnableDienShipLight(int index, bool bEnable)
-	{
-		if (DienShips[index] != null && DienShips[index].Go != null)
-		{
-			DienManager component = DienShips[index].Go.GetComponent<DienManager>();
-			if (component != null)
-			{
-				component.directionLight.enabled = bEnable;
-			}
-		}
-	}
-
-	public void CheckEnableDienShipLight(int curSceneId)
-	{
-		foreach (SceneBasicObjAgent dienShip in DienShips)
-		{
-			if (dienShip != null && dienShip.Go != null)
-			{
-				DienManager component = dienShip.Go.GetComponent<DienManager>();
-				if (component != null)
-				{
-					component.directionLight.enabled = false;
-				}
-			}
-		}
-		if (curSceneId == 2)
-		{
-			Instance.EnableDienShipLight(0, bEnable: true);
-		}
-		if (curSceneId == 6)
-		{
-			Instance.EnableDienShipLight(1, bEnable: true);
-		}
-		if (curSceneId == 7)
-		{
-			Instance.EnableDienShipLight(2, bEnable: true);
-		}
-		if (curSceneId == 8)
-		{
-			Instance.EnableDienShipLight(3, bEnable: true);
-		}
-		if (curSceneId == 9)
-		{
-			Instance.EnableDienShipLight(4, bEnable: true);
-		}
-		if (curSceneId == 10)
-		{
-			Instance.EnableDienShipLight(5, bEnable: true);
-		}
-	}
-
-	public void EnablePajaShipLight(bool bEnable)
-	{
-		if (PajaShip != null && PajaShip.Go != null)
-		{
-			PajaShipMgr component = PajaShip.Go.GetComponent<PajaShipMgr>();
-			if (component != null)
-			{
-				component.directionLight.enabled = bEnable;
-			}
-		}
-	}
-
-	public void MultiScenePrafeb()
-	{
-		if (PeGameMgr.IsMultiStory)
-		{
-			if (DienShips.Count == 0)
-			{
-				DienShips.Add(new SceneBasicObjAgent("Prefab/Other/DienShip", string.Empty, new Vector3(14798f, 3f, 8344f), Quaternion.identity, Vector3.one));
-			}
-			if (DienShips.Count == 1)
-			{
-				DienShips.Add(new SceneBasicObjAgent("Prefab/Other/DienShip", string.Empty, new Vector3(16545.25f, 3.93f, 10645.7f), Quaternion.identity, Vector3.one));
-			}
-			if (DienShips.Count == 2)
-			{
-				DienShips.Add(new SceneBasicObjAgent("Prefab/Other/DienShip", string.Empty, new Vector3(2876f, 265.6f, 9750.3f), Quaternion.identity, Vector3.one));
-			}
-			if (DienShips.Count == 3)
-			{
-				DienShips.Add(new SceneBasicObjAgent("Prefab/Other/DienShip", string.Empty, new Vector3(13765.5f, 75.7f, 15242.7f), Quaternion.identity, Vector3.one));
-			}
-			if (DienShips.Count == 4)
-			{
-				DienShips.Add(new SceneBasicObjAgent("Prefab/Other/DienShip", string.Empty, new Vector3(12547.7f, 523.7f, 13485.5f), Quaternion.identity, Vector3.one));
-			}
-			if (DienShips.Count == 5)
-			{
-				DienShips.Add(new SceneBasicObjAgent("Prefab/Other/DienShip", string.Empty, new Vector3(7750.4f, 349.7f, 14712.8f), Quaternion.identity, Vector3.one));
-			}
-			if (L1Ship == null)
-			{
-				L1Ship = new SceneBasicObjAgent("Prefab/Other/old_scene_boatinside", string.Empty, new Vector3(9661f, 88.8f, 12758f), Quaternion.identity, Vector3.one);
-			}
-			Quaternion identity = Quaternion.identity;
-			identity.eulerAngles = new Vector3(352f, 55f, 0f);
-			if (PajaShip == null)
-			{
-				PajaShip = new SceneBasicObjAgent("Prefab/Other/paja_port_shipinside", string.Empty, new Vector3(1471f, -398.7f, 7928.3f), identity, Vector3.one);
-			}
-			if (Launchcenter == null)
-			{
-				identity.eulerAngles = new Vector3(0f, 180f, 0f);
-				Launchcenter = new SceneBasicObjAgent("Prefab/Other/paja_launch_center", string.Empty, new Vector3(1713f, -360f, 10402f), identity, Vector3.one);
-			}
-		}
-	}
-
 	public static bool IsTalkMission(int MissionID)
 	{
 		MissionCommonData missionCommonData = GetMissionCommonData(MissionID);
@@ -897,9 +779,9 @@ public class MissionManager : UnityEngine.MonoBehaviour
 						}
 						VArtifactTownManager.Instance.RegistTownDestryedEvent(delegate(int n)
 						{
-							if (n == monData.m_campID)
+							if (n == monData.m_campID[0])
 							{
-								int allyTownDestroyedCount = VATownGenerator.Instance.GetAllyTownDestroyedCount(monData.m_campID);
+								int allyTownDestroyedCount = VATownGenerator.Instance.GetAllyTownDestroyedCount(monData.m_campID[0]);
 								string text = $"-1_{allyTownDestroyedCount}";
 								ModifyQuestVariable(data.m_ID, PlayerMission.MissionFlagMonster + idx, text);
 								if (PeGameMgr.IsMulti && PlayerNetwork.mainPlayer != null)
@@ -1369,14 +1251,14 @@ public class MissionManager : UnityEngine.MonoBehaviour
 						if (monData.m_destroyTown)
 						{
 							int idx = i * 10;
-							int allyTownDestroyedCount = VATownGenerator.Instance.GetAllyTownDestroyedCount(monData.m_campID);
+							int allyTownDestroyedCount = VATownGenerator.Instance.GetAllyTownDestroyedCount(monData.m_campID[0]);
 							string missionValue2 = $"-1_{allyTownDestroyedCount}";
 							ModifyQuestVariable(MissionID, PlayerMission.MissionFlagMonster + idx, missionValue2);
-							if (allyTownDestroyedCount >= monData.m_townNum)
+							if (allyTownDestroyedCount >= monData.m_townNum[0])
 							{
 								if (PeGameMgr.IsMulti && PlayerNetwork.mainPlayer != null)
 								{
-									int allyTownDestroyedCount2 = VATownGenerator.Instance.GetAllyTownDestroyedCount(monData.m_campID);
+									int allyTownDestroyedCount2 = VATownGenerator.Instance.GetAllyTownDestroyedCount(monData.m_campID[0]);
 									string text = $"-1_{allyTownDestroyedCount2}";
 									PlayerNetwork.mainPlayer.RPCServer(EPacketType.PT_InGame_ModifyMissionFlag, data.m_ID, PlayerMission.MissionFlagMonster + idx, text);
 								}
@@ -1385,9 +1267,17 @@ public class MissionManager : UnityEngine.MonoBehaviour
 							}
 							VArtifactTownManager.Instance.RegistTownDestryedEvent(delegate(int n)
 							{
-								if (n == monData.m_campID)
+								bool flag2 = false;
+								foreach (int item in monData.m_campID)
 								{
-									int allyTownDestroyedCount3 = VATownGenerator.Instance.GetAllyTownDestroyedCount(monData.m_campID);
+									if (n == item)
+									{
+										flag2 = true;
+									}
+								}
+								if (flag2)
+								{
+									int allyTownDestroyedCount3 = VATownGenerator.Instance.GetAllyTownDestroyedCount(n);
 									string text2 = $"-1_{allyTownDestroyedCount3}";
 									ModifyQuestVariable(MissionID, PlayerMission.MissionFlagMonster + idx, text2);
 									if (PeGameMgr.IsMulti && PlayerNetwork.mainPlayer != null)
@@ -2643,27 +2533,10 @@ public class MissionManager : UnityEngine.MonoBehaviour
 				CompleteTarget(TargetID, MissionID, forceComplete: true);
 			}
 		}
-		if (PeGameMgr.IsMulti)
+		if (!PeGameMgr.IsMulti)
 		{
-			if (AiTowerDefense.IsAuth())
-			{
-				float num = Vector3.Distance(typeTowerDefendsData.finallyPos, AiTowerDefense.GetAuthPos());
-				if (typeTowerDefendsData.m_range != 0 && num > (float)typeTowerDefendsData.m_range)
-				{
-					PlayerNetwork.mainPlayer.RPCServer(EPacketType.PT_InGame_MissionFailed, MissionID);
-					if (targetId_time.ContainsKey(TargetID))
-					{
-						targetId_time.Remove(TargetID);
-					}
-					FailureMission(MissionID);
-					return true;
-				}
-			}
-		}
-		else
-		{
-			float num2 = Vector3.Distance(typeTowerDefendsData.finallyPos, StroyManager.Instance.GetPlayerPos());
-			if (typeTowerDefendsData.m_range != 0 && num2 > (float)typeTowerDefendsData.m_range)
+			float num = Vector3.Distance(typeTowerDefendsData.finallyPos, StroyManager.Instance.GetPlayerPos());
+			if (typeTowerDefendsData.m_range != 0 && num > (float)typeTowerDefendsData.m_range)
 			{
 				if (targetId_time.ContainsKey(TargetID))
 				{

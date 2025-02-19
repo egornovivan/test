@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Internal/Update Manager")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/Internal/Update Manager")]
 public class UpdateManager : MonoBehaviour
 {
 	public class UpdateEntry

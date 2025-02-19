@@ -37,8 +37,6 @@ public class UIMultiCustomCtrl : MonoBehaviour
 
 	private Dictionary<string, ScenarioMapDesc> mMapDescs = new Dictionary<string, ScenarioMapDesc>(10);
 
-	private DirectoryInfo mBackDir;
-
 	private string mCurPath;
 
 	private List<MapItemDescs> mMapItems = new List<MapItemDescs>(10);

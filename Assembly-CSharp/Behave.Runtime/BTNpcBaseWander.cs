@@ -83,15 +83,7 @@ public class BTNpcBaseWander : BTNormal
 
 	private float m_WanderRadius;
 
-	private float m_starTime;
-
 	private float mWanderStartTime;
-
-	private float mWanderTime = 40f;
-
-	private bool m_HasCallBack;
-
-	private float m_BeStuckTimes;
 
 	private EThinkingType mStroll = EThinkingType.Stroll;
 
@@ -174,7 +166,6 @@ public class BTNpcBaseWander : BTNormal
 			NpcMgr.GetRandomPathForCsWander(base.entity, base.Creater.Assembly.Position, base.transform.forward, 15f, base.Creater.Assembly.Radius, OnPathComplete);
 		}
 		SetNpcState(ENpcState.Patrol);
-		m_starTime = Time.time;
 		mWanderStartTime = Time.time;
 		return BehaveResult.Running;
 	}
@@ -302,6 +293,5 @@ public class BTNpcBaseWander : BTNormal
 	private void Reset(Tree sender)
 	{
 		m_CurWanderPos = Vector3.zero;
-		m_BeStuckTimes = 0f;
 	}
 }

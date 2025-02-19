@@ -19,11 +19,7 @@ public class Action_Ride : PEAction
 
 	private Transform _ridePosTrans;
 
-	private int _playerID;
-
 	private int _monsterID;
-
-	private int _monsterProtoID;
 
 	private bool _enityIsMe;
 
@@ -88,13 +84,8 @@ public class Action_Ride : PEAction
 		{
 			_monsterEntity.IKCmpt.ikEnable = false;
 		}
-		if ((bool)base.entity)
-		{
-			_playerID = base.entity.Id;
-		}
 		if ((bool)_monsterEntity)
 		{
-			_monsterProtoID = _monsterEntity.ProtoID;
 			_monsterID = _monsterEntity.Id;
 		}
 		if (null != base.anim)
@@ -202,7 +193,6 @@ public class Action_Ride : PEAction
 		}
 		if (_enityIsMe && (bool)base.trans && (bool)_monsterEntity && (bool)_monsterEntity.peTrans && (bool)_monsterEntity.peTrans.realTrans)
 		{
-			Vector3 zero = Vector3.zero;
 			base.trans.position = new Vector3(base.trans.position.x, base.trans.position.y + _monsterEntity.peTrans.bound.size.y * 0.5f, base.trans.position.z);
 		}
 		base.motionMgr.FreezePhyState(GetType(), v: false);

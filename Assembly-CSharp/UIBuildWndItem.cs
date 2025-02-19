@@ -75,10 +75,6 @@ public class UIBuildWndItem : MonoBehaviour
 
 	private UIGridEffect effect;
 
-	private bool moveIn;
-
-	private float moveInTime;
-
 	private GameObject _effectGo;
 
 	public int ItemId => mItemId;

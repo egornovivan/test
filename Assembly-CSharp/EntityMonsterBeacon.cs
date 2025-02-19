@@ -134,7 +134,6 @@ public class EntityMonsterBeacon : PeEntity
 
 	private static List<int> GetSpawnTypeMask(bool bOnlyMonster, out int campCol)
 	{
-		List<int> list = new List<int>();
 		campCol = -1;
 		if (bOnlyMonster)
 		{
@@ -234,6 +233,15 @@ public class EntityMonsterBeacon : PeEntity
 		}
 		bcn.StartCoroutine(bcn.RefreshTowerMission());
 		return bcn;
+	}
+
+	public static bool IsController()
+	{
+		if (PeGameMgr.IsSingle || (AiTowerDefense.mInstance != null && AiTowerDefense.mInstance.hasOwnerAuth))
+		{
+			return true;
+		}
+		return false;
 	}
 
 	public static EntityMonsterBeacon CreateMonsterBeaconBySweepID(List<int> sweepDataId, Transform targetTrans, TowerInfoUIData uiData, int preTime, int entityId = -1, TypeTowerDefendsData data = null, int releaseNpcid = -1)

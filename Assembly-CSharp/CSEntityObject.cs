@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class CSEntityObject : GLBehaviour
@@ -36,8 +35,6 @@ public abstract class CSEntityObject : GLBehaviour
 	public Transform[] m_WorkTrans;
 
 	private bool m_Start;
-
-	private List<List<Material>> m_OrginMats;
 
 	private MeshRenderer[] m_MeshRenders;
 
@@ -198,7 +195,6 @@ public abstract class CSEntityObject : GLBehaviour
 
 	protected void Awake()
 	{
-		m_OrginMats = new List<List<Material>>();
 	}
 
 	protected void Start()

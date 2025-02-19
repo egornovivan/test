@@ -49,7 +49,6 @@ public class CameraSpringEffect : CamEffect
 				Vector3 vector = -s * amp;
 				vector = Vector3.ClampMagnitude(vector, magnitude);
 				m_TargetCam.transform.position += vector;
-				Vector3 vector2 = m_Character.position + vector * Mathf.Clamp01(1f - rot);
 			}
 			m_LastCharPos = m_Bone.position;
 			m_Ignore = false;

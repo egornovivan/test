@@ -6,12 +6,6 @@ public class UIHealthBar : MonoBehaviour
 	private float mValue = 1f;
 
 	[SerializeField]
-	private float mInvoteTime = 0.2f;
-
-	[SerializeField]
-	private bool bPlayEffect = true;
-
-	[SerializeField]
 	private UISprite mSprBg;
 
 	[SerializeField]

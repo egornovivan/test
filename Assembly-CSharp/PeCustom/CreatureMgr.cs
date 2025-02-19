@@ -191,8 +191,6 @@ public class CreatureMgr : ArchivableSingleton<CreatureMgr>
 
 	private Dictionary<int, EntityList> mEntsMap = new Dictionary<int, EntityList>();
 
-	private int mMainPlayerId = -1;
-
 	public PeEntity mainPlayer => PeSingleton<MainPlayer>.Instance.entity;
 
 	public int mainPlayerId => PeSingleton<MainPlayer>.Instance.entityId;

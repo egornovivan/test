@@ -6,8 +6,6 @@ public class CustomStyleItem_N : MonoBehaviour
 
 	private CreatPlayerGui_N mParent;
 
-	private int mIndex;
-
 	private void Start()
 	{
 	}

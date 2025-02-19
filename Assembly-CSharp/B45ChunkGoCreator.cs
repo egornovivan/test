@@ -16,10 +16,6 @@ public class B45ChunkGoCreator
 
 	private MonoBehaviour _mono;
 
-	private Stack<OnComputeComplete> _setMeshFuncStack;
-
-	private Stack<BiLookup<int, B45ChunkData>> _buildListStack;
-
 	private OnComputeComplete _setChunkMesh;
 
 	private cpuBlock45 b45proc;
@@ -34,8 +30,6 @@ public class B45ChunkGoCreator
 		_chunkToBuildList = chunkToComputeList;
 		_bAsyncBuildMode = bAsyncMode;
 		_mono.StartCoroutine(rebuildChunksInList());
-		_setMeshFuncStack = new Stack<OnComputeComplete>();
-		_buildListStack = new Stack<BiLookup<int, B45ChunkData>>();
 		b45proc.init();
 	}
 

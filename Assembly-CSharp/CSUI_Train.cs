@@ -167,8 +167,6 @@ public class CSUI_Train : MonoBehaviour
 
 	private List<CSUIMyNpc> allRandomNpcs = new List<CSUIMyNpc>();
 
-	private List<CSUI_Grid> m_ItemGrids = new List<CSUI_Grid>();
-
 	private List<CSUI_SkillItem> m_SkillGrids = new List<CSUI_SkillItem>();
 
 	private List<CSUI_SkillItem> m_StudySkillGrids = new List<CSUI_SkillItem>();

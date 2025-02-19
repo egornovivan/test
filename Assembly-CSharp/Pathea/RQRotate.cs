@@ -33,7 +33,7 @@ public class RQRotate : Request
 
 	public override void Deserialize(BinaryReader r)
 	{
-		int num = r.ReadInt32();
+		r.ReadInt32();
 		rotation.x = r.ReadSingle();
 		rotation.y = r.ReadSingle();
 		rotation.z = r.ReadSingle();

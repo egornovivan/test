@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
 
-[ExecuteInEditMode]
 [AddComponentMenu("NGUI/UI/Panel")]
+[ExecuteInEditMode]
 public class UIPanel : MonoBehaviour
 {
 	public enum DebugInfo
@@ -25,16 +25,16 @@ public class UIPanel : MonoBehaviour
 	[HideInInspector]
 	private DebugInfo mDebugInfo = DebugInfo.Gizmos;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private UIDrawCall.Clipping mClipping;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Vector4 mClipRange = Vector4.zero;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Vector2 mClipSoftness = new Vector2(40f, 40f);
 
 	private OrderedDictionary mChildren = new OrderedDictionary();

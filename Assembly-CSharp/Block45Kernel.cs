@@ -34,13 +34,6 @@ public class Block45Kernel
 
 	private byte[] t_neighbourMaterialTypes = new byte[6];
 
-	private int[] CornerCoordExtensionFlags = new int[24]
-	{
-		0, 0, 0, 0, 1, 0, 1, 1, 0, 1,
-		0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
-		1, 1, 0, 1
-	};
-
 	private int[][] SpecialUVIndexTable = new int[23][]
 	{
 		null,

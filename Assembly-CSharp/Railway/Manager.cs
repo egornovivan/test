@@ -42,7 +42,7 @@ public class Manager : ArchivableSingleton<Manager>
 
 	public const float JointMaxDistance = 80f;
 
-	public static float DefaultStayTime = 5f * GameTime.NormalTimeSpeed;
+	public static float DefaultStayTime = 10f * GameTime.NormalTimeSpeed;
 
 	public static float TrainSteerSpeed = 40f / GameTime.NormalTimeSpeed;
 
@@ -144,7 +144,7 @@ public class Manager : ArchivableSingleton<Manager>
 			point.stayTime = DefaultStayTime;
 			break;
 		case Point.EType.End:
-			point.stayTime = DefaultStayTime / 2f;
+			point.stayTime = DefaultStayTime;
 			break;
 		default:
 			point.stayTime = 0f;

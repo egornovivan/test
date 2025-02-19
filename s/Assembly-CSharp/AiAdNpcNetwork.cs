@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -59,6 +58,8 @@ public class AiAdNpcNetwork : AiObject
 	protected bool bDesTroy;
 
 	public bool bForcedServant;
+
+	private Vector3 gerdyPutDownPos = new Vector3(12246.42f, 193.1f, 6528.76f);
 
 	protected int mAutoReviveTime;
 
@@ -277,6 +278,7 @@ public class AiAdNpcNetwork : AiObject
 		BindAction(EPacketType.PT_NPC_WorkState, RPC_C2S_SetWorkState);
 		BindAction(EPacketType.PT_NPC_WorkItemFetch, RPC_C2S_CreateItemFetch);
 		BindAction(EPacketType.PT_NPC_Move, RPC_C2S_NPCMove);
+		BindAction(EPacketType.PT_NPC_ForceMove, RPC_S2C_ForceMove);
 		BindAction(EPacketType.PT_NPC_RotY, RPC_C2S_NPCRotY);
 		BindAction(EPacketType.PT_NPC_Equips, RPC_C2S_NpcEquips);
 		BindAction(EPacketType.PT_NPC_Items, RPC_C2S_NpcItems);
@@ -371,9 +373,9 @@ public class AiAdNpcNetwork : AiObject
 
 	private void InitDefaultStoryNpc()
 	{
-		base.sex = (PeSex)UnityEngine.Random.Range(1, 3);
+		base.sex = (PeSex)Random.Range(1, 3);
 		_customData = CustomCharactor.CustomData.CreateCustomData(base.sex);
-		int race = UnityEngine.Random.Range(1, 5);
+		int race = Random.Range(1, 5);
 		NpcMissionData missionData = NpcMissionDataRepository.GetMissionData(base.Id);
 		if (missionData == null)
 		{
@@ -437,9 +439,9 @@ public class AiAdNpcNetwork : AiObject
 
 	private void InitDefaultRandomNpc()
 	{
-		base.sex = (PeSex)UnityEngine.Random.Range(1, 3);
+		base.sex = (PeSex)Random.Range(1, 3);
 		_customData = CustomCharactor.CustomData.CreateCustomData(base.sex);
-		int race = UnityEngine.Random.Range(1, 5);
+		int race = Random.Range(1, 5);
 		GenerateRandomNpcData(base.sex, race);
 		_customData.charactorName = NpcName;
 		AdNpcData adNpcData = NpcMissionDataRepository.GetAdNpcData(base.ExternId);
@@ -595,7 +597,7 @@ public class AiAdNpcNetwork : AiObject
 	{
 		if (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			byte[] data = (byte[])reader.GetValue(reader.GetOrdinal("customdata"));
 			_customData = new CustomCharactor.CustomData();
 			_customData.Deserialize(data);
@@ -635,6 +637,39 @@ public class AiAdNpcNetwork : AiObject
 			}
 		}
 		base.OnPlayerDisconnect(player);
+	}
+
+	public void Update()
+	{
+		if (!ServerConfig.IsStory || base.Id != 9008)
+		{
+			return;
+		}
+		Player player = Player.GetPlayer(base.authId);
+		if (!(player != null))
+		{
+			return;
+		}
+		PlayerMission curTeamMission = MissionManager.Manager.GetCurTeamMission(player.Id);
+		if (curTeamMission != null && curTeamMission.HadCompleteMission(18, player) && !curTeamMission.HadCompleteMission(27, player))
+		{
+			bool flag = false;
+			if (base.transform.rotation.eulerAngles.y != 270f)
+			{
+				base.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+				rotY = 270f;
+				flag = true;
+			}
+			if (Vector3.Distance(base.transform.position, gerdyPutDownPos) > 0.2f)
+			{
+				base.transform.position = gerdyPutDownPos;
+				flag = true;
+			}
+			if (flag)
+			{
+				RPCOthers(EPacketType.PT_NPC_ForceMove, base.transform.position, (byte)0, (int)rotY, GameTime.Timer.Second);
+			}
+		}
 	}
 
 	public void ResetDefaultPlayerId()
@@ -1046,7 +1081,7 @@ public class AiAdNpcNetwork : AiObject
 		int num = stream.Read<int>(new object[0]);
 		int id = stream.Read<int>(new object[0]);
 		int id2 = stream.Read<int>(new object[0]);
-		int num2 = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		Player player = Player.GetPlayer(info.sender);
 		if (null == player)
 		{
@@ -1149,22 +1184,22 @@ public class AiAdNpcNetwork : AiObject
 				}
 				break;
 			}
-			ItemCmpt itemCmpt = null;
-			int tabIndex = 0;
+			ItemCmpt itemCmpt2 = null;
+			int tabIndex2 = 0;
 			switch (itemPlaceType)
 			{
 			case ItemPlaceType.IPT_ServantInteraction:
 			case ItemPlaceType.IPT_ColonyServantInteractionPersonel:
-				itemCmpt = aiAdNpcNetwork.ItemModule;
-				tabIndex = 0;
+				itemCmpt2 = aiAdNpcNetwork.ItemModule;
+				tabIndex2 = 0;
 				break;
 			case ItemPlaceType.IPT_ServantInteraction2:
 			case ItemPlaceType.IPT_ColonyServantInteraction2Personel:
-				itemCmpt = aiAdNpcNetwork.ServantItemModule;
-				tabIndex = 1;
+				itemCmpt2 = aiAdNpcNetwork.ServantItemModule;
+				tabIndex2 = 1;
 				break;
 			}
-			if (!itemCmpt.CanAdd(1))
+			if (!itemCmpt2.CanAdd(1))
 			{
 				if (LogFilter.logDebug)
 				{
@@ -1175,8 +1210,8 @@ public class AiAdNpcNetwork : AiObject
 			{
 				player.Package.RemoveItem(itemById);
 				player.SyncPackageIndex();
-				itemCmpt.AddItem(itemById);
-				aiAdNpcNetwork.SyncPackageIndex(tabIndex);
+				itemCmpt2.AddItem(itemById);
+				aiAdNpcNetwork.SyncPackageIndex(tabIndex2);
 			}
 			break;
 		}
@@ -1246,9 +1281,44 @@ public class AiAdNpcNetwork : AiObject
 		case ItemPlaceType.IPT_ConolyServantEquPersonel:
 		{
 			ItemObject itemObject = aiAdNpcNetwork.EquipModule[num3];
-			if (LogFilter.logDebug)
+			if (itemObject == null)
 			{
-				Debug.LogWarningFormat("Item not in npc[{0}] package.", num2);
+				if (LogFilter.logDebug)
+				{
+					Debug.LogWarningFormat("Item not in npc[{0}] package.", num2);
+				}
+				break;
+			}
+			ItemCmpt itemCmpt = null;
+			int tabIndex = 0;
+			switch (itemPlaceType)
+			{
+			case ItemPlaceType.IPT_ServantInteraction:
+			case ItemPlaceType.IPT_ColonyServantInteractionPersonel:
+				itemCmpt = aiAdNpcNetwork.ItemModule;
+				tabIndex = 0;
+				break;
+			case ItemPlaceType.IPT_ServantInteraction2:
+			case ItemPlaceType.IPT_ColonyServantInteraction2Personel:
+				itemCmpt = aiAdNpcNetwork.ServantItemModule;
+				tabIndex = 1;
+				break;
+			}
+			int num5 = aiAdNpcNetwork.EquipModule.FindEffectEquipCount(itemObject);
+			if (!itemCmpt.CanAdd(num5))
+			{
+				if (LogFilter.logDebug)
+				{
+					Debug.LogWarningFormat("Npc[{0}] has not enough space in package.", num2);
+				}
+				break;
+			}
+			List<ItemObject> effEquips = new List<ItemObject>();
+			if (aiAdNpcNetwork.EquipModule.TakeOffEquip(itemObject, ref effEquips))
+			{
+				itemCmpt.AddItem(effEquips);
+				aiAdNpcNetwork.SyncTakeOffEquip(itemObject.instanceId);
+				aiAdNpcNetwork.SyncPackageIndex(tabIndex);
 			}
 			break;
 		}
@@ -1291,7 +1361,7 @@ public class AiAdNpcNetwork : AiObject
 		if (!((float)num / 3600f <= 0f))
 		{
 			workRestTime = GameTime.PlayTime.Second;
-			Vector3 vector2 = UnityEngine.Random.onUnitSphere * 3f;
+			Vector3 vector2 = Random.onUnitSphere * 3f;
 			Vector3 vector3 = new Vector3(vector2.x, 0f, vector2.y);
 			Vector3 pos = vector + vector3;
 			NetInterface.Instantiate(PrefabManager.Self.ItemFetchNetworkSeed, pos, Quaternion.identity, info.networkView.group, Abilities.ToArray(), num);
@@ -1313,6 +1383,10 @@ public class AiAdNpcNetwork : AiObject
 			base.transform.rotation = Quaternion.Euler(euler);
 			URPCOthers(EPacketType.PT_NPC_Move, vector, b, num, num2);
 		}
+	}
+
+	private void RPC_S2C_ForceMove(uLink.BitStream stream, uLink.NetworkMessageInfo info)
+	{
 	}
 
 	private void RPC_C2S_NPCRotY(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -1759,7 +1833,6 @@ public class AiAdNpcNetwork : AiObject
 		}
 	}
 
-	[Obsolete]
 	private void RPC_C2S_CLN_InitData(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		Player player = Player.GetPlayer(info.sender);
@@ -1769,7 +1842,6 @@ public class AiAdNpcNetwork : AiObject
 		}
 	}
 
-	[Obsolete]
 	private void RPC_C2S_CLN_SetState(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		ColonyNpc npcByID = ColonyNpcMgr.GetNpcByID(base.Id);
@@ -1904,7 +1976,7 @@ public class AiAdNpcNetwork : AiObject
 		Dictionary<int, int> dictionary = new Dictionary<int, int>();
 		for (int i = 0; i < num3; i++)
 		{
-			float num4 = UnityEngine.Random.Range(0f, 1f);
+			float num4 = Random.Range(0f, 1f);
 			for (int j = 0; j < plantByItemObjID.mPlantInfo.mItemGetPro.Count; j++)
 			{
 				if (num4 < plantByItemObjID.mPlantInfo.mItemGetPro[j].m_probablity)
@@ -1930,7 +2002,6 @@ public class AiAdNpcNetwork : AiObject
 			{
 				list.Add(new ItemIdCount(key2, dictionary[key2]));
 			}
-			ColonyStorage colonyStorage = colonyItemsByItemId[0] as ColonyStorage;
 			if (CSUtils.CanAddListToStorage(list, base.TeamId))
 			{
 				CSUtils.AddItemListToStorage(list, base.TeamId);

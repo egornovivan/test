@@ -69,8 +69,6 @@ public class FarmPlantLogic
 
 	public double mNextUpdateTime;
 
-	private bool mInit;
-
 	public bool NeedWater;
 
 	public bool NeedClean;

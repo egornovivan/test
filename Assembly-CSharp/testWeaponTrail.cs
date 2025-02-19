@@ -23,10 +23,6 @@ public class testWeaponTrail : MonoBehaviour
 
 	private int[] triangles;
 
-	private MeshRenderer meshRender;
-
-	private Material mat;
-
 	private Color startColor = Color.white;
 
 	private Color endColor = new Color(1f, 1f, 1f, 0f);
@@ -62,8 +58,6 @@ public class testWeaponTrail : MonoBehaviour
 	private void Awake()
 	{
 		mesh = GetComponent<MeshFilter>().mesh;
-		meshRender = GetComponent<MeshRenderer>();
-		mat = meshRender.material;
 	}
 
 	private void Start()

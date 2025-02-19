@@ -56,8 +56,6 @@ public static class oclMarchingCube
 
 	private const int NTHREADS_MASK = 31;
 
-	private static int curTime = Environment.TickCount;
-
 	private static readonly UInt4 CHUNK_VOXEL_DIM_LEN_SHIFT_PLUS = new UInt4(5u, 10u, 15u, 0u);
 
 	private static readonly UInt4 VOLUME_CHUNK_DIM_LEN_SHIFT_PLUS = new UInt4(2u, 4u, 5u, 0u);

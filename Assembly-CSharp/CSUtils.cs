@@ -371,13 +371,13 @@ public static class CSUtils
 							num3++;
 						}
 					}
-					if (num3 <= 0)
+					if (num3 > 0)
 					{
-						break;
+						vector2 = vector2 + bounds[num4] + Vector3.up;
+						continue;
 					}
-					vector2 = vector2 + bounds[num4] + Vector3.up;
+					break;
 				}
-				vector2 = vector2;
 				result = vector2;
 			}
 			else
@@ -1706,7 +1706,6 @@ public static class CSUtils
 			{
 				return false;
 			}
-			int teamId = aiAdNpcNetwork.TeamId;
 			aiAdNpcNetwork.PlantClear(plant.id);
 		}
 		return true;

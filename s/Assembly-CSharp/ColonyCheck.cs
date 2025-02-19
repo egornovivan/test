@@ -178,7 +178,6 @@ public class ColonyCheck : ColonyBase
 		{
 			return false;
 		}
-		ColonyNpc colonyNpc = _worker.Values.ToArray()[0];
 		return true;
 	}
 

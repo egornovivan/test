@@ -33,8 +33,6 @@ public class NpaTalkAgent
 
 	private NpcCmpt m_npcCmpt;
 
-	private EntityInfoCmpt m_entityInfo;
-
 	private AgentInfo[] _msgs;
 
 	private List<AgentInfo> _romveCases;
@@ -44,7 +42,6 @@ public class NpaTalkAgent
 		_msgs = new AgentInfo[35];
 		_romveCases = new List<AgentInfo>();
 		m_npcCmpt = entity.GetComponent<NpcCmpt>();
-		m_entityInfo = entity.GetComponent<EntityInfoCmpt>();
 	}
 
 	public void AddAgentInfo(AgentInfo info)

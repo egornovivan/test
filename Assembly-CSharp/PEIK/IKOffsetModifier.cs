@@ -13,8 +13,6 @@ public abstract class IKOffsetModifier : MonoBehaviour
 	[HideInInspector]
 	protected FullBodyBipedIK m_FBBIK;
 
-	private float m_LastTime;
-
 	protected float deltaTime => Time.deltaTime;
 
 	protected abstract void OnModifyOffset();
@@ -26,7 +24,6 @@ public abstract class IKOffsetModifier : MonoBehaviour
 		m_FBBIK = GetComponent<FullBodyBipedIK>();
 		IKSolverFullBodyBiped solver = m_FBBIK.solver;
 		solver.OnPreUpdate = (RootMotion.FinalIK.IKSolver.UpdateDelegate)Delegate.Combine(solver.OnPreUpdate, new RootMotion.FinalIK.IKSolver.UpdateDelegate(ModifyOffset));
-		m_LastTime = Time.time;
 		OnInit();
 	}
 
@@ -36,7 +33,6 @@ public abstract class IKOffsetModifier : MonoBehaviour
 		{
 			m_Weight = Mathf.Clamp(m_Weight, 0f, 1f);
 			OnModifyOffset();
-			m_LastTime = Time.time;
 		}
 	}
 

@@ -43,11 +43,7 @@ public class UINPCfootManMgr : MonoBehaviour
 
 	private List<SkAliveEntity> mAlive = new List<SkAliveEntity>();
 
-	private int countFollower;
-
 	private float m_deathTime;
-
-	private float m_DelayTime = 100000f;
 
 	public bool m_dead;
 

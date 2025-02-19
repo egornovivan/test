@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SPPoint : UnityEngine.MonoBehaviour
 {
-	private static int s_Count = 0;
-
 	private static Dictionary<IntVector4, SPPoint> PointTable = new Dictionary<IntVector4, SPPoint>();
 
 	public PointType mType;
@@ -35,8 +33,6 @@ public class SPPoint : UnityEngine.MonoBehaviour
 	private List<IntVector4> mNodes;
 
 	private SimplexNoise mNoise;
-
-	private CommonInterface mCommon;
 
 	private bool mDeath;
 
@@ -164,7 +160,6 @@ public class SPPoint : UnityEngine.MonoBehaviour
 		mRevisePosition = revisePos;
 		mWaitForSpawned = false;
 		mReqFinish = onSpawned;
-		mCommon = common;
 		AttachEventFromMesh();
 		AttachCollider();
 		RegisterPoint(this);

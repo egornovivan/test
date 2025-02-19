@@ -69,8 +69,6 @@ public static class PeGameMgr
 
 	private static EGameLevel mGameLevel = EGameLevel.Normal;
 
-	private static YirdData mCustomGame;
-
 	private static int cullMask;
 
 	public static EPlayerType playerType

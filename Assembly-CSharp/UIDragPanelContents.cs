@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
 [AddComponentMenu("NGUI/Interaction/Drag Panel Contents")]
+[ExecuteInEditMode]
 public class UIDragPanelContents : MonoBehaviour
 {
 	public UIDraggablePanel draggablePanel;

@@ -53,8 +53,6 @@ public class Motion_Move_Human : Motion_Move, IPeMsg
 
 	public float m_NetSpeedScaleF = 0.5f;
 
-	private float m_NetPreMoveTime = 0.1f;
-
 	private Vector3 m_NetMovePos = Vector3.zero;
 
 	private bool m_NetMove;
@@ -68,8 +66,6 @@ public class Motion_Move_Human : Motion_Move, IPeMsg
 	private Vector3 m_MoveRequest = Vector3.zero;
 
 	private Vector3 m_CurAvoidDirection = Vector3.zero;
-
-	private int m_AvoidCnt;
 
 	public float m_FallStartTime = 0.3f;
 
@@ -133,8 +129,6 @@ public class Motion_Move_Human : Motion_Move, IPeMsg
 	private bool m_FirstPersonCtrl;
 
 	private double mNetJumpTime = -1.0;
-
-	private static float XXX = 5f;
 
 	private static readonly int layer = 2173184;
 
@@ -1275,5 +1269,10 @@ public class Motion_Move_Human : Motion_Move, IPeMsg
 			firstPersonCtrl = (bool)args[0];
 			break;
 		}
+	}
+
+	public void SetIsKinematic(bool value)
+	{
+		m_PhyCtrl._rigidbody.isKinematic = value;
 	}
 }

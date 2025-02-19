@@ -44,7 +44,7 @@ public class AreasDbData : DbRecordData
 		foreach (AreaDbData mArea in mAreas)
 		{
 			dbDataParameter.Value = mArea.WorldId;
-			dbDataParameter2.Value = 272;
+			dbDataParameter2.Value = 273;
 			dbDataParameter3.Value = mArea.Name;
 			dbDataParameter4.Value = mArea.TownData;
 			dbDataParameter5.Value = mArea.CampData;

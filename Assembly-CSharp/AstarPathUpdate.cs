@@ -14,8 +14,6 @@ public class AstarPathUpdate : MonoBehaviour
 
 	private List<Bounds> bounds = new List<Bounds>();
 
-	private List<Bounds> waitUpdateBounds = new List<Bounds>();
-
 	private void Awake()
 	{
 		instance = this;

@@ -29,10 +29,6 @@ public class NpcMedicalTreat : BTNormal
 
 	private float m_Roate;
 
-	private float m_StartTime;
-
-	private PEPatients m_pePatitents;
-
 	private float mWaitingTime;
 
 	private Vector3 m_WaitingPos;
@@ -85,7 +81,6 @@ public class NpcMedicalTreat : BTNormal
 		}
 		m_Moveposition = m_CSMedicalTreat.resultTrans[1].position;
 		m_Roate = m_CSMedicalTreat.resultTrans[1].rotation.eulerAngles.y;
-		m_pePatitents = m_CSMedicalTreat.pePatient;
 		if (base.NpcMedicalState == ENpcMedicalState.Treating)
 		{
 			if (!CSMain.TryGetTreat(base.entity))
@@ -105,7 +100,6 @@ public class NpcMedicalTreat : BTNormal
 			SetMedicineSate(ENpcMedicalState.WaitForTreat);
 		}
 		HasReached = false;
-		m_StartTime = Time.time;
 		return BehaveResult.Success;
 	}
 

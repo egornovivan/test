@@ -102,9 +102,9 @@ public class MonsterHandbookData
 			MemoryStream input = new MemoryStream(data, writable: false);
 			using (BinaryReader binaryReader = new BinaryReader(input))
 			{
+				binaryReader.ReadInt32();
 				int num = binaryReader.ReadInt32();
-				int num2 = binaryReader.ReadInt32();
-				for (int i = 0; i < num2; i++)
+				for (int i = 0; i < num; i++)
 				{
 					ActiveMhDataID.Add(binaryReader.ReadInt32());
 				}
@@ -128,7 +128,7 @@ public class MonsterHandbookData
 			MemoryStream memoryStream = new MemoryStream(200);
 			using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
 			{
-				binaryWriter.Write(272);
+				binaryWriter.Write(273);
 				binaryWriter.Write(ActiveMhDataID.Count);
 				for (int i = 0; i < ActiveMhDataID.Count; i++)
 				{

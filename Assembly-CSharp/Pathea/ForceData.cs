@@ -36,7 +36,7 @@ public class ForceData
 
 	public void Import(BinaryReader r)
 	{
-		int num = r.ReadInt32();
+		r.ReadInt32();
 		_campID = r.ReadInt32();
 		_damageID = r.ReadInt32();
 		_defaultPlyerID = r.ReadInt32();

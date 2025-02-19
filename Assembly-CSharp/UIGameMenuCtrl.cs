@@ -81,10 +81,6 @@ public class UIGameMenuCtrl : UIStaticWnd
 
 	private Vector3 mMenuListPos = Vector3.zero;
 
-	private string IcoStr_Null = string.Empty;
-
-	private string IcoStr_Storage = "listico_12_1";
-
 	private string IcoStr_Admin = "listico_1_1";
 
 	private string IcoStr_Workshop = "listico_4_1";
@@ -92,8 +88,6 @@ public class UIGameMenuCtrl : UIStaticWnd
 	private string IcoStr_Infomation = "listico_5_1";
 
 	private string IcoStr_Friend = "listico_21_1";
-
-	private string IcoStr_Mall = "listico_20_1";
 
 	private string IcoStr_OnLine = "listico_19_1";
 

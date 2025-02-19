@@ -4,8 +4,6 @@ public class UILobbyRoomHint : MonoBehaviour
 {
 	private UILobbyMainWndCtrl mLobbyWndCtrl;
 
-	private ServerRegistered mServerData;
-
 	private void Start()
 	{
 	}

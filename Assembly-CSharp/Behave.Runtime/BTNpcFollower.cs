@@ -51,8 +51,6 @@ public class BTNpcFollower : BTNormal
 
 		public float StandRadiu = 2f;
 
-		private Vector3 m_LastAnchor;
-
 		private Vector3 m_LastPatrol;
 
 		private bool m_Init;
@@ -67,8 +65,6 @@ public class BTNpcFollower : BTNormal
 
 		private SpeedState m_SpeedState;
 
-		private static float minWalkRadius;
-
 		private static float maxWalkRadius = 6f;
 
 		private static float minRunRadius = 6f;
@@ -76,8 +72,6 @@ public class BTNpcFollower : BTNormal
 		private static float maxRunRadius = 24f;
 
 		private static float minSprintRadius = 24f;
-
-		private static float maxSprintRadius = 40f;
 
 		private GameObject mObj;
 
@@ -130,7 +124,6 @@ public class BTNpcFollower : BTNormal
 			{
 				m_Reached = false;
 				m_Calculated = true;
-				Vector3 vector = Vector3.ProjectOnPlane(pos - center, Vector3.up);
 				float num = ((!PeGameMgr.IsAdventure || !(RandomDungenMgr.Instance != null) || RandomDungenMgrData.dungeonBaseData == null) ? 90f : 20f);
 				m_Anchor = PEUtil.GetRandomPosition(Vector3.zero, dir, firRadius, sndRadius, 0f - num, num);
 				m_Anchor = new Vector3(m_Anchor.x, 0f, m_Anchor.z);
@@ -143,7 +136,6 @@ public class BTNpcFollower : BTNormal
 			{
 				m_Reached = false;
 				m_Calculated = true;
-				Vector3 vector = Vector3.ProjectOnPlane(pos - center, Vector3.up);
 				m_Anchor = PEUtil.GetRandomPosition(Vector3.zero, dir, firRadius, sndRadius, -90f, 90f);
 				m_Anchor = new Vector3(m_Anchor.x, 0f, m_Anchor.z);
 			}
@@ -181,7 +173,6 @@ public class BTNpcFollower : BTNormal
 		{
 			if (CheckFirst())
 			{
-				m_LastAnchor = target.position;
 			}
 			return target.position + m_Anchor;
 		}
@@ -457,24 +448,22 @@ public class BTNpcFollower : BTNormal
 		bool flag3 = AiUtil.CheckDraging(base.entity, out avoidPos3);
 		bool flag4 = AiUtil.CheckCreation(base.entity, out avoidPos4);
 		bool flag5 = hasNearleague || flag2 || flag || flag3 || flag4;
-		bool flag6 = flag2 || flag || flag3 || flag4;
-		bool flag7 = base.IsNpcFollowerSentry && !flag5;
-		bool flag8 = base.IsOnVCCarrier || base.IsOnRail;
-		bool flag9 = m_Data.InRadius(base.position, peTrans.position, 0f, m_Data.firRadius, is3D: true);
-		bool flag10 = m_Data.InRadius(base.position, peTrans.position, m_Data.firRadius, m_Data.sndRadius, is3D: true);
-		bool flag11 = m_Data.InRadius(base.position, peTrans.position, m_Data.sndRadius, m_Data.thdRadius * 2f, is3D: true);
+		bool flag6 = base.IsNpcFollowerSentry && !flag5;
+		bool flag7 = base.IsOnVCCarrier || base.IsOnRail;
+		bool flag8 = m_Data.InRadius(base.position, peTrans.position, 0f, m_Data.firRadius, is3D: true);
+		bool flag9 = m_Data.InRadius(base.position, peTrans.position, m_Data.firRadius, m_Data.sndRadius, is3D: true);
 		Vector3 vector = base.position - peTrans.trans.position;
 		Vector3 vector2 = ((!(avoidPos != Vector3.zero)) ? Vector3.zero : (base.position - avoidPos));
 		Vector3 vector3 = ((!(avoidPos2 != Vector3.zero)) ? Vector3.zero : (base.position - avoidPos2));
 		Vector3 vector4 = ((!(avoidPos3 != Vector3.zero)) ? Vector3.zero : (base.position - avoidPos3));
 		Vector3 vector5 = ((!(avoidPos4 != Vector3.zero)) ? Vector3.zero : (base.position - avoidPos4));
-		Vector3 vector6 = vector + vector2 + vector3 + vector4 + vector5 + base.existent.forward;
-		bool flag12 = RandomDunGenUtil.IsInDungeon(base.entity);
-		bool flag13 = PEUtil.IsUnderBlock(base.entity);
-		bool flag14 = !flag12 && flag13 && PEUtil.IsForwardBlock(base.entity, base.entity.peTrans.forward, 2f);
-		if (!flag8)
+		Vector3 dir = vector + vector2 + vector3 + vector4 + vector5 + base.existent.forward;
+		bool flag10 = RandomDunGenUtil.IsInDungeon(base.entity);
+		bool flag11 = PEUtil.IsUnderBlock(base.entity);
+		bool flag12 = !flag10 && flag11 && PEUtil.IsForwardBlock(base.entity, base.entity.peTrans.forward, 2f);
+		if (!flag7)
 		{
-			if (!flag9 && !flag10)
+			if (!flag8 && !flag9)
 			{
 				if (GameConfig.IsMultiMode)
 				{
@@ -494,7 +483,7 @@ public class BTNpcFollower : BTNormal
 				}
 				else
 				{
-					if (Stucking(1f) || flag14)
+					if (Stucking(1f) || flag12)
 					{
 						Vector3 fixedPosition2 = GetFixedPosition(PEUtil.MainCamTransform.position, -PEUtil.MainCamTransform.forward, peTrans.position, -peTrans.forward, peTrans.bound.size.y);
 						float num2 = Mathf.Abs(peTrans.position.y - fixedPosition2.y);
@@ -511,29 +500,29 @@ public class BTNpcFollower : BTNormal
 					m_Data.startPralTime = Time.time;
 				}
 			}
-			if (flag9 && !m_Data.InRadius(base.position, peTrans.trans.position + m_Data.Anchor, m_Data.firRadius, m_Data.sndRadius, is3D: true))
+			if (flag8 && !m_Data.InRadius(base.position, peTrans.trans.position + m_Data.Anchor, m_Data.firRadius, m_Data.sndRadius, is3D: true))
 			{
 				m_Data.ResetCalculated();
 				m_Data.CalculateAnchor(base.position, PEUtil.MainCamTransform.position, -PEUtil.MainCamTransform.forward);
 				m_Data.startPralTime = Time.time;
 			}
-			if ((!flag12 || !flag10) && Time.time - m_Data.startPralTime >= m_Data.waitPralTime)
+			if ((!flag10 || !flag9) && Time.time - m_Data.startPralTime >= m_Data.waitPralTime)
 			{
 				m_Data.startPralTime = Time.time;
 				m_Data.CalculateAnchor(base.position, PEUtil.MainCamTransform.position, -PEUtil.MainCamTransform.forward);
 				m_Data.ResetCalculatedDir();
 			}
-			bool flag15 = IsReached(base.position, peTrans.trans.position + m_Data.Anchor, Is3D: true, 2f);
-			bool flag16 = Time.time - m_Data.startPralTime < m_Data.waitPralTime && flag15 && !flag5;
-			if (!flag7)
+			bool flag13 = IsReached(base.position, peTrans.trans.position + m_Data.Anchor, Is3D: true, 2f);
+			bool flag14 = Time.time - m_Data.startPralTime < m_Data.waitPralTime && flag13 && !flag5;
+			if (!flag6)
 			{
 				if (!flag5)
 				{
-					if (flag16)
+					if (flag14)
 					{
-						if (flag14 || Stucking(1f))
+						if (flag12 || Stucking(1f))
 						{
-							if (flag12)
+							if (flag10)
 							{
 								m_Data.ResetCalculatedDir();
 							}
@@ -548,9 +537,9 @@ public class BTNpcFollower : BTNormal
 						StopMove();
 						m_Data.ResetCalculated();
 					}
-					else if (flag14 || Stucking(1f))
+					else if (flag12 || Stucking(1f))
 					{
-						if (flag12)
+						if (flag10)
 						{
 							m_Data.ResetCalculatedDir();
 						}
@@ -566,7 +555,7 @@ public class BTNpcFollower : BTNormal
 					else
 					{
 						Vector3 followPosition = m_Data.GetFollowPosition(peTrans.trans, zero);
-						Vector3 v = ((!flag13) ? followPosition : peTrans.trans.position);
+						Vector3 v = ((!flag11) ? followPosition : peTrans.trans.position);
 						SpeedState state = m_Data.CalculateSpeedState(PEUtil.SqrMagnitudeH(base.position, v));
 						if (IsReached(base.position, peTrans.trans.position + m_Data.Anchor))
 						{
@@ -587,9 +576,8 @@ public class BTNpcFollower : BTNormal
 				else
 				{
 					m_Data.ResetCalculated();
-					m_Data.CalculateAnchor(base.position, peTrans.trans.position, vector6);
-					Vector3 vector7 = vector6 * 5f + base.position;
-					MoveDirection(vector6, SpeedState.Run);
+					m_Data.CalculateAnchor(base.position, peTrans.trans.position, dir);
+					MoveDirection(dir, SpeedState.Run);
 				}
 			}
 			else

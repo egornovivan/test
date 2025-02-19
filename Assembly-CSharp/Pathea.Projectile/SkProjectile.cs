@@ -72,8 +72,8 @@ public class SkProjectile : SkEntity, IDigTerrain
 	[SerializeField]
 	private LayerMask m_DeletLayer;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private bool m_Inited;
 
 	private bool m_Valid;
@@ -94,10 +94,8 @@ public class SkProjectile : SkEntity, IDigTerrain
 
 	private bool m_BoundsUpdated;
 
-	private ProjectileData m_Data;
-
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private Trajectory m_Trajectory;
 
 	private List<SkEntity> m_Entities = new List<SkEntity>();
@@ -105,8 +103,6 @@ public class SkProjectile : SkEntity, IDigTerrain
 	private List<SkEntity> m_DamageEntities = new List<SkEntity>();
 
 	private List<Collider> m_Colliders = new List<Collider>();
-
-	private List<PeEntity> m_InjuredEntities = new List<PeEntity>();
 
 	[HideInInspector]
 	[SerializeField]
@@ -149,7 +145,6 @@ public class SkProjectile : SkEntity, IDigTerrain
 
 	public virtual void SetData(ProjectileData data, Transform caster, Transform emitter, Transform target, Vector3 targetPosition, int index = 0)
 	{
-		m_Data = data;
 		m_Caster = caster;
 		m_Emitter = emitter;
 		m_Target = target;

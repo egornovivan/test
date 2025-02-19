@@ -87,6 +87,6 @@ public class RQDialogue : Request
 
 	public override void Deserialize(BinaryReader r)
 	{
-		int num = r.ReadInt32();
+		r.ReadInt32();
 	}
 }

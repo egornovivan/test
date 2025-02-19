@@ -14,6 +14,15 @@ using UnityEngine;
 
 public class GameWorld
 {
+	private struct BlockNode
+	{
+		public int worldId;
+
+		public int dsType;
+
+		public Dictionary<IntVector3, BSVoxel> effVoxel;
+	}
+
 	public const int RoomWorldId = 100;
 
 	public const int PlayerWorldId = 101;
@@ -31,6 +40,8 @@ public class GameWorld
 	private static object m_SyncWorldSave = new object();
 
 	private static bool m_SyncSaved = false;
+
+	private static List<BlockNode> blockNodes = new List<BlockNode>();
 
 	private Dictionary<int, Dictionary<IntVector3, BSVoxel>> cacheVoxels = new Dictionary<int, Dictionary<IntVector3, BSVoxel>>();
 
@@ -65,6 +76,8 @@ public class GameWorld
 	private int _worldId;
 
 	private string _worldName;
+
+	private static int BlocksPerSend = 512;
 
 	public static int NewWorldId => _maxWorldId++;
 
@@ -255,6 +268,19 @@ public class GameWorld
 		}
 	}
 
+	public static IEnumerator AsyncSendBlock()
+	{
+		while (true)
+		{
+			if (blockNodes.Count > 0)
+			{
+				SyncVoxelRedo(blockNodes[0].worldId, blockNodes[0].dsType, blockNodes[0].effVoxel);
+				blockNodes.RemoveAt(0);
+			}
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
+
 	public static void SaveAreas()
 	{
 		AreasDbData areasDbData = new AreasDbData();
@@ -278,7 +304,7 @@ public class GameWorld
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			int roleId = reader.GetInt32(reader.GetOrdinal("roleid"));
 			int worldId = reader.GetInt32(reader.GetOrdinal("worldid"));
 			byte[] buff = (byte[])reader.GetValue(reader.GetOrdinal("data"));
@@ -321,8 +347,8 @@ public class GameWorld
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
-			int int2 = reader.GetInt32(reader.GetOrdinal("worldid"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
+			int @int = reader.GetInt32(reader.GetOrdinal("worldid"));
 			byte[] buffer = (byte[])reader.GetValue(reader.GetOrdinal("townarea"));
 			using (MemoryStream input = new MemoryStream(buffer))
 			{
@@ -331,7 +357,7 @@ public class GameWorld
 				for (int i = 0; i < num; i++)
 				{
 					BufferHelper.ReadVector3(reader2, out var _value);
-					AddTownArea(int2, _value);
+					AddTownArea(@int, _value);
 				}
 			}
 			byte[] buffer2 = (byte[])reader.GetValue(reader.GetOrdinal("camparea"));
@@ -341,7 +367,7 @@ public class GameWorld
 			for (int j = 0; j < num2; j++)
 			{
 				BufferHelper.ReadVector3(reader3, out var _value2);
-				AddCampArea(int2, _value2);
+				AddCampArea(@int, _value2);
 			}
 		}
 	}
@@ -912,6 +938,15 @@ public class GameWorld
 			return null;
 		}
 		return _worldList[worldId].GetSceneObj(id);
+	}
+
+	public static SceneObject GetSceneObjByProto(int protoId, int worldId)
+	{
+		if (!_worldList.ContainsKey(worldId))
+		{
+			return null;
+		}
+		return _worldList[worldId].GetSceneObjByProto(protoId);
 	}
 
 	public static void RegisterVoxelDataChangedEvent(int worldId, Action<int> handler)
@@ -1802,57 +1837,80 @@ public class GameWorld
 	{
 		if (dsType == 0)
 		{
-			foreach (KeyValuePair<IntVector3, BSVoxel> item in effVoxel)
+			foreach (KeyValuePair<IntVector3, BSVoxel> item2 in effVoxel)
 			{
-				int num = AreaHelper.IntVector2Int(item.Key);
+				int num = AreaHelper.IntVector2Int(item2.Key);
 				if (!_voxels.ContainsKey(num))
 				{
 					_voxels[num] = new Dictionary<IntVector3, BSVoxel>();
 				}
-				if (item.Value.value0 == 0 && item.Value.value1 == 0)
+				if (item2.Value.value0 == 0 && item2.Value.value1 == 0)
 				{
-					_voxels[num].Remove(item.Key);
+					_voxels[num].Remove(item2.Key);
 				}
 				else
 				{
-					if (_blocks.ContainsKey(num) && _blocks[num].ContainsKey(item.Key))
+					if (_blocks.ContainsKey(num) && _blocks[num].ContainsKey(item2.Key))
 					{
-						_blocks[num].Remove(item.Key);
+						_blocks[num].Remove(item2.Key);
 					}
-					_voxels[num][item.Key] = item.Value;
+					_voxels[num][item2.Key] = item2.Value;
 				}
 				OnVoxelDataChanged(num);
 			}
 		}
 		else
 		{
-			foreach (KeyValuePair<IntVector3, BSVoxel> item2 in effVoxel)
+			foreach (KeyValuePair<IntVector3, BSVoxel> item3 in effVoxel)
 			{
-				IntVector3 intVector = new IntVector3((float)item2.Key.x * 0.5f, (float)item2.Key.y * 0.5f, (float)item2.Key.z * 0.5f);
+				IntVector3 intVector = new IntVector3((float)item3.Key.x * 0.5f, (float)item3.Key.y * 0.5f, (float)item3.Key.z * 0.5f);
 				int num2 = AreaHelper.Vector2Int(intVector);
 				if (!_blocks.ContainsKey(num2))
 				{
 					_blocks[num2] = new Dictionary<IntVector3, BSVoxel>();
 				}
-				if (item2.Value.value0 == 0 && item2.Value.value1 == 0)
+				if (item3.Value.value0 == 0 && item3.Value.value1 == 0)
 				{
-					_blocks[num2].Remove(item2.Key);
+					_blocks[num2].Remove(item3.Key);
 				}
 				else
 				{
-					if (_voxels.ContainsKey(num2) && _voxels[num2].ContainsKey(item2.Key))
+					if (_voxels.ContainsKey(num2) && _voxels[num2].ContainsKey(item3.Key))
 					{
-						_voxels[num2].Remove(item2.Key);
+						_voxels[num2].Remove(item3.Key);
 					}
-					_blocks[num2][item2.Key] = item2.Value;
+					_blocks[num2][item3.Key] = item3.Value;
 				}
 				OnBlockDataChanged(num2);
 			}
 		}
-		SyncVoxelRedo(dsType, effVoxel);
+		while (effVoxel.Count > 0)
+		{
+			int num3 = 0;
+			BlockNode item = default(BlockNode);
+			item.dsType = dsType;
+			item.worldId = WorldId;
+			item.effVoxel = new Dictionary<IntVector3, BSVoxel>();
+			List<IntVector3> list = new List<IntVector3>();
+			foreach (KeyValuePair<IntVector3, BSVoxel> item4 in effVoxel)
+			{
+				num3++;
+				list.Add(item4.Key);
+				item.effVoxel.Add(item4.Key, item4.Value);
+				if (num3 == BlocksPerSend)
+				{
+					break;
+				}
+			}
+			foreach (IntVector3 item5 in list)
+			{
+				effVoxel.Remove(item5);
+			}
+			blockNodes.Add(item);
+		}
 	}
 
-	private void SyncVoxelRedo(int dsType, Dictionary<IntVector3, BSVoxel> voxels)
+	private static void SyncVoxelRedo(int worldId, int dsType, Dictionary<IntVector3, BSVoxel> voxels)
 	{
 		byte[] array = PETools.Serialize.Export(delegate(BinaryWriter w)
 		{
@@ -1864,7 +1922,7 @@ public class GameWorld
 				BufferHelper.Serialize(w, voxel.Value);
 			}
 		});
-		ChannelNetwork.SyncChannel(WorldId, EPacketType.PT_InGame_BlockRedo, array);
+		ChannelNetwork.SyncChannel(worldId, EPacketType.PT_InGame_BlockRedo, array);
 	}
 
 	public void DeleteGrass(byte[] data)
@@ -2330,5 +2388,17 @@ public class GameWorld
 	public void SetWorldName(string worldName)
 	{
 		_worldName = worldName;
+	}
+
+	public SceneObject GetSceneObjByProto(int protoId)
+	{
+		foreach (KeyValuePair<int, SceneObject> sceneObj in _sceneObjs)
+		{
+			if (sceneObj.Value.ProtoId == protoId)
+			{
+				return sceneObj.Value;
+			}
+		}
+		return null;
 	}
 }

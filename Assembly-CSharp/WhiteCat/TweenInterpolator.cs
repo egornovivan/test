@@ -16,8 +16,8 @@ public class TweenInterpolator : BaseBehaviour
 	[SerializeField]
 	private float _delay;
 
-	[GetSet("duration")]
 	[SerializeField]
+	[GetSet("duration")]
 	private float _duration = 1f;
 
 	[SerializeField]

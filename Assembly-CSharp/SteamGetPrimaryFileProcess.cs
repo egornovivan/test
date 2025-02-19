@@ -37,8 +37,16 @@ public class SteamGetPrimaryFileProcess : ISteamGetFile
 	{
 		try
 		{
-			SteamAPICall_t hAPICall = SteamRemoteStorage.UGCDownload(file, 0u);
-			RemoteStorageDownloadUGCResult.Set(hAPICall);
+			if (file != UGCHandle_t.Invalid)
+			{
+				SteamAPICall_t hAPICall = SteamRemoteStorage.UGCDownload(file, 0u);
+				RemoteStorageDownloadUGCResult.Set(hAPICall);
+			}
+			else
+			{
+				LogManager.Warning("GetFile error");
+				Finish(null, _PublishedFileId, bOK: false);
+			}
 		}
 		catch (Exception ex)
 		{

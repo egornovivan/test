@@ -14,8 +14,6 @@ public class ChatGUI_N : UIStaticWnd
 
 	public TweenColor mOpBtnCol;
 
-	private bool mTalkToALL;
-
 	private int mNumCount;
 
 	private int MaxListLenth = 50;
@@ -29,7 +27,6 @@ public class ChatGUI_N : UIStaticWnd
 	protected override void InitWindow()
 	{
 		base.InitWindow();
-		mTalkToALL = true;
 		mNumCount = 0;
 		for (int i = 0; i < mChatStr.Length; i++)
 		{
@@ -84,12 +81,10 @@ public class ChatGUI_N : UIStaticWnd
 
 	private void OnTalkToSomeone()
 	{
-		mTalkToALL = false;
 	}
 
 	private void OnTalkToAll()
 	{
-		mTalkToALL = true;
 	}
 
 	public void AddChat(PromptData.PromptType promptType, string name, int num = 0, int meat = 0, int tdTime = 0, int tdNum = 0, string extStr = "", int type = 2)

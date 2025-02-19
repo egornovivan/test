@@ -34,8 +34,6 @@ public class RoomGui_N : UIStaticWnd
 
 	private Dictionary<int, Dictionary<int, int>> m_ForceDic;
 
-	private List<RoomPlayerInfo> m_RoomPlayerList;
-
 	private IsoDownLoadInfo m_IsoDownloadInfo;
 
 	private bool m_IsReady;
@@ -49,7 +47,6 @@ public class RoomGui_N : UIStaticWnd
 	private void Awake()
 	{
 		m_Instance = this;
-		m_RoomPlayerList = new List<RoomPlayerInfo>();
 		m_IsoDownloadInfo = default(IsoDownLoadInfo);
 		m_ForceDic = new Dictionary<int, Dictionary<int, int>>();
 		m_ForceItemList = new List<ForceItem_N>();

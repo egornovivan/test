@@ -13,16 +13,16 @@
   <ItemGroup />
   <ItemGroup>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="Boo.Lang">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Boo.Lang.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="UnityScript.Lang">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\UnityScript.Lang.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\UnityScript.Lang.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Data.SqliteClient">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Mono.Data.SqliteClient.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\Mono.Data.SqliteClient.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
   </ItemGroup>

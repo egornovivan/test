@@ -116,26 +116,4 @@ public class DetectedTownMgr : MonoLikeSingleton<DetectedTownMgr>
 			}
 		}
 	}
-
-	public void RemoveStoryCampByMission(int campId)
-	{
-		if (campId <= 0 || !CampTradeIdData.IsStoryMissionTradeCamp(campId))
-		{
-			return;
-		}
-		Camp camp = Camp.GetCamp(campId);
-		if (camp == null)
-		{
-			return;
-		}
-		IntVector2 posCenter = DetectedTown.GetPosCenter(camp.Pos);
-		if (DTownsDict.ContainsKey(posCenter))
-		{
-			DTownsDict.Remove(posCenter);
-			if (this.RemoveDetectedTownListener != null)
-			{
-				this.RemoveDetectedTownListener(posCenter);
-			}
-		}
-	}
 }

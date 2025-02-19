@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
 [AddComponentMenu("NGUI/UI/Sprite (Basic)")]
+[ExecuteInEditMode]
 public class UISprite : UIWidget
 {
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private UIAtlas mAtlas;
 
 	[HideInInspector]

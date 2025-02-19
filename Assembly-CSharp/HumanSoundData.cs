@@ -34,14 +34,13 @@ public class HumanSoundData
 			{
 				List<KeyValuePair<int, float>> list = new List<KeyValuePair<int, float>>();
 				string[] array3 = PEUtil.ToArrayString(text, ',');
-				string[] array4 = array3;
-				foreach (string text2 in array4)
+				for (int j = 0; j < array3.Length; j++)
 				{
-					string[] array5 = text.Split('_');
-					if (array5.Length == 2)
+					string[] array4 = text.Split('_');
+					if (array4.Length == 2)
 					{
-						int key = Convert.ToInt32(array5[0]);
-						float value = Convert.ToSingle(array5[1]);
+						int key = Convert.ToInt32(array4[0]);
+						float value = Convert.ToSingle(array4[1]);
 						list.Add(new KeyValuePair<int, float>(key, value));
 					}
 				}

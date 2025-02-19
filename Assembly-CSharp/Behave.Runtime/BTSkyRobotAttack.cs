@@ -62,17 +62,9 @@ public class BTSkyRobotAttack : BTNormal
 
 	private static float _angle = 45f;
 
-	private float m_StartTime;
-
-	private bool m_Arrived;
-
 	private Vector3 m_LocalPos;
 
 	private Vector3 m_AttcakPos;
-
-	private bool m_findAttack;
-
-	private float startFindPosTime;
 
 	private static float x1 = 5f;
 
@@ -186,12 +178,8 @@ public class BTSkyRobotAttack : BTNormal
 			return BehaveResult.Failure;
 		}
 		PeEntityCreator.InitRobotInfo(base.entity, m_Data.followEntity);
-		m_StartTime = Time.time;
 		m_Data.changrPos = true;
-		m_findAttack = true;
-		startFindPosTime = Time.time;
 		m_AttcakPos = GetAroundPos(base.attackEnemy.centerPos);
-		m_Arrived = false;
 		return BehaveResult.Running;
 	}
 

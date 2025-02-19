@@ -59,7 +59,7 @@ public class ItemMgrDbData : DbRecordData
 		foreach (ItemDbData mItem in mItemList)
 		{
 			dbDataParameter.Value = mItem.Id;
-			dbDataParameter2.Value = 272;
+			dbDataParameter2.Value = 273;
 			dbDataParameter3.Value = mItem.Data;
 			cmd.ExecuteNonQuery();
 		}
@@ -85,7 +85,7 @@ public class ItemMgrDbData : DbRecordData
 		foreach (ItemDbData mItem in mItemList)
 		{
 			dbDataParameter.Value = mItem.Id;
-			dbDataParameter2.Value = 272;
+			dbDataParameter2.Value = 273;
 			dbDataParameter3.Value = mItem.Data;
 			cmd.ExecuteNonQuery();
 		}

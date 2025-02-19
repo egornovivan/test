@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using PETools;
 using SkillSystem;
 
 namespace Pathea;
@@ -48,7 +47,6 @@ public class BuidingCmpt : PeCmpt
 			return;
 		}
 		int playerID = (int)base.Entity.peSkEntity.GetAttribute(91);
-		SkEntity caster2 = PEUtil.GetCaster(caster);
 		PeEntity component = caster.GetComponent<PeEntity>();
 		if (component == base.Entity)
 		{

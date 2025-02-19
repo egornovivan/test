@@ -26,15 +26,11 @@ public class UIBrushMenuItem : MonoBehaviour
 
 	private BoxCollider mBoxClollider;
 
-	private bool mRaycastGUI;
-
 	private static int s_Counter;
 
 	private bool rayCast;
 
 	public static bool MouseOnHover => s_Counter != 0;
-
-	public event ClickEvent onBtnClick;
 
 	private void Start()
 	{

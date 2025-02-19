@@ -14,14 +14,9 @@ public class UIPlayerInfoScall : MonoBehaviour
 
 	public float mMaxSpeed;
 
-	private BoxCollider mBoxClollider;
-
-	private float starDis;
-
 	private void Start()
 	{
 		mScaleSpeed = 0f;
-		mBoxClollider = base.gameObject.GetComponent<BoxCollider>();
 	}
 
 	private void Update()

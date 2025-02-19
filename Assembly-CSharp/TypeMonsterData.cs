@@ -29,14 +29,16 @@ public class TypeMonsterData
 
 	public bool m_destroyTown;
 
-	public int m_campID;
+	public List<int> m_campID;
 
-	public int m_townNum;
+	public List<int> m_townNum;
 
 	public TypeMonsterData()
 	{
 		m_MonsterList = new List<NpcType>();
 		m_CreMonList = new List<CreMons>();
 		m_ReceiveList = new List<int>();
+		m_campID = new List<int>();
+		m_townNum = new List<int>();
 	}
 }

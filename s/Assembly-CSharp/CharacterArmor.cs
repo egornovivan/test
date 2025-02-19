@@ -104,8 +104,6 @@ public class CharacterArmor : MonoBehaviour
 
 		private int _boneIndex;
 
-		private Durability _durability;
-
 		public ItemObject item => _item;
 
 		public ArmorPartData data => _data;
@@ -121,7 +119,6 @@ public class CharacterArmor : MonoBehaviour
 			{
 				_character._decorationCount++;
 			}
-			_durability = _item.GetCmpt<Durability>();
 			SyncAttachedBone();
 		}
 

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Pathea;
 using UnityEngine;
 
@@ -11,13 +10,7 @@ public class BTRecourse : BTNormal
 	{
 	}
 
-	private float weight;
-
 	private PeTrans playerTrans;
-
-	private List<Vector3> mdirs = new List<Vector3>();
-
-	private Vector3 hidePos = Vector3.zero;
 
 	private Data m_Data;
 

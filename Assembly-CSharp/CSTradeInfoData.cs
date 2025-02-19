@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Mono.Data.SqliteClient;
 using UnityEngine;
 
-[Obsolete]
 public class CSTradeInfoData
 {
 	public const int RANDOM_TOWN_ID = 1;

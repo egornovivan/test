@@ -16,7 +16,7 @@ public class ProxyLabel : uLink.MonoBehaviour
 
 	public GUIText prefabLabel;
 
-	private GUIText guiText;
+	private GUIText myGuiText;
 
 	private void Awake()
 	{
@@ -26,10 +26,10 @@ public class ProxyLabel : uLink.MonoBehaviour
 
 	private void OnDestroy()
 	{
-		if (guiText != null)
+		if (myGuiText != null)
 		{
-			Object.Destroy(guiText);
-			guiText = null;
+			Object.Destroy(myGuiText);
+			myGuiText = null;
 		}
 	}
 
@@ -40,28 +40,28 @@ public class ProxyLabel : uLink.MonoBehaviour
 
 	public void SetName(string name, int group)
 	{
-		guiText = Object.Instantiate(prefabLabel, Vector3.zero, Quaternion.identity) as GUIText;
-		if (null != guiText)
+		myGuiText = Object.Instantiate(prefabLabel, Vector3.zero, Quaternion.identity) as GUIText;
+		if (null != myGuiText)
 		{
-			guiText.text = name;
+			myGuiText.text = name;
 			if (group == BaseNetwork.MainPlayer.TeamId)
 			{
-				guiText.material.color = Color.green;
+				myGuiText.material.color = Color.green;
 				return;
 			}
 			Color32 forceColor = Singleton<ForceSetting>.Instance.GetForceColor(group);
 			Color color = new Color((float)(int)forceColor.r / 255f, (float)(int)forceColor.g / 255f, (float)(int)forceColor.b / 255f, (float)(int)forceColor.a / 255f);
-			guiText.material.color = color;
+			myGuiText.material.color = color;
 		}
 	}
 
 	public void ManualUpdate()
 	{
-		if (!(guiText == null) && !(Camera.main == null))
+		if (!(myGuiText == null) && !(Camera.main == null))
 		{
 			Vector3 position = Camera.main.WorldToViewportPoint(base.transform.position + offset);
-			guiText.transform.position = position;
-			guiText.enabled = position.z >= minDistance && position.z <= maxDistance;
+			myGuiText.transform.position = position;
+			myGuiText.enabled = position.z >= minDistance && position.z <= maxDistance;
 		}
 	}
 

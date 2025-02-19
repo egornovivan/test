@@ -4,7 +4,6 @@ using System.Linq;
 using ItemAsset;
 using Pathea;
 using PeUIEffect;
-using SkillAsset;
 using SkillSystem;
 using UnityEngine;
 
@@ -50,8 +49,6 @@ public class Grid_N : MonoBehaviour
 
 	private static List<int> m_CommonAttributeIDs = new List<int> { 8000806, 8000804, 8000805 };
 
-	private EffSkill mItemSkill;
-
 	public bool mShowNum = true;
 
 	private ItemPlaceType mItemPlace;
@@ -92,8 +89,6 @@ public class Grid_N : MonoBehaviour
 	private float moveInTime;
 
 	private bool isOnce;
-
-	private int ItemId;
 
 	public ItemSample Item => mItemGrid;
 
@@ -322,7 +317,6 @@ public class Grid_N : MonoBehaviour
 			mItemspr.enabled = false;
 			mNewMark.enabled = false;
 			mNumCount.text = string.Empty;
-			mItemSkill = null;
 			mDragMark.spriteName = "Null";
 			mScript.spriteName = "Null";
 			if (null != mSkillCooldown)
@@ -523,7 +517,6 @@ public class Grid_N : MonoBehaviour
 
 	private void i(int itemid)
 	{
-		ItemId = itemid;
 	}
 
 	private void OnDrop(GameObject go)

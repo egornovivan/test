@@ -42,7 +42,7 @@ public class GameClientNetwork : UnityEngine.MonoBehaviour
 		uLink.Network.minimumAllocatableViewIDs = 5000;
 		uLink.Network.minimumUsedViewIDs = 10;
 		uLink.Network.sendRate = 10f;
-		uLink.Network.publicKey = new PublicKey("<RSAKeyValue><Modulus>s9xPzYdYVTSz1K2JZUgcfCTBDcvGxKCsmkmKqum0P+m4iaF0zKfl/rl5Ub/HzR5R+LvUF/69uNQ68qS1FlMM+GAgoOD8C1x8ADESgW5qOdr5CUoW3H5wQREuhIFhWkCim0rHxeQFXYBPNUVUwVqXvPb9XiLbZVDXng6xuPMmrCM=</Modulus><Exponent>EQ==</Exponent></RSAKeyValue>");
+		uLink.Network.publicKey = new PublicKey("<RSAKeyValue><Modulus>oipCMkge/+BwcenDk3XdJMeBXwW+V6WVEtP/U7YKoFfJokNbqffWW65zUCSCUCJyalnqtKen5fbQiOtFyNwsuxdksUTiRDTSwW/gMOtyZ84YAED+W8OOmLRCWtnt/YBqxIVnKUVX2oT3aQ/pGOxmtZS7krThKyuO2RwDAWoETDM=</Modulus><Exponent>EQ==</Exponent></RSAKeyValue>");
 		MyServerManager.OnServerHostEvent += OnServerHost;
 	}
 

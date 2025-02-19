@@ -6,14 +6,11 @@ namespace Pathea;
 
 public class SingleGameCustom : SingleGame
 {
-	private string mGameName;
-
 	private string mUID;
 
 	public SingleGameCustom(string UID, string gameName)
 	{
 		mUID = UID;
-		mGameName = gameName;
 	}
 
 	protected override string GetDefaultYirdName()

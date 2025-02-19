@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(UILabel))]
 [AddComponentMenu("NGUI/Examples/Typewriter Effect")]
+[RequireComponent(typeof(UILabel))]
 public class TypewriterEffect : MonoBehaviour
 {
 	public int charsPerSecond = 40;

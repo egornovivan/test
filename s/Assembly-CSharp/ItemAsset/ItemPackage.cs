@@ -260,6 +260,7 @@ public class ItemPackage
 				int num = Mathf.Min(itemData.maxStackNum - array[i].stackCount, count);
 				array[i].CountUp(num);
 				count -= num;
+				OnChange(array[i].protoData.tabIndex, GetItemIndex(ItemManager.GetItemByID(array[i].instanceId)), array[i].instanceId);
 				if (!effItems.Contains(array[i]))
 				{
 					effItems.Add(array[i]);

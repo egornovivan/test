@@ -19,8 +19,6 @@ public class IKCombat : MonoBehaviour
 		public bool isPos;
 	}
 
-	private PeEntity m_Entity;
-
 	private Animator m_Animator;
 
 	private TargetCmpt m_Scanner;
@@ -29,7 +27,6 @@ public class IKCombat : MonoBehaviour
 
 	private void Start()
 	{
-		m_Entity = PEUtil.GetComponent<PeEntity>(base.gameObject);
 		m_Animator = GetComponent<Animator>();
 		m_Scanner = GetComponent<TargetCmpt>();
 		m_IKDataList = new List<IKData>();

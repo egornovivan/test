@@ -5,8 +5,6 @@ public class ColonyDwellings : ColonyBase
 {
 	public const int MAX_WORKER_COUNT = 4;
 
-	private CSDwellingsData _MyData;
-
 	private int[] _Npcs;
 
 	public override int MaxWorkerCount => 4;
@@ -15,7 +13,6 @@ public class ColonyDwellings : ColonyBase
 	{
 		SetNetwork(network);
 		_RecordData = new CSDwellingsData();
-		_MyData = (CSDwellingsData)_RecordData;
 		_Npcs = new int[4];
 		LoadData();
 		if (ColonyBase.IsNewPutOut)

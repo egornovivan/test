@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Interaction/Slider")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/Interaction/Slider")]
 public class UISlider : IgnoreTimeScale
 {
 	public enum Direction
@@ -168,7 +168,7 @@ public class UISlider : IgnoreTimeScale
 			Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.currentTouch.pos);
 			if (new Plane(mTrans.rotation * Vector3.back, mTrans.position).Raycast(ray, out var enter))
 			{
-				Vector3 vector = mTrans.localPosition + mCol.center - mCol.extents;
+				Vector3 vector = mTrans.localPosition + mCol.center - mCol.size * 0.5f;
 				Vector3 vector2 = mTrans.localPosition - vector;
 				Vector3 vector3 = mTrans.InverseTransformPoint(ray.GetPoint(enter));
 				Vector3 vector4 = vector3 + vector2;

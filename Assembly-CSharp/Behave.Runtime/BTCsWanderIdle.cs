@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Behave.Runtime;
 
 [BehaveAction(typeof(BTCsWanderIdle), "CsWanderIdle")]
@@ -9,12 +7,6 @@ public class BTCsWanderIdle : BTNormal
 	{
 		[Behave]
 		public float WanderTime;
-
-		public Vector3 mWanderWalkPos;
-
-		public float startWanderTime;
-
-		public Vector3 mDirPos;
 	}
 
 	private Data m_Data;

@@ -79,4 +79,9 @@ public class AssetReq
 		}
 		return list;
 	}
+
+	public override int GetHashCode()
+	{
+		return base.GetHashCode();
+	}
 }

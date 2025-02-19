@@ -169,7 +169,7 @@ public class Action_GunReload : PEAction
 		{
 			int num2 = Mathf.Min(num, Mathf.RoundToInt(gun.magazineSize));
 			gun.magazineValue = num2;
-			if (!m_IgnoreItem)
+			if (!m_IgnoreItem && num != 0)
 			{
 				base.packageCmpt.Destory(gun.m_AmmoItemIDList[m_TargetAmmoIndex], num2);
 			}

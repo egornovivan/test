@@ -196,7 +196,7 @@ public class LSubTerrainMgr : MonoBehaviour
 				BoxCollider component6 = gameObject.GetComponent<BoxCollider>();
 				if (component6 != null)
 				{
-					GlobalPrototypeTPHInfo[i] = new LTreePlaceHolderInfo(component6.center, component6.extents.y, component6.extents.x + component6.extents.z);
+					GlobalPrototypeTPHInfo[i] = new LTreePlaceHolderInfo(component6.center, component6.size.y * 0.5f, component6.size.x * 0.5f + component6.size.z * 0.5f);
 				}
 				else
 				{

@@ -363,7 +363,6 @@ public class MapObjNetwork : SkNetworkInterface
 
 	public static void ExtractParam(string param, out int townId, out int campId, out int damageId, out int dPlayerId)
 	{
-		List<int> list = new List<int>();
 		string[] array = param.Split(',');
 		if (array.Length != 4)
 		{
@@ -468,6 +467,14 @@ public class MapObjNetwork : SkNetworkInterface
 		}
 		else if (objType == DoodadType.DoodadType_SceneBox)
 		{
+			if (wareHouseObj == null)
+			{
+				wareHouseObj = WareHouseManager.GetWareHouseObject(_assetId);
+				if (wareHouseObj != null)
+				{
+					wareHouseObj.InitForNet(this);
+				}
+			}
 			if (wareHouseObj != null)
 			{
 				wareHouseObj.ResetItemByIdList(itemList);
@@ -619,7 +626,22 @@ public class MapObjNetwork : SkNetworkInterface
 		}
 		else if (objType == DoodadType.DoodadType_SceneBox)
 		{
-			wareHouseObj.RemoveItemById(itemID);
+			if (wareHouseObj == null)
+			{
+				wareHouseObj = WareHouseManager.GetWareHouseObject(_assetId);
+				if (wareHouseObj != null)
+				{
+					wareHouseObj.InitForNet(this);
+				}
+			}
+			if (wareHouseObj != null)
+			{
+				wareHouseObj.RemoveItemById(itemID);
+			}
+			else
+			{
+				Debug.LogError("warehouse is null！！！");
+			}
 		}
 		else if (objType == DoodadType.DoodadType_SceneItem)
 		{

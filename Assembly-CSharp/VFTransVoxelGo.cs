@@ -20,7 +20,6 @@ public class VFTransVoxelGo : MonoBehaviour, IRecyclable
 		_mr = base.gameObject.AddComponent<MeshRenderer>();
 		_mr.sharedMaterial = _defMat;
 		_mf.sharedMesh = new Mesh();
-		_mr.castShadows = false;
 		base.transform.parent = _defParent;
 		base.gameObject.layer = _defLayer;
 		base.name = "trans_";

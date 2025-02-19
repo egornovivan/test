@@ -86,8 +86,6 @@ public class UIMainMidCtrl : UIStaticWnd
 
 	private List<QuickBarItem_N> mItems = new List<QuickBarItem_N>();
 
-	private bool mUpdateLink;
-
 	private ShortCutSlotList mCutSlotList;
 
 	private PlayerPackageCmpt mPackageCmpt;
@@ -457,11 +455,11 @@ public class UIMainMidCtrl : UIStaticWnd
 
 	public void OnDropItem(Grid_N grid)
 	{
-		if (null == SelectItem_N.Instance || SelectItem_N.Instance.ItemObj == null || null == GameUI.Instance || mCutSlotList == null || null == grid || (null != GameUI.Instance.mItemPackageCtrl && GameUI.Instance.mItemPackageCtrl.EqualUsingItem(SelectItem_N.Instance.ItemSample)))
+		if (null == SelectItem_N.Instance || SelectItem_N.Instance.ItemSample == null || null == GameUI.Instance || mCutSlotList == null || null == grid || (null != GameUI.Instance.mItemPackageCtrl && GameUI.Instance.mItemPackageCtrl.EqualUsingItem(SelectItem_N.Instance.ItemSample)))
 		{
 			return;
 		}
-		if (this.e_OnDropItemTask != null && SelectItem_N.Instance.ItemObj.protoId == 916)
+		if (this.e_OnDropItemTask != null && SelectItem_N.Instance.ItemSample.protoId == 916)
 		{
 			this.e_OnDropItemTask();
 		}
@@ -482,6 +480,11 @@ public class UIMainMidCtrl : UIStaticWnd
 			}
 			else
 			{
+				if (SelectItem_N.Instance.ItemObj == null)
+				{
+					Debug.Log("UIMainMidCtrl.OnDropItem SelectItem_N.Instance.ItemObj == null");
+					return;
+				}
 				srcIndex = -1;
 				itemId = SelectItem_N.Instance.ItemObj.instanceId;
 			}
@@ -625,28 +628,40 @@ public class UIMainMidCtrl : UIStaticWnd
 		int num2 = 0;
 		if (peGun != null)
 		{
+			num = (int)peGun.magazineValue;
+			num2 = (int)peGun.magazineSize;
 			switch (peGun.m_AmmoType)
 			{
 			case AmmoType.Bullet:
 				mEngun.SetActive(value: false);
 				mgun.SetActive(value: true);
 				mBow.SetActive(value: false);
+				if (null != PeSingleton<PeCreature>.Instance.mainPlayer)
+				{
+					int itemCount = PeSingleton<PeCreature>.Instance.mainPlayer.packageCmpt.GetItemCount(peGun.curItemID);
+					if (num2 == 99999)
+					{
+						mGunLabel.text = $"{num} ({itemCount})";
+					}
+					else
+					{
+						mGunLabel.text = $"{num}/{num2} ({itemCount})";
+					}
+				}
 				break;
 			case AmmoType.Energy:
 				mEngun.SetActive(value: true);
 				mgun.SetActive(value: false);
 				mBow.SetActive(value: false);
+				if (num2 == 99999)
+				{
+					mGunLabel.text = num.ToString();
+				}
+				else
+				{
+					mGunLabel.text = num + "/" + num2;
+				}
 				break;
-			}
-			num = (int)peGun.magazineValue;
-			num2 = (int)peGun.magazineSize;
-			if (num2 == 99999)
-			{
-				mGunLabel.text = num.ToString();
-			}
-			else
-			{
-				mGunLabel.text = num + "/" + num2;
 			}
 		}
 		else

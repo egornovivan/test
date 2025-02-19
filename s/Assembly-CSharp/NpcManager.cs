@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Mono.Data.SqliteClient;
@@ -14,10 +13,6 @@ public class NpcManager : MonoBehaviour
 	private static Dictionary<Vector2, int> townNpcs = new Dictionary<Vector2, int>();
 
 	private static Dictionary<Vector3, int> buildingNpcs = new Dictionary<Vector3, int>();
-
-	private static Dictionary<int, Vector3> storyNpcs = new Dictionary<int, Vector3>();
-
-	private static Dictionary<int, Vector3> storyRDNpcs = new Dictionary<int, Vector3>();
 
 	public static NpcManager Instance => _instance;
 
@@ -35,7 +30,7 @@ public class NpcManager : MonoBehaviour
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			int id = reader.GetInt32(reader.GetOrdinal("id"));
 			int worldId = reader.GetInt32(reader.GetOrdinal("worldid"));
 			byte[] buff = (byte[])reader.GetValue(reader.GetOrdinal("basedata"));
@@ -117,12 +112,6 @@ public class NpcManager : MonoBehaviour
 
 	private static void LoadNormalNpcNameIdFromDB()
 	{
-		SqliteDataReader sqliteDataReader = LocalDatabase.Instance.ReadFullTable("NPC");
-		while (sqliteDataReader.Read())
-		{
-			int num = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("NPC_ID")));
-			string @string = sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("NPC_name"));
-		}
 	}
 
 	internal static void AddTownNpc(Vector2 pos, int objID)

@@ -15,8 +15,8 @@ public class VCPArmorPivot : VCPart
 
 	private int _showIndex;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private bool _destroyed;
 
 	public ArmorType armorType => _armorType;

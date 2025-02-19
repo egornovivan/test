@@ -73,7 +73,6 @@ public class LSubTerrain
 		TreeInfo value;
 		using (MemoryStream memoryStream = new MemoryStream(data))
 		{
-			IntVector3 zero = IntVector3.Zero;
 			BinaryReader binaryReader = new BinaryReader(memoryStream);
 			int num = binaryReader.ReadInt32();
 			for (int i = 0; i != num; i++)

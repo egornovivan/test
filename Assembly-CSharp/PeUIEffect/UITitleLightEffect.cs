@@ -2,11 +2,8 @@ namespace PeUIEffect;
 
 public class UITitleLightEffect : UIEffect
 {
-	private UITexture tex;
-
 	private void Awake()
 	{
-		tex = GetComponent<UITexture>();
 	}
 
 	public override void Play()

@@ -7,8 +7,6 @@ public class BuildingInfoManager
 {
 	private static BuildingInfoManager mInstance;
 
-	private uint maxBuildingNo;
-
 	public Dictionary<BuildingID, BuildingInfo> mBuildingInfoMap;
 
 	public Dictionary<BuildingID, int> GeneratedBuildings;
@@ -35,7 +33,6 @@ public class BuildingInfoManager
 
 	private BuildingInfoManager()
 	{
-		maxBuildingNo = 0u;
 		mBuildingInfoMap = new Dictionary<BuildingID, BuildingInfo>();
 		GeneratedBuildings = new Dictionary<BuildingID, int>();
 		mCreatedNativeTower = new Dictionary<BuildingID, int>();
@@ -46,7 +43,6 @@ public class BuildingInfoManager
 
 	public void Clear()
 	{
-		maxBuildingNo = 0u;
 		mBuildingInfoMap.Clear();
 		GeneratedBuildings.Clear();
 		mCreatedNativeTower.Clear();

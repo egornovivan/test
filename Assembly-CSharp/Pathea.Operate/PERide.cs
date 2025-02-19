@@ -18,8 +18,8 @@ public class PERide : Operation_Single
 	[HideInInspector]
 	public float MonsterScaleMax = 1.5f;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	public AnimationCurve IkLeapCurve = new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(1f, 1f));
 
 	public Vector3 RidePos => base.transform.position;

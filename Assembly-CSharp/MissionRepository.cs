@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MissionRepository
 {
+	private const int finishTalkID = 353;
+
 	public static Dictionary<int, MissionCommonData> m_MissionCommonMap = new Dictionary<int, MissionCommonData>();
 
 	public static Dictionary<int, TypeMonsterData> m_TypeMonster = new Dictionary<int, TypeMonsterData>();
@@ -219,11 +221,15 @@ public class MissionRepository
 		{
 			return string.Empty;
 		}
-		int talkID = ((!bspe) ? missionCommonData.m_PlayerTalk[0] : missionCommonData.m_PlayerTalk[1]);
-		TalkData talkData = TalkRespository.GetTalkData(talkID);
+		int num = ((!bspe) ? missionCommonData.m_PlayerTalk[0] : missionCommonData.m_PlayerTalk[1]);
+		TalkData talkData = TalkRespository.GetTalkData(num);
 		if (talkData == null)
 		{
 			return string.Empty;
+		}
+		if (num == 353)
+		{
+			return $"{talkData.m_Content} ({missionCommonData.m_MissionName})";
 		}
 		return talkData.m_Content;
 	}

@@ -1,4 +1,3 @@
-using Pathea;
 using UnityEngine;
 
 public class MonsterCreater : MonoBehaviour
@@ -19,14 +18,13 @@ public class MonsterCreater : MonoBehaviour
 
 	private void Start()
 	{
-		PeEntity peEntity = null;
 		if (protoType == ProtoType.Doodad)
 		{
-			peEntity = DoodadEntityCreator.CreateDoodad(protoID, base.transform.position);
+			DoodadEntityCreator.CreateDoodad(protoID, base.transform.position);
 		}
 		else if (protoType == ProtoType.NpcRandom)
 		{
-			peEntity = NpcEntityCreator.CreateNpc(protoID, base.transform.position);
+			NpcEntityCreator.CreateNpc(protoID, base.transform.position);
 		}
 		else if (protoType == ProtoType.NpcLine)
 		{
@@ -34,7 +32,7 @@ public class MonsterCreater : MonoBehaviour
 		}
 		else
 		{
-			peEntity = MonsterEntityCreator.CreateAdMonster(protoID, base.transform.position, colorId, -1);
+			MonsterEntityCreator.CreateAdMonster(protoID, base.transform.position, colorId, -1);
 		}
 		Object.Destroy(base.gameObject);
 	}

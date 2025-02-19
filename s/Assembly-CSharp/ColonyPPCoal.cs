@@ -178,7 +178,6 @@ public class ColonyPPCoal : ColonyPowerPlant
 			{
 				ItemObject[] items = colonyObj.DeleteItemWithItemID(itemByID2.protoData, num7).ToArray();
 				ChannelNetwork.SyncItemList(_Network.WorldId, items);
-				IEnumerable<int> itemObjIDs = colonyObj._Items.GetItemObjIDs(itemByID2.GetTabIndex());
 				_SubData.m_CurWorkedTime = 0f;
 				_SubData.m_WorkedTime = Info.m_WorkedTime;
 				SendWorkedTime();

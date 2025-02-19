@@ -48,8 +48,6 @@ public class BTPounce : BTAttackBase
 
 		public float m_StopTime;
 
-		public float m_EndTime;
-
 		public float m_StartRotateTime;
 
 		public bool m_Started;

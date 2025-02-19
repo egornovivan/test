@@ -77,9 +77,10 @@ public class SteamRandomGetIsoProcess : ISteamGetFile
 				Finish(_fileIDs, _publishIDs, bOK: false);
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
 			Finish(_fileIDs, _publishIDs, bOK: false);
+			Debug.LogError(ex.ToString());
 		}
 	}
 
@@ -98,9 +99,10 @@ public class SteamRandomGetIsoProcess : ISteamGetFile
 				Finish(_fileIDs, _publishIDs, bOK: false);
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
 			Finish(_fileIDs, _publishIDs, bOK: false);
+			Debug.LogError(ex.ToString());
 		}
 	}
 
@@ -121,9 +123,10 @@ public class SteamRandomGetIsoProcess : ISteamGetFile
 				Finish(_fileIDs, _publishIDs, bOK: false);
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
 			Finish(_fileIDs, _publishIDs, bOK: false);
+			Debug.LogError(ex.ToString());
 		}
 	}
 

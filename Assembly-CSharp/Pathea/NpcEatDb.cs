@@ -508,7 +508,6 @@ public class NpcEatDb
 		{
 			return null;
 		}
-		float num2 = ((!_bContinue) ? iitems.mEatMin : iitems.mEatMax);
 		float attribute = entity.GetAttribute(_type);
 		float attribute2 = entity.GetAttribute(_typeMax);
 		num = attribute / attribute2;
@@ -523,7 +522,6 @@ public class NpcEatDb
 	{
 		AttrPer result = null;
 		float num = 1f;
-		float num2 = ((!_bContinue) ? _eatMin : _eatMax);
 		float attribute = entity.GetAttribute(_type);
 		float attribute2 = entity.GetAttribute(_typeMax);
 		num = attribute / attribute2;

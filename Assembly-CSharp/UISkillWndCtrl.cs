@@ -45,8 +45,6 @@ public class UISkillWndCtrl : UIBaseWnd
 
 	private TableState mTableState;
 
-	private bool tableChange;
-
 	private SkillTreeUnitMgr skillMgr;
 
 	private SkAliveEntity skEntiyt;

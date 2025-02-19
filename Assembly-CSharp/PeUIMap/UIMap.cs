@@ -115,8 +115,6 @@ public abstract class UIMap : UIStaticWnd
 
 	private Vector3 travelPos = Vector3.zero;
 
-	private int campId = -1;
-
 	private int iconId = -1;
 
 	public Action onTravel;
@@ -531,6 +529,11 @@ public abstract class UIMap : UIStaticWnd
 				if (PeGameMgr.IsMulti && lb._ILabel.GetIcon() == 11)
 				{
 					RepositionMapLabel(lb);
+					MapCmpt mapCmpt = lb._ILabel as MapCmpt;
+					if ((bool)mapCmpt && (bool)mapCmpt.Entity && (bool)mapCmpt.Entity.peTrans)
+					{
+						lb.transform.rotation = Quaternion.Euler(0f, 0f, 0f - mapCmpt.Entity.peTrans.rotation.eulerAngles.y);
+					}
 					lb.gameObject.SetActive(value: true);
 				}
 				else if (lb._ILabel.GetIcon() != 43)
@@ -691,7 +694,7 @@ public abstract class UIMap : UIStaticWnd
 
 	protected virtual void OpenWarpWnd(UIMapLabel label)
 	{
-		if (!(label == null))
+		if (!(label == null) && !RandomDungenMgrData.InDungeon)
 		{
 			mWarpWnd.SetActive(value: true);
 			mMaskOpWndParent.SetActive(value: false);
@@ -707,10 +710,8 @@ public abstract class UIMap : UIStaticWnd
 			{
 				iconId = label._ILabel.GetIcon();
 			}
-			if (label._ILabel is StaticPoint)
+			if (!(label._ILabel is StaticPoint))
 			{
-				StaticPoint staticPoint = (StaticPoint)label._ILabel;
-				campId = staticPoint.campId;
 			}
 		}
 	}

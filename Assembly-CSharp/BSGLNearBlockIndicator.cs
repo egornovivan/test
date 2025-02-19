@@ -9,8 +9,6 @@ public class BSGLNearBlockIndicator : GLBehaviour
 
 	public Gradient m_BoxColors;
 
-	private Material _LineMaterial;
-
 	public static Vector3 InvalidPos => new Vector3(-100f, -100f, -100f);
 
 	private void Start()

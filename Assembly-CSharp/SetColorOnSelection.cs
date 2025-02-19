@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(UIWidget))]
 [ExecuteInEditMode]
+[RequireComponent(typeof(UIWidget))]
 [AddComponentMenu("NGUI/Examples/Set Color on Selection")]
 public class SetColorOnSelection : MonoBehaviour
 {

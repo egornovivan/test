@@ -32,8 +32,6 @@ public class IKAimCtrl : MonoBehaviour
 
 	private AimIK m_AimIK;
 
-	private FullBodyBipedIK m_FBBIK;
-
 	private Vector3 m_LastDir;
 
 	private Vector3 m_TargetDir;
@@ -97,7 +95,6 @@ public class IKAimCtrl : MonoBehaviour
 	private void Awake()
 	{
 		m_AimIK = GetComponent<AimIK>();
-		m_FBBIK = GetComponent<FullBodyBipedIK>();
 		m_ModelTran = base.transform.parent.GetComponentInChildren<PEModelController>().transform;
 		m_DetectorCenter = m_AimIK.solver.transform;
 		m_DefaultAxis = m_AimIK.solver.axis;

@@ -7,8 +7,6 @@ public class ModelLodTest : MonoBehaviour
 
 	private GameObject m_Obj;
 
-	private Vector3 position;
-
 	private void Start()
 	{
 		Load();
@@ -16,10 +14,6 @@ public class ModelLodTest : MonoBehaviour
 
 	private void Update()
 	{
-		if (m_Obj != null)
-		{
-			position = m_Obj.transform.position;
-		}
 	}
 
 	private void Load()

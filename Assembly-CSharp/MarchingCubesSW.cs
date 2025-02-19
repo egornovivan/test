@@ -56,8 +56,6 @@ public class MarchingCubesSW
 		2, 6, 3, 7
 	};
 
-	private static int[] indexConvert = new int[8] { 0, 1, 2, 3, 4, 5, 6, 7 };
-
 	private static int[] edgeTable = new int[256]
 	{
 		0, 265, 515, 778, 1030, 1295, 1541, 1804, 2060, 2309,

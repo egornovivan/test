@@ -45,7 +45,7 @@ public class UIFlowing : MonoBehaviour
 	{
 		float time = PosCurve.Evaluate((t - Pre) / During);
 		base.transform.localPosition = Vector3.Lerp(BeginPosition, EndPosition, time);
-		float num = ScaleCurve.Evaluate((t - Pre) / During);
+		ScaleCurve.Evaluate((t - Pre) / During);
 		base.transform.localScale = Vector3.Lerp(BeginScale, EndScale, time);
 		if (uitex != null)
 		{

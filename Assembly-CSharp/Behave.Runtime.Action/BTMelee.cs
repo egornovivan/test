@@ -142,7 +142,6 @@ public class BTMelee : BTAttackBase
 		public Vector3 GetAttackPosition(Enemy enemy)
 		{
 			float num = (minRange + maxRange) * 0.5f + enemy.entity.maxRadius + enemy.entityTarget.maxRadius;
-			float num2 = (minHeight + maxHeight) * 0.5f - enemy.entity.maxHeight * 0.5f;
 			return enemy.entityTarget.position - enemy.DirectionXZ.normalized * num;
 		}
 

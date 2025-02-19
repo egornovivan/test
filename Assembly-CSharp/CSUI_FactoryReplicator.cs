@@ -109,8 +109,6 @@ public class CSUI_FactoryReplicator : MonoBehaviour
 
 	private UIDraggablePanel m_QueryDraggablePanel;
 
-	private Transform m_QueryPanelTrans;
-
 	public RightContent m_RightContent;
 
 	public DelegateType_4 onCountIputChanged;
@@ -457,7 +455,6 @@ public class CSUI_FactoryReplicator : MonoBehaviour
 		uIEventListener = UIEventListener.Get(m_RightContent.countInput.gameObject);
 		uIEventListener.onSelect = OnCountInputSelected;
 		m_QueryDraggablePanel = m_MiddleContent.queryScrollBox.m_DraggablePanel.gameObject.GetComponent<UIDraggablePanel>();
-		m_QueryPanelTrans = m_MiddleContent.queryScrollBox.m_DraggablePanel.transform;
 	}
 
 	private void Start()

@@ -20,8 +20,6 @@ public class HolotreeTask : MonoBehaviour
 
 	private int HP;
 
-	private float hppct;
-
 	public static HolotreeTask Instance => s_instance;
 
 	private void Awake()
@@ -34,7 +32,6 @@ public class HolotreeTask : MonoBehaviour
 		appearance.gameObject.SetActive(value: true);
 		base.transform.GetComponent<Collider>().enabled = true;
 		HP = MaxHP;
-		hppct = 1f;
 		HoloCameraControl.Instance.renderObjs1.Add(treeBase);
 		appearance.produce = true;
 	}

@@ -54,8 +54,6 @@ public class AircarftPutForce : MonoBehaviour
 	{
 		if (mAircaraft != null)
 		{
-			float num = Mathf.Clamp01(Vector3.Dot(mAircaraft.transform.up, base.transform.up));
-			float num2 = Mathf.Clamp01(Vector3.Dot(xMove + zMove, base.transform.up));
 			Vector3 force = base.transform.up * currutPower;
 			Vector3 position = Vector3.Lerp(base.transform.position, mAircaraft.mRigidbody.worldCenterOfMass, 0.97f);
 			position.y = mAircaraft.mRigidbody.worldCenterOfMass.y;

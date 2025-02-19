@@ -15,10 +15,6 @@ public class LifeFormController : MonoBehaviour
 
 	private Dictionary<int, float> mPropertyMaxs;
 
-	private SkNetworkInterface mSkillRunner;
-
-	private float FoodCheckInterval;
-
 	private void Awake()
 	{
 		mActiveRules = new List<int>();
@@ -34,8 +30,6 @@ public class LifeFormController : MonoBehaviour
 		{
 			AddRule(mRule);
 		}
-		mSkillRunner = GetComponent<SkNetworkInterface>();
-		FoodCheckInterval = 1f;
 	}
 
 	private void Update()

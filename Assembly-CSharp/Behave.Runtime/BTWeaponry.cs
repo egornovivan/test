@@ -11,13 +11,7 @@ public class BTWeaponry : BTNormal
 
 	private Data m_Data;
 
-	private float startTime;
-
-	private float waitTime = 3f;
-
 	private ItemObject m_BetterAtkObj;
-
-	private AttackMode m_Atkmode;
 
 	private ItemObject m_BetterDefObj;
 
@@ -28,7 +22,6 @@ public class BTWeaponry : BTNormal
 			return BehaveResult.Success;
 		}
 		m_BetterAtkObj = base.entity.NpcCmpt.EqSelect.BetterAtkObj;
-		m_Atkmode = base.entity.NpcCmpt.EqSelect.BetterAtkObj.protoData.weaponInfo.attackModes[0];
 		if (m_BetterAtkObj != null && base.entity.motionEquipment.ActiveableEquipment == null)
 		{
 			SelectItem.EquipByObj(base.entity, m_BetterAtkObj);

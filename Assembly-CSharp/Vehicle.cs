@@ -28,8 +28,8 @@ public class Vehicle : MonoBehaviour
 	[SerializeField]
 	private float _radius = 1f;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private float _scaledRadius = 1f;
 
 	private float _speed;

@@ -31,7 +31,6 @@ public class MisRepositoryArchiveMgr : ArchivableSingleton<MisRepositoryArchiveM
 		{
 			if (PeSingleton<PeCreature>.Instance == null || PeSingleton<PeCreature>.Instance.mainPlayer == null)
 			{
-				Debug.LogError("storymode error,cant load missionmgr");
 				GlobalBehaviour.RegisterEvent(WaitForAssets);
 				return;
 			}

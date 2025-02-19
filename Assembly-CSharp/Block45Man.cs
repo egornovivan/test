@@ -14,8 +14,6 @@ public class Block45Man : SkEntity, ILODNodeDataMan, IVxChunkHelperProc
 
 	private Block45OctDataSource _dataSource;
 
-	private List<Block45OctNode> _octNodesToAttach = new List<Block45OctNode>();
-
 	public int _dbgLogicX;
 
 	public int _dbgLogicY;

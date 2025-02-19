@@ -32,10 +32,6 @@ public class DigTerrainManager
 		new IntVector3(0, 0, 1)
 	};
 
-	private static readonly float VoxelScaleMin = 0.02352f;
-
-	private static readonly float VoxelScaleMax = 0.21897f;
-
 	private static readonly float VoxelDamageMin = 0f;
 
 	private static readonly float VoxelDamageMax = 1275f;
@@ -1325,14 +1321,13 @@ public class DigTerrainManager
 	{
 		Serialize.Import(binData, delegate(BinaryReader r)
 		{
+			int dsType = BufferHelper.ReadInt32(r);
 			int num = BufferHelper.ReadInt32(r);
-			int num2 = BufferHelper.ReadInt32(r);
-			IBSDataSource iBSDataSource = BuildingMan.Datas[num];
-			for (int i = 0; i < num2; i++)
+			for (int i = 0; i < num; i++)
 			{
 				BufferHelper.ReadIntVector3(r, out var v);
 				BufferHelper.ReadBSVoxel(r, out var _value);
-				ApplyBSDataFromNet(num, v, _value);
+				ApplyBSDataFromNet(dsType, v, _value);
 			}
 		});
 	}

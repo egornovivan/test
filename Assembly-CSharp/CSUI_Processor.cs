@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CSUI_Processor : MonoBehaviour
@@ -8,8 +7,6 @@ public class CSUI_Processor : MonoBehaviour
 
 	[SerializeField]
 	private CSUI_ProcessorItem m_ProItemsNull;
-
-	private List<CSUI_ProcessorItem> Processors = new List<CSUI_ProcessorItem>();
 
 	private CSPersonnel m_RefNpc;
 

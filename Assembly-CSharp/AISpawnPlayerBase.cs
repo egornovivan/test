@@ -13,8 +13,6 @@ public class AISpawnPlayerBase
 
 	private int mSpawnID;
 
-	private float mWeight;
-
 	private float mDelayTime;
 
 	private static List<AISpawnPlayerBase> mDataTable = new List<AISpawnPlayerBase>();
@@ -32,7 +30,6 @@ public class AISpawnPlayerBase
 			aISpawnPlayerBase.mTimerShaft = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("timeid_upon")));
 			aISpawnPlayerBase.mDifficulty = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("dif_id")));
 			aISpawnPlayerBase.mArea = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("Area_type")));
-			aISpawnPlayerBase.mWeight = Convert.ToSingle(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("weights")));
 			aISpawnPlayerBase.mSpawnID = Convert.ToInt32(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("sp_id")));
 			aISpawnPlayerBase.mDelayTime = Convert.ToSingle(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("start_time")));
 			mDataTable.Add(aISpawnPlayerBase);

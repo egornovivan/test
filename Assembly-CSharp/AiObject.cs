@@ -15,10 +15,6 @@ public class AiObject : SkillRunner
 
 	private bool m_updateDefaultAnimation = true;
 
-	private static float SpeedDampTime = 0.25f;
-
-	private static float DirectionDampTime = 0.25f;
-
 	private float mLookAtWeight;
 
 	private float mLeftHandIKWeight;
@@ -662,7 +658,7 @@ public class AiObject : SkillRunner
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(i);
 				int num = Animator.StringToHash(m_animator.GetLayerName(i) + "." + name);
-				if (currentAnimatorStateInfo.nameHash == num)
+				if (currentAnimatorStateInfo.fullPathHash == num)
 				{
 					return true;
 				}
@@ -1058,7 +1054,6 @@ public class AiObject : SkillRunner
 		{
 			RPCServer(EPacketType.PT_AI_VectorString, name, value);
 		}
-		m_animator.SetVector(name, value);
 	}
 
 	public void SetVector(int id, Vector3 value)
@@ -1067,7 +1062,6 @@ public class AiObject : SkillRunner
 		{
 			RPCServer(EPacketType.PT_AI_VectorInt, id, value);
 		}
-		m_animator.SetVector(id, value);
 	}
 
 	public void SetInteger(string name, int value)
@@ -1178,16 +1172,6 @@ public class AiObject : SkillRunner
 	public void NetWorkSetBool(int id, bool value)
 	{
 		m_animator.SetBool(id, value);
-	}
-
-	public void NetWorkSetVector(string name, Vector3 value)
-	{
-		m_animator.SetVector(name, value);
-	}
-
-	public void NetWorkSetVector(int id, Vector3 value)
-	{
-		m_animator.SetVector(id, value);
 	}
 
 	public void NetWorkSetInteger(string name, int value)

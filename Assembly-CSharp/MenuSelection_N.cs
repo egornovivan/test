@@ -10,10 +10,6 @@ public class MenuSelection_N : MonoBehaviour
 
 	private UIButton mButton;
 
-	private SimpleMenu_N mMenu;
-
-	private int mIndex;
-
 	public bool ExpansionEnable
 	{
 		set
@@ -47,8 +43,6 @@ public class MenuSelection_N : MonoBehaviour
 	public void SetInfo(string content, SimpleMenu_N menu, int index)
 	{
 		mTextLabel.text = content;
-		mMenu = menu;
-		mIndex = index;
 	}
 
 	private void OnClick()

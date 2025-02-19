@@ -117,7 +117,7 @@ public static class SceneObjMgr
 		{
 			return;
 		}
-		int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+		reader.GetInt32(reader.GetOrdinal("ver"));
 		byte[] buff = (byte[])reader.GetValue(reader.GetOrdinal("data"));
 		Serialize.Import(buff, delegate(BinaryReader r)
 		{
@@ -144,11 +144,10 @@ public static class SceneObjMgr
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			int id = reader.GetInt32(reader.GetOrdinal("id"));
 			ESceneObjType type = (ESceneObjType)reader.GetInt32(reader.GetOrdinal("type"));
 			byte[] buff = (byte[])reader.GetValue(reader.GetOrdinal("data"));
-			SceneObject obj = null;
 			Serialize.Import(buff, delegate(BinaryReader r)
 			{
 				BufferHelper.ReadVector3(r, out var _value);
@@ -177,7 +176,6 @@ public static class SceneObjMgr
 						sceneItem.SetType(type);
 						GameWorld.AddSceneObj(sceneItem, worldId);
 						AddItem(itemByID2, sync: false);
-						obj = sceneItem;
 					}
 					break;
 				}
@@ -187,7 +185,6 @@ public static class SceneObjMgr
 					sceneObject.Init(id, protoId, _value, _value2, _value3, worldId);
 					sceneObject.SetType(ESceneObjType.EFFECT);
 					GameWorld.AddSceneObj(sceneObject, worldId);
-					obj = sceneObject;
 					break;
 				}
 				case ESceneObjType.DROPITEM:
@@ -208,7 +205,6 @@ public static class SceneObjMgr
 						sceneDropItem.SetType(type);
 						GameWorld.AddSceneObj(sceneDropItem, worldId);
 						AddItem(itemByID, sync: false);
-						obj = sceneDropItem;
 					}
 					break;
 				}

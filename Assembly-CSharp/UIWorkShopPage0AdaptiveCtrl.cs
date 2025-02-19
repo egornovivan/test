@@ -35,8 +35,6 @@ public class UIWorkShopPage0AdaptiveCtrl : MonoBehaviour
 
 	private int m_BaseColumnCount = 3;
 
-	private int m_BaseRowCount = 3;
-
 	private bool m_InitData;
 
 	private PosStruct m_BasePosInfo;

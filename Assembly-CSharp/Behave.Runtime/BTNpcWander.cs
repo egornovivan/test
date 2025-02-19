@@ -39,11 +39,7 @@ public class BTNpcWander : BTNormal
 
 	private Vector3 mWanderPos;
 
-	private Vector3 avaidPos;
-
 	private float avaidStatTime;
-
-	private float avaidTime = 2f;
 
 	private BehaveResult Init(Tree sender)
 	{
@@ -76,7 +72,6 @@ public class BTNpcWander : BTNormal
 			return BehaveResult.Failure;
 		}
 		m_Data.m_StartWanderTime = Time.time;
-		avaidPos = Vector3.zero;
 		return BehaveResult.Running;
 	}
 

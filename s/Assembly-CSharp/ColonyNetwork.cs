@@ -294,8 +294,6 @@ public class ColonyNetwork : AiObject
 
 	private void RPC_C2S_FARM_GetSeed(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
-		int num2 = stream.Read<int>(new object[0]);
 	}
 
 	private void RPC_C2S_FARM_FetchSeedItem(uLink.BitStream stream, uLink.NetworkMessageInfo info)

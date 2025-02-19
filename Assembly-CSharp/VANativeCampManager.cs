@@ -25,14 +25,6 @@ public class VANativeCampManager
 
 	public Dictionary<int, WeightPool> LevelPoolPaja;
 
-	private int numMin;
-
-	private int numMax;
-
-	private int distanceMin;
-
-	private int distanceMax;
-
 	public static VANativeCampManager Instance
 	{
 		get
@@ -66,10 +58,6 @@ public class VANativeCampManager
 			stringReader.Close();
 			nativeCampsList = randomCampInfo.nativeCamps.ToList();
 			templateCount = randomCampInfo.nativeCamps.Count();
-			numMin = randomCampInfo.numMin;
-			numMax = randomCampInfo.numMax;
-			distanceMin = randomCampInfo.distanceMin;
-			distanceMax = randomCampInfo.distanceMax;
 		}
 	}
 
@@ -115,8 +103,6 @@ public class VANativeCampManager
 
 	public void SetCampDistance(float scale)
 	{
-		distanceMin = (int)((float)randomCampInfo.distanceMin * scale);
-		distanceMax = (int)((float)randomCampInfo.distanceMax * scale);
 		VArtifactUtil.spawnRadius = Mathf.FloorToInt((float)VArtifactUtil.spawnRadius0 * scale);
 	}
 }

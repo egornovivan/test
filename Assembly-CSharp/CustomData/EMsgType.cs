@@ -5,5 +5,6 @@ public enum EMsgType
 	ToAll,
 	ToOne,
 	ToTeam,
-	ToGuild
+	ToGuild,
+	ToMe
 }

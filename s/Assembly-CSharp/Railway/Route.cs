@@ -26,9 +26,9 @@ public class Route
 
 		public int moveDir;
 
-		private int mNextPointIndex;
+		public int mNextPointIndex;
 
-		private float timeToLeavePoint;
+		public float timeToLeavePoint;
 
 		private float[] currentTable => (moveDir != 1) ? mScheduleBackward : mScheduleForward;
 
@@ -150,7 +150,7 @@ public class Route
 
 	private RailwayTrain mTrain;
 
-	private float mLerpF;
+	private float lastSend;
 
 	public int id => mId;
 
@@ -183,6 +183,10 @@ public class Route
 	}
 
 	public int moveDir => mRunState.moveDir;
+
+	public float TimeToLeavePoint => mRunState.timeToLeavePoint;
+
+	public int NextPointIndex => mRunState.mNextPointIndex;
 
 	public double singleTripTime => mRunState.singleTripTime;
 
@@ -362,9 +366,19 @@ public class Route
 
 	public void Update(float deltaTime)
 	{
-		if (trainRunning)
+		if (!trainRunning)
 		{
-			mRunState.Update(deltaTime);
+			return;
+		}
+		mRunState.Update(deltaTime);
+		if (Time.time - lastSend > 5f)
+		{
+			Player randomPlayer = Player.GetRandomPlayer();
+			if (randomPlayer != null)
+			{
+				randomPlayer.RPCOthers(EPacketType.PT_InGame_Railway_UpdateRoute, id, moveDir, NextPointIndex, TimeToLeavePoint);
+			}
+			lastSend = Time.time;
 		}
 	}
 

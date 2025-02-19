@@ -3,16 +3,16 @@ using WhiteCat.Internal;
 
 namespace WhiteCat;
 
-[AddComponentMenu("White Cat/Tween/Path/Driver")]
 [RequireComponent(typeof(PathDriver))]
+[AddComponentMenu("White Cat/Tween/Path/Driver")]
 public class TweenPathDriver : TweenBase
 {
 	[SerializeField]
 	[GetSet("from")]
 	private float _from;
 
-	[GetSet("to")]
 	[SerializeField]
+	[GetSet("to")]
 	private float _to;
 
 	private float _original;

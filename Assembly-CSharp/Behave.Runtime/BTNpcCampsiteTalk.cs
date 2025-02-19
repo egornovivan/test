@@ -52,8 +52,6 @@ public class BTNpcCampsiteTalk : BTNormal
 
 	private PeEntity mTarget;
 
-	private bool mHasAction;
-
 	private bool TargetCanTalk()
 	{
 		if (mTarget == null || mTarget.NpcCmpt == null)
@@ -74,12 +72,10 @@ public class BTNpcCampsiteTalk : BTNormal
 	private void startTalk()
 	{
 		SetBool((!(Random.value > 0.5f)) ? "Talk1" : "Talk0", value: true);
-		mHasAction = true;
 	}
 
 	private void endTalk()
 	{
-		mHasAction = false;
 		SetBool("Talk0", value: false);
 		SetBool("Talk1", value: false);
 	}

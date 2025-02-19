@@ -65,7 +65,6 @@ public class DoodadRandomBuilding : IDoodad
 
 	public static void ExtractParam(string param, out int townId, out int campId, out int damageId, out int dPlayerId)
 	{
-		List<int> list = new List<int>();
 		string[] array = param.Split(',');
 		if (array.Length != 4 && LogFilter.logError)
 		{

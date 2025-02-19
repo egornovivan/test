@@ -22,8 +22,6 @@ public class SurfExtractorCpuB45 : IVxSurfExtractor
 
 	private IVxSurfExtractReq reqToProceed;
 
-	private bool bNeedUpdateTrans;
-
 	public bool IsIdle => _reqList.Count == 0 && _chunkDataToProceed == null;
 
 	public bool IsAllClear => _reqList.Count == 0 && _chunkDataToProceed == null && _reqFinishedList.Count == 0;

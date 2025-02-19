@@ -13,8 +13,6 @@ public class Block45Lab : MonoBehaviour
 
 	private byte[] chunkData = new byte[2000];
 
-	private byte[] chunkData2 = new byte[2000];
-
 	private B45LODCompute lodCompute;
 
 	private float angle = 90f;
@@ -38,7 +36,6 @@ public class Block45Lab : MonoBehaviour
 		list.Add(chunkData);
 		list.Add(chunkData);
 		list.Add(chunkData);
-		chunkData2 = lodCompute.Compute(list);
 		getResult(chunkData);
 	}
 

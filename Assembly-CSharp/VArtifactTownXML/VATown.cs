@@ -15,7 +15,7 @@ public class VATown
 	[XmlAttribute("weight")]
 	public int weight { get; set; }
 
-	[XmlArrayItem("ArtifactUnit", typeof(ArtifactUnit))]
 	[XmlArray("ArtifactUnitArray")]
+	[XmlArrayItem("ArtifactUnit", typeof(ArtifactUnit))]
 	public ArtifactUnit[] artifactUnitArray { get; set; }
 }

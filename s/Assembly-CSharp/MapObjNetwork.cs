@@ -15,10 +15,6 @@ public class MapObjNetwork : SkNetworkInterface
 
 	public Player _owner;
 
-	private List<int> _itemList = new List<int>();
-
-	private bool _hasRecord;
-
 	private static List<MapObjNetwork> _mapObjNetworkMgr = new List<MapObjNetwork>();
 
 	internal int ObjType => _objType;
@@ -331,6 +327,7 @@ public class MapObjNetwork : SkNetworkInterface
 	public void RPC_C2S_Destroy(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		StartCoroutine(DestroyCoroutine());
+		_doodad.DeleteData();
 	}
 
 	private void RPC_C2S_ScenarioId(uLink.BitStream stream, uLink.NetworkMessageInfo info)

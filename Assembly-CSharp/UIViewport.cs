@@ -1,8 +1,8 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-[AddComponentMenu("NGUI/UI/Viewport Camera")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/UI/Viewport Camera")]
 public class UIViewport : MonoBehaviour
 {
 	public Camera sourceCamera;

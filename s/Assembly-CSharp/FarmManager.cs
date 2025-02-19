@@ -463,7 +463,7 @@ public class FarmManager : MonoBehaviour
 	{
 		if (dataReader.Read())
 		{
-			int @int = dataReader.GetInt32(dataReader.GetOrdinal("ver"));
+			dataReader.GetInt32(dataReader.GetOrdinal("ver"));
 			byte[] buffer = (byte[])dataReader.GetValue(dataReader.GetOrdinal("data"));
 			Import(buffer);
 		}

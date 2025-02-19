@@ -25,10 +25,6 @@ public class PRFlare : SkProjectile
 
 	private float process;
 
-	private bool blew = true;
-
-	private bool valid = true;
-
 	public void Start()
 	{
 		light = GetComponentInChildren<Light>();

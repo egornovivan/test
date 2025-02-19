@@ -91,6 +91,7 @@ public class FastTravel : MonoBehaviour
 				cmpt.FreezePhySteateForSystem(v: false);
 			}
 			UnityEngine.Object.Destroy(base.gameObject);
+			Resources.UnloadUnusedAssets();
 			GC.Collect();
 			return true;
 		};

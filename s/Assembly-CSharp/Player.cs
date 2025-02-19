@@ -443,7 +443,6 @@ public class Player : SkNetworkInterface
 
 	private void RPC_C2S_ApplyDamage(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		float num = stream.Read<float>(new object[0]);
 	}
 
 	private void RPC_C2S_ApplyComfort(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -1104,7 +1103,6 @@ public class Player : SkNetworkInterface
 
 	private void RPC_C2S_SetPose(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
 	}
 
 	private void RPC_C2S_ModifyPackage(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -1142,7 +1140,7 @@ public class Player : SkNetworkInterface
 
 	private void RPC_C2S_SetVariable(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 	}
 
 	private void RPC_C2S_ModifyStat(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -1249,8 +1247,8 @@ public class Player : SkNetworkInterface
 
 	private void RPC_C2S_OrderVector(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
-		Vector3 vector = stream.Read<Vector3>(new object[0]);
+		stream.Read<int>(new object[0]);
+		stream.Read<Vector3>(new object[0]);
 	}
 
 	private void RPC_C2S_OrderTarget(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -1269,7 +1267,7 @@ public class Player : SkNetworkInterface
 	{
 		int num = stream.Read<int>(new object[0]);
 		Vector3 pos = stream.Read<Vector3>(new object[0]);
-		Vector3 vector = stream.Read<Vector3>(new object[0]);
+		stream.Read<Vector3>(new object[0]);
 		if (CustomGameData.Mgr.data.WorldNames.Length > num)
 		{
 			string yirdName = CustomGameData.Mgr.data.WorldNames[num];
@@ -1507,20 +1505,28 @@ public class Player : SkNetworkInterface
 			return;
 		}
 		int @int = reader.GetInt32(reader.GetOrdinal("teamid"));
-		if (ServerConfig.IsSurvive || @int == base.TeamId)
+		if (!ServerConfig.IsSurvive && @int != base.TeamId)
 		{
-			byte[] buff = (byte[])reader.GetValue(reader.GetOrdinal("playerdata"));
-			Serialize.Import(buff, delegate(BinaryReader r)
-			{
-				ReadSkill(r);
-				ReadShortcut(r);
-				ReadArmorInfo(r);
-				_gameMoney = BufferHelper.ReadInt32(r);
-				_curSceneId = BufferHelper.ReadInt32(r);
-				ImportCmpt(r);
-			});
-			_hasRecord = true;
+			return;
 		}
+		byte[] buff = (byte[])reader.GetValue(reader.GetOrdinal("playerdata"));
+		Serialize.Import(buff, delegate(BinaryReader r)
+		{
+			ReadSkill(r);
+			ReadShortcut(r);
+			ReadArmorInfo(r);
+			_gameMoney = BufferHelper.ReadInt32(r);
+			if (ServerConfig.IsStory)
+			{
+				_curSceneId = BufferHelper.ReadInt32(r);
+			}
+			else
+			{
+				BufferHelper.ReadInt32(r);
+			}
+			ImportCmpt(r);
+		});
+		_hasRecord = true;
 	}
 
 	public void LoadRecordData()
@@ -2451,7 +2457,7 @@ public class Player : SkNetworkInterface
 		case ObjType.None:
 			return;
 		case ObjType.AiBeacon:
-			if (AiTowerDefense.IsOnlyOneLimit(base.TeamId))
+			if (AiTowerDefense.IsOnlyOneLimit(-1, base.TeamId))
 			{
 				if (LogFilter.logDebug)
 				{
@@ -2640,19 +2646,23 @@ public class Player : SkNetworkInterface
 
 	private void RPC_C2S_UseItem(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		int num = stream.Read<int>(new object[0]);
-		if (_bDeath)
+		int objId = stream.Read<int>(new object[0]);
+		if (!_bDeath)
 		{
-			return;
+			UseItem(objId);
 		}
-		ItemObject itemById = Package.GetItemById(num);
+	}
+
+	public bool UseItem(int objId)
+	{
+		ItemObject itemById = Package.GetItemById(objId);
 		if (itemById == null)
 		{
 			if (LogFilter.logDebug)
 			{
 				Debug.LogWarning("Invalid item.");
 			}
-			return;
+			return false;
 		}
 		bool flag = false;
 		Bundle cmpt = itemById.GetCmpt<Bundle>();
@@ -2663,7 +2673,7 @@ public class Player : SkNetworkInterface
 			{
 				if (!Package.CanAdd(list))
 				{
-					return;
+					return false;
 				}
 				List<ItemObject> effItems = new List<ItemObject>(list.Count);
 				foreach (ItemSample item in list)
@@ -2680,7 +2690,7 @@ public class Player : SkNetworkInterface
 		if (cmpt2 != null)
 		{
 			flag = true;
-			RPCOthers(EPacketType.PT_InGame_UseItem, num);
+			RPCOthers(EPacketType.PT_InGame_UseItem, objId);
 		}
 		ReplicatorFormula cmpt3 = itemById.GetCmpt<ReplicatorFormula>();
 		if (cmpt3 != null)
@@ -2703,7 +2713,7 @@ public class Player : SkNetworkInterface
 		{
 			if (!PutOnEquipment(itemById))
 			{
-				return;
+				return false;
 			}
 			Package.RemoveItem(itemById);
 			SyncPutOnEquipment(new ItemObject[1] { itemById });
@@ -2734,10 +2744,11 @@ public class Player : SkNetworkInterface
 					SyncItem(itemById);
 				}
 			}
-			OnUseItemEvent(num);
+			OnUseItemEvent(objId);
 		}
 		SyncPackageIndex();
 		ProcessItemMission(itemById.protoId);
+		return flag;
 	}
 
 	public void ProcessItemMission(int protoId, int objId = 0)
@@ -2916,6 +2927,7 @@ public class Player : SkNetworkInterface
 				return;
 			}
 			DropItemManager.DeleteNetworkObj(num);
+			creationNetwork.ResetAllPassangers();
 			NetInterface.NetDestroy(creationNetwork);
 			break;
 		}
@@ -3050,7 +3062,6 @@ public class Player : SkNetworkInterface
 		RPCOthers(EPacketType.PT_InGame_Turn, num, quaternion);
 	}
 
-	[Obsolete]
 	private void RPC_C2S_GetColonyBack(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 	}
@@ -3428,7 +3439,6 @@ public class Player : SkNetworkInterface
 		int itemIndex = Package.GetItemIndex(itemById);
 		if (itemIndex == num)
 		{
-			int num3 = -1;
 			ItemObject itemByIndex = Package.GetItemByIndex(num2, itemById.protoData);
 			if (itemByIndex == null)
 			{
@@ -3439,7 +3449,6 @@ public class Player : SkNetworkInterface
 			{
 				Package.SetItem(itemById, num2, itemById.protoData.tabIndex, itemById.protoData.category);
 				Package.SetItem(itemByIndex, num, itemById.protoData.tabIndex, itemById.protoData.category);
-				num3 = itemByIndex.instanceId;
 			}
 			else if (itemByIndex.MaxStackNum >= itemByIndex.stackCount + itemById.stackCount)
 			{
@@ -3449,9 +3458,9 @@ public class Player : SkNetworkInterface
 			}
 			else
 			{
-				int num4 = itemByIndex.MaxStackNum - itemByIndex.stackCount;
-				itemByIndex.CountUp(num4);
-				itemById.CountDown(num4);
+				int num3 = itemByIndex.MaxStackNum - itemByIndex.stackCount;
+				itemByIndex.CountUp(num3);
+				itemById.CountDown(num3);
 				SyncItemList(new ItemObject[2] { itemById, itemByIndex });
 			}
 			SyncPackageIndex();
@@ -3569,7 +3578,7 @@ public class Player : SkNetworkInterface
 	private void RPC_C2S_MountsItemCost(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		int id = stream.Read<int>(new object[0]);
-		int num = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		SkNetworkInterface skNetworkInterface = ObjNetInterface.Get<SkNetworkInterface>(id);
 		if (!(null != skNetworkInterface))
 		{
@@ -3642,12 +3651,16 @@ public class Player : SkNetworkInterface
 	private static void RPC_C2S_PackageItemCost(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		int id = stream.Read<int>(new object[0]);
-		int itemObjId = stream.Read<int>(new object[0]);
+		int itemId = stream.Read<int>(new object[0]);
 		float num = stream.Read<float>(new object[0]);
 		SkNetworkInterface skNetworkInterface = ObjNetInterface.Get<SkNetworkInterface>(id);
-		if (null != skNetworkInterface)
+		if (null != skNetworkInterface && skNetworkInterface is Player)
 		{
-			skNetworkInterface.PackageItemCost(itemObjId, num);
+			ItemObject itemByItemID = (skNetworkInterface as Player).Package.GetItemByItemID(itemId);
+			if (itemByItemID != null)
+			{
+				skNetworkInterface.PackageItemCost(itemByItemID.instanceId, num);
+			}
 		}
 	}
 
@@ -3697,6 +3710,16 @@ public class Player : SkNetworkInterface
 		else
 		{
 			CreationNetwork.ReturnAircraft();
+		}
+	}
+
+	private void RPC_C2S_GameEnd(uLink.BitStream stream, uLink.NetworkMessageInfo info)
+	{
+		SceneObject sceneObjByProto = GameWorld.GetSceneObjByProto(1529, base.WorldId);
+		if (sceneObjByProto != null)
+		{
+			SyncDelSceneObjects(sceneObjByProto.Id);
+			GameWorld.DelSceneObj(sceneObjByProto, base.WorldId);
 		}
 	}
 
@@ -4013,7 +4036,6 @@ public class Player : SkNetworkInterface
 		{
 			if (mapObj != null)
 			{
-				int objID = mapObj.objID;
 				DoodadMgr.CreateDoodad(base.Id, base.TeamId, base.WorldId, -1, IdGenerator.NewDoodadId, -1, mapObj.pos, 1, string.Empty, Vector3.one);
 			}
 		}
@@ -4864,13 +4886,13 @@ public class Player : SkNetworkInterface
 
 	private void RPC_C2S_ResponseKillMonsterPos(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		Vector3[] array = stream.Read<Vector3[]>(new object[0]);
-		int[] array2 = stream.Read<int[]>(new object[0]);
-		int[] array3 = stream.Read<int[]>(new object[0]);
+		stream.Read<Vector3[]>(new object[0]);
+		stream.Read<int[]>(new object[0]);
+		int[] array = stream.Read<int[]>(new object[0]);
 		int num = 0;
-		for (int i = 0; i < array3.Length; i++)
+		for (int i = 0; i < array.Length; i++)
 		{
-			for (int j = 0; j < array3[i]; j++)
+			for (int j = 0; j < array[i]; j++)
 			{
 				num++;
 			}
@@ -5006,7 +5028,7 @@ public class Player : SkNetworkInterface
 	private void RPC_C2S_MissionUseItem(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		int protoId = stream.Read<int>(new object[0]);
-		Vector3 vector = stream.Read<Vector3>(new object[0]);
+		stream.Read<Vector3>(new object[0]);
 		ProcessItemMission(protoId);
 	}
 
@@ -5024,13 +5046,14 @@ public class Player : SkNetworkInterface
 		int num = stream.Read<int>(new object[0]);
 		int num2 = stream.Read<int>(new object[0]);
 		Vector3 pos = stream.Read<Vector3>(new object[0]);
-		int newMonsterId = IdGenerator.NewMonsterId;
-		int id = base.Id;
-		if (ServerConfig.IsAdventure)
+		if (!AiTowerDefense.IsOnlyOneLimit(num, base.TeamId))
 		{
+			AiTowerDefense.AddTowerInfo(num, base.TeamId);
+			int newMonsterId = IdGenerator.NewMonsterId;
+			int id = base.Id;
 			id = GetNearestPlayer(base.TeamId, pos).Id;
+			NetInterface.Instantiate(PrefabManager.Self.AiTowerDefense, Vector3.zero, Quaternion.identity, base.WorldId, newMonsterId, num, num2, id, base.TeamId);
 		}
-		NetInterface.Instantiate(PrefabManager.Self.AiTowerDefense, Vector3.zero, Quaternion.identity, base.WorldId, newMonsterId, num, num2, id, base.TeamId);
 	}
 
 	private void RPC_C2S_MissionKillMonster(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -5097,7 +5120,7 @@ public class Player : SkNetworkInterface
 	private void RPC_C2S_RequestAiOp(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		int num = stream.Read<int>(new object[0]);
-		int num2 = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		int[] array = stream.Read<int[]>(new object[0]);
 		AiAdNpcNetwork.EReqType eReqType = (AiAdNpcNetwork.EReqType)num;
 		if (eReqType != AiAdNpcNetwork.EReqType.FollowTarget)
@@ -5396,14 +5419,14 @@ public class Player : SkNetworkInterface
 		}
 		Serialize.Import(array, delegate(BinaryReader _out)
 		{
-			int num = _out.ReadInt32();
-			for (float num2 = 0f - radius; num2 <= radius; num2 += 1f)
+			_out.ReadInt32();
+			for (float num = 0f - radius; num <= radius; num += 1f)
 			{
-				for (float num3 = 0f - radius; num3 <= radius; num3 += 1f)
+				for (float num2 = 0f - radius; num2 <= radius; num2 += 1f)
 				{
-					for (float num4 = 0f - radius; num4 <= radius; num4 += 1f)
+					for (float num3 = 0f - radius; num3 <= radius; num3 += 1f)
 					{
-						IntVector3 pos = new IntVector3((float)intPos.x + num2, (float)intPos.y + num4, (float)intPos.z + num3);
+						IntVector3 pos = new IntVector3((float)intPos.x + num, (float)intPos.y + num3, (float)intPos.z + num2);
 						BufferHelper.ReadVFVoxel(_out, out var _value);
 						world.ChangeTerrain(pos, targetType, _value);
 					}
@@ -5489,7 +5512,6 @@ public class Player : SkNetworkInterface
 		{
 			return false;
 		}
-		ItemObject itemObject = itemByID;
 		if (itemByID.stackCount <= 1)
 		{
 			Package.RemoveItem(itemByID);
@@ -5498,13 +5520,12 @@ public class Player : SkNetworkInterface
 		else
 		{
 			itemByID.CountDown(1);
-			ItemObject itemObject2 = ItemManager.CreateFromItem(itemByID.protoId, 1, itemByID);
-			if (itemObject2 == null)
+			ItemObject itemObject = ItemManager.CreateFromItem(itemByID.protoId, 1, itemByID);
+			if (itemObject == null)
 			{
 				return false;
 			}
-			itemObject = itemObject2;
-			SyncItemList(new ItemObject[2] { itemObject2, itemByID });
+			SyncItemList(new ItemObject[2] { itemObject, itemByID });
 		}
 		Point point = RailwayManager.Instance.GetPoint(prePointId);
 		if (point != null && point.prePointId == -1 && point.nextPointId != -1)
@@ -5791,14 +5812,14 @@ public class Player : SkNetworkInterface
 
 	public bool RequestSetPointStayTime(int pointID, float time)
 	{
-		Route routeByPointId = RailwayManager.Instance.GetRouteByPointId(pointID);
-		if (routeByPointId == null)
+		Point point = RailwayManager.Instance.GetPoint(pointID);
+		if (point != null)
 		{
-			return false;
+			point.stayTime = time;
+			RailwayManager.Instance.SaveData();
+			return true;
 		}
-		routeByPointId.SetStayTime(pointID, time);
-		RailwayManager.Instance.SaveData();
-		return true;
+		return false;
 	}
 
 	public bool RequestRemoveTrain(Player player, int routeID)
@@ -5883,9 +5904,10 @@ public class Player : SkNetworkInterface
 	{
 		int num = stream.Read<int>(new object[0]);
 		string text = stream.Read<string>(new object[0]);
-		if (RequestCreateRoute(num, text) != null)
+		Route route = RequestCreateRoute(num, text);
+		if (route != null)
 		{
-			RPCOthers(EPacketType.PT_InGame_Railway_Route, num, text);
+			RPCOthers(EPacketType.PT_InGame_Railway_Route, num, text, route.moveDir, route.TimeToLeavePoint);
 		}
 	}
 
@@ -5996,6 +6018,10 @@ public class Player : SkNetworkInterface
 		}
 	}
 
+	private void RPC_S2C_Railway_UpdateRoute(uLink.BitStream stream, uLink.NetworkMessageInfo info)
+	{
+	}
+
 	private void RPC_C2S_EnterDungeon(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		Vector3 entrancePos = stream.Read<Vector3>(new object[0]);
@@ -6005,6 +6031,8 @@ public class Player : SkNetworkInterface
 		{
 			flag = true;
 			RPCOwner(EPacketType.PT_InGame_EnterDungeon, flag, genPos, seed, dungeonId, dungeonDataId);
+			_curSceneId = 99;
+			SyncCurSceneId();
 		}
 		else
 		{
@@ -6016,6 +6044,8 @@ public class Player : SkNetworkInterface
 	{
 		RandomDunGenMgr.Instance.ExitDungeon();
 		RPCOwner(EPacketType.PT_InGame_ExitDungeon);
+		_curSceneId = 0;
+		SyncCurSceneId();
 	}
 
 	private void RPC_C2S_UploadDungeonSeed(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -6240,7 +6270,6 @@ public class Player : SkNetworkInterface
 		Vector3 vector = stream.Read<Vector3>(new object[0]);
 		if (!RandomItemMgr.Instance.ContainsPos(vector) && (!(vector.y >= 0f) || RandomItemMgr.Instance.IsAreaAvalableForFeces(vector)))
 		{
-			System.Random random = new System.Random();
 			string modelPath;
 			int[] array = RandomFecesDataMgr.GenFecesItemIdCount(out modelPath);
 			Quaternion quaternion = Quaternion.Euler(0f, new System.Random().Next(360), 0f);
@@ -6512,7 +6541,10 @@ public class Player : SkNetworkInterface
 
 	public void SyncCurSceneId()
 	{
-		RPCOwner(EPacketType.PT_InGame_CurSceneId, _curSceneId);
+		foreach (Player teamPlayer in GetTeamPlayers(base.TeamId))
+		{
+			teamPlayer.RPCOthers(EPacketType.PT_InGame_CurSceneId, teamPlayer._curSceneId);
+		}
 	}
 
 	public void SyncRepurchaseItemIDs(int npcid)
@@ -6561,6 +6593,7 @@ public class Player : SkNetworkInterface
 		{
 			List<ItemObject> items = ShopManager.RefreshNpcShop(num);
 			SyncItemList(items);
+			aiAdNpcNetwork.SyncMoney();
 		}
 		else
 		{
@@ -6777,6 +6810,14 @@ public class Player : SkNetworkInterface
 		}
 		ServerConfig.MoneyType = (EMoneyType)num;
 		RPCOthers(EPacketType.PT_InGame_ChangeCurrency, num);
+		foreach (Player player in Players)
+		{
+			if (player != null)
+			{
+				player.SyncPackageIndex();
+				player.SyncUserMoney();
+			}
+		}
 	}
 
 	private void RPC_C2S_SellItemInMulti(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -6849,7 +6890,6 @@ public class Player : SkNetworkInterface
 
 	public void ApplyDurabilityReduce(int Type)
 	{
-		List<ItemObject> list = new List<ItemObject>();
 		if (Type == 0)
 		{
 			return;
@@ -7288,6 +7328,7 @@ public class Player : SkNetworkInterface
 		BindAction(EPacketType.PT_InGame_Railway_ResetRouteName, RPC_C2S_Railway_ResetRouteName);
 		BindAction(EPacketType.PT_InGame_Railway_ResetPointTime, RPC_C2S_Railway_ResetPointTime);
 		BindAction(EPacketType.PT_InGame_Railway_AutoCreateRoute, RPC_C2S_Railway_AutoCreateRoute);
+		BindAction(EPacketType.PT_InGame_Railway_UpdateRoute, RPC_S2C_Railway_UpdateRoute);
 		BindAction(EPacketType.PT_InGame_AccItems_CreateItem, RPC_AccItems_CreateItem);
 		BindAction(EPacketType.PT_InGame_SKTLevelUp, RPC_C2S_SKTLevelUp);
 		BindAction(EPacketType.PT_InGame_RandomItem, RPC_C2S_GenRandomItem);
@@ -7348,6 +7389,7 @@ public class Player : SkNetworkInterface
 		BindAction(EPacketType.PT_Mount_AddMountMonster, RPC_C2S_AddRideMonster);
 		BindAction(EPacketType.PT_Mount_DelMountMonster, RPC_C2S_DelRideMonster);
 		BindAction(EPacketType.PT_Mount_SyncPlayerRot, RPC_C2S_SyncPlayerRot);
+		BindAction(EPacketType.PT_InGame_GameEnd, RPC_C2S_GameEnd);
 	}
 
 	protected override void OnPEDestroy()
@@ -8040,7 +8082,7 @@ public class Player : SkNetworkInterface
 	private void RPC_C2S_RequestData(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		bool flag = stream.Read<bool>(new object[0]);
-		ulong num = stream.Read<ulong>(new object[0]);
+		stream.Read<ulong>(new object[0]);
 		if (flag)
 		{
 			AddPlayerToGroup(base.WorldId);
@@ -8214,7 +8256,7 @@ public class Player : SkNetworkInterface
 	{
 		int num = stream.Read<int>(new object[0]);
 		int num2 = stream.Read<int>(new object[0]);
-		int num3 = stream.Read<int>(new object[0]);
+		stream.Read<int>(new object[0]);
 		AiAdNpcNetwork aiAdNpcNetwork = ObjNetInterface.Get<AiAdNpcNetwork>(num);
 		if (null == aiAdNpcNetwork)
 		{
@@ -8229,8 +8271,8 @@ public class Player : SkNetworkInterface
 			}
 			return;
 		}
-		int num4 = aiAdNpcNetwork.EquipModule.FindEffectEquipCount(itemObject);
-		if (!aiAdNpcNetwork.ItemModule.CanAdd(num4))
+		int num3 = aiAdNpcNetwork.EquipModule.FindEffectEquipCount(itemObject);
+		if (!aiAdNpcNetwork.ItemModule.CanAdd(num3))
 		{
 			if (LogFilter.logDebug)
 			{

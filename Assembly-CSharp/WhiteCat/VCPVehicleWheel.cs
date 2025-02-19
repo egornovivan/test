@@ -15,8 +15,8 @@ public class VCPVehicleWheel : VCPart
 	[SerializeField]
 	private float _motorTorqueScale = 1f;
 
-	[SerializeField]
 	[Range(1f, 2f)]
+	[SerializeField]
 	private float _stiffness = 1.5f;
 
 	[Space(8f)]

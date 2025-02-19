@@ -24,19 +24,14 @@ public class EmitreceiverAppear : MonoBehaviour
 
 	private Material mat;
 
-	private GameObject orgreceiverg;
-
 	private Vector3 maxScale;
 
 	private float ctime;
 
 	private float progress;
 
-	private bool decreaseLight;
-
 	private void Start()
 	{
-		orgreceiverg = orgreceiver.gameObject;
 		mat = base.transform.GetComponent<MeshRenderer>().material;
 		mat.SetTexture(0, HoloCameraControl.Instance.textureBase);
 		maxScale = orgreceiver.localScale;
@@ -53,7 +48,6 @@ public class EmitreceiverAppear : MonoBehaviour
 			{
 				ctime = fadeTime;
 				produce = false;
-				decreaseLight = true;
 			}
 		}
 		else if (destroy)

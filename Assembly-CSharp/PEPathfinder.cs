@@ -7,8 +7,8 @@ using Pathfinding.RVO;
 using PETools;
 using UnityEngine;
 
-[RequireComponent(typeof(SimpleSmoothModifier))]
 [RequireComponent(typeof(Seeker))]
+[RequireComponent(typeof(SimpleSmoothModifier))]
 public class PEPathfinder : MonoBehaviour
 {
 	private static float MaxAngle = 30f;
@@ -67,10 +67,6 @@ public class PEPathfinder : MonoBehaviour
 
 	private int layer;
 
-	private int terLayer;
-
-	private int allLayer;
-
 	private bool initSeekerSize;
 
 	private bool startHasRun;
@@ -91,8 +87,6 @@ public class PEPathfinder : MonoBehaviour
 		startHasRun = true;
 		OnEnable();
 		layer = 2172928;
-		terLayer = 4096;
-		allLayer = layer | terLayer;
 		entity = GetComponentInParent<PeEntity>();
 		seeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.Original;
 		seeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.Original;
@@ -251,7 +245,7 @@ public class PEPathfinder : MonoBehaviour
 		{
 			if (entity.movement != Vector3.zero)
 			{
-				Ray ray = new Ray(entity.centerPos, entity.movement);
+				new Ray(entity.centerPos, entity.movement);
 				Vector3 position = entity.position;
 				Vector3 point = entity.position + entity.bounds.size.y * Vector3.up;
 				float radius = entity.bounds.extents.x + 0.5f;

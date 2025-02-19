@@ -35,8 +35,6 @@ public abstract class CarrierController : BehaviourController, IPeMsg
 
 	private static int ImpactTargetSkillID = 30100562;
 
-	private static int ImpactSelfSkillID = 20110054;
-
 	private VCPCockpit _cockpit;
 
 	private VCPSideSeat[] _sideSeats;

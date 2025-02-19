@@ -14,8 +14,6 @@ public class VoxelFileUV
 
 	private bool chkOfsInVectorForm;
 
-	private int chkOfsUnitLen;
-
 	private int chunkCount;
 
 	private int chunkRawDataLength;
@@ -55,7 +53,6 @@ public class VoxelFileUV
 			fs.Read(binaryBuffer, 0, (int)fs.Length - 1);
 		}
 		fs.Close();
-		chkOfsUnitLen = chunkOffsetDesc & 7;
 		chkOfsInVectorForm = chunkOffsetDesc >> 4 > 0;
 		int num = 0;
 		if (chkOfsInVectorForm)
@@ -127,7 +124,6 @@ public class VoxelFileUV
 			b |= 0x20;
 		}
 		fs.WriteByte(b);
-		chkOfsUnitLen = chunkOffsetDesc & 7;
 		chkOfsInVectorForm = chunkOffsetDesc >> 4 > 0;
 		int num = 4 + chunkDataList.Count * 11;
 		byte[] array = new byte[num];

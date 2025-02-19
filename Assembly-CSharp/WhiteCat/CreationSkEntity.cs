@@ -1,7 +1,6 @@
 using Pathea;
 using Pathea.Projectile;
 using SkillSystem;
-using UnityEngine;
 
 namespace WhiteCat;
 
@@ -22,14 +21,8 @@ public class CreationSkEntity : PESkEntity
 		{
 			_controller.GetWeapon(inst.Para).PlayEffects();
 		}
-		Transform transform = null;
 		if (inst.Target != null)
 		{
-			PeTrans component = inst.Target.GetComponent<PeTrans>();
-			if (component != null)
-			{
-				transform = component.trans;
-			}
 		}
 		Singleton<ProjectileBuilder>.Instance.Register(emitId, base.transform, inst);
 	}

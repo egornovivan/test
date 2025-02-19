@@ -9,11 +9,7 @@ public class ThreatData
 {
 	private int m_ID;
 
-	private string m_Name;
-
 	private int[] m_Init;
-
-	private int[] m_Amount;
 
 	private int[] m_InitChange;
 
@@ -30,10 +26,9 @@ public class ThreatData
 		{
 			ThreatData threatData = new ThreatData();
 			threatData.m_Init = new int[num];
-			threatData.m_Amount = new int[num];
 			threatData.m_InitCover = new Dictionary<int, int>();
 			threatData.m_ID = Convert.ToInt32(sqliteDataReader.GetString(0));
-			threatData.m_Name = sqliteDataReader.GetString(1);
+			sqliteDataReader.GetString(1);
 			for (int i = 0; i < num; i++)
 			{
 				threatData.m_Init[i] = Convert.ToInt32(sqliteDataReader.GetString(i + 3));

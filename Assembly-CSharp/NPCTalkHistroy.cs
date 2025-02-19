@@ -77,9 +77,9 @@ public class NPCTalkHistroy : ArchivableSingleton<NPCTalkHistroy>
 		m_Histroy.Clear();
 		MemoryStream memoryStream = new MemoryStream(data);
 		BinaryReader binaryReader = new BinaryReader(memoryStream);
+		binaryReader.ReadInt32();
 		int num = binaryReader.ReadInt32();
-		int num2 = binaryReader.ReadInt32();
-		for (int i = 0; i < num2; i++)
+		for (int i = 0; i < num; i++)
 		{
 			Histroy item = default(Histroy);
 			item.npcName = binaryReader.ReadString();

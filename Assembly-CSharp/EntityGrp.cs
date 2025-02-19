@@ -7,8 +7,6 @@ using UnityEngine;
 
 public class EntityGrp : PeEntity
 {
-	private static List<Vector2> _lstRndOfs = new List<Vector2>();
-
 	private List<ISceneObjAgent> _lstAgents = new List<ISceneObjAgent>();
 
 	[HideInInspector]
@@ -61,7 +59,6 @@ public class EntityGrp : PeEntity
 			Vector3 pos = Vector3.zero;
 			for (int i = 0; i < num; i++)
 			{
-				int num2 = 0;
 				if (entityGrp.GetRandPos(center, ref pos, 5))
 				{
 					SceneEntityPosAgent sceneEntityPosAgent = MonsterEntityCreator.CreateAgent(pos, entityGrp._protoId);

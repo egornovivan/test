@@ -166,8 +166,6 @@ public class PEFootDecal : MonoBehaviour
 
 	public static int SkyIdleAttack = Animator.StringToHash("Base Layer.Locomotion_Sky.AttackIdle");
 
-	private static List<AudioController> s_FootAudios = new List<AudioController>();
-
 	public bool isSky;
 
 	public int musicID;

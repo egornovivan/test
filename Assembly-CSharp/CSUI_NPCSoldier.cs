@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CSUI_NPCSoldier : MonoBehaviour
@@ -14,8 +13,6 @@ public class CSUI_NPCSoldier : MonoBehaviour
 
 	[SerializeField]
 	private CSUI_EntityState m_EntityStatePrefab;
-
-	private List<CSUI_EntityState> m_EntitesState = new List<CSUI_EntityState>();
 
 	private CSPersonnel m_RefNpc;
 

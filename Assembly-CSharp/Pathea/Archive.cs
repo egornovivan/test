@@ -92,7 +92,6 @@ public class Archive
 				mVersion = r.ReadInt32();
 				if (mVersion != 5)
 				{
-					Debug.LogWarning("Error version:" + mVersion + "; need version:" + 5);
 					return false;
 				}
 				byte[] b = r.ReadBytes(16);

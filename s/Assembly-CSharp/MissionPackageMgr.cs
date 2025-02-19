@@ -70,17 +70,17 @@ public class MissionPackageMgr
 		using (BinaryReader binaryReader = new BinaryReader(memoryStream))
 		{
 			int num = binaryReader.ReadInt32();
-			int num2 = binaryReader.ReadInt32();
-			int num3 = binaryReader.ReadInt32();
+			binaryReader.ReadInt32();
+			binaryReader.ReadInt32();
 			int armorMax = binaryReader.ReadInt32();
 			GetPak(team).ExtendPackage(num, num, num, armorMax);
-			int num4 = binaryReader.ReadInt32();
-			for (int i = 0; i < num4; i++)
+			int num2 = binaryReader.ReadInt32();
+			for (int i = 0; i < num2; i++)
 			{
-				int num5 = binaryReader.ReadInt32();
-				if (num5 != -1)
+				int num3 = binaryReader.ReadInt32();
+				if (num3 != -1)
 				{
-					ItemObject itemByID = ItemManager.GetItemByID(num5);
+					ItemObject itemByID = ItemManager.GetItemByID(num3);
 					GetPak(team).SetItem(itemByID, i, 0);
 				}
 				else
@@ -88,13 +88,13 @@ public class MissionPackageMgr
 					GetPak(team).SetItem(null, i, 0);
 				}
 			}
-			num4 = binaryReader.ReadInt32();
-			for (int j = 0; j < num4; j++)
+			num2 = binaryReader.ReadInt32();
+			for (int j = 0; j < num2; j++)
 			{
-				int num6 = binaryReader.ReadInt32();
-				if (num6 != -1)
+				int num4 = binaryReader.ReadInt32();
+				if (num4 != -1)
 				{
-					ItemObject itemByID2 = ItemManager.GetItemByID(num6);
+					ItemObject itemByID2 = ItemManager.GetItemByID(num4);
 					GetPak(team).SetItem(itemByID2, j, 1);
 				}
 				else
@@ -102,13 +102,13 @@ public class MissionPackageMgr
 					GetPak(team).SetItem(null, j, 1);
 				}
 			}
-			num4 = binaryReader.ReadInt32();
-			for (int k = 0; k < num4; k++)
+			num2 = binaryReader.ReadInt32();
+			for (int k = 0; k < num2; k++)
 			{
-				int num7 = binaryReader.ReadInt32();
-				if (num7 != -1)
+				int num5 = binaryReader.ReadInt32();
+				if (num5 != -1)
 				{
-					ItemObject itemByID3 = ItemManager.GetItemByID(num7);
+					ItemObject itemByID3 = ItemManager.GetItemByID(num5);
 					GetPak(team).SetItem(itemByID3, k, 2);
 				}
 				else
@@ -116,13 +116,13 @@ public class MissionPackageMgr
 					GetPak(team).SetItem(null, k, 2);
 				}
 			}
-			num4 = binaryReader.ReadInt32();
-			for (int l = 0; l < num4; l++)
+			num2 = binaryReader.ReadInt32();
+			for (int l = 0; l < num2; l++)
 			{
-				int num8 = binaryReader.ReadInt32();
-				if (num8 != -1)
+				int num6 = binaryReader.ReadInt32();
+				if (num6 != -1)
 				{
-					ItemObject itemByID4 = ItemManager.GetItemByID(num8);
+					ItemObject itemByID4 = ItemManager.GetItemByID(num6);
 					GetPak(team).SetItem(itemByID4, l, 3);
 				}
 				else

@@ -48,17 +48,11 @@ public class MousePickableLootItem : MonoBehaviour
 
 	private Action<int> m_EndFunc;
 
-	private float m_StartMoveTime;
-
-	private float m_MoveTime;
-
 	private Vector3 m_MoveDir;
 
 	private float m_Speed;
 
 	private Vector3 m_Velocity;
-
-	private bool m_DropToLoot;
 
 	public float m_MaxSpeed = 20f;
 
@@ -101,14 +95,11 @@ public class MousePickableLootItem : MonoBehaviour
 		switch (state)
 		{
 		case MoveState.Drop:
-			m_DropToLoot = false;
 			InitMoveDrop();
 			break;
 		case MoveState.Loot:
-			m_DropToLoot = true;
 			break;
 		case MoveState.Stay:
-			m_DropToLoot = false;
 			InitStay();
 			break;
 		}
@@ -157,11 +148,9 @@ public class MousePickableLootItem : MonoBehaviour
 		m_MoveState = MoveState.Drop;
 		m_Line.enabled = false;
 		m_Icon.enabled = false;
-		m_StartMoveTime = Time.time;
 		m_Speed = m_MaxSpeed * UnityEngine.Random.Range(0.2f, 0.5f);
 		m_MoveDir = Vector3.Slerp(UnityEngine.Random.onUnitSphere, Vector3.up, 0.7f);
 		m_Velocity = m_MoveDir * m_Speed;
-		m_MoveTime = Mathf.Abs(2f * m_MoveDir.y * m_Speed / Physics.gravity.y) * 1.2f;
 		base.transform.position += Vector3.up;
 	}
 

@@ -255,19 +255,32 @@ public class SteamWorkShop : UnityEngine.MonoBehaviour
 	internal static void OnFileSharedEvent(object sender, EventArgs args)
 	{
 		SteamFileItem steamFileItem = (SteamFileItem)sender;
-		if (steamFileItem._SendToServer)
+		if (!steamFileItem._SendToServer)
 		{
-			if (null != PlayerNetwork.mainPlayer)
-			{
-				NetworkManager.SyncServer(EPacketType.PT_Common_WorkshopShared, steamFileItem.FileID, steamFileItem.RealFileName, steamFileItem.HashCode, steamFileItem._free, steamFileItem.instanceId);
-			}
-			string path = VCConfig.s_CreationNetCachePath + steamFileItem.HashCode.ToString("X").PadLeft(16, '0') + VCConfig.s_CreationNetCacheFileExt;
-			using (FileStream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read))
-			{
-				fileStream.Write(steamFileItem._Data, 0, steamFileItem._Data.Length);
-			}
-			_SteamItems[steamFileItem.HashCode] = steamFileItem.FileName;
+			return;
 		}
+		if (null != PlayerNetwork.mainPlayer)
+		{
+			VCIsoData vCIsoData = new VCIsoData();
+			vCIsoData.Import(steamFileItem._Data, new VCIsoOption(editor: false));
+			IEnumerable<int> source = from component in vCIsoData.m_Components
+				where VCUtils.IsSeat(component.m_Type)
+				select (int)component.m_Type;
+			if (source.Count() > 0)
+			{
+				NetworkManager.SyncServer(EPacketType.PT_Common_WorkshopShared, steamFileItem.FileID, steamFileItem.RealFileName, steamFileItem.HashCode, steamFileItem._free, steamFileItem.instanceId, true, source.ToArray());
+			}
+			else
+			{
+				NetworkManager.SyncServer(EPacketType.PT_Common_WorkshopShared, steamFileItem.FileID, steamFileItem.RealFileName, steamFileItem.HashCode, steamFileItem._free, steamFileItem.instanceId, false);
+			}
+		}
+		string path = VCConfig.s_CreationNetCachePath + steamFileItem.HashCode.ToString("X").PadLeft(16, '0') + VCConfig.s_CreationNetCacheFileExt;
+		using (FileStream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read))
+		{
+			fileStream.Write(steamFileItem._Data, 0, steamFileItem._Data.Length);
+		}
+		_SteamItems[steamFileItem.HashCode] = steamFileItem.FileName;
 	}
 
 	internal static void OnFilePublishEvent(object sender, EventArgs args)
@@ -835,8 +848,7 @@ public class SteamWorkShop : UnityEngine.MonoBehaviour
 			creationData.BuildPrefab();
 			creationData.Register();
 			CreationMgr.AddCreation(creationData);
-			ItemObject item;
-			int num2 = creationData.SendToPlayer(out item, pay: false);
+			creationData.SendToPlayer(out var item, pay: false);
 			Debug.Log("Make creation succeed !");
 			RandomDungenMgr.Instance.ReceiveIsoObj(dungeonId, isoCode, item.instanceId);
 		}

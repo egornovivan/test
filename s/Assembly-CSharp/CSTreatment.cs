@@ -108,4 +108,9 @@ public class CSTreatment
 		CSTreatment cSTreatment = obj as CSTreatment;
 		return abnormalId == cSTreatment.abnormalId && npcId == cSTreatment.npcId && needTreatTimes == cSTreatment.needTreatTimes;
 	}
+
+	public override int GetHashCode()
+	{
+		return base.GetHashCode();
+	}
 }

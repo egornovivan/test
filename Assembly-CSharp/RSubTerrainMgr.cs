@@ -346,13 +346,12 @@ public class RSubTerrainMgr : MonoBehaviour
 				BoxCollider component5 = gameObject.GetComponent<BoxCollider>();
 				if (component5 != null)
 				{
-					GlobalPrototypeTPHInfo[i] = new RTreePlaceHolderInfo(component5.center, component5.extents.y, component5.extents.x + component5.extents.z);
+					GlobalPrototypeTPHInfo[i] = new RTreePlaceHolderInfo(component5.center, component5.size.y * 0.5f, component5.size.x * 0.5f + component5.size.z * 0.5f);
 				}
 				else
 				{
 					GlobalPrototypeTPHInfo[i] = null;
 				}
-				Collider[] components = gameObject.GetComponents<Collider>();
 				gameObject.name = "Prototype [" + i + "]'s Collider";
 				gameObject.SetActive(value: false);
 				GlobalPrototypeColliders[i] = gameObject;

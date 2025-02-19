@@ -27,8 +27,6 @@ public class GetMiniMap : MonoBehaviour
 
 	private VFVoxelTerrain mTerrain;
 
-	private VoxelEditor mEditor;
-
 	public int mIndex;
 
 	public int mIndexTo = 1297;
@@ -40,7 +38,6 @@ public class GetMiniMap : MonoBehaviour
 		mNumOneside = (int)(worldSize / (float)texSize);
 		mMinimap = new Texture2D(texSize, texSize, TextureFormat.RGB24, mipmap: false);
 		mTerrain = VFVoxelTerrain.self;
-		mEditor = GameObject.Find("Voxel Terrain").GetComponent<VoxelEditor>();
 	}
 
 	private IEnumerator waitTime(float time)

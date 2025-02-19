@@ -31,20 +31,20 @@ public class UIAtlas : MonoBehaviour
 		TexCoords
 	}
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Material material;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private List<Sprite> sprites = new List<Sprite>();
 
 	[SerializeField]
 	[HideInInspector]
 	private Coordinates mCoordinates;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private float mPixelSize = 1f;
 
 	[HideInInspector]

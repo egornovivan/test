@@ -36,7 +36,7 @@ public static class UIToolFuncs
 	{
 		Vector3 toPos = Input.mousePosition;
 		toPos = new Vector3(toPos.x - (float)(Screen.width / 2), toPos.y - (float)(Screen.height / 2), trans.localPosition.z);
-		Vector2 posInScreenByPos = (posInScreenByPos = trans.GetPosInScreenByPos(toPos, offsetMode));
+		Vector2 posInScreenByPos = trans.GetPosInScreenByPos(toPos, offsetMode);
 		trans.localPosition = new Vector3(posInScreenByPos.x, posInScreenByPos.y, trans.localPosition.z);
 	}
 

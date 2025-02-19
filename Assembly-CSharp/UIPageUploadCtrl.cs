@@ -26,8 +26,6 @@ public class UIPageUploadCtrl : MonoBehaviour
 
 	private SteamPreFileAndVoteDetail mSelectedDetail;
 
-	private int m_index_0;
-
 	public WorkShopMgr mMyWorkShopMgr;
 
 	[SerializeField]
@@ -184,7 +182,6 @@ public class UIPageUploadCtrl : MonoBehaviour
 		{
 			index_0 = 0;
 		}
-		m_index_0 = index_0;
 		mSelectedDetail = null;
 		mVCERightPanel.SetActive(value: false);
 		mMyWorkShopMgr.mGetIdStarIndex = Convert.ToUInt32(index_0);

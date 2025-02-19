@@ -17,7 +17,7 @@ public class CustomDialogsData : DbRecordData
 		IDbDataParameter dbDataParameter = cmd.CreateParameter();
 		dbDataParameter.ParameterName = "@ver";
 		dbDataParameter.DbType = DbType.Int32;
-		dbDataParameter.Value = 272;
+		dbDataParameter.Value = 273;
 		cmd.Parameters.Add(dbDataParameter);
 		IDbDataParameter dbDataParameter2 = cmd.CreateParameter();
 		dbDataParameter2.ParameterName = "@data";

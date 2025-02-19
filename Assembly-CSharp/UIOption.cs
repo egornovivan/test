@@ -86,9 +86,13 @@ public class UIOption : UIStaticWnd
 
 	public ScrollItem mEffectVolume;
 
+	public ScrollItem mHoldGunCameraSensitivity;
+
 	public ScrollItem mCameraSensitivity;
 
 	public UILabel mCamS;
+
+	public UILabel mHoldGunCamS;
 
 	public UILabel mCamSMin;
 
@@ -388,7 +392,8 @@ public class UIOption : UIStaticWnd
 			break;
 		}
 		case 3:
-			SystemSettingData.Instance.CameraSensitivity = CamSMin + (CamSMax - CamSMin) * mCameraSensitivity.mScroll.scrollValue;
+			SystemSettingData.Instance.cameraSensitivity = CamSMin + (CamSMax - CamSMin) * mCameraSensitivity.mScroll.scrollValue;
+			SystemSettingData.Instance.holdGunCameraSensitivity = CamSMin + (CamSMax - CamSMin) * mHoldGunCameraSensitivity.mScroll.scrollValue;
 			SystemSettingData.Instance.CameraFov = CamFOVMin + (CamFOVMax - CamFOVMin) * mCameraFOVScroll.mScroll.scrollValue;
 			SystemSettingData.Instance.CamInertia = CamInertiaMin + (CamInertiaMax - CamInertiaMin) * mCameraInertia.mScroll.scrollValue;
 			SystemSettingData.Instance.DriveCamInertia = m_DriveCamInertiaMin + (m_DriveCamInertiaMax - m_DriveCamInertiaMin) * DriveCameraInertiaScroll.mScroll.scrollValue;
@@ -720,7 +725,8 @@ public class UIOption : UIStaticWnd
 
 	private void ResetControl()
 	{
-		mCameraSensitivity.SetValue((SystemSettingData.Instance.CameraSensitivity - CamSMin) / (CamSMax - CamSMin));
+		mCameraSensitivity.SetValue((SystemSettingData.Instance.cameraSensitivity - CamSMin) / (CamSMax - CamSMin));
+		mHoldGunCameraSensitivity.SetValue((SystemSettingData.Instance.holdGunCameraSensitivity - CamSMin) / (CamSMax - CamSMin));
 		mCameraFOVScroll.SetValue((SystemSettingData.Instance.CameraFov - CamFOVMin) / (CamFOVMax - CamFOVMin));
 		DriveCameraInertiaScroll.SetValue((SystemSettingData.Instance.DriveCamInertia - m_DriveCamInertiaMin) / (m_DriveCamInertiaMax - m_DriveCamInertiaMin));
 		mCameraInertia.SetValue((SystemSettingData.Instance.CamInertia - CamInertiaMin) / (CamInertiaMax - CamInertiaMin));
@@ -890,6 +896,7 @@ public class UIOption : UIStaticWnd
 	private void Update()
 	{
 		mCamS.text = ((float)(int)((CamSMin + (CamSMax - CamSMin) * mCameraSensitivity.mScroll.scrollValue) * 10f) / 10f).ToString();
+		mHoldGunCamS.text = ((float)(int)((CamSMin + (CamSMax - CamSMin) * mHoldGunCameraSensitivity.mScroll.scrollValue) * 10f) / 10f).ToString();
 		mCameraFOV.text = ((int)(CamFOVMin + (CamFOVMax - CamFOVMin) * mCameraFOVScroll.mScroll.scrollValue)).ToString();
 		mCamInertiaValue.text = ((float)(int)((CamInertiaMin + (CamInertiaMax - CamInertiaMin) * mCameraInertia.mScroll.scrollValue) * 100f) / 100f).ToString();
 		DriveCamInertiaValueLabel.text = ((float)(int)((m_DriveCamInertiaMin + (m_DriveCamInertiaMax - m_DriveCamInertiaMin) * DriveCameraInertiaScroll.mScroll.scrollValue) * 100f) / 100f).ToString();

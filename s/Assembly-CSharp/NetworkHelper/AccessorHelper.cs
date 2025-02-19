@@ -66,7 +66,7 @@ public static class AccessorHelper
 			}
 			item.strengthenMaterialList.Add(materialItem2);
 		}
-		if (ServerConfig.RecordVersion >= 272)
+		if (ServerConfig.RecordVersion >= 273)
 		{
 			item.durabilityFactor = binaryReader.ReadSingle();
 		}

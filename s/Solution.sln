@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp\Assembly-CSharp.csproj", "{A5053252-9509-4B44-B303-205677D21BF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp\Assembly-CSharp.csproj", "{1839BE8A-62CC-4FE1-A442-70A88D487EF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj", "{AC3A3502-737E-4B6D-BC57-F2A70F5925A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj", "{03B8783E-FF29-408B-91DE-53CCFFCA87B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,14 +12,14 @@ Global
 		Release|AnyCPU = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A5053252-9509-4B44-B303-205677D21BF8}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{A5053252-9509-4B44-B303-205677D21BF8}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{A5053252-9509-4B44-B303-205677D21BF8}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{A5053252-9509-4B44-B303-205677D21BF8}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{AC3A3502-737E-4B6D-BC57-F2A70F5925A7}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{AC3A3502-737E-4B6D-BC57-F2A70F5925A7}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{AC3A3502-737E-4B6D-BC57-F2A70F5925A7}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{AC3A3502-737E-4B6D-BC57-F2A70F5925A7}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{1839BE8A-62CC-4FE1-A442-70A88D487EF0}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{1839BE8A-62CC-4FE1-A442-70A88D487EF0}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{1839BE8A-62CC-4FE1-A442-70A88D487EF0}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{1839BE8A-62CC-4FE1-A442-70A88D487EF0}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{03B8783E-FF29-408B-91DE-53CCFFCA87B1}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{03B8783E-FF29-408B-91DE-53CCFFCA87B1}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{03B8783E-FF29-408B-91DE-53CCFFCA87B1}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{03B8783E-FF29-408B-91DE-53CCFFCA87B1}.Release|AnyCPU.Build.0 = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

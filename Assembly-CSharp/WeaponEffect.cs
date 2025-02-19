@@ -14,11 +14,8 @@ public class WeaponEffect : MonoBehaviour
 
 	public bool mAttackStart;
 
-	private AiObject aiObject;
-
 	private void Start()
 	{
-		aiObject = VCUtils.GetComponentOrOnParent<AiObject>(base.gameObject);
 	}
 
 	private void LateUpdate()

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Pathea;
 using PETools;
 using UnityEngine;
@@ -54,8 +53,6 @@ public class BTLaserIrradiation : BTAttackBase
 
 		[Behave]
 		public bool isBlock;
-
-		private List<int> m_Skills = new List<int>();
 
 		public float m_LastCDTime;
 

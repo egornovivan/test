@@ -67,7 +67,6 @@ public class BTSwitchWaterState : BTAttackBase
 		}
 		if (base.attackEnemy.IsDeepWater && base.entity.monster.WaterSurface)
 		{
-			Vector3 vector = base.position - Vector3.up * m_Data.downHeight;
 			SetBool(m_Data.downAnim, value: true);
 			base.entity.monster.WaterSurface = false;
 			if (Time.time - m_StartTime > 6f)

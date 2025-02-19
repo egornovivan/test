@@ -7,8 +7,8 @@ public class BuildMeshAlongPath : MonoBehaviour
 {
 	public Path path;
 
-	[Range(0.1f, 100f)]
 	[Space(8f)]
+	[Range(0.1f, 100f)]
 	public float width = 6f;
 
 	[Range(1f, 30f)]

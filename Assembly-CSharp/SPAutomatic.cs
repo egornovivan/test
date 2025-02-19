@@ -20,8 +20,6 @@ public class SPAutomatic : CommonInterface, ITowerDefenceData
 
 	private int mTotalCount;
 
-	private int mWaveIndex;
-
 	private float mStartTime;
 
 	private float mDelayTime;
@@ -87,10 +85,6 @@ public class SPAutomatic : CommonInterface, ITowerDefenceData
 		}
 	}
 
-	public event AutomaticDelagate ActiveEvent;
-
-	public event AutomaticDelagate DeActiveEvent;
-
 	public static bool IsSpawning()
 	{
 		foreach (SPAutomatic auto in autos)
@@ -130,7 +124,6 @@ public class SPAutomatic : CommonInterface, ITowerDefenceData
 	{
 		mStartTime = time;
 		mDelayTime = delay;
-		mWaveIndex = index;
 		if (mCurrentAutomatic != null)
 		{
 			mCurrentWave = mCurrentAutomatic.GetWaveData(index);
@@ -197,7 +190,6 @@ public class SPAutomatic : CommonInterface, ITowerDefenceData
 	{
 		mStartTime = 0f;
 		mDelayTime = 0f;
-		mWaveIndex = -1;
 		mSpawning = false;
 		mCurrentWave = null;
 		mCurrentAutomatic = null;
@@ -216,7 +208,6 @@ public class SPAutomatic : CommonInterface, ITowerDefenceData
 	private IEnumerator SpawnCoroutine(AISpawnAutomaticData auto, int index)
 	{
 		mStartTime = Time.time;
-		mWaveIndex = -1;
 		mSpawning = true;
 		mCurrentWave = null;
 		mCurrentAutomatic = auto;
@@ -250,7 +241,6 @@ public class SPAutomatic : CommonInterface, ITowerDefenceData
 			}
 			mStartTime = Time.time;
 			mCurrentWave = wave;
-			mWaveIndex = wave.index;
 			yield return new WaitForSeconds(mDelayTime);
 			SpawnWave(wave);
 			foreach (AISpawnData sp in wave.data.data)
@@ -266,7 +256,6 @@ public class SPAutomatic : CommonInterface, ITowerDefenceData
 		}
 		mStartTime = 0f;
 		mDelayTime = 0f;
-		mWaveIndex = -1;
 		mSpawning = false;
 		mCurrentWave = null;
 		mCurrentAutomatic = null;

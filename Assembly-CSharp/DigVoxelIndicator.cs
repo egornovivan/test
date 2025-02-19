@@ -12,8 +12,6 @@ public class DigVoxelIndicator : MonoBehaviour
 
 	public Gradient m_UnActiveColors;
 
-	private Material _LineMaterial;
-
 	public bool show;
 
 	private bool m_FindVoxel;

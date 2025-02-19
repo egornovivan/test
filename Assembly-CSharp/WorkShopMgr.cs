@@ -211,9 +211,16 @@ public class WorkShopMgr
 		{
 			if (mItemsMap.ContainsKey(p_id) && mItemsMap[p_id] != null)
 			{
-				string filePath = VCConfig.s_IsoPath + "/Download/";
+				SteamPreFileAndVoteDetail steamPreFileAndVoteDetail = mItemsMap[p_id];
+				string arg = "Object";
+				if (VCIsoData.ExtractHeader(fileData, out var iso_header) > 0)
+				{
+					arg = iso_header.Category.ToString();
+					arg = arg.Substring(2, arg.Length - 2);
+				}
+				string filePath = VCConfig.s_IsoPath + $"/Download/{arg}/";
 				string s_CreationNetCachePath = VCConfig.s_CreationNetCachePath;
-				string rgchTitle = mItemsMap[p_id].m_rgchTitle;
+				string rgchTitle = steamPreFileAndVoteDetail.m_rgchTitle;
 				string fileName = CRC64.Compute(fileData).ToString();
 				if (SaveToFile(fileData, rgchTitle, filePath, VCConfig.s_IsoFileExt))
 				{

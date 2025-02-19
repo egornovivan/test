@@ -49,7 +49,7 @@ internal class TRSiloMissile : Trajectory
 
 	public float angle4 = 2f;
 
-	private new Transform target;
+	private Transform myTarget;
 
 	private bool valid;
 
@@ -97,8 +97,6 @@ internal class TRSiloMissile : Trajectory
 
 	private float lerpY;
 
-	private bool init = true;
-
 	private void Start()
 	{
 		index = m_Index;
@@ -122,7 +120,7 @@ internal class TRSiloMissile : Trajectory
 
 	public void Emit(Transform target, Vector3 emitfwd)
 	{
-		this.target = target;
+		myTarget = target;
 		angleStart = AngleUnit * (float)index + random1 * 360f;
 		subZ = GetTargetCenter(target) - startPos;
 		if (fwd == Vector3.zero)
@@ -165,9 +163,9 @@ internal class TRSiloMissile : Trajectory
 		}
 		if (valid)
 		{
-			if ((bool)target)
+			if ((bool)myTarget)
 			{
-				targetCenter = GetTargetCenter(target);
+				targetCenter = GetTargetCenter(myTarget);
 			}
 			else
 			{

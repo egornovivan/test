@@ -4,12 +4,12 @@ namespace WhiteCat;
 
 public class VCPJetExhaust : VCPart
 {
-	[SerializeField]
 	[Min(0f)]
+	[SerializeField]
 	private float _energyExpendSpeed;
 
-	[Min(0f)]
 	[SerializeField]
+	[Min(0f)]
 	private float _pushForce;
 
 	[SerializeField]

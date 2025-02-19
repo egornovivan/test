@@ -81,8 +81,6 @@ public class UIItemPackageCtrl : UIBaseWnd
 
 	public bool isMission;
 
-	private int curcount = 20;
-
 	[SerializeField]
 	private ItemPackageGridTutorial_N m_GridTutorialPrefab;
 

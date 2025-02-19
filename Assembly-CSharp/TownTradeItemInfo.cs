@@ -5,7 +5,6 @@ using ItemAsset;
 using uLink;
 using UnityEngine;
 
-[Obsolete]
 public class TownTradeItemInfo
 {
 	public delegate void RefreshEvent(TownTradeItemInfo task, CSTradeInfoData cstid);

@@ -216,6 +216,10 @@ public class UIPlayerBuildCtrl : MonoBehaviour
 		mFaceGridBox.e_RefalshGrid += ReflashFaceGridBox;
 		mHairGridBox.e_RefalshGrid += ReflashHairGridBox;
 		mSaveGrodBox.e_RefalshGrid += ReflashSaveGridBox;
+		if (mFaceList == null)
+		{
+			Debug.Log("mFaceList is null");
+		}
 		mSkinColor.e_ChangeColor += SetSkinColor;
 		mSkinColor2.e_ChangeColor += SetSkinColor;
 		mEyeballsColor.e_ChangeColor += SetEyeColor;

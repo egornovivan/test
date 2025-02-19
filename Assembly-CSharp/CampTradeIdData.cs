@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Mono.Data.SqliteClient;
 
-[Obsolete]
 public class CampTradeIdData
 {
 	public const int StoryDetectTrade = 1;

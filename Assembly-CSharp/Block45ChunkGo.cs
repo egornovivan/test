@@ -39,7 +39,7 @@ public class Block45ChunkGo : MonoBehaviour, IRecyclable
 			return null;
 		}
 		Block45ChunkGo go = VFGoPool<Block45ChunkGo>.GetGo();
-		int num = req.FillMesh(go._mf.mesh);
+		req.FillMesh(go._mf.mesh);
 		if (req is SurfExtractReqB45 surfExtractReqB)
 		{
 			List<Material> list = new List<Material>();

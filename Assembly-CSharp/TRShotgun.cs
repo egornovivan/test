@@ -6,8 +6,6 @@ public class TRShotgun : Trajectory
 
 	public float maxAngle;
 
-	private Vector3 vertical = Vector3.up;
-
 	public override void SetData(Transform caster, Transform emitter, Transform target, Vector3 targetPosition, int index)
 	{
 		base.SetData(caster, emitter, target, targetPosition, index);

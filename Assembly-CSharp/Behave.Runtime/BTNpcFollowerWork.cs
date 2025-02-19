@@ -20,8 +20,6 @@ public class BTNpcFollowerWork : BTNormal
 
 	private float percent;
 
-	private float WORKTIME = 300f;
-
 	private Vector3 GetMovePosition()
 	{
 		return PEUtil.GetRandomPosition(base.position, 1024f, 2048f);

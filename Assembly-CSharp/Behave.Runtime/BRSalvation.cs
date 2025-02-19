@@ -34,8 +34,6 @@ public class BRSalvation : BTNormal
 
 	private Data m_Data;
 
-	private static float t = 0.1f;
-
 	private RQSalvation m_Salvation;
 
 	private Vector3 SalvatPos;

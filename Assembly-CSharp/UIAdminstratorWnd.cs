@@ -55,19 +55,13 @@ public class UIAdminstratorWnd : UIBaseWnd
 
 	private List<UIAdminstratorItem> mItemList = new List<UIAdminstratorItem>();
 
-	private List<UserAdmin> mBPrivilegesInfoList = new List<UserAdmin>();
-
 	private List<UserAdmin> mpitchAdminList = new List<UserAdmin>();
-
-	private List<UserAdmin> UserAdminList;
 
 	private int mCurrentPage = 1;
 
 	private int mEndPage;
 
 	private bool Ispersonnel = true;
-
-	private ulong mMask = 2uL;
 
 	private bool ForbidsBuild;
 

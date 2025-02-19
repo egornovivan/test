@@ -16,7 +16,7 @@ public class RandomTownDsc
 	[XmlElement("StartTown")]
 	public Town startTown { get; set; }
 
-	[XmlArrayItem("Town", typeof(Town))]
 	[XmlArray("TownArray")]
+	[XmlArrayItem("Town", typeof(Town))]
 	public Town[] town { get; set; }
 }

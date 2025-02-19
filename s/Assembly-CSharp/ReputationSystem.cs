@@ -137,7 +137,7 @@ public class ReputationSystem
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			byte[] data = (byte[])reader.GetValue(reader.GetOrdinal("data"));
 			Import(data);
 		}

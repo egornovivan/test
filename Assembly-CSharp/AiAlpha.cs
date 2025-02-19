@@ -15,8 +15,6 @@ public class AiAlpha : MonoBehaviour
 
 	private bool isDormant;
 
-	private float targetAlpha;
-
 	public float CurrentAlphaValue
 	{
 		get
@@ -47,7 +45,6 @@ public class AiAlpha : MonoBehaviour
 	{
 		if (!(render == null) && !(Mathf.Abs(render.material.color.a - dstAlpha) < 0.1f))
 		{
-			targetAlpha = dstAlpha;
 			StopAllCoroutines();
 			StartCoroutine(AlphaUpdate(dstAlpha, delayTime, time, alphaChange));
 		}

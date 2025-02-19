@@ -8,8 +8,8 @@ public class RotationLimitSpline : RotationLimit
 	[Range(0f, 180f)]
 	public float twistLimit = 180f;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	public AnimationCurve spline;
 
 	public void SetSpline(Keyframe[] keyframes)

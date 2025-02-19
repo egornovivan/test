@@ -4,16 +4,16 @@ using UnityEngine;
 [AddComponentMenu("NGUI/UI/Texture")]
 public class UITexture : UIWidget
 {
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Rect mRect = new Rect(0f, 0f, 1f, 1f);
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Shader mShader;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private Texture mTexture;
 
 	private Material mDynamicMat;

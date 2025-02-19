@@ -68,16 +68,16 @@ public class RotationLimitPolygonal : RotationLimit
 	[Range(0f, 3f)]
 	public int smoothIterations;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	public LimitPoint[] points;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	public Vector3[] P;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	public ReachCone[] reachCones = new ReachCone[0];
 
 	public void SetLimitPoints(LimitPoint[] points)

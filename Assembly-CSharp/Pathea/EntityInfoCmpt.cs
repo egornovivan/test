@@ -38,8 +38,6 @@ public class EntityInfoCmpt : PeCmpt, IPeMsg
 
 	private bool bShowrevival;
 
-	private float m_startTime;
-
 	private float m_delaytime;
 
 	private float m_endtime;
@@ -356,7 +354,6 @@ public class EntityInfoCmpt : PeCmpt, IPeMsg
 
 	public void SetDelaytime(float startTime, float delaytime)
 	{
-		m_startTime = startTime;
 		m_delaytime = delaytime;
 		m_endtime = startTime + delaytime;
 		SetTime = true;

@@ -387,29 +387,13 @@ public class VFDataRTGen : IVxDataLoader
 
 	private static float DensityThresholdPlusDelta = DensityThreshold + DensityDelta;
 
-	private static int GrasslandChance = 25;
-
-	private static int ForestChance = 25;
-
-	private static int DesertChance = 25;
-
-	private static int RedstoneChance = 25;
-
 	private static RandomMapType CurrentMapType;
-
-	private static int MapTypeOffset = 5;
 
 	private static int[] MapTypeChance;
 
 	private static int[] MapTypeValue;
 
 	private static List<int> mapTypeList;
-
-	private static float mapTypeFrequency0 = 0.04f;
-
-	private static float mapTypeFrequencyX = 0.04f;
-
-	private static float mapTypeFrequencyZ = 0.04f;
 
 	private static float changeMapTypeFrequency = 16f;
 
@@ -499,8 +483,6 @@ public class VFDataRTGen : IVxDataLoader
 
 	private static float bridgeMaxHeight = 0.7f;
 
-	private static float bridgeTopThreshold = 0.5f;
-
 	private static float riverThreshold = riverThreshold1;
 
 	private static float riverBankPercent = 0.9f;
@@ -522,12 +504,6 @@ public class VFDataRTGen : IVxDataLoader
 	private static float lakeThreshold = 0.875f;
 
 	private static float lakeBankPercent = 0.05f;
-
-	private static float selectedBiomaPlus = 0.6f;
-
-	private static float climateDryPlus = 0.3f;
-
-	private static float changeBiomaThreshold = 0.15f;
 
 	public static float changeBiomaDiff = 24f;
 
@@ -616,8 +592,6 @@ public class VFDataRTGen : IVxDataLoader
 
 	private static float DensityClampLinerTopValue = 2.3f;
 
-	private static float DensityClampLinerBlendSeaSide = 0.05f;
-
 	private static float DensityClampLinerBlend = 0.5f;
 
 	private byte[] _tmpInterTerraVoxels1;
@@ -663,10 +637,6 @@ public class VFDataRTGen : IVxDataLoader
 	public static Dictionary<IntVector3, byte> townFloorVoxelByte = new Dictionary<IntVector3, byte>();
 
 	public System.Random TownRand = new System.Random();
-
-	private static int renderedCount = 0;
-
-	private static long sumTick = 0L;
 
 	private static readonly int[] s_ofsToCheckPlants = new int[16]
 	{
@@ -857,8 +827,6 @@ public class VFDataRTGen : IVxDataLoader
 
 	public static void SetMapTypeFrequency(float scale)
 	{
-		mapTypeFrequencyX = mapTypeFrequency0 * scale;
-		mapTypeFrequencyZ = mapTypeFrequency0 * scale;
 	}
 
 	public static void SetTerrainFrequency(float scale)
@@ -1194,14 +1162,12 @@ public class VFDataRTGen : IVxDataLoader
 		townFloorVoxelByte.Clear();
 		bool flag = false;
 		List<VArtifactUnit> list = new List<VArtifactUnit>();
-		long ticks = DateTime.Now.Ticks;
 		int tileX = tile.tileX;
 		int tileZ = tile.tileZ;
 		int tileL = tile.tileL;
 		int[] array = S_VoxelIndex[tileL];
 		_tmpTileIndex.x = tileX;
 		_tmpTileIndex.y = tileZ;
-		long ticks2 = DateTime.Now.Ticks;
 		if (tileL <= 2 && VArtifactTownManager.Instance != null)
 		{
 			int num = 1 << tileL;
@@ -1224,7 +1190,6 @@ public class VFDataRTGen : IVxDataLoader
 				}
 			}
 		}
-		long ticks3 = DateTime.Now.Ticks;
 		isTownTile = false;
 		float num2 = waterHeight - Mathf.Floor(waterHeight);
 		int num3 = (int)Mathf.Floor(waterHeight + 0.5f);
@@ -1260,7 +1225,6 @@ public class VFDataRTGen : IVxDataLoader
 				ReGenDensityClamp(num8, num6);
 				float num9 = (float)num8 * s_detailScale;
 				int tileH = tile.tileH;
-				bool flag2 = false;
 				if (flag && townAvailable && tileL <= 0)
 				{
 					_tmpTownIdList.Clear();
@@ -1304,7 +1268,6 @@ public class VFDataRTGen : IVxDataLoader
 				float factor = (float)myNoise[9].Noise(num9 * flatFrequency, num7 * flatFrequency);
 				float flatParamFromFactor = GetFlatParamFromFactor(factor, intVector.x, intVector.y, mapType);
 				float num13 = s_seaDepth + 1;
-				bool flag3 = IsHillTerrain(nTerType);
 				if (!IsWaterTerrain(nTerType))
 				{
 					float num14;
@@ -1410,9 +1373,9 @@ public class VFDataRTGen : IVxDataLoader
 					}
 					int num33 = Mathf.FloorToInt(num31);
 					tileH = num33 + 1;
-					byte b = (array2[(num33 + 1) * 2] = (byte)Mathf.RoundToInt((num31 - (float)num33) * 255f));
+					byte b = (byte)Mathf.RoundToInt((num31 - (float)num33) * 255f);
+					array2[(num33 + 1) * 2] = b;
 					array2[(num33 + 1) * 2 + 1] = 1;
-					byte b2 = b;
 					int num34 = num33;
 					int num35 = num34 * 2;
 					while (num34 > 0)
@@ -1539,10 +1502,9 @@ public class VFDataRTGen : IVxDataLoader
 						}
 						int num54 = Mathf.FloorToInt(num52);
 						tileH = num54 + 1;
-						byte b3 = (byte)Mathf.RoundToInt((num52 - (float)num54) * 255f);
-						_tmpBridgeVoxels[(num54 + 1) * 2] = b3;
+						byte b2 = (byte)Mathf.RoundToInt((num52 - (float)num54) * 255f);
+						_tmpBridgeVoxels[(num54 + 1) * 2] = b2;
 						_tmpBridgeVoxels[(num54 + 1) * 2 + 1] = 1;
-						byte b4 = b3;
 						int num55 = num54;
 						int num56 = num55 * 2;
 						while (num55 > 0)
@@ -1568,34 +1530,28 @@ public class VFDataRTGen : IVxDataLoader
 								break;
 							}
 						}
-						int num62 = 0;
-						int num63 = Math.Min(tileH, array2.Length >> 1) - 1;
-						int num64 = num63;
-						int num65 = num64 * 2;
-						while (num64 > 0)
+						int num62 = Math.Min(tileH, array2.Length >> 1) - 1;
+						int num63 = num62;
+						int num64 = num63 * 2;
+						while (num63 > 0 && !((double)(int)array2[num64] > 127.5))
 						{
-							if ((double)(int)array2[num65] > 127.5)
-							{
-								num62 = num64;
-								break;
-							}
-							num64--;
-							num65 -= 2;
+							num63--;
+							num64 -= 2;
 						}
-						float num66 = ((!(num11 > terTypeInc[1])) ? (PlainThickness / 2f * (num11 - terTypeInc[0]) / (terTypeInc[1] - terTypeInc[0]) + (float)s_seaDepth) : PlainMax(PlainThickness / 2f));
+						float num65 = ((!(num11 > terTypeInc[1])) ? (PlainThickness / 2f * (num11 - terTypeInc[0]) / (terTypeInc[1] - terTypeInc[0]) + (float)s_seaDepth) : PlainMax(PlainThickness / 2f));
 						if (num59 != 0)
 						{
-							int num67 = num63;
-							int num68 = num67 * 2;
-							while ((float)num67 > num66 - (float)num58)
+							int num66 = num62;
+							int num67 = num66 * 2;
+							while ((float)num66 > num65 - (float)num58)
 							{
-								if (num67 >= 0)
+								if (num66 >= 0)
 								{
-									array2[num68] = _tmpBridgeVoxels[num68];
-									array2[num68 + 1] = _tmpBridgeVoxels[num68 + 1];
+									array2[num67] = _tmpBridgeVoxels[num67];
+									array2[num67 + 1] = _tmpBridgeVoxels[num67 + 1];
 								}
-								num67--;
-								num68 -= 2;
+								num66--;
+								num67 -= 2;
 							}
 						}
 					}
@@ -1606,32 +1562,32 @@ public class VFDataRTGen : IVxDataLoader
 				if (caveEnable)
 				{
 					float f2 = (float)myCaveNoise[0].Noise(num9 * 0.125f, num7 * 0.125f);
-					float num69 = Mathf.Abs(f2);
-					float num70 = (float)myCaveNoise[3].Noise(num9 * 0.125f * 3f, num7 * 0.125f * 3f);
-					float num71 = (num70 + 1f) * 0.75f;
-					float num72 = (0.05f + 0.2f * (1.15f - num12)) * num71;
-					if (num69 < num72)
+					float num68 = Mathf.Abs(f2);
+					float num69 = (float)myCaveNoise[3].Noise(num9 * 0.125f * 3f, num7 * 0.125f * 3f);
+					float num70 = (num69 + 1f) * 0.75f;
+					float num71 = (0.05f + 0.2f * (1.15f - num12)) * num70;
+					if (num68 < num71)
 					{
-						float num73 = (float)myCaveNoise[1].Noise(num9 * 0.125f, num7 * 0.125f);
-						float num74 = CaveHeightMax(PlainThickness) + 80f * num12;
-						float caveHeight = (num73 + 1f) * 0.5f * (num74 - 5f) + 5f;
+						float num72 = (float)myCaveNoise[1].Noise(num9 * 0.125f, num7 * 0.125f);
+						float num73 = CaveHeightMax(PlainThickness) + 80f * num12;
+						float caveHeight = (num72 + 1f) * 0.5f * (num73 - 5f) + 5f;
 						float factor2 = (float)myCaveNoise[2].Noise(num9 * 1f, num7 * 1f);
-						float num75 = 30f + 20f * (1.15f - num12);
-						float num76 = GetThicknessParamFromFactor(factor2) * num75;
-						float num77 = (num72 - num69) / 0.05f;
-						float num78 = ((!(num77 > 0.3f)) ? Mathf.Pow(num77 / 0.3f, 0.5f) : 1f);
-						num76 *= num78;
-						if (num76 > 0f)
+						float num74 = 30f + 20f * (1.15f - num12);
+						float num75 = GetThicknessParamFromFactor(factor2) * num74;
+						float num76 = (num71 - num68) / 0.05f;
+						float num77 = ((!(num76 > 0.3f)) ? Mathf.Pow(num76 / 0.3f, 0.5f) : 1f);
+						num75 *= num77;
+						if (num75 > 0f)
 						{
-							GenCave(caveHeight, num76, array2);
+							GenCave(caveHeight, num75, array2);
 						}
 					}
 				}
 				float f3 = (float)myMineNoise[0].Noise(num9 * 0.5f, num7 * 0.5f);
-				float num79 = Mathf.Abs(f3);
-				if (num79 > 0.5f)
+				float num78 = Mathf.Abs(f3);
+				if (num78 > 0.5f)
 				{
-					float mineChanceFactor = (num79 - 0.5f) / 0.5f;
+					float mineChanceFactor = (num78 - 0.5f) / 0.5f;
 					GeneralMineral(array2, num9, fTerNoiseHeight, num7, mineChanceFactor, fTerType, mapType);
 				}
 				array2[0] = SolidBottomVoxel[0];
@@ -1640,259 +1596,254 @@ public class VFDataRTGen : IVxDataLoader
 				tile.nWaterYLens[k][l] = (num3 + 1) * 2;
 			}
 		}
-		long ticks4 = DateTime.Now.Ticks;
-		for (int num80 = 2; num80 < 33; num80 += 3)
+		for (int num79 = 2; num79 < 33; num79 += 3)
 		{
-			int num81 = num5 + (array[num80] & 0xFF) + (array[num80] >> 8 << 5);
-			float scaledZ = (float)num81 * s_detailScale;
-			byte[][] array4 = tile.terraVoxels[num80];
-			byte[][] array5 = tile.waterVoxels[num80];
-			for (int num82 = 3; num82 < 33; num82 += 3)
+			int num80 = num5 + (array[num79] & 0xFF) + (array[num79] >> 8 << 5);
+			float scaledZ = (float)num80 * s_detailScale;
+			byte[][] array4 = tile.terraVoxels[num79];
+			byte[][] array5 = tile.waterVoxels[num79];
+			for (int num81 = 3; num81 < 33; num81 += 3)
 			{
-				int num83 = num4 + (array[num82] & 0xFF) + (array[num82] >> 8 << 5);
-				float scaledX = (float)num83 * s_detailScale;
-				byte[] array6 = array4[num82 - 1];
-				byte[] array7 = array4[num82 + 2];
-				int num84 = tile.nTerraYLens[num80][num82 - 1];
-				int num85 = tile.nTerraYLens[num80][num82 + 2];
-				int tileH = (tile.nTerraYLens[num80][num82] = (tile.nTerraYLens[num80][num82 + 1] = num84));
-				if (num85 > tileH)
+				int num82 = num4 + (array[num81] & 0xFF) + (array[num81] >> 8 << 5);
+				float scaledX = (float)num82 * s_detailScale;
+				byte[] array6 = array4[num81 - 1];
+				byte[] array7 = array4[num81 + 2];
+				int num83 = tile.nTerraYLens[num79][num81 - 1];
+				int num84 = tile.nTerraYLens[num79][num81 + 2];
+				int tileH = (tile.nTerraYLens[num79][num81] = (tile.nTerraYLens[num79][num81 + 1] = num83));
+				if (num84 > tileH)
 				{
-					tileH = (tile.nTerraYLens[num80][num82] = (tile.nTerraYLens[num80][num82 + 1] = num85));
+					tileH = (tile.nTerraYLens[num79][num81] = (tile.nTerraYLens[num79][num81 + 1] = num84));
 				}
 				Array.Clear(_tmpInterTerraVoxels1, 0, _tmpInterTerraVoxels1.Length);
 				Array.Clear(_tmpInterTerraVoxels2, 0, _tmpInterTerraVoxels2.Length);
-				for (int num86 = 0; num86 < tileH; num86 += 2)
+				for (int num85 = 0; num85 < tileH; num85 += 2)
 				{
-					int num87 = ((num84 > num86) ? array6[num86] : 0);
-					int num88 = ((num85 > num86) ? array7[num86] : 0);
-					_tmpInterTerraVoxels2[num86] = (byte)((num87 * 2 + num88 * 4) / 6);
-					_tmpInterTerraVoxels1[num86] = (byte)((num87 * 4 + num88 * 2) / 6);
-					byte b5 = (byte)((num87 != 0) ? array6[num86 + 1] : 0);
-					_tmpInterTerraVoxels1[num86 + 1] = b5;
-					_tmpInterTerraVoxels2[num86 + 1] = b5;
+					int num86 = ((num83 > num85) ? array6[num85] : 0);
+					int num87 = ((num84 > num85) ? array7[num85] : 0);
+					_tmpInterTerraVoxels2[num85] = (byte)((num86 * 2 + num87 * 4) / 6);
+					_tmpInterTerraVoxels1[num85] = (byte)((num86 * 4 + num87 * 2) / 6);
+					byte b3 = (byte)((num86 != 0) ? array6[num85 + 1] : 0);
+					_tmpInterTerraVoxels1[num85 + 1] = b3;
+					_tmpInterTerraVoxels2[num85 + 1] = b3;
 				}
-				Array.Copy(_tmpInterTerraVoxels1, tile.terraVoxels[num80][num82], _tmpInterTerraVoxels1.Length);
-				Array.Copy(_tmpInterTerraVoxels2, tile.terraVoxels[num80][num82 + 1], _tmpInterTerraVoxels2.Length);
-				byte[] array8 = array5[num82 - 1];
-				byte[] array9 = array5[num82 + 2];
-				int num89 = tile.nWaterYLens[num80][num82 - 1];
-				int num90 = tile.nWaterYLens[num80][num82 + 2];
-				int num91 = (tile.nWaterYLens[num80][num82] = (tile.nWaterYLens[num80][num82 + 1] = num89));
-				if (num90 > num91)
+				Array.Copy(_tmpInterTerraVoxels1, tile.terraVoxels[num79][num81], _tmpInterTerraVoxels1.Length);
+				Array.Copy(_tmpInterTerraVoxels2, tile.terraVoxels[num79][num81 + 1], _tmpInterTerraVoxels2.Length);
+				byte[] array8 = array5[num81 - 1];
+				byte[] array9 = array5[num81 + 2];
+				int num88 = tile.nWaterYLens[num79][num81 - 1];
+				int num89 = tile.nWaterYLens[num79][num81 + 2];
+				int num90 = (tile.nWaterYLens[num79][num81] = (tile.nWaterYLens[num79][num81 + 1] = num88));
+				if (num89 > num90)
 				{
-					num91 = (tile.nWaterYLens[num80][num82] = (tile.nWaterYLens[num80][num82 + 1] = num90));
+					num90 = (tile.nWaterYLens[num79][num81] = (tile.nWaterYLens[num79][num81 + 1] = num89));
 				}
 				Array.Clear(_tmpInterWaterVoxels1, 0, _tmpInterWaterVoxels1.Length);
 				Array.Clear(_tmpInterWaterVoxels2, 0, _tmpInterWaterVoxels2.Length);
-				for (int num92 = 0; num92 < num91; num92 += 2)
+				for (int num91 = 0; num91 < num90; num91 += 2)
 				{
-					int num87 = ((num89 > num92) ? array8[num92] : 0);
-					int num88 = ((num90 > num92) ? array9[num92] : 0);
-					_tmpInterWaterVoxels2[num92] = (byte)((num87 * 2 + num88 * 4) / 6);
-					_tmpInterWaterVoxels1[num92] = (byte)((num87 * 4 + num88 * 2) / 6);
-					byte b5 = (byte)((num87 != 0) ? array8[num92 + 1] : 0);
-					_tmpInterWaterVoxels1[num92 + 1] = b5;
-					_tmpInterWaterVoxels2[num92 + 1] = b5;
+					int num86 = ((num88 > num91) ? array8[num91] : 0);
+					int num87 = ((num89 > num91) ? array9[num91] : 0);
+					_tmpInterWaterVoxels2[num91] = (byte)((num86 * 2 + num87 * 4) / 6);
+					_tmpInterWaterVoxels1[num91] = (byte)((num86 * 4 + num87 * 2) / 6);
+					byte b3 = (byte)((num86 != 0) ? array8[num91 + 1] : 0);
+					_tmpInterWaterVoxels1[num91 + 1] = b3;
+					_tmpInterWaterVoxels2[num91 + 1] = b3;
 				}
-				Array.Copy(_tmpInterWaterVoxels1, tile.waterVoxels[num80][num82], _tmpInterWaterVoxels1.Length);
-				Array.Copy(_tmpInterWaterVoxels2, tile.waterVoxels[num80][num82 + 1], _tmpInterWaterVoxels2.Length);
+				Array.Copy(_tmpInterWaterVoxels1, tile.waterVoxels[num79][num81], _tmpInterWaterVoxels1.Length);
+				Array.Copy(_tmpInterWaterVoxels2, tile.waterVoxels[num79][num81 + 1], _tmpInterWaterVoxels2.Length);
 				RandomMapType mapType = GetMapType(scaledX, scaledZ);
-				tileMapType[num80][num82] = mapType;
-				tileMapType[num80][num82 + 1] = mapType;
+				tileMapType[num79][num81] = mapType;
+				tileMapType[num79][num81 + 1] = mapType;
 			}
 		}
-		for (int num93 = 3; num93 < 33; num93 += 3)
+		for (int num92 = 3; num92 < 33; num92 += 3)
 		{
-			int num94 = num5 + (array[num93] & 0xFF) + (array[num93] >> 8 << 5);
-			float scaledZ2 = (float)num94 * s_detailScale;
-			byte[][] array10 = tile.terraVoxels[num93 - 1];
-			byte[][] array11 = tile.terraVoxels[num93 + 2];
-			byte[][] array12 = tile.waterVoxels[num93 - 1];
-			byte[][] array13 = tile.waterVoxels[num93 + 2];
-			for (int num95 = 2; num95 < 33; num95++)
+			int num93 = num5 + (array[num92] & 0xFF) + (array[num92] >> 8 << 5);
+			float scaledZ2 = (float)num93 * s_detailScale;
+			byte[][] array10 = tile.terraVoxels[num92 - 1];
+			byte[][] array11 = tile.terraVoxels[num92 + 2];
+			byte[][] array12 = tile.waterVoxels[num92 - 1];
+			byte[][] array13 = tile.waterVoxels[num92 + 2];
+			for (int num94 = 2; num94 < 33; num94++)
 			{
-				int num96 = num4 + (array[num95] & 0xFF) + (array[num95] >> 8 << 5);
-				float scaledX2 = (float)num96 * s_detailScale;
-				byte[] array14 = array10[num95];
-				byte[] array15 = array11[num95];
-				int num97 = tile.nTerraYLens[num93 - 1][num95];
-				int num98 = tile.nTerraYLens[num93 + 2][num95];
-				int tileH = (tile.nTerraYLens[num93][num95] = (tile.nTerraYLens[num93 + 1][num95] = num97));
-				if (num98 > tileH)
+				int num95 = num4 + (array[num94] & 0xFF) + (array[num94] >> 8 << 5);
+				float scaledX2 = (float)num95 * s_detailScale;
+				byte[] array14 = array10[num94];
+				byte[] array15 = array11[num94];
+				int num96 = tile.nTerraYLens[num92 - 1][num94];
+				int num97 = tile.nTerraYLens[num92 + 2][num94];
+				int tileH = (tile.nTerraYLens[num92][num94] = (tile.nTerraYLens[num92 + 1][num94] = num96));
+				if (num97 > tileH)
 				{
-					tileH = (tile.nTerraYLens[num93][num95] = (tile.nTerraYLens[num93 + 1][num95] = num98));
+					tileH = (tile.nTerraYLens[num92][num94] = (tile.nTerraYLens[num92 + 1][num94] = num97));
 				}
 				Array.Clear(_tmpInterTerraVoxels1, 0, _tmpInterTerraVoxels1.Length);
 				Array.Clear(_tmpInterTerraVoxels2, 0, _tmpInterTerraVoxels2.Length);
-				for (int num99 = 0; num99 < tileH; num99 += 2)
+				for (int num98 = 0; num98 < tileH; num98 += 2)
 				{
-					int num100 = ((num97 > num99) ? array14[num99] : 0);
-					int num101 = ((num98 > num99) ? array15[num99] : 0);
-					_tmpInterTerraVoxels1[num99] = (byte)((num100 * 2 + num101) / 3);
-					_tmpInterTerraVoxels2[num99] = (byte)((num100 + num101 * 2) / 3);
-					byte b6 = (byte)((num100 != 0) ? array14[num99 + 1] : 0);
-					_tmpInterTerraVoxels1[num99 + 1] = b6;
-					_tmpInterTerraVoxels2[num99 + 1] = b6;
+					int num99 = ((num96 > num98) ? array14[num98] : 0);
+					int num100 = ((num97 > num98) ? array15[num98] : 0);
+					_tmpInterTerraVoxels1[num98] = (byte)((num99 * 2 + num100) / 3);
+					_tmpInterTerraVoxels2[num98] = (byte)((num99 + num100 * 2) / 3);
+					byte b4 = (byte)((num99 != 0) ? array14[num98 + 1] : 0);
+					_tmpInterTerraVoxels1[num98 + 1] = b4;
+					_tmpInterTerraVoxels2[num98 + 1] = b4;
 				}
-				Array.Copy(_tmpInterTerraVoxels1, tile.terraVoxels[num93][num95], _tmpInterTerraVoxels1.Length);
-				Array.Copy(_tmpInterTerraVoxels2, tile.terraVoxels[num93 + 1][num95], _tmpInterTerraVoxels2.Length);
-				byte[] array16 = array12[num95];
-				byte[] array17 = array13[num95];
-				int num102 = tile.nWaterYLens[num93 - 1][num95];
-				int num103 = tile.nWaterYLens[num93 + 2][num95];
-				int num91 = (tile.nWaterYLens[num93][num95] = (tile.nWaterYLens[num93 + 1][num95] = num102));
-				if (num103 > num91)
+				Array.Copy(_tmpInterTerraVoxels1, tile.terraVoxels[num92][num94], _tmpInterTerraVoxels1.Length);
+				Array.Copy(_tmpInterTerraVoxels2, tile.terraVoxels[num92 + 1][num94], _tmpInterTerraVoxels2.Length);
+				byte[] array16 = array12[num94];
+				byte[] array17 = array13[num94];
+				int num101 = tile.nWaterYLens[num92 - 1][num94];
+				int num102 = tile.nWaterYLens[num92 + 2][num94];
+				int num90 = (tile.nWaterYLens[num92][num94] = (tile.nWaterYLens[num92 + 1][num94] = num101));
+				if (num102 > num90)
 				{
-					num91 = (tile.nWaterYLens[num93][num95] = (tile.nWaterYLens[num93 + 1][num95] = num103));
+					num90 = (tile.nWaterYLens[num92][num94] = (tile.nWaterYLens[num92 + 1][num94] = num102));
 				}
 				Array.Clear(_tmpInterWaterVoxels1, 0, _tmpInterWaterVoxels1.Length);
 				Array.Clear(_tmpInterWaterVoxels2, 0, _tmpInterWaterVoxels2.Length);
-				for (int num104 = 0; num104 < num91; num104 += 2)
+				for (int num103 = 0; num103 < num90; num103 += 2)
 				{
-					int num100 = ((num102 > num104) ? array16[num104] : 0);
-					int num101 = ((num103 > num104) ? array17[num104] : 0);
-					_tmpInterWaterVoxels1[num104] = (byte)((num100 * 2 + num101) / 3);
-					_tmpInterWaterVoxels2[num104] = (byte)((num100 + num101 * 2) / 3);
-					byte b6 = (byte)((num100 != 0) ? array16[num104 + 1] : 0);
-					_tmpInterWaterVoxels1[num104 + 1] = b6;
-					_tmpInterWaterVoxels2[num104 + 1] = b6;
+					int num99 = ((num101 > num103) ? array16[num103] : 0);
+					int num100 = ((num102 > num103) ? array17[num103] : 0);
+					_tmpInterWaterVoxels1[num103] = (byte)((num99 * 2 + num100) / 3);
+					_tmpInterWaterVoxels2[num103] = (byte)((num99 + num100 * 2) / 3);
+					byte b4 = (byte)((num99 != 0) ? array16[num103 + 1] : 0);
+					_tmpInterWaterVoxels1[num103 + 1] = b4;
+					_tmpInterWaterVoxels2[num103 + 1] = b4;
 				}
-				Array.Copy(_tmpInterWaterVoxels1, tile.waterVoxels[num93][num95], _tmpInterWaterVoxels1.Length);
-				Array.Copy(_tmpInterWaterVoxels2, tile.waterVoxels[num93 + 1][num95], _tmpInterWaterVoxels2.Length);
+				Array.Copy(_tmpInterWaterVoxels1, tile.waterVoxels[num92][num94], _tmpInterWaterVoxels1.Length);
+				Array.Copy(_tmpInterWaterVoxels2, tile.waterVoxels[num92 + 1][num94], _tmpInterWaterVoxels2.Length);
 				RandomMapType mapType = GetMapType(scaledX2, scaledZ2);
-				tileMapType[num93][num95] = mapType;
-				tileMapType[num93 + 1][num95] = mapType;
+				tileMapType[num92][num94] = mapType;
+				tileMapType[num92 + 1][num94] = mapType;
 			}
 		}
-		long ticks5 = DateTime.Now.Ticks;
-		long ticks6 = DateTime.Now.Ticks;
 		if (flag)
 		{
-			for (int num105 = 0; num105 < 35; num105++)
+			for (int num104 = 0; num104 < 35; num104++)
 			{
-				int num106 = num5 + (array[num105] & 0xFF) + (array[num105] >> 8 << 5);
-				for (int num107 = 0; num107 < 35; num107++)
+				int num105 = num5 + (array[num104] & 0xFF) + (array[num104] >> 8 << 5);
+				for (int num106 = 0; num106 < 35; num106++)
 				{
-					int num108 = num4 + (array[num107] & 0xFF) + (array[num107] >> 8 << 5);
-					_tmpVec2.x = num108 >> 5;
-					_tmpVec2.y = num106 >> 5;
+					int num107 = num4 + (array[num106] & 0xFF) + (array[num106] >> 8 << 5);
+					_tmpVec2.x = num107 >> 5;
+					_tmpVec2.y = num105 >> 5;
 					list = VArtifactTownManager.Instance.OutputTownData(_tmpVec2);
 					if (list == null || list.Count == 0)
 					{
 						continue;
 					}
-					byte[] array2 = tile.terraVoxels[num105][num107];
-					byte[] array3 = tile.waterVoxels[num105][num107];
-					RandomMapType mapType = tileMapType[num105][num107];
-					_tmpVec3.x = num108;
-					_tmpVec3.z = num106;
+					byte[] array2 = tile.terraVoxels[num104][num106];
+					byte[] array3 = tile.waterVoxels[num104][num106];
+					RandomMapType mapType = tileMapType[num104][num106];
+					_tmpVec3.x = num107;
+					_tmpVec3.z = num105;
 					_tmpNewTowns.Clear();
-					for (int num109 = 0; num109 < list.Count; num109++)
+					for (int num108 = 0; num108 < list.Count; num108++)
 					{
-						if (list[num109].IsInTown(num108, num106))
+						if (list[num108].IsInTown(num107, num105))
 						{
-							_tmpNewTowns.Add(list[num109]);
+							_tmpNewTowns.Add(list[num108]);
 						}
 					}
-					int num110 = tile.nTerraYLens[num105][num107];
-					for (int num111 = 0; num111 < _tmpNewTowns.Count; num111++)
+					int num109 = tile.nTerraYLens[num104][num106];
+					for (int num110 = 0; num110 < _tmpNewTowns.Count; num110++)
 					{
-						VArtifactUnit vArtifactUnit = _tmpNewTowns[num111];
+						VArtifactUnit vArtifactUnit = _tmpNewTowns[num110];
 						Dictionary<IntVector3, VFVoxel> townVoxel = vArtifactUnit.townVoxel;
-						int num112 = Mathf.FloorToInt(vArtifactUnit.worldPos.y + 10f);
-						int num113 = Mathf.CeilToInt(vArtifactUnit.worldPos.y + (float)vArtifactUnit.vaSize.z);
-						if ((num113 + 1) * 2 > num110)
+						int num111 = Mathf.FloorToInt(vArtifactUnit.worldPos.y + 10f);
+						int num112 = Mathf.CeilToInt(vArtifactUnit.worldPos.y + (float)vArtifactUnit.vaSize.z);
+						if ((num112 + 1) * 2 > num109)
 						{
-							num110 = (tile.nTerraYLens[num105][num107] = (num113 + 1) * 2);
+							num109 = (tile.nTerraYLens[num104][num106] = (num112 + 1) * 2);
 						}
-						bool flag4 = false;
-						bool flag5 = false;
-						int num114 = s_noiseHeight - 1;
-						int num115 = num113 - 1;
-						int num116 = num115 * 2;
-						while (num115 >= 0)
+						bool flag2 = false;
+						bool flag3 = false;
+						int num113 = s_noiseHeight - 1;
+						int num114 = num112 - 1;
+						int num115 = num114 * 2;
+						while (num114 >= 0)
 						{
-							_tmpVec3.y = num115;
+							_tmpVec3.y = num114;
 							if (townVoxel.ContainsKey(_tmpVec3))
 							{
-								if (!flag5)
+								if (!flag3)
 								{
-									Array.Clear(array2, num112 * 2, array2.Length - num112 * 2);
-									flag5 = true;
+									Array.Clear(array2, num111 * 2, array2.Length - num111 * 2);
+									flag3 = true;
 								}
-								flag4 = true;
-								num114 = num115;
+								flag2 = true;
+								num113 = num114;
 								VFVoxel vFVoxel = townVoxel[_tmpVec3];
-								if (array2[num116] + vFVoxel.Volume > 255)
+								if (array2[num115] + vFVoxel.Volume > 255)
 								{
-									array2[num116] = byte.MaxValue;
+									array2[num115] = byte.MaxValue;
 								}
 								else
 								{
-									array2[num116] += vFVoxel.Volume;
+									array2[num115] += vFVoxel.Volume;
 								}
-								byte b7;
-								if (vFVoxel.Type < VArtifactUtil.isos[_tmpNewTowns[num111].isoGuId].m_Materials.Length)
+								byte b5;
+								if (vFVoxel.Type < VArtifactUtil.isos[_tmpNewTowns[num110].isoGuId].m_Materials.Length)
 								{
-									b7 = (byte)VArtifactUtil.isos[_tmpNewTowns[num111].isoGuId].m_Materials[vFVoxel.Type].m_Guid;
-									if (b7 >= 240)
+									b5 = (byte)VArtifactUtil.isos[_tmpNewTowns[num110].isoGuId].m_Materials[vFVoxel.Type].m_Guid;
+									if (b5 >= 240)
 									{
-										int num117 = b7 % 240;
+										int num116 = b5 % 240;
 										string[] array18 = VArtifactUtil.triplaner[(int)(mapType - 1)].Split(',');
-										b7 = Convert.ToByte(array18[num117]);
+										b5 = Convert.ToByte(array18[num116]);
 									}
 								}
 								else
 								{
-									b7 = vFVoxel.Type;
+									b5 = vFVoxel.Type;
 								}
-								townFloorVoxelByte[new IntVector3(num107, num115, num105)] = b7;
+								townFloorVoxelByte[new IntVector3(num106, num114, num104)] = b5;
 							}
-							num115--;
-							num116 -= 2;
+							num114--;
+							num115 -= 2;
 						}
-						if (!flag4)
+						if (!flag2)
 						{
 							continue;
 						}
-						int num118 = num114;
-						int num119 = num118 * 2;
-						while (num118 >= 0)
+						int num117 = num113;
+						int num118 = num117 * 2;
+						while (num117 >= 0)
 						{
-							if (array2[num119] != byte.MaxValue)
+							if (array2[num118] != byte.MaxValue)
 							{
-								array2[num119] = byte.MaxValue;
-								if (array2[num119 + 1] == 0)
+								array2[num118] = byte.MaxValue;
+								if (array2[num118 + 1] == 0)
 								{
-									array2[num119 + 1] = 1;
+									array2[num118 + 1] = 1;
 								}
 							}
-							num118--;
-							num119 -= 2;
+							num117--;
+							num118 -= 2;
 						}
-						int num120 = num113 - 1;
-						int num121 = num120 * 2;
-						while (num120 >= 0)
+						int num119 = num112 - 1;
+						int num120 = num119 * 2;
+						while (num119 >= 0)
 						{
-							if (num3 + 1 > num120)
+							if (num3 + 1 > num119)
 							{
-								array3[num121] = (byte)(255 - array2[num121]);
-								if (array3[num121] < 128)
+								array3[num120] = (byte)(255 - array2[num120]);
+								if (array3[num120] < 128)
 								{
-									array3[num121 + 1] = 0;
+									array3[num120 + 1] = 0;
 								}
 							}
-							num120--;
-							num121 -= 2;
+							num119--;
+							num120 -= 2;
 						}
 					}
 				}
 			}
 		}
-		long ticks7 = DateTime.Now.Ticks;
 		SetVoxelType(tile, flag, tileL);
-		long ticks8 = DateTime.Now.Ticks;
 		if (!flag)
 		{
 			return;
@@ -1900,7 +1851,6 @@ public class VFDataRTGen : IVxDataLoader
 		foreach (KeyValuePair<IntVector3, byte> item in townFloorVoxelByte)
 		{
 			IntVector3 key = item.Key;
-			byte value = item.Value;
 			tile.terraVoxels[key.z][key.x][key.y * 2 + 1] = item.Value;
 		}
 	}
@@ -1952,12 +1902,11 @@ public class VFDataRTGen : IVxDataLoader
 		float num6 = terTypeInc[1];
 		float num7 = 0.45f;
 		float num8 = terTypeInc[2];
-		float num9 = 1f;
-		float num10 = 1f - bound;
-		num10 = ((num10 > num7) ? ((num10 - num7) / (1f - num7) * (1f - num8) + num8) : ((num10 > num5) ? ((num10 - num5) / (num7 - num5) * (num8 - num6) + num6) : ((!(num10 > num3)) ? ((num10 - num) / (num3 - num) * (num4 - num2) + num2) : ((num10 - num3) / (num5 - num3) * (num6 - num4) + num4))));
-		if (origin > num10)
+		float num9 = 1f - bound;
+		num9 = ((num9 > num7) ? ((num9 - num7) / (1f - num7) * (1f - num8) + num8) : ((num9 > num5) ? ((num9 - num5) / (num7 - num5) * (num8 - num6) + num6) : ((!(num9 > num3)) ? ((num9 - num) / (num3 - num) * (num4 - num2) + num2) : ((num9 - num3) / (num5 - num3) * (num6 - num4) + num4))));
+		if (origin > num9)
 		{
-			return num10;
+			return num9;
 		}
 		return origin;
 	}
@@ -2721,48 +2670,47 @@ public class VFDataRTGen : IVxDataLoader
 		num3 = num3 * (num5 / 100f) + (75f - num5) / 2f;
 		num3 = Mathf.Clamp(num3, 0f, 100f);
 		float num7 = Mathf.Max(num, num2);
-		float num8 = Mathf.Min(num, num2);
-		float num10;
+		float num9;
 		if (num7 <= num5)
 		{
 			if (num7 <= num6)
 			{
 				if (num3 > num7)
 				{
-					float num9 = num6 - num7;
-					num10 = ((!(num9 < num4)) ? num3 : (num7 * (1f - num9 / num4) + num3 * num9 / num4));
+					float num8 = num6 - num7;
+					num9 = ((!(num8 < num4)) ? num3 : (num7 * (1f - num8 / num4) + num3 * num8 / num4));
 				}
 				else
 				{
-					num10 = num7;
+					num9 = num7;
 				}
 			}
 			else
 			{
-				num10 = num7;
+				num9 = num7;
 			}
 		}
 		else
 		{
-			num10 = num7;
+			num9 = num7;
 		}
-		float num11 = 6f;
-		float num12 = (float)myNoise[17].Noise(scaledX * terrainFrequencyX, scaledZ * terrainFrequencyZ);
-		float num13 = num12 * num11 + 2f;
-		num10 += num13;
-		float num14 = 20f;
-		float num15 = (float)myNoise[3].Noise(scaledX * terrainFrequencyX * 6f, scaledZ * terrainFrequencyZ * 6f);
-		float num16 = (float)myNoise[8].Noise(scaledX * terrainFrequencyX * 4f, scaledZ * terrainFrequencyZ * 4f);
-		float num17 = num15;
-		float num18 = (num16 + 1f) * 0.5f;
-		float num19 = num17 * num18 * num14 + 4f;
-		num10 += num19;
+		float num10 = 6f;
+		float num11 = (float)myNoise[17].Noise(scaledX * terrainFrequencyX, scaledZ * terrainFrequencyZ);
+		float num12 = num11 * num10 + 2f;
+		num9 += num12;
+		float num13 = 20f;
+		float num14 = (float)myNoise[3].Noise(scaledX * terrainFrequencyX * 6f, scaledZ * terrainFrequencyZ * 6f);
+		float num15 = (float)myNoise[8].Noise(scaledX * terrainFrequencyX * 4f, scaledZ * terrainFrequencyZ * 4f);
+		float num16 = num14;
+		float num17 = (num15 + 1f) * 0.5f;
+		float num18 = num16 * num17 * num13 + 4f;
+		num9 += num18;
 		float mountain = GetMountain(scaledX, scaledZ, 5, 30f, 1f);
 		float mountain2 = GetMountain(scaledX, scaledZ, 12, 20f, 2f);
-		mountain2 *= Mathf.Pow(num10 / num5, 2f);
-		num10 += Mathf.Max(mountain, mountain2);
+		mountain2 *= Mathf.Pow(num9 / num5, 2f);
+		num9 += Mathf.Max(mountain, mountain2);
 		float finalSierra = GetFinalSierra(scaledX, scaledZ);
-		return num10 + finalSierra;
+		return num9 + finalSierra;
 	}
 
 	private void GenCave(float caveHeight, float caveThickness, byte[] yVoxels)
@@ -2840,7 +2788,6 @@ public class VFDataRTGen : IVxDataLoader
 
 	private void GenTileVoxelWithHeightMap(float voxelX, float voxelY, float voxelZ, float fTerNoise, ref float fNoiseXZ, ref byte volume, ref byte type, int topCorrection, int vy)
 	{
-		float num = DensityThresholdMinusDelta + voxelY / 10f;
 		volume = byte.MaxValue;
 		type = 1;
 		if ((double)(int)volume > 127.5 && voxelY < fTerNoiseHeight[topCorrection - 1])
@@ -2849,8 +2796,8 @@ public class VFDataRTGen : IVxDataLoader
 		}
 		else if ((double)(int)volume > 127.5 && voxelY < fTerNoiseHeight[topCorrection - 2])
 		{
-			float num2 = (float)myNoise[16].Noise2DFBM(voxelX * disturbFrequency, voxelZ * disturbFrequency, 2);
-			volume = (byte)((double)(int)volume * ((double)num2 * 0.5 + 0.5));
+			float num = (float)myNoise[16].Noise2DFBM(voxelX * disturbFrequency, voxelZ * disturbFrequency, 2);
+			volume = (byte)((double)(int)volume * ((double)num * 0.5 + 0.5));
 		}
 	}
 
@@ -3021,7 +2968,6 @@ public class VFDataRTGen : IVxDataLoader
 		mapType = GetMapTypeAndTerInc(scaledX, scaledZ, out terTypeInc);
 		float num = GetfNoise12D1ten(scaledX, scaledZ);
 		float continentValue = GetContinentValue(worldXZ.x, worldXZ.y);
-		int num2 = 0;
 		float origin = num / 100f;
 		origin = BlendContinentBound(origin, continentValue, terTypeInc);
 		if (origin < 0f)
@@ -3052,7 +2998,6 @@ public class VFDataRTGen : IVxDataLoader
 		GetMapTypeAndTerInc(scaledX, scaledZ, out terTypeInc);
 		float num = GetfNoise12D1ten(scaledX, scaledZ);
 		float continentValue = GetContinentValue(worldXZ.x, worldXZ.y);
-		int num2 = 0;
 		float origin = num / 100f;
 		origin = BlendContinentBound(origin, continentValue, terTypeInc);
 		if (origin < 0f)
@@ -3061,14 +3006,9 @@ public class VFDataRTGen : IVxDataLoader
 		}
 		bool caveEnable = true;
 		bool lakeArea = false;
-		bool flag = false;
 		float bridgeValue;
 		float bridge2dFactor;
 		float riverValue = GetRiverValue(worldXZ.x, worldXZ.y, ref origin, ref caveEnable, ref lakeArea, out bridgeValue, out bridge2dFactor, terTypeInc);
-		if (riverValue < 0.85f)
-		{
-			flag = true;
-		}
 		float result = origin * riverValue;
 		fTerTypeBridge = -1f;
 		if (bridgeValue != -1f)
@@ -3301,43 +3241,39 @@ public class VFDataRTGen : IVxDataLoader
 
 	public static float GetPosTop(IntVector2 worldPosXZ, out bool canGenNpc)
 	{
-		int num = worldPosXZ.x >> 5;
-		int num2 = worldPosXZ.y >> 5;
-		float num3 = GetPosHeight(worldPosXZ, inWater: true);
-		float num4 = VArtifactUtil.IsInTown(worldPosXZ);
-		if (num4 != 0f)
+		float num = GetPosHeight(worldPosXZ, inWater: true);
+		float num2 = VArtifactUtil.IsInTown(worldPosXZ);
+		if (num2 != 0f)
 		{
-			if (num3 < num4)
+			if (num < num2)
 			{
-				num3 = num4;
+				num = num2;
 			}
 			canGenNpc = false;
-			return num3 + 1.5f;
+			return num + 1.5f;
 		}
-		if (IsSea(Mathf.FloorToInt(num3)))
+		if (IsSea(Mathf.FloorToInt(num)))
 		{
 			canGenNpc = false;
-			return num3 + 1.5f;
+			return num + 1.5f;
 		}
 		canGenNpc = true;
-		return num3 + 1.5f;
+		return num + 1.5f;
 	}
 
 	public static float GetPosTop(IntVector2 worldPosXZ)
 	{
-		int num = worldPosXZ.x >> 5;
-		int num2 = worldPosXZ.y >> 5;
-		float num3 = (float)GetPosHeight(worldPosXZ) + 1.5f;
-		float num4 = VArtifactUtil.IsInTown(worldPosXZ);
-		if (num4 != 0f)
+		float num = (float)GetPosHeight(worldPosXZ) + 1.5f;
+		float num2 = VArtifactUtil.IsInTown(worldPosXZ);
+		if (num2 != 0f)
 		{
-			if (num3 < num4)
+			if (num < num2)
 			{
-				num3 = num4 + 1.5f;
+				num = num2 + 1.5f;
 			}
-			return num3;
+			return num;
 		}
-		return num3;
+		return num;
 	}
 
 	public static float GetPosHeightWithTown(IntVector2 worldPosXZ, bool InWater = false)
@@ -3385,7 +3321,6 @@ public class VFDataRTGen : IVxDataLoader
 		{
 			return false;
 		}
-		float num = (fTerType * 2f - 1f) * 0.05f;
 		GetFTerTypeAndZnTerType(ref fTerType, out var nTerType, terTypeInc);
 		if (RandomMapConfig.ScenceClimate != ClimateType.CT_Wet && IsHillTerrain(nTerType))
 		{
@@ -3404,7 +3339,6 @@ public class VFDataRTGen : IVxDataLoader
 		float[] terTypeInc;
 		float finalFterType = GetFinalFterType(genPos, out fTerTypeBridge, out terTypeInc);
 		float fTerType = Mathf.Max(finalFterType, fTerTypeBridge);
-		float num = (fTerType * 2f - 1f) * 0.05f;
 		GetFTerTypeAndZnTerType(ref fTerType, out var nTerType, terTypeInc);
 		if (IsHillTerrain(nTerType))
 		{
@@ -3501,49 +3435,46 @@ public class VFDataRTGen : IVxDataLoader
 				num = num10 * (1f - num9) + num9;
 			}
 		}
-		int num11 = 0;
+		float num11 = 0f;
 		float num12 = 0f;
-		float num13 = 0f;
-		float num14 = 0f;
-		float num15 = 0f;
-		float num16 = 1f;
-		num15 = (float)myRiverNoise[1].Noise(num2 * lakeFrequency, num3 * lakeFrequency);
-		num14 = ResetLakeThreshold(lakeThreshold, fTerType, num2, num3);
-		if (Mathf.Abs(num15) > num14 - 0.01f)
+		float num13 = 1f;
+		num12 = (float)myRiverNoise[1].Noise(num2 * lakeFrequency, num3 * lakeFrequency);
+		num11 = ResetLakeThreshold(lakeThreshold, fTerType, num2, num3);
+		if (Mathf.Abs(num12) > num11 - 0.01f)
 		{
 			caveEnable = false;
 		}
-		if (Mathf.Abs(num15) > num14 - 0.008f)
+		if (Mathf.Abs(num12) > num11 - 0.008f)
 		{
 			lakeArea = true;
 		}
-		if (Mathf.Abs(num15) > num14)
+		if (Mathf.Abs(num12) > num11)
 		{
-			float num17 = ResetLakeBottomWidth(num14, fTerType);
-			float num18 = (float)myRiverNoise[2].Noise(num2 * lakeFrequency * 0.1f, num3 * lakeFrequency * 0.1f);
-			num18 = (num18 + 1f) * 0.5f;
-			num18 = 1f - num18 * num18;
-			num18 = terTypeInc[0] * num18 / terTypeInc[3];
-			float num19 = num18;
-			if (Mathf.Abs(num15) > num17)
+			float num14 = ResetLakeBottomWidth(num11, fTerType);
+			float num15 = (float)myRiverNoise[2].Noise(num2 * lakeFrequency * 0.1f, num3 * lakeFrequency * 0.1f);
+			num15 = (num15 + 1f) * 0.5f;
+			num15 = 1f - num15 * num15;
+			num15 = terTypeInc[0] * num15 / terTypeInc[3];
+			float num16 = num15;
+			if (Mathf.Abs(num12) > num14)
 			{
-				num16 = num19;
+				num13 = num16;
 			}
 			else
 			{
-				float num20 = (Mathf.Abs(num15) - num17) / (num14 - num17);
+				float num17 = (Mathf.Abs(num12) - num14) / (num11 - num14);
 				float p2 = 1f;
 				if (fTerType > terTypeInc[2])
 				{
 					p2 = 1f / (Mathf.Pow((fTerType - terTypeInc[2]) / (terTypeInc[4] - terTypeInc[2]), 0.25f) * 8f + 1f);
 				}
-				Mathf.Pow(num20, p2);
-				num16 = num20 * (1f - num19) + num19;
+				Mathf.Pow(num17, p2);
+				num13 = num17 * (1f - num16) + num16;
 			}
 		}
-		if (num16 < num)
+		if (num13 < num)
 		{
-			num = num16;
+			num = num13;
 		}
 		float finalFTerType = fTerType * num;
 		float townChangeValue = GetTownChangeValue(finalFTerType, new IntVector2(worldX, worldZ), terTypeInc);
@@ -3562,24 +3493,23 @@ public class VFDataRTGen : IVxDataLoader
 		}
 		if (bridgeMaxHeight > float.Epsilon)
 		{
-			float num21 = terTypeInc[2] + (terTypeInc[4] - terTypeInc[2]) * bridgeMaxHeight;
+			float num18 = terTypeInc[2] + (terTypeInc[4] - terTypeInc[2]) * bridgeMaxHeight;
 			if (num < 0.98f)
 			{
 				float f = (float)myRiverNoise[4].Noise(num2 * bridgeFrequencyX * bridgeCof, num3 * bridgeFrequencyZ * bridgeCof);
-				float num22 = ResetBridgeThreshold(bridgeThreshold, fTerType, terTypeInc, 0f, 0f);
-				float num23 = riverFrequencyX * 2f;
-				if (Mathf.Abs(f) < num22)
+				float num19 = ResetBridgeThreshold(bridgeThreshold, fTerType, terTypeInc, 0f, 0f);
+				if (Mathf.Abs(f) < num19)
 				{
-					float num24 = 1f;
-					num24 = ((!(Mathf.Abs(f) <= num22 / 2f)) ? ((Mathf.Abs(f) - num22 / 2f) / (num22 / 2f)) : 0f);
-					float num25 = 0.98f;
-					bridgeValue = num25 - (num25 - num) * num24;
-					bridge2dFactor = Mathf.Abs(f) / num22;
-					if (num * fTerType < num21 && bridgeValue * fTerType > num21)
+					float num20 = 1f;
+					num20 = ((!(Mathf.Abs(f) <= num19 / 2f)) ? ((Mathf.Abs(f) - num19 / 2f) / (num19 / 2f)) : 0f);
+					float num21 = 0.98f;
+					bridgeValue = num21 - (num21 - num) * num20;
+					bridge2dFactor = Mathf.Abs(f) / num19;
+					if (num * fTerType < num18 && bridgeValue * fTerType > num18)
 					{
-						float num26 = 1f;
-						num26 = ((!(num * fTerType < terTypeInc[2])) ? ((num * fTerType - terTypeInc[2]) / (num21 - terTypeInc[2])) : 0f);
-						bridgeValue = bridgeValue * num26 + num21 / fTerType * (1f - num26);
+						float num22 = 1f;
+						num22 = ((!(num * fTerType < terTypeInc[2])) ? ((num * fTerType - terTypeInc[2]) / (num18 - terTypeInc[2])) : 0f);
+						bridgeValue = bridgeValue * num22 + num18 / fTerType * (1f - num22);
 					}
 				}
 			}
@@ -3837,21 +3767,20 @@ public class VFDataRTGen : IVxDataLoader
 
 	public static void OptimiseMaxHeight(ref int maxHeight, float voxelX, float voxelZ, float flatParam, float fTerType, int nTerType, float fTerNoise, float bottomHeight, float[] fTerNoiseHeight, float[] fTerDensityClamp, float PlainThickness, int minHeight = 5)
 	{
-		int num = 0;
 		byte b = 64;
-		float num2;
-		for (num2 = (float)maxHeight - bottomHeight; num2 > (float)minHeight; num2 /= 2f)
+		float num;
+		for (num = (float)maxHeight - bottomHeight; num > (float)minHeight; num /= 2f)
 		{
-			int num3 = Mathf.Clamp(Mathf.RoundToInt(bottomHeight + num2 / 2f) - 1, 0, fTerNoiseHeight.Count() - 1);
+			int num2 = Mathf.Clamp(Mathf.RoundToInt(bottomHeight + num / 2f) - 1, 0, fTerNoiseHeight.Count() - 1);
 			byte volume = 0;
 			byte type = 0;
-			GenTileVoxelOnly(voxelX, fTerNoiseHeight[num3], voxelZ, flatParam, fTerDensityClamp[num3], fTerType, nTerType, fTerNoise, ref volume, ref type, PlainThickness);
+			GenTileVoxelOnly(voxelX, fTerNoiseHeight[num2], voxelZ, flatParam, fTerDensityClamp[num2], fTerType, nTerType, fTerNoise, ref volume, ref type, PlainThickness);
 			if (volume >= b)
 			{
-				bottomHeight += num2 / 2f;
+				bottomHeight += num / 2f;
 			}
 		}
-		maxHeight = Mathf.Clamp(Mathf.RoundToInt(bottomHeight + num2), 1, s_noiseHeight - 1);
+		maxHeight = Mathf.Clamp(Mathf.RoundToInt(bottomHeight + num), 1, s_noiseHeight - 1);
 	}
 
 	private static float GetFlatParamFromFactor(float factor, int x, int y, RandomMapType firstType = RandomMapType.GrassLand)

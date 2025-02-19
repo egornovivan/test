@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Interaction/Scroll Bar")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/Interaction/Scroll Bar")]
 public class UIScrollBar : MonoBehaviour
 {
 	public enum Direction
@@ -13,8 +13,8 @@ public class UIScrollBar : MonoBehaviour
 
 	public delegate void OnScrollBarChange(UIScrollBar sb);
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private UISprite mBG;
 
 	[HideInInspector]

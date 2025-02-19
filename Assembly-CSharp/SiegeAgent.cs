@@ -118,8 +118,6 @@ public class SiegeAgent
 
 	private IEnumerator Move()
 	{
-		float startTime = Time.time;
-		Vector3 startPos = _agent.Pos;
 		while (!_death)
 		{
 			if (_agent.entity != null && _agent.entity is EntityGrp)
@@ -139,8 +137,6 @@ public class SiegeAgent
 			}
 			if (_target == null || _target.IsDeath())
 			{
-				startTime = Time.time;
-				startPos = _agent.Pos;
 				_target = _siege.GetClosestEntity(_agent);
 			}
 			if (_agent.entity == null && _target != null && _target.hasView && _agent.Pos.y <= Mathf.Epsilon && PEUtil.SqrMagnitude(_agent.Pos, _target.position, is3D: false) > 25f)

@@ -12,8 +12,6 @@ public class UITweenBufferAlpha : UITweener
 
 	private UIEffectAlpha[] mEffectHandlers;
 
-	private GameObject mGo;
-
 	private void Awake()
 	{
 	}

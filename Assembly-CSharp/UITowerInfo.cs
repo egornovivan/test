@@ -1,4 +1,5 @@
 using System;
+using Pathea;
 using UnityEngine;
 
 public class UITowerInfo : UIStaticWnd
@@ -165,7 +166,7 @@ public class UITowerInfo : UIStaticWnd
 
 	private void BtnReady_OnClick()
 	{
-		if (this.e_BtnReady != null)
+		if (EntityMonsterBeacon.IsController() && this.e_BtnReady != null)
 		{
 			this.e_BtnReady();
 		}
@@ -175,7 +176,14 @@ public class UITowerInfo : UIStaticWnd
 	{
 		if (m_info != null)
 		{
-			SetMonsterNum(m_info.curCount(), m_info.MaxCount);
+			if (PeGameMgr.IsSingle)
+			{
+				SetMonsterNum(m_info.curCount(), m_info.MaxCount);
+			}
+			else
+			{
+				SetMonsterNum(m_info.CurCount, m_info.MaxCount);
+			}
 			SetRemainTime(m_info.RemainTime);
 			SetPrepTime(m_info.PreTime);
 			SetWavesRemaining(m_info.CurWavesRemaining, m_info.TotalWaves);

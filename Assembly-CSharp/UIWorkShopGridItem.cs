@@ -36,8 +36,6 @@ public class UIWorkShopGridItem : MonoBehaviour
 
 	private bool m_IsActiveLoading;
 
-	private bool m_ActiveUpDown;
-
 	private string m_IsoFileName = string.Empty;
 
 	public string IsoFileName => m_IsoFileName;
@@ -54,7 +52,6 @@ public class UIWorkShopGridItem : MonoBehaviour
 
 	public void ActiveUpDown(bool isActive)
 	{
-		m_ActiveUpDown = isActive;
 		mUpDown.SetActive(isActive);
 	}
 

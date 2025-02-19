@@ -25,8 +25,6 @@ public class WaterReflection : MonoBehaviour
 
 	public Vector3 PlaneNormal = Vector3.up;
 
-	private Dictionary<Camera, Camera> m_HelperCameras = new Dictionary<Camera, Camera>();
-
 	private RenderTexture m_Texture;
 
 	private Camera m_ReflectionCam;
@@ -287,12 +285,12 @@ public class WaterReflection : MonoBehaviour
 		reflectionCamera.projectionMatrix = zero2;
 		reflectionCamera.cullingMask = -17 & highReflectionMask.value;
 		reflectionCamera.targetTexture = m_Texture;
-		GL.SetRevertBackfacing(revertBackFaces: true);
+		GL.invertCulling = true;
 		reflectionCamera.transform.position = position2;
 		Vector3 eulerAngles = current.transform.eulerAngles;
 		reflectionCamera.transform.eulerAngles = new Vector3(0f, eulerAngles.y, eulerAngles.z);
 		reflectionCamera.Render();
 		reflectionCamera.transform.position = position;
-		GL.SetRevertBackfacing(revertBackFaces: false);
+		GL.invertCulling = false;
 	}
 }

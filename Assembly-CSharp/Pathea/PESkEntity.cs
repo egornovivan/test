@@ -20,8 +20,6 @@ public class PESkEntity : SkEntity
 
 	public const int MaskBitsCnt = 32;
 
-	private List<PeEntity> m_Attackers = new List<PeEntity>();
-
 	public int[] m_InitBuffList;
 
 	public Attr[] m_Attrs;

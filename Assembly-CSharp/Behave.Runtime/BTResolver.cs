@@ -50,7 +50,6 @@ public class BTResolver
 				yield return 0;
 			}
 		}
-		Debug.LogError("All bt cached: " + nKeys);
 	}
 
 	public static BTAgent Pop(string btPath)
@@ -62,7 +61,7 @@ public class BTResolver
 		}
 		else
 		{
-			Debug.LogError("Can't find behave tree : " + btPath);
+			Debug.Log("Can't find behave tree : " + btPath);
 		}
 		return result;
 	}

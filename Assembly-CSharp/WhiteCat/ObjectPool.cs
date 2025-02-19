@@ -8,16 +8,16 @@ namespace WhiteCat;
 [AddComponentMenu("White Cat/Object Pool")]
 public class ObjectPool : BaseBehaviour
 {
-	[Editable(true, false)]
 	[SerializeField]
+	[Editable(true, false)]
 	private GameObject _original;
 
-	[Editable(true, false)]
 	[SerializeField]
+	[Editable(true, false)]
 	private Transform _parent;
 
-	[Editable(true, false)]
 	[SerializeField]
+	[Editable(true, false)]
 	private int _quantity;
 
 	[NonSerialized]

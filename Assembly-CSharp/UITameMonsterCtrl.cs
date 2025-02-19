@@ -51,9 +51,6 @@ public class UITameMonsterCtrl : UIStaticWnd
 	private TweenPosition _directionArrayTween;
 
 	[SerializeField]
-	private int _arrayTweenOffset = 8;
-
-	[SerializeField]
 	private float _arrayDuration = 0.2f;
 
 	private Vector3 _localPos;

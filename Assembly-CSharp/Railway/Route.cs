@@ -28,7 +28,7 @@ public class Route
 
 		private int mNextPointIndex;
 
-		private float timeToLeavePoint;
+		public float timeToLeavePoint;
 
 		private float[] currentTable => (moveDir != 1) ? mScheduleBackward : mScheduleForward;
 
@@ -81,6 +81,16 @@ public class Route
 				{
 					timeToLeavePoint += currentTable[mNextPointIndex] - currentTable[mNextPointIndex - 1];
 				}
+			}
+		}
+
+		public void SyncRunState(int direction, int nextIndex, float timeToLeave)
+		{
+			if (moveDir != direction || Mathf.Abs(nextIndex - mNextPointIndex) > 1 || Mathf.Abs(timeToLeave - timeToLeavePoint) > 5f)
+			{
+				moveDir = direction;
+				mNextPointIndex = nextIndex;
+				timeToLeavePoint = timeToLeave;
 			}
 		}
 
@@ -141,7 +151,7 @@ public class Route
 
 	private int mTrainId = -1;
 
-	private RunState mRunState = new RunState();
+	public RunState mRunState = new RunState();
 
 	private RailwayTrain mTrain;
 
@@ -177,7 +187,29 @@ public class Route
 		}
 	}
 
-	public int moveDir => mRunState.moveDir;
+	public int moveDir
+	{
+		get
+		{
+			return mRunState.moveDir;
+		}
+		set
+		{
+			mRunState.moveDir = value;
+		}
+	}
+
+	public float TimeToLeavePoint
+	{
+		get
+		{
+			return mRunState.timeToLeavePoint;
+		}
+		set
+		{
+			mRunState.timeToLeavePoint = value;
+		}
+	}
 
 	public double singleTripTime => mRunState.singleTripTime;
 

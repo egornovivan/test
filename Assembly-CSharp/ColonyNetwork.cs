@@ -32,7 +32,7 @@ public class ColonyNetwork : AiNetwork
 
 	private void OnTeamChange()
 	{
-		if (!(null == Singleton<ForceSetting>.Instance) && m_Entity != null)
+		if (!(null == Singleton<ForceSetting>.Instance) && m_Entity != null && m_Entity.m_Type == 1)
 		{
 			Vector3 zero = Vector3.zero;
 			CSBuildingLogic cSBuildingLogic = ((!(m_Entity.gameLogic == null)) ? m_Entity.gameLogic.GetComponent<CSBuildingLogic>() : null);

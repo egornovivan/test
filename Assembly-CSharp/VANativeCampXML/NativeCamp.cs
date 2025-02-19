@@ -22,7 +22,7 @@ public class NativeCamp
 	[XmlElement("NativeTower")]
 	public NativeTower nativeTower { get; set; }
 
-	[XmlArray("ArtifactUnitArray")]
 	[XmlArrayItem("ArtifactUnit", typeof(ArtifactUnit))]
+	[XmlArray("ArtifactUnitArray")]
 	public ArtifactUnit[] artifactUnitArray { get; set; }
 }

@@ -84,8 +84,6 @@ public class UINPCTalk : UIBaseWidget
 
 	private bool mUpdateList;
 
-	private int HeroMissionID;
-
 	public AudioController currentAudio;
 
 	private bool spTalkEndByAudioTime;
@@ -110,8 +108,6 @@ public class UINPCTalk : UIBaseWidget
 
 	public PeEntity m_CurTalkNpc;
 
-	private bool bupdate;
-
 	private List<PeEntity> movingNpc = new List<PeEntity>();
 
 	private Dictionary<PeEntity, object[]> needTalkNpc = new Dictionary<PeEntity, object[]>();
@@ -120,7 +116,6 @@ public class UINPCTalk : UIBaseWidget
 
 	public void UpdateNpcTalkInfo(List<int> tmpList, MissionCommonData data = null, bool IsClearTalkList = true)
 	{
-		HeroMissionID = -1;
 		if (IsClearTalkList)
 		{
 			ClearNpcTalkInfos();
@@ -829,7 +824,6 @@ public class UINPCTalk : UIBaseWidget
 		{
 			GameUI.Instance.mNpcWnd.Hide();
 		}
-		HeroMissionID = -1;
 		ClearNpcTalkInfos();
 		MissionCommonData missionCommonData = MissionManager.GetMissionCommonData(MissionID);
 		if (missionCommonData == null)
@@ -859,7 +853,6 @@ public class UINPCTalk : UIBaseWidget
 		{
 			GameUI.Instance.mNpcWnd.Hide();
 		}
-		HeroMissionID = -1;
 		MissionCommonData missionCommonData = MissionManager.GetMissionCommonData(MissionID);
 		if (missionCommonData == null)
 		{
@@ -1488,7 +1481,6 @@ public class UINPCTalk : UIBaseWidget
 			}
 			int missionTrigger = m_NpcTalkList[m_CurTalkIdx - 1].missionTrigger;
 			MissionManager.TakeMissionType takeMissionType = m_NpcTalkList[m_CurTalkIdx - 1].type;
-			bupdate = true;
 			GameUI.Instance.mNpcWnd.GetMutexID(missionTrigger, ref m_SelectMissionList);
 			if (m_SelectMissionList.Count > 0)
 			{
@@ -1792,7 +1784,6 @@ public class UINPCTalk : UIBaseWidget
 		if (!flag)
 		{
 			GameUI.Instance.mNPCTalk.UpdateNpcTalkInfo(889, 1);
-			HeroMissionID = 0;
 			return false;
 		}
 		if (npcMissionData != null && npcMissionData.mCurComMisNum < npcMissionData.mCompletedMissionCount && !m_QuickZM)

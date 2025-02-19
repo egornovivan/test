@@ -17,8 +17,6 @@ public class ColonyTreat : ColonyBase
 
 	private CSTreatment treatmentInUse;
 
-	private ItemObject medicineItem;
-
 	public override int MaxWorkerCount => 1;
 
 	private bool IsNpcReady
@@ -79,9 +77,8 @@ public class ColonyTreat : ColonyBase
 
 	public override void InitMyData()
 	{
-		if (objId != -1)
+		if (objId == -1)
 		{
-			medicineItem = ItemManager.GetItemByID(objId);
 		}
 	}
 
@@ -141,7 +138,6 @@ public class ColonyTreat : ColonyBase
 		{
 			return false;
 		}
-		ColonyNpc colonyNpc = _worker.Values.ToArray()[0];
 		return true;
 	}
 
@@ -308,13 +304,11 @@ public class ColonyTreat : ColonyBase
 			{
 				ItemObject itemByID2 = ItemManager.GetItemByID(objId);
 				objId = instanceId;
-				medicineItem = itemByID;
 				sender.Package.SetItem(itemByID2, index, tabindex, itemByID.protoData.category);
 			}
 			else
 			{
 				objId = instanceId;
-				medicineItem = itemByID;
 				sender.Package.RemoveItem(itemByID);
 			}
 		}
@@ -327,7 +321,6 @@ public class ColonyTreat : ColonyBase
 			}
 			sender.Package.SetItem(itemByID3, index, tabindex, itemByID3.protoData.category);
 			objId = -1;
-			medicineItem = null;
 		}
 		sender.SyncPackageIndex();
 		if (objId != -1)

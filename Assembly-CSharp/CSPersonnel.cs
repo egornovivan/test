@@ -58,15 +58,11 @@ public class CSPersonnel : PersonnelBase
 
 	private EntityInfoCmpt m_NpcInfo;
 
-	private UseItemCmpt m_UseItem;
-
 	private PeTrans m_Trans;
 
 	private CommonCmpt m_NpcCommonInfo;
 
 	private NpcCmpt m_NpcCmpt;
-
-	private RequestCmpt m_Request;
 
 	public Request currentRequest;
 
@@ -127,9 +123,7 @@ public class CSPersonnel : PersonnelBase
 			{
 				m_SkAlive = null;
 				m_NpcInfo = null;
-				m_UseItem = null;
 				m_NpcCommonInfo = null;
-				m_Request = null;
 				m_NpcCmpt = null;
 				m_Trans = null;
 			}
@@ -137,9 +131,7 @@ public class CSPersonnel : PersonnelBase
 			{
 				m_SkAlive = m_Npc.GetCmpt<SkAliveEntity>();
 				m_NpcInfo = m_Npc.GetCmpt<EntityInfoCmpt>();
-				m_UseItem = m_Npc.GetCmpt<UseItemCmpt>();
 				m_NpcCommonInfo = m_Npc.GetCmpt<CommonCmpt>();
-				m_Request = m_Npc.GetCmpt<RequestCmpt>();
 				m_NpcCmpt = m_Npc.GetCmpt<NpcCmpt>();
 				m_Trans = m_Npc.peTrans;
 			}

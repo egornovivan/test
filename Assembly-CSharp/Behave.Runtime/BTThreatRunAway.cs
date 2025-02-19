@@ -23,14 +23,6 @@ public class BTThreatRunAway : BTNormal
 
 	private Vector3 runPos;
 
-	private float startRunTime;
-
-	private float CHECK_TIME = 10f;
-
-	private float startHideTime;
-
-	private float CHECK_Hide_TIME = 1f;
-
 	private void OnPathComplete(Path path)
 	{
 		if (path != null && path.vectorPath.Count > 0)
@@ -78,8 +70,6 @@ public class BTThreatRunAway : BTNormal
 		{
 			return BehaveResult.Failure;
 		}
-		startRunTime = Time.time;
-		startHideTime = Time.time;
 		Vector3 runDir = GetRunDir(base.entity);
 		if (runDir == Vector3.zero)
 		{

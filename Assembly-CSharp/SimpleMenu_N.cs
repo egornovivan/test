@@ -19,8 +19,6 @@ public class SimpleMenu_N : MonoBehaviour
 
 	public float mUpdateStep = 0.2f;
 
-	private bool mExpansion;
-
 	private static SimpleMenu_N mExpansionMenu;
 
 	public string CurSelection
@@ -39,7 +37,6 @@ public class SimpleMenu_N : MonoBehaviour
 
 	private void Awake()
 	{
-		mExpansion = false;
 		mSelections = new List<MenuSelection_N>();
 		mExpansionTrigger.transform.localPosition = (mCurSelection.Size.x + mExpansionBg.sprite.paddingLeft) * Vector3.right;
 		mExpansionBg.transform.localPosition = mExpansionBg.sprite.paddingTop * Vector3.up;

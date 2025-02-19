@@ -10,15 +10,12 @@ public class NpcHatreTargets : MonoBehaviour
 
 	public List<PeEntity> mHatredTargets;
 
-	private List<PeEntity> tempList;
-
 	public static NpcHatreTargets Instance => mInstance;
 
 	private void Awake()
 	{
 		mInstance = this;
 		mHatredTargets = new List<PeEntity>();
-		tempList = new List<PeEntity>();
 	}
 
 	private void Start()

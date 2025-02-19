@@ -219,7 +219,7 @@ public class ItemObject : ItemSample, IEnumerable, IEnumerable<Cmpt>
 			int num = BufferHelper.ReadInt32(r);
 			int num2 = BufferHelper.ReadInt32(r);
 			int num3 = BufferHelper.ReadInt32(r);
-			bool flag = BufferHelper.ReadBoolean(r);
+			BufferHelper.ReadBoolean(r);
 			int num4 = BufferHelper.ReadInt32(r);
 			item = ItemManager.GetItemByID(num3);
 			if (item == null)

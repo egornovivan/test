@@ -61,8 +61,6 @@ public class SteamAchievementsSystem : MonoBehaviour
 
 	private const int VERSIONS_0 = 0;
 
-	private int CUR_VERSIONS;
-
 	private static SteamAchievementsSystem instance;
 
 	private AchievementInfo[] m_Achievements;

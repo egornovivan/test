@@ -25,8 +25,6 @@ public class PositionReset : MonoBehaviour
 
 	private float dt;
 
-	private float rotateX;
-
 	private float rotateY;
 
 	private float ssrotate;
@@ -79,7 +77,6 @@ public class PositionReset : MonoBehaviour
 				continue;
 			}
 			rotateY = component.transform.GetComponent<SelfRotation>().s_angle;
-			rotateX = component.transform.GetComponent<SelfRotation>().rotationAngle;
 			ssrotate = this.sr.rotateY;
 			component.relativeRotY = ssrotate - rotateY;
 			List<CloudMotion> list = new List<CloudMotion>();
@@ -119,7 +116,6 @@ public class PositionReset : MonoBehaviour
 				continue;
 			}
 			rotateY = component.transform.GetComponent<SelfRotation>().s_angle;
-			rotateX = component.transform.GetComponent<SelfRotation>().rotationAngle;
 			ssrotate = this.sr.rotateY;
 			component.relativeRotY = ssrotate - rotateY;
 			foreach (CloudMotion cm in component.cms)

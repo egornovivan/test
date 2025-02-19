@@ -19,7 +19,7 @@ public class LoadIKAnimData : MonoBehaviour
 		{
 			return transform;
 		}
-		for (int i = 0; i != _trans.GetChildCount(); i++)
+		for (int i = 0; i != _trans.childCount; i++)
 		{
 			transform = RecursionFindTransform(_trans.GetChild(i), _strName);
 			if (transform != null)

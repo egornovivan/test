@@ -14,8 +14,6 @@ public class Palette_N : MonoBehaviour
 
 	private Texture2D mColorTex;
 
-	private Vector3 mTexPos;
-
 	private Vector3 mMaskPos;
 
 	[HideInInspector]
@@ -26,7 +24,6 @@ public class Palette_N : MonoBehaviour
 	private void Start()
 	{
 		mColorTex = GetComponent<UITexture>().mainTexture as Texture2D;
-		mTexPos = UIRoot.list[0].activeHeight / Screen.height * mUICam.WorldToScreenPoint(base.transform.position);
 		mClolorScale_x = base.gameObject.transform.localScale.x / (float)mColorTex.width;
 		mMaskPos = mMask.transform.localPosition;
 		mAlphaScrollBar.onChange = OnAlphaScroll;
@@ -39,7 +36,6 @@ public class Palette_N : MonoBehaviour
 
 	private void OnPress(bool isDown)
 	{
-		mTexPos = UIRoot.list[0].activeHeight / Screen.height * mUICam.WorldToScreenPoint(base.transform.position);
 		if (isDown && Input.GetMouseButtonDown(0))
 		{
 			GetColor();

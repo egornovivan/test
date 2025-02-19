@@ -9,8 +9,6 @@ public class WeatherManager : UnityEngine.MonoBehaviour
 
 	private static WeatherManager mInstance;
 
-	private float mStartTime;
-
 	public float RainTimeMin = 3600f;
 
 	public float RainTimeMax = 7200f;
@@ -46,7 +44,6 @@ public class WeatherManager : UnityEngine.MonoBehaviour
 
 	private void Init()
 	{
-		mStartTime = Time.time;
 		InitWeatherParm();
 	}
 

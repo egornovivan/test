@@ -125,8 +125,6 @@ public class UIMissionMgr : MonoBehaviour
 
 	private static UIMissionMgr mInstance;
 
-	private MissionLabelMgr mLabelMissionMgr;
-
 	public Dictionary<int, MissionView> m_MissonMap = new Dictionary<int, MissionView>();
 
 	public Dictionary<int, GetableMisView> m_GetableMissonMap = new Dictionary<int, GetableMisView>();
@@ -149,7 +147,7 @@ public class UIMissionMgr : MonoBehaviour
 	{
 		mInstance = this;
 		ClearMission();
-		mLabelMissionMgr = new MissionLabelMgr();
+		new MissionLabelMgr();
 	}
 
 	public void ClearMission()
@@ -221,7 +219,10 @@ public class UIMissionMgr : MonoBehaviour
 		{
 			if (!MissionManager.Instance.IsGetTakeMission(key))
 			{
-				this.e_DelGetableMission(m_GetableMissonMap[key]);
+				if (this.e_DelGetableMission != null)
+				{
+					this.e_DelGetableMission(m_GetableMissonMap[key]);
+				}
 				if (list == null)
 				{
 					list = new List<int>();

@@ -42,8 +42,8 @@ public class PeEntity : MonoBehaviour
 	[SerializeField]
 	private PeTrans mPeTrans;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private SkEntity m_SkEntity;
 
 	[SerializeField]
@@ -74,8 +74,8 @@ public class PeEntity : MonoBehaviour
 	[HideInInspector]
 	private PESkEntity m_PeSkEntity;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private SkAliveEntity m_SkAliveEntity;
 
 	[HideInInspector]
@@ -94,40 +94,40 @@ public class PeEntity : MonoBehaviour
 	[SerializeField]
 	private PassengerCmpt mPassengerCmpt;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private EquipmentCmpt mEquipmentCmpt;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private Motion_Equip mMotionEquipment;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private EntityInfoCmpt mEnityInfoCmpt;
 
 	[SerializeField]
 	[HideInInspector]
 	private NpcCmpt mNpcCmpt;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private AnimatorCmpt mAnim;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private IKCmpt mIKCmpt;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private TowerCmpt mTower;
 
 	[HideInInspector]
 	[SerializeField]
 	private AbnormalConditionCmpt mAlnormal;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private PackageCmpt mPackage;
 
 	[HideInInspector]
@@ -138,16 +138,16 @@ public class PeEntity : MonoBehaviour
 	[SerializeField]
 	private CSBuildingLogic m_Building;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private OperateCmpt mOperateCmpt;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private Motion_Beat mMotionBeat;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private RequestCmpt mRequestCmpt;
 
 	[HideInInspector]
@@ -158,12 +158,12 @@ public class PeEntity : MonoBehaviour
 	[SerializeField]
 	private ReplicatorCmpt mReplicatorCmpt;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private SkillTreeUnitMgr mSkillTreeUnitMgr;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private MonstermountCtrl m_MonstermountCtrl;
 
 	[SerializeField]

@@ -21,8 +21,6 @@ public class BIsoCursor : MonoBehaviour
 
 	private BSB45Computer Computer;
 
-	private LineRenderer[] Edges;
-
 	public BSIsoHeadData testHead;
 
 	private static string s_PrefabPath = "Prefab/Iso Cursor";
@@ -117,12 +115,10 @@ public class BIsoCursor : MonoBehaviour
 
 	private void Start()
 	{
-		Edges = Bound.GetComponentsInChildren<LineRenderer>(includeInactive: true);
 	}
 
 	private void SetBoundSizeOfBlock(Vector3 size, GameObject go)
 	{
-		Edges = Bound.GetComponentsInChildren<LineRenderer>(includeInactive: true);
 		Vector3 localScale = size * BSBlock45Data.s_Scale;
 		Bound.localScale = localScale;
 	}

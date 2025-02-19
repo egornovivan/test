@@ -21,12 +21,12 @@ public class BMFont
 	[HideInInspector]
 	private int mWidth;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private int mHeight;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private string mSpriteName;
 
 	[HideInInspector]

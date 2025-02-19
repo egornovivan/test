@@ -662,7 +662,6 @@ public class PEUtil
 
 	public static Vector3 GetRandomPositionOnGroundForWander(Vector3 center, float minRadius, float maxRadius)
 	{
-		Vector3 forward = Vector3.forward;
 		for (int i = 0; i < 5; i++)
 		{
 			Vector3 randomPosition = GetRandomPosition(center, minRadius, maxRadius);
@@ -768,7 +767,6 @@ public class PEUtil
 			{
 				Vector3 zero = Vector3.zero;
 				zero = ((CheckPositionUnderWater(hitInfo.point, out var height) && !(height < 0f)) ? (hitInfo.point + Vector3.up * UnityEngine.Random.Range(minHeight, maxHeight) + Vector3.up * height) : (hitInfo.point + Vector3.up * UnityEngine.Random.Range(minHeight, maxHeight)));
-				Vector3 vector = zero - center;
 				float maxDistance = Vector3.Distance(zero, center);
 				if (!Physics.Raycast(center, zero - center, maxDistance, 2189312))
 				{
@@ -1812,10 +1810,9 @@ public class PEUtil
 	{
 		for (int i = -2; i < 3; i++)
 		{
-			Vector3 vector = Vector3.Cross(dir, Vector3.up);
-			Vector3 vector2 = Quaternion.AngleAxis(minAngle * (float)i, Vector3.up) * dir;
-			Debug.DrawRay(peEntity.position + Vector3.up, vector2 * distance, Color.white);
-			if (Physics.Raycast(peEntity.position + Vector3.up, vector2, out var _, distance, Standlayer))
+			Vector3 vector = Quaternion.AngleAxis(minAngle * (float)i, Vector3.up) * dir;
+			Debug.DrawRay(peEntity.position + Vector3.up, vector * distance, Color.white);
+			if (Physics.Raycast(peEntity.position + Vector3.up, vector, out var _, distance, Standlayer))
 			{
 				return true;
 			}

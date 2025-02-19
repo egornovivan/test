@@ -94,9 +94,9 @@ public class VCMatGenerator : MonoBehaviour
 				}
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-			Debug.Log("VCMatGenerator OnDestroy have some problem");
+			Debug.Log("VCMatGenerator OnDestroy have some problem" + ex.ToString());
 		}
 		s_Instance = null;
 	}

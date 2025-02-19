@@ -252,7 +252,7 @@ public class Action_Move : PEAction
 		{
 			phyCtrl.desiredMovementDirection = m_LastVelocity * animator.GetFloat("RunSpeedF");
 			Vector3 vector4 = Quaternion.Inverse(base.trans.rotation) * vector * m_MoveSpeed;
-			animator.SetFloat("ForwardSpeed", Mathf.Lerp(animator.GetFloat("ForwardSpeed"), vector4.z, (!base.motionMgr.isInAimState) ? (5f * Time.deltaTime) : 1f));
+			animator.SetFloat("ForwardSpeed", Mathf.Lerp(animator.GetFloat("ForwardSpeed"), vector4.z * phyCtrl.netMoveSpeedScale, (!base.motionMgr.isInAimState) ? (5f * Time.deltaTime) : 1f));
 			animator.SetFloat("RightSpeed", Mathf.Lerp(animator.GetFloat("RightSpeed"), vector4.x, (!base.motionMgr.isInAimState) ? (5f * Time.deltaTime) : 1f));
 		}
 		return false;

@@ -246,9 +246,26 @@ public class SPTerrainEvent : UnityEngine.MonoBehaviour
 		int num = AreaHelper.Vector2Int(pos, 256);
 		if ((aiId & 0x40000000) == 1073741824)
 		{
-			if (!(pos.y >= 0f) || CheckGeneration(num, EntityType.EntityType_MonsterGroup))
+			bool flag = false;
+			if (ServerConfig.IsStory)
+			{
+				Player nearestPlayer = Player.GetNearestPlayer(pos);
+				if (nearestPlayer != null)
+				{
+					PlayerMission curTeamMission = MissionManager.Manager.GetCurTeamMission(nearestPlayer.Id);
+					if (curTeamMission != null && curTeamMission.HadCompleteMission(968, nearestPlayer) && !curTeamMission.HadCompleteMission(970, nearestPlayer))
+					{
+						flag = true;
+					}
+				}
+			}
+			if (!(pos.y >= 0f) || flag || CheckGeneration(num, EntityType.EntityType_MonsterGroup))
 			{
 				int newMonsterId = IdGenerator.NewMonsterId;
+				if (ServerConfig.IsStory && Player.GetNearestPlayer(pos) != null)
+				{
+					controllerId = Player.GetNearestPlayer(pos).Id;
+				}
 				NetInterface.Instantiate(PrefabManager.Self.AiGroupNetwork, pos, Quaternion.identity, worldId, newMonsterId, aiId, controllerId, tdId, dungeonId, colorType, playerId, buffId, canride);
 			}
 			return;
@@ -334,16 +351,16 @@ public class SPTerrainEvent : UnityEngine.MonoBehaviour
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			byte[] buffer = (byte[])reader.GetValue(reader.GetOrdinal("data"));
 			BufferHelper.Import(buffer, delegate(BinaryReader r)
 			{
 				int num = r.ReadInt32();
 				for (int i = 0; i < num; i++)
 				{
+					r.ReadInt32();
 					int num2 = r.ReadInt32();
-					int num3 = r.ReadInt32();
-					for (int j = 0; j < num3; j++)
+					for (int j = 0; j < num2; j++)
 					{
 						int instanceId = r.ReadInt32();
 						int customId = r.ReadInt32();
@@ -782,7 +799,6 @@ public class SPTerrainEvent : UnityEngine.MonoBehaviour
 			return;
 		}
 		int id = player.Id;
-		int teamId = player.TeamId;
 		int newDoodadId = IdGenerator.NewDoodadId;
 		StoryDoodadDesc byProtoId = StoryDoodadMap.GetByProtoId(num);
 		if (byProtoId != null)
@@ -908,10 +924,10 @@ public class SPTerrainEvent : UnityEngine.MonoBehaviour
 		byte[] buffer = stream.Read<byte[]>(new object[0]);
 		using MemoryStream input = new MemoryStream(buffer);
 		using BinaryReader binaryReader = new BinaryReader(input);
+		binaryReader.ReadInt32();
+		binaryReader.ReadInt32();
 		int num = binaryReader.ReadInt32();
-		int num2 = binaryReader.ReadInt32();
-		int num3 = binaryReader.ReadInt32();
-		for (int i = 0; i < num3; i++)
+		for (int i = 0; i < num; i++)
 		{
 			int key = binaryReader.ReadInt32();
 			if (!_spawnPos.ContainsKey(key))

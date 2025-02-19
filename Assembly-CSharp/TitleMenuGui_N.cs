@@ -38,6 +38,8 @@ public class TitleMenuGui_N : UIStaticWnd
 
 	public List<Transform> menuSingle;
 
+	private UILabel labMp;
+
 	public static TitleMenuGui_N Instance => mInstance;
 
 	private void Start()
@@ -62,6 +64,18 @@ public class TitleMenuGui_N : UIStaticWnd
 
 	private void Update()
 	{
+		if (labMp == null)
+		{
+			labMp = menuMain[1].GetComponentInChildren<UILabel>();
+			if (labMp != null)
+			{
+				labMp.text = "ISO";
+				if (SystemSettingData.Instance.IsChinese)
+				{
+					labMp.font = UIFontMgr.Instance.mChinese[1];
+				}
+			}
+		}
 		if (SystemSettingData.Instance == null || !mControlWnd.activeSelf || SystemSettingData.Instance.FixBlurryFont == mFixBlurryCB.isChecked)
 		{
 			return;
@@ -91,8 +105,7 @@ public class TitleMenuGui_N : UIStaticWnd
 	{
 		PeGameMgr.playerType = PeGameMgr.EPlayerType.Multiple;
 		RandomMapConfig.useSkillTree = false;
-		GameClientLobby.ConnectToLobby();
-		MessageBox_N.ShowMaskBox(MsgInfoType.LobbyLoginMask, PELocalization.GetString(8000118), 30f);
+		PeSceneCtrl.Instance.GotoLobbyScene();
 	}
 
 	private void OnCreateBtn()

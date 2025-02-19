@@ -7,13 +7,9 @@ namespace Pathea;
 
 public class BehaveCmpt : PeCmpt, IAgent, IBehave, IPeMsg
 {
-	private static int VERSION = 1;
-
 	private string assetPath = string.Empty;
 
 	private int m_BehaveID;
-
-	private ViewCmpt m_View;
 
 	private SkAliveEntity m_SkEntity;
 
@@ -151,7 +147,6 @@ public class BehaveCmpt : PeCmpt, IAgent, IBehave, IPeMsg
 	public override void Start()
 	{
 		base.Start();
-		m_View = GetComponent<ViewCmpt>();
 		m_SkEntity = GetComponent<SkAliveEntity>();
 		m_Request = GetComponent<RequestCmpt>();
 		m_Npc = GetComponent<NpcCmpt>();

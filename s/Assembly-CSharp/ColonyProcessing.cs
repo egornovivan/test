@@ -506,61 +506,60 @@ public class ColonyProcessing : ColonyBase
 
 	public void CreateNewTaskWithItems(List<ItemIdCount> allItems)
 	{
-		List<ItemIdCount> list = new List<ItemIdCount>();
-		List<List<ItemIdCount>> list2 = new List<List<ItemIdCount>>();
-		list2.Add(new List<ItemIdCount>());
+		List<List<ItemIdCount>> list = new List<List<ItemIdCount>>();
+		list.Add(new List<ItemIdCount>());
 		int num = 0;
 		foreach (ItemIdCount allItem in allItems)
 		{
 			int pobMax = ProcessingObjInfo.GetPobMax(allItem.protoId);
-			while (list2[num].Count >= 12)
+			while (list[num].Count >= 12)
 			{
 				num++;
-				if (list2.Count <= num)
+				if (list.Count <= num)
 				{
-					list2.Add(new List<ItemIdCount>());
+					list.Add(new List<ItemIdCount>());
 				}
 			}
 			int num2 = num;
 			while (allItem.count > pobMax)
 			{
-				if (list2.Count <= num2)
+				if (list.Count <= num2)
 				{
-					list2.Add(new List<ItemIdCount>());
+					list.Add(new List<ItemIdCount>());
 				}
-				if (list2[num2].Count < 12)
+				if (list[num2].Count < 12)
 				{
-					list2[num2].Add(new ItemIdCount(allItem.protoId, pobMax));
+					list[num2].Add(new ItemIdCount(allItem.protoId, pobMax));
 					allItem.count -= pobMax;
 				}
 				num2++;
 			}
-			if (list2.Count <= num2)
+			if (list.Count <= num2)
 			{
-				list2.Add(new List<ItemIdCount>());
+				list.Add(new List<ItemIdCount>());
 			}
-			list2[num2].Add(allItem);
+			list[num2].Add(allItem);
 		}
 		List<ColonyNpc> freeWorkers = GetFreeWorkers();
 		if (freeWorkers.Count == 0)
 		{
 			return;
 		}
-		List<int> list3 = new List<int>();
+		List<int> list2 = new List<int>();
 		for (int i = 0; i < 4; i++)
 		{
 			if (mTaskTable[i] == null || mTaskTable[i].itemList.Count == 0)
 			{
-				list3.Add(i);
+				list2.Add(i);
 			}
 		}
-		if (list3.Count == 0)
+		if (list2.Count == 0)
 		{
 			return;
 		}
-		int count = list2.Count;
+		int count = list.Count;
 		int count2 = freeWorkers.Count;
-		int count3 = list3.Count;
+		int count3 = list2.Count;
 		int num3 = Mathf.Min(count, count2, count3);
 		int num4 = count2 / num3;
 		if (num3 == 1 && count2 > 1)
@@ -569,7 +568,7 @@ public class ColonyProcessing : ColonyBase
 		}
 		for (int j = 0; j < num3; j++)
 		{
-			int num5 = list3[j];
+			int num5 = list2[j];
 			if (mTaskTable[num5] == null)
 			{
 				mTaskTable[num5] = new ProcessingTask();
@@ -579,10 +578,10 @@ public class ColonyProcessing : ColonyBase
 				TrySetNpcProcessingIndex(freeWorkers[k], num5);
 			}
 			freeWorkers.RemoveRange(0, num4);
-			mTaskTable[num5].itemList = list2[j];
-			_Network.RPCOthers(EPacketType.PT_CL_PRC_AddItem, num5, list2[j].ToArray());
+			mTaskTable[num5].itemList = list[j];
+			_Network.RPCOthers(EPacketType.PT_CL_PRC_AddItem, num5, list[j].ToArray());
 		}
-		List<int> range = list3.GetRange(0, num3);
+		List<int> range = list2.GetRange(0, num3);
 		foreach (ColonyNpc item in freeWorkers)
 		{
 			if (range.Contains(item.m_ProcessingIndex))
@@ -596,13 +595,13 @@ public class ColonyProcessing : ColonyBase
 		}
 		for (int l = 0; l < num3; l++)
 		{
-			int num7 = list3[l];
+			int num7 = list2[l];
 			StartProcessing(num7);
 			_Network.RPCOthers(EPacketType.PT_CL_PRC_Start, num7, 1);
 		}
 		if (num3 > 0)
 		{
-			ColonyMgr._Instance.GetColonyAssembly(base.TeamId)?.ShowProcessFor(list2[0]);
+			ColonyMgr._Instance.GetColonyAssembly(base.TeamId)?.ShowProcessFor(list[0]);
 			SyncSave();
 		}
 	}

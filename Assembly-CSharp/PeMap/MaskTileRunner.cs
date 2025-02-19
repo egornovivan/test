@@ -5,8 +5,6 @@ namespace PeMap;
 
 public class MaskTileRunner : MonoLikeSingleton<MaskTileRunner>
 {
-	private bool mUpdateTile;
-
 	private PeTrans mTrans;
 
 	private Vector3 playerPos
@@ -23,6 +21,5 @@ public class MaskTileRunner : MonoLikeSingleton<MaskTileRunner>
 
 	public void StartUpdate()
 	{
-		mUpdateTile = true;
 	}
 }

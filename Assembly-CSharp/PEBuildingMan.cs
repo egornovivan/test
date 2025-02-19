@@ -26,8 +26,6 @@ public class PEBuildingMan : MonoBehaviour
 
 	public bool GUITest;
 
-	private List<BSVoxel> _voxels = new List<BSVoxel>();
-
 	private Dictionary<int, int> _costsItems = new Dictionary<int, int>();
 
 	private Dictionary<int, int> _playerItems = new Dictionary<int, int>();

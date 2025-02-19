@@ -75,8 +75,6 @@ public class UICustomGameSelectWnd : MonoBehaviour, IListReceiver
 
 	public event Func<bool> onStartBtnClick;
 
-	public event Action onCancelBtnClick;
-
 	public event Action<int> onPlayerSelectedChanged;
 
 	public event Action onInit;

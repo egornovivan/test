@@ -61,33 +61,28 @@ public class Action_BowShoot : PEAction
 		{
 			shootTargetPara.m_TargetPos = base.motionMgr.transform.forward;
 		}
+		if (base.skillCmpt.StartSkill(targetEntity, bow.skillID, shootTargetPara) == null)
+		{
+			return;
+		}
 		if (GameConfig.IsMultiMode)
 		{
 			NetworkInterface networkInterface = NetworkInterface.Get(base.motionMgr.Entity.Id);
-			if (null != networkInterface && !networkInterface.hasOwnerAuth)
+			if (null != networkInterface && networkInterface.hasOwnerAuth && !m_IgnoreItem)
 			{
-				bow.SetArrowShowState(show: false);
-				bow.SetBowOpenState(openBow: false);
-				if (!m_IgnoreItem)
-				{
-					PlayerNetwork.mainPlayer.RequestItemCost(base.motionMgr.Entity.Id, bow.curItemID, 1f);
-				}
-				return;
+				PlayerNetwork.mainPlayer.RequestItemCost(base.motionMgr.Entity.Id, bow.curItemID, 1f);
 			}
 		}
-		if (base.skillCmpt.StartSkill(targetEntity, bow.skillID, shootTargetPara) != null)
+		else if (null != base.packageCmpt && !m_IgnoreItem)
 		{
-			if (null != base.packageCmpt && !m_IgnoreItem)
-			{
-				base.packageCmpt.Destory(bow.curItemID, 1);
-			}
-			bow.SetArrowShowState(show: false);
-			bow.SetBowOpenState(openBow: false);
-			base.motionMgr.Entity.SendMsg(EMsg.Battle_EquipAttack, bow.ItemObj);
-			if (bow.m_AttackMode != null)
-			{
-				base.motionMgr.Entity.SendMsg(EMsg.Battle_OnAttack, bow.m_AttackMode[0], bow.transform, bow.curItemID);
-			}
+			base.packageCmpt.Destory(bow.curItemID, 1);
+		}
+		bow.SetArrowShowState(show: false);
+		bow.SetBowOpenState(openBow: false);
+		base.motionMgr.Entity.SendMsg(EMsg.Battle_EquipAttack, bow.ItemObj);
+		if (bow.m_AttackMode != null)
+		{
+			base.motionMgr.Entity.SendMsg(EMsg.Battle_OnAttack, bow.m_AttackMode[0], bow.transform, bow.curItemID);
 		}
 	}
 

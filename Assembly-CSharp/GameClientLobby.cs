@@ -129,7 +129,7 @@ public class GameClientLobby : LobbyInterface
 	{
 		if (Lobby.connectionStatus == LobbyConnectionStatus.Disconnected)
 		{
-			Lobby.publicKey = new uLobby.PublicKey("<RSAKeyValue><Modulus>iX4oKfF4o4FCWskfUl6//kxZjP3oMRFQW4xkpnWDaACPKdmIXwaTMBWJpSl/ooDgZfbJHKtHzp43nDx9Cpm0cFfz40N+6LiBL+YSO1d+VJkF/WMsl9C7NZtYRlBTvsQKh0unIESCsuauJotbg2hrapfasUr7KxgVxKM9P+tdn00=</Modulus><Exponent>EQ==</Exponent></RSAKeyValue>");
+			Lobby.publicKey = new uLobby.PublicKey("<RSAKeyValue><Modulus>njj4wBQW593lzN1CMkd/soo6yiz4Q1pOzGjGqq0GwR1S/PKdKiNxdyWFING69FGf6V6Almf5oVHXmoN0LNfIDUOw1Lfsq3hORXkUuz2L2dMp98RkkfKprQ+S4w0Y/HRVmp9kEO2PxSqxTwoCcaq/g65XcXs1lhGF26PQRv//pAk=</Modulus><Exponent>EQ==</Exponent></RSAKeyValue>");
 			Lobby.ConnectAsClient(ClientConfig.LobbyIP, ClientConfig.LobbyPort);
 		}
 	}

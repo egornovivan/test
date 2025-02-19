@@ -211,7 +211,6 @@ public class VCESelectVoxel : VCESelect
 			list2.Add(item3.Value);
 			if (VCEditor.s_Mirror.Enabled_Masked)
 			{
-				IntVector3 intVector2 = intVector;
 				VCEditor.s_Mirror.MirrorVoxel(intVector);
 				for (int i = 0; i < VCEditor.s_Mirror.OutputCnt; i++)
 				{

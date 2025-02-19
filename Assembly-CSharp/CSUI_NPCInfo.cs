@@ -120,8 +120,6 @@ public class CSUI_NPCInfo : MonoBehaviour
 
 	private AttributeInfo AttrDefInfo = new AttributeInfo(AttribType.Def, AttribType.Def);
 
-	private string m_BuffStrFormat = "+{0}";
-
 	public Grid_N m_GridPrefab;
 
 	private CSPersonnel m_RefNpc;

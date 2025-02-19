@@ -54,8 +54,6 @@ public class RandomDungenMgr : MonoBehaviour
 
 	public static List<Vector3> entrancesToAdd = new List<Vector3>();
 
-	private bool isAdding;
-
 	public bool generateSwitch;
 
 	public float multiFactor = 4f;
@@ -271,7 +269,7 @@ public class RandomDungenMgr : MonoBehaviour
 		GameObject obj = Resources.Load("Prefab/PathfinderStd") as GameObject;
 		if (obj != null)
 		{
-			GameObject finder = UnityEngine.Object.Instantiate(obj);
+			UnityEngine.Object.Instantiate(obj);
 		}
 		yield return null;
 		long tickStart = DateTime.UtcNow.Ticks;
@@ -299,7 +297,7 @@ public class RandomDungenMgr : MonoBehaviour
 		GameObject obj = Resources.Load("Prefab/Pathfinder_Dungeon") as GameObject;
 		if (obj != null)
 		{
-			GameObject finder = UnityEngine.Object.Instantiate(obj);
+			UnityEngine.Object.Instantiate(obj);
 		}
 		yield return null;
 		long tickStart = DateTime.UtcNow.Ticks;

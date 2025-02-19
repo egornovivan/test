@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class VCEUIIsoList : VCEUIAssetList
@@ -69,7 +70,9 @@ public class VCEUIIsoList : VCEUIAssetList
 			Directory.CreateDirectory(path);
 		}
 		string[] directories = Directory.GetDirectories(path);
+		directories = directories.OrderByDescending((string a) => Directory.GetLastWriteTime(a).Ticks).ToArray();
 		string[] files = Directory.GetFiles(path);
+		files = files.OrderByDescending((string a) => Directory.GetLastWriteTime(a).Ticks).ToArray();
 		ClearItems();
 		m_SelectedItem = null;
 		string[] array = directories;

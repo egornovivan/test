@@ -433,6 +433,7 @@ public class AiAdNpcNetwork : AiNetwork
 		BindAction(EPacketType.PT_NPC_Recruit, RPC_S2C_RecruitByPlayer);
 		BindAction(EPacketType.PT_NPC_WorkState, RPC_S2C_SyncWorkState);
 		BindAction(EPacketType.PT_NPC_Move, RPC_NPCMove);
+		BindAction(EPacketType.PT_NPC_ForceMove, NPC_ForceMove);
 		BindAction(EPacketType.PT_NPC_RotY, base.RPC_S2C_NetRotation);
 		BindAction(EPacketType.PT_NPC_MissionFlag, RPC_MissionFlag);
 		BindAction(EPacketType.PT_NPC_PacageIndex, RPC_PackageIndex);
@@ -1305,6 +1306,28 @@ public class AiAdNpcNetwork : AiNetwork
 		}
 	}
 
+	private void NPC_ForceMove(uLink.BitStream stream, uLink.NetworkMessageInfo info)
+	{
+		Vector3 vector = stream.Read<Vector3>(new object[0]);
+		base.transform.position = vector;
+		base._pos = vector;
+		stream.Read<byte>(new object[0]);
+		int data = stream.Read<int>(new object[0]);
+		stream.Read<double>(new object[0]);
+		Vector3 euler = VCUtils.UncompressEulerAngle(data);
+		Quaternion rotation = Quaternion.Euler(euler);
+		base.transform.rotation = rotation;
+		base.rot = rotation;
+		if (_entity.peTrans.position == base._pos)
+		{
+			_entity.peTrans.position = base._pos;
+		}
+		if (_entity.peTrans.rotation == base.rot)
+		{
+			_entity.peTrans.rotation = base.rot;
+		}
+	}
+
 	internal bool IsReached(Vector3 pos, Vector3 targetPos, bool Is3D = false, float radiu = 2f)
 	{
 		float num = PEUtil.Magnitude(pos, targetPos, Is3D);
@@ -1371,7 +1394,7 @@ public class AiAdNpcNetwork : AiNetwork
 				Vector3 vector = stream.Read<Vector3>(new object[0]);
 				base.transform.position = vector;
 				base._pos = vector;
-				bool flag = stream.Read<bool>(new object[0]);
+				stream.Read<bool>(new object[0]);
 				if (PeGameMgr.IsMultiStory)
 				{
 					npcCmpt.FixedPointPos = base._pos;
@@ -1422,7 +1445,7 @@ public class AiAdNpcNetwork : AiNetwork
 			Vector3 vector = stream.Read<Vector3>(new object[0]);
 			base.transform.position = vector;
 			base._pos = vector;
-			bool flag2 = stream.Read<bool>(new object[0]);
+			stream.Read<bool>(new object[0]);
 			if (PeGameMgr.IsMultiStory)
 			{
 				npcCmpt.FixedPointPos = base._pos;

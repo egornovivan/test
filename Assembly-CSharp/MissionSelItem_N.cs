@@ -13,6 +13,8 @@ public class MissionSelItem_N : MonoBehaviour
 
 	public UISprite mMissionMarke;
 
+	public BoxCollider mCollider;
+
 	public PeEntity m_Player;
 
 	public void SetMission(int missionId, UIBaseWidget parent)
@@ -74,13 +76,27 @@ public class MissionSelItem_N : MonoBehaviour
 				mMissionMarke.gameObject.SetActive(value: false);
 			}
 			mMissionMarke.MakePixelPerfect();
-			return;
 		}
-		if (MissionManager.Instance.HasMission(missionId))
+		else
 		{
-			if (missionCommonData.m_Type == MissionType.MissionType_Main && !MissionManager.HasRandomMission(missionId))
+			if (MissionManager.Instance.HasMission(missionId))
 			{
-				if (MissionManager.Instance.IsReplyMission(missionId))
+				if (missionCommonData.m_Type == MissionType.MissionType_Main && !MissionManager.HasRandomMission(missionId))
+				{
+					if (MissionManager.Instance.IsReplyMission(missionId))
+					{
+						mMissionContent.color = Color.yellow;
+					}
+					else
+					{
+						mMissionContent.color = Color.white;
+					}
+				}
+				else if (missionCommonData.IsTalkMission())
+				{
+					mMissionContent.color = Color.white;
+				}
+				else if (MissionManager.Instance.IsReplyMission(missionId))
 				{
 					mMissionContent.color = Color.yellow;
 				}
@@ -89,28 +105,17 @@ public class MissionSelItem_N : MonoBehaviour
 					mMissionContent.color = Color.white;
 				}
 			}
-			else if (missionCommonData.IsTalkMission())
-			{
-				mMissionContent.color = Color.white;
-			}
-			else if (MissionManager.Instance.IsReplyMission(missionId))
-			{
-				mMissionContent.color = Color.yellow;
-			}
 			else
 			{
 				mMissionContent.color = Color.white;
 			}
+			UIButton component = mMissionContent.GetComponent<UIButton>();
+			if ((bool)component)
+			{
+				component.defaultColor = mMissionContent.color;
+			}
 		}
-		else
-		{
-			mMissionContent.color = Color.white;
-		}
-		UIButton component = mMissionContent.GetComponent<UIButton>();
-		if ((bool)component)
-		{
-			component.defaultColor = mMissionContent.color;
-		}
+		RefreshCollider();
 	}
 
 	public void ActiveMask()
@@ -124,6 +129,7 @@ public class MissionSelItem_N : MonoBehaviour
 		SetMission(missionId, parent);
 		content = GameUI.Instance.mNPCTalk.ParseStrDefine(content, MissionManager.GetMissionCommonData(missionId));
 		mMissionContent.text = content;
+		RefreshCollider();
 	}
 
 	public void SetMission(int missionId, string content, string icon, UIBaseWidget parent, PeEntity player)
@@ -143,6 +149,19 @@ public class MissionSelItem_N : MonoBehaviour
 			}
 			mMissionMarke.MakePixelPerfect();
 		}
+		RefreshCollider();
+	}
+
+	private void RefreshCollider()
+	{
+		Vector3 size = mCollider.size;
+		size.x = mMissionContent.relativeSize.x;
+		size.y = mMissionContent.relativeSize.y;
+		mCollider.size = size;
+		Vector3 center = mCollider.center;
+		center.x = size.x * 0.5f;
+		center.y = (0f - size.y) * 0.5f;
+		mCollider.center = center;
 	}
 
 	private void OnBtnClick()

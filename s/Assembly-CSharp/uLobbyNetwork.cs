@@ -34,6 +34,7 @@ public class uLobbyNetwork : LobbyInterface
 		messageHandlers.RegisterHandler(ELobbyMsgType.CloseServer, RPC_L2S_CloseServer);
 		messageHandlers.RegisterHandler(ELobbyMsgType.ServerRegister, RPC_L2S_ServerRegistered);
 		messageHandlers.RegisterHandler(ELobbyMsgType.CreateItem, RPC_L2S_CreateItems);
+		messageHandlers.RegisterHandler(ELobbyMsgType.Statistics, RPC_L2S_Statistics);
 		SetHandlers(messageHandlers);
 	}
 
@@ -43,7 +44,7 @@ public class uLobbyNetwork : LobbyInterface
 		{
 			if (Lobby.connectionStatus == LobbyConnectionStatus.Disconnected)
 			{
-				Lobby.publicKey = new uLobby.PublicKey("<RSAKeyValue><Modulus>iX4oKfF4o4FCWskfUl6//kxZjP3oMRFQW4xkpnWDaACPKdmIXwaTMBWJpSl/ooDgZfbJHKtHzp43nDx9Cpm0cFfz40N+6LiBL+YSO1d+VJkF/WMsl9C7NZtYRlBTvsQKh0unIESCsuauJotbg2hrapfasUr7KxgVxKM9P+tdn00=</Modulus><Exponent>EQ==</Exponent></RSAKeyValue>");
+				Lobby.publicKey = new uLobby.PublicKey("<RSAKeyValue><Modulus>njj4wBQW593lzN1CMkd/soo6yiz4Q1pOzGjGqq0GwR1S/PKdKiNxdyWFING69FGf6V6Almf5oVHXmoN0LNfIDUOw1Lfsq3hORXkUuz2L2dMp98RkkfKprQ+S4w0Y/HRVmp9kEO2PxSqxTwoCcaq/g65XcXs1lhGF26PQRv//pAk=</Modulus><Exponent>EQ==</Exponent></RSAKeyValue>");
 				Lobby.ConnectAsServer(ServerConfig.LobbyIP, ServerConfig.LobbyPort);
 			}
 			yield return new WaitForSeconds(3f);
@@ -101,7 +102,7 @@ public class uLobbyNetwork : LobbyInterface
 
 	public static void ServerRegister()
 	{
-		LobbyInterface.LobbyRPC(ELobbyMsgType.ServerRegister, ServerConfig.OwerSteamId);
+		LobbyInterface.LobbyRPC(ELobbyMsgType.ServerRegister, ServerConfig.OwerSteamId, (int)ServerConfig.SceneMode, (int)ServerConfig.GameType);
 	}
 
 	private void Lobby_OnConnected()
@@ -194,5 +195,11 @@ public class uLobbyNetwork : LobbyInterface
 				player.CreateAccountItem(itemType, amount);
 			}
 		}
+	}
+
+	private void RPC_L2S_Statistics(uLink.BitStream stream, LobbyMessageInfo info)
+	{
+		string str = stream.ReadString();
+		GMCommand.Self.SendStatisticsToGM(str);
 	}
 }

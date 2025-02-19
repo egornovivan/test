@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[AddComponentMenu("NGUI/UI/Label")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/UI/Label")]
 public class UILabel : UIWidget
 {
 	public enum Effect
@@ -11,8 +11,8 @@ public class UILabel : UIWidget
 		Outline
 	}
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private UIFont mFont;
 
 	[HideInInspector]
@@ -23,8 +23,8 @@ public class UILabel : UIWidget
 	[SerializeField]
 	private int mMaxLineWidth;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private bool mEncoding = true;
 
 	[SerializeField]
@@ -35,12 +35,12 @@ public class UILabel : UIWidget
 	[HideInInspector]
 	private bool mPassword;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private bool mShowLastChar;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private Effect mEffectStyle;
 
 	[SerializeField]
@@ -51,12 +51,12 @@ public class UILabel : UIWidget
 	[HideInInspector]
 	private UIFont.SymbolStyle mSymbols = UIFont.SymbolStyle.Uncolored;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private Vector2 mEffectDistance = Vector2.one;
 
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private float mLineWidth;
 
 	[SerializeField]

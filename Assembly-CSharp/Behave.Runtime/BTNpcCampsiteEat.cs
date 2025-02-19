@@ -125,8 +125,6 @@ public class BTNpcCampsiteEat : BTNormal
 
 	private Vector3 eatpostion;
 
-	private bool Hasreached;
-
 	private Transform mTrans;
 
 	private BehaveResult End()

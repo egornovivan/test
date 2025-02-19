@@ -33,8 +33,6 @@ public class UIWorkShopPage2AdaptiveCtrl : MonoBehaviour
 
 	private int m_BaseColumnCount = 4;
 
-	private int m_BaseRowCount = 3;
-
 	private bool m_InitData;
 
 	private void InitBaseData()

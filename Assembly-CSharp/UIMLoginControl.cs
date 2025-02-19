@@ -33,8 +33,6 @@ public class UIMLoginControl : MonoBehaviour
 
 	private int deleteRoleIndex;
 
-	private int test;
-
 	private void Start()
 	{
 	}

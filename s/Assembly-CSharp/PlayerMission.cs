@@ -806,13 +806,7 @@ public class PlayerMission
 		if (adrmMissionCommonData != null)
 		{
 			bool flag = true;
-			int num = 0;
-			if (num < adrmMissionCommonData.m_TargetIDList.Count)
-			{
-				int num2 = adrmMissionCommonData.m_TargetIDList[num] % 1000;
-				flag = !ServerConfig.IsStory || true;
-			}
-			if (flag)
+			if (!ServerConfig.IsStory || true)
 			{
 				CompleteMission(MissionID, player, TargetID, bCheck);
 			}
@@ -1260,8 +1254,6 @@ public class PlayerMission
 		{
 			return;
 		}
-		List<ItemObject> list2 = new List<ItemObject>();
-		List<ItemSample> list3 = new List<ItemSample>();
 		IEnumerable<ItemSample> enumerable = list.Select((MissionIDNum iter) => new ItemSample(iter.id, iter.num));
 		if (m_nTeam == -1)
 		{
@@ -1274,8 +1266,8 @@ public class PlayerMission
 			player.SyncPackageIndex();
 			return;
 		}
-		List<Player> list4 = ObjNetInterface.Get<Player>();
-		foreach (Player item in list4)
+		List<Player> list2 = ObjNetInterface.Get<Player>();
+		foreach (Player item in list2)
 		{
 			if (item == null || item.TeamId != m_nTeam)
 			{

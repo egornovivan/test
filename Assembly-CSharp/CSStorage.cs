@@ -100,8 +100,6 @@ public class CSStorage : CSElectric
 
 	public ItemPackage m_Package;
 
-	private int m_DayFlag = -1;
-
 	public CSStorageData Data
 	{
 		get

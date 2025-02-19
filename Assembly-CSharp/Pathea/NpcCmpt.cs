@@ -149,8 +149,6 @@ public class NpcCmpt : PeCmpt, IPeMsg
 
 	private bool m_FollowerCut;
 
-	private TreeInfo m_PlayerOpTree;
-
 	private bool m_servantCallback;
 
 	private float m_FollowerReviceTime = 1200f;
@@ -2658,7 +2656,6 @@ public class NpcCmpt : PeCmpt, IPeMsg
 			return;
 		}
 		int playerID = (int)Alive.GetAttribute(91);
-		SkEntity caster2 = PEUtil.GetCaster(caster);
 		PeEntity component = caster.GetComponent<PeEntity>();
 		if (component == base.Entity)
 		{
@@ -2730,14 +2727,12 @@ public class NpcCmpt : PeCmpt, IPeMsg
 	{
 		if (IsServant)
 		{
-			m_PlayerOpTree = treeInfo;
 			m_FollowerCut = true;
 		}
 	}
 
 	private void OnEndFell()
 	{
-		m_PlayerOpTree = null;
 	}
 
 	public void RemoveSleepBuff()

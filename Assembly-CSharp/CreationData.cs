@@ -1558,7 +1558,6 @@ public class CreationData
 
 	private static void CalcRobotAttr(VCIsoData iso, float random_seed, CreationAttr attr)
 	{
-		VCESceneSetting vCESceneSetting = iso.m_HeadInfo.FindSceneSetting();
 		attr.m_Durability = Mathf.Sqrt(attr.m_Durability) * PEVCConfig.instance.robotDurabilityScale;
 		attr.m_MaxFuel = 0f;
 		foreach (VCComponentData component in iso.m_Components)
@@ -1573,7 +1572,6 @@ public class CreationData
 
 	private static void CalcAITurretAttr(VCIsoData iso, float random_seed, CreationAttr attr)
 	{
-		VCESceneSetting vCESceneSetting = iso.m_HeadInfo.FindSceneSetting();
 		attr.m_Durability = Mathf.Sqrt(attr.m_Durability) * PEVCConfig.instance.aiTurretDurabilityScale;
 		attr.m_MaxFuel = 0f;
 		attr.m_Defense = 1f;
@@ -1590,7 +1588,6 @@ public class CreationData
 
 	private static void CalcArmorAttr(VCIsoData iso, float random_seed, CreationAttr attr)
 	{
-		VCESceneSetting vCESceneSetting = iso.m_HeadInfo.FindSceneSetting();
 		attr.m_Durability = Mathf.Sqrt(attr.m_Durability) * PEVCConfig.instance.armorDurabilityScale;
 		attr.m_Defense = VCUtility.GetArmorDefence(attr.m_Durability);
 	}
@@ -1723,22 +1720,21 @@ public class CreationData
 		string empty = string.Empty;
 		float num = 0f;
 		float num2 = 0f;
-		Strengthen cmpt = obj.GetCmpt<Strengthen>();
-		Property cmpt2 = obj.GetCmpt<Property>();
-		LifeLimit cmpt3 = obj.GetCmpt<LifeLimit>();
+		Property cmpt = obj.GetCmpt<Property>();
+		LifeLimit cmpt2 = obj.GetCmpt<LifeLimit>();
+		if (cmpt2 != null)
+		{
+			num = cmpt2.floatValue.current;
+		}
+		Durability cmpt3 = obj.GetCmpt<Durability>();
 		if (cmpt3 != null)
 		{
 			num = cmpt3.floatValue.current;
 		}
-		Durability cmpt4 = obj.GetCmpt<Durability>();
+		Energy cmpt4 = obj.GetCmpt<Energy>();
 		if (cmpt4 != null)
 		{
-			num = cmpt4.floatValue.current;
-		}
-		Energy cmpt5 = obj.GetCmpt<Energy>();
-		if (cmpt5 != null)
-		{
-			num2 = cmpt5.floatValue.current;
+			num2 = cmpt4.floatValue.current;
 		}
 		string text = m_IsoData.m_HeadInfo.Name;
 		if (string.IsNullOrEmpty(text))
@@ -1755,38 +1751,38 @@ public class CreationData
 		case ECreation.Sword:
 		case ECreation.SwordLarge:
 		case ECreation.SwordDouble:
-			return string.Format(PELocalization.GetString(8000626), text, cmpt2.GetProperty(AttribType.Atk), PELocalization.GetString(VCUtility.GetSwordAtkSpeedTextID(VCUtility.GetSwordAnimSpeed(m_Attribute.m_Weight))), Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt4.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000626), text, cmpt.GetProperty(AttribType.Atk), PELocalization.GetString(VCUtility.GetSwordAtkSpeedTextID(VCUtility.GetSwordAnimSpeed(m_Attribute.m_Weight))), Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt3.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
 		case ECreation.Axe:
-			return string.Format(PELocalization.GetString(8000627), text, cmpt2.GetProperty(AttribType.Atk), PELocalization.GetString(VCUtility.GetAxeAtkSpeedTextID(VCUtility.GetAxeAnimSpeed(m_Attribute.m_Weight))), Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt4.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000627), text, cmpt.GetProperty(AttribType.Atk), PELocalization.GetString(VCUtility.GetAxeAtkSpeedTextID(VCUtility.GetAxeAnimSpeed(m_Attribute.m_Weight))), Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt3.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
 		case ECreation.Bow:
-			return string.Format(PELocalization.GetString(8000628), text, cmpt2.GetProperty(AttribType.Atk), Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt4.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000628), text, cmpt.GetProperty(AttribType.Atk), Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt3.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
 		case ECreation.Shield:
-			return string.Format(PELocalization.GetString(8000629), text, cmpt2.GetProperty(AttribType.Def), Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt4.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000629), text, cmpt.GetProperty(AttribType.Def), Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt3.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
 		case ECreation.HandGun:
 		case ECreation.Rifle:
-			return string.Format(PELocalization.GetString(8000630), text, cmpt2.GetProperty(AttribType.Atk), 1f / m_Prefab.GetComponent<PEGun>().m_FireRate, Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt4.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000630), text, cmpt.GetProperty(AttribType.Atk), 1f / m_Prefab.GetComponent<PEGun>().m_FireRate, Mathf.CeilToInt(num * PEVCConfig.equipDurabilityShowScale), Mathf.CeilToInt(cmpt3.valueMax * PEVCConfig.equipDurabilityShowScale), obj.GetSellPrice(), text2);
 		case ECreation.Vehicle:
-			return string.Format(PELocalization.GetString(8000631), text, creationController.bounds.size.x, creationController.bounds.size.y, creationController.bounds.size.z, num, cmpt3.valueMax, num2, cmpt5.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000631), text, creationController.bounds.size.x, creationController.bounds.size.y, creationController.bounds.size.z, num, cmpt2.valueMax, num2, cmpt4.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
 		case ECreation.Aircraft:
-			return string.Format(PELocalization.GetString(8000632), text, creationController.bounds.size.x, creationController.bounds.size.y, creationController.bounds.size.z, num, cmpt3.valueMax, num2, cmpt5.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000632), text, creationController.bounds.size.x, creationController.bounds.size.y, creationController.bounds.size.z, num, cmpt2.valueMax, num2, cmpt4.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
 		case ECreation.Boat:
-			return string.Format(PELocalization.GetString(8000633), text, creationController.bounds.size.x, creationController.bounds.size.y, creationController.bounds.size.z, num, cmpt3.valueMax, num2, cmpt5.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000633), text, creationController.bounds.size.x, creationController.bounds.size.y, creationController.bounds.size.z, num, cmpt2.valueMax, num2, cmpt4.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
 		case ECreation.SimpleObject:
 			return string.Format(PELocalization.GetString(8000634), text, creationController.bounds.size.x, creationController.bounds.size.y, creationController.bounds.size.z, obj.GetSellPrice(), text2);
 		case ECreation.ArmorHead:
-			return string.Format(PELocalization.GetString(8000640), text, VCUtility.GetArmorDefence(cmpt4.valueMax), num, cmpt4.valueMax, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000640), text, VCUtility.GetArmorDefence(cmpt3.valueMax), num, cmpt3.valueMax, obj.GetSellPrice(), text2);
 		case ECreation.ArmorBody:
-			return string.Format(PELocalization.GetString(8000641), text, VCUtility.GetArmorDefence(cmpt4.valueMax), num, cmpt4.valueMax, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000641), text, VCUtility.GetArmorDefence(cmpt3.valueMax), num, cmpt3.valueMax, obj.GetSellPrice(), text2);
 		case ECreation.ArmorArmAndLeg:
-			return string.Format(PELocalization.GetString(8000642), text, VCUtility.GetArmorDefence(cmpt4.valueMax), num, cmpt4.valueMax, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000642), text, VCUtility.GetArmorDefence(cmpt3.valueMax), num, cmpt3.valueMax, obj.GetSellPrice(), text2);
 		case ECreation.ArmorHandAndFoot:
-			return string.Format(PELocalization.GetString(8000643), text, VCUtility.GetArmorDefence(cmpt4.valueMax), num, cmpt4.valueMax, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000643), text, VCUtility.GetArmorDefence(cmpt3.valueMax), num, cmpt3.valueMax, obj.GetSellPrice(), text2);
 		case ECreation.ArmorDecoration:
-			return string.Format(PELocalization.GetString(8000644), text, VCUtility.GetArmorDefence(cmpt4.valueMax), num, cmpt4.valueMax, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000644), text, VCUtility.GetArmorDefence(cmpt3.valueMax), num, cmpt3.valueMax, obj.GetSellPrice(), text2);
 		case ECreation.Robot:
-			return string.Format(PELocalization.GetString(8000645), text, num, cmpt3.valueMax, num2, cmpt5.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString(8000645), text, num, cmpt2.valueMax, num2, cmpt4.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
 		case ECreation.AITurret:
-			return string.Format(PELocalization.GetString((!obj.protoData.unchargeable) ? 8000646 : 8000647), text, num, cmpt3.valueMax, num2, cmpt5.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
+			return string.Format(PELocalization.GetString((!obj.protoData.unchargeable) ? 8000646 : 8000647), text, num, cmpt2.valueMax, num2, cmpt4.valueMax, m_Attribute.m_Attack, obj.GetSellPrice(), text2);
 		default:
 			return empty;
 		}
@@ -2558,7 +2554,7 @@ public class CreationData
 			for (int i = 0; i < formula.materials.Count; i++)
 			{
 				key = formula.materials[i].itemId;
-				value = formula.materials[i].itemCount * item.Value;
+				value = formula.materials[i].itemCount * Mathf.CeilToInt((float)item.Value / (float)formula.m_productItemCount);
 				if (dictionary.ContainsKey(key))
 				{
 					Dictionary<int, int> dictionary4;

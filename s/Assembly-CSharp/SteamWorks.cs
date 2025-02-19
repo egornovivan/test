@@ -49,6 +49,8 @@ public class SteamWorks : UnityEngine.MonoBehaviour
 		ulong hashCode = stream.Read<ulong>(new object[0]);
 		bool free = stream.Read<bool>(new object[0]);
 		int instanceId = stream.Read<int>(new object[0]);
+		bool flag = stream.Read<bool>(new object[0]);
+		int[] array = null;
 		RegisteredISO registeredISO = GetRegisterISO(num);
 		if (registeredISO == null)
 		{
@@ -56,6 +58,18 @@ public class SteamWorks : UnityEngine.MonoBehaviour
 			registeredISO.HashCode = hashCode;
 			registeredISO.IsoName = isoName;
 			registeredISO.UGCHandle = num;
+			if (flag)
+			{
+				array = stream.Read<int[]>(new object[0]);
+			}
+			if (array != null)
+			{
+				int[] array2 = array;
+				foreach (int item in array2)
+				{
+					registeredISO.Components.Add((EVCComponent)item);
+				}
+			}
 			AddRegisterISO(registeredISO);
 			SaveRegISO2DB(registeredISO);
 		}
@@ -121,7 +135,7 @@ public class SteamWorks : UnityEngine.MonoBehaviour
 
 	public static void RPC_S2C_UGCSkillData(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		byte[] array = stream.Read<byte[]>(new object[0]);
+		stream.Read<byte[]>(new object[0]);
 	}
 
 	public static void RPC_C2S_UGCData(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -222,11 +236,11 @@ public class SteamWorks : UnityEngine.MonoBehaviour
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
-			int int2 = reader.GetInt32(reader.GetOrdinal("itemid"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
+			int @int = reader.GetInt32(reader.GetOrdinal("itemid"));
 			byte[] buffer = (byte[])reader.GetValue(reader.GetOrdinal("blobdata"));
 			ItemProto item = new ItemProto();
-			item.GenItemData(int2, buffer);
+			item.GenItemData(@int, buffer);
 		}
 	}
 
@@ -246,26 +260,26 @@ public class SteamWorks : UnityEngine.MonoBehaviour
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			int objID = reader.GetInt32(reader.GetOrdinal("objid"));
 			if (!_creationList.Exists((CreationOriginData iter) => iter.ObjectID == objID))
 			{
-				int int2 = reader.GetInt32(reader.GetOrdinal("seed"));
+				int @int = reader.GetInt32(reader.GetOrdinal("seed"));
 				float @float = reader.GetFloat(reader.GetOrdinal("hp"));
 				float float2 = reader.GetFloat(reader.GetOrdinal("maxhp"));
 				float float3 = reader.GetFloat(reader.GetOrdinal("fuel"));
 				float float4 = reader.GetFloat(reader.GetOrdinal("maxfuel"));
-				ulong int3 = (ulong)reader.GetInt64(reader.GetOrdinal("hash"));
-				ulong int4 = (ulong)reader.GetInt64(reader.GetOrdinal("steamid"));
+				ulong int2 = (ulong)reader.GetInt64(reader.GetOrdinal("hash"));
+				ulong int3 = (ulong)reader.GetInt64(reader.GetOrdinal("steamid"));
 				CreationOriginData creationOriginData = new CreationOriginData();
 				creationOriginData.ObjectID = objID;
-				creationOriginData.Seed = int2;
+				creationOriginData.Seed = @int;
 				creationOriginData.HP = @float;
 				creationOriginData.MaxHP = float2;
 				creationOriginData.Fuel = float3;
 				creationOriginData.MaxFuel = float4;
-				creationOriginData.HashCode = int3;
-				creationOriginData.SteamId = int4;
+				creationOriginData.HashCode = int2;
+				creationOriginData.SteamId = int3;
 				AddRegisterCreation(creationOriginData);
 			}
 		}
@@ -287,7 +301,7 @@ public class SteamWorks : UnityEngine.MonoBehaviour
 	{
 		while (reader.Read())
 		{
-			int @int = reader.GetInt32(reader.GetOrdinal("ver"));
+			reader.GetInt32(reader.GetOrdinal("ver"));
 			RegisteredISO registeredISO = new RegisteredISO();
 			registeredISO.HashCode = (ulong)reader.GetInt64(reader.GetOrdinal("hash"));
 			registeredISO.UGCHandle = (ulong)reader.GetInt64(reader.GetOrdinal("handle"));

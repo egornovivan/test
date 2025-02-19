@@ -7,15 +7,13 @@ public class CoroutineEffect : IEnumerator
 
 	private IEnumerator enumerator;
 
-	private Coroutine coroutine;
-
 	public object Current => enumerator.Current;
 
 	public CoroutineEffect(MonoBehaviour behaviour, IEnumerator enumerator)
 	{
 		stop = false;
 		this.enumerator = enumerator;
-		coroutine = behaviour.StartCoroutine(this);
+		behaviour.StartCoroutine(this);
 	}
 
 	public bool MoveNext()

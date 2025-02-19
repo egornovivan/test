@@ -14,7 +14,6 @@ public class BoundBoxScale : MonoBehaviour
 	{
 		float num = maxX;
 		float num2 = maxY;
-		float num3 = maxZ;
 		xyfar.transform.localScale = new Vector3((num - 2f) / 10f, 0f, num2 / 10f);
 		xynear.transform.localScale = new Vector3((num - 2f) / 10f, 0f, num2 / 10f);
 		yzfar.transform.localScale = new Vector3((num - 2f) / 10f, 0f, num2 / 10f);

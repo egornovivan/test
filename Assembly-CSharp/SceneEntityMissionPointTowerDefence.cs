@@ -13,8 +13,6 @@ public class SceneEntityMissionPointTowerDefence : ISceneEntityMissionPoint
 
 	private int _idxTarId = -1;
 
-	private int _leftCntToFin;
-
 	private static PlayerMission playerMission => MissionManager.Instance.m_PlayerMission;
 
 	public int MissionId { get; set; }
@@ -58,7 +56,14 @@ public class SceneEntityMissionPointTowerDefence : ISceneEntityMissionPoint
 		{
 			return false;
 		}
-		playerMission.m_TowerUIData.MaxCount = _towerData.m_Count;
+		if (PeGameMgr.IsSingle)
+		{
+			playerMission.m_TowerUIData.MaxCount = _towerData.m_Count;
+		}
+		else
+		{
+			playerMission.m_TowerUIData.MaxCount = 0;
+		}
 		playerMission.m_TowerUIData.MissionID = MissionId;
 		playerMission.m_TowerUIData.CurCount = 0;
 		if (_towerData.m_TdInfoId != 0)
@@ -95,7 +100,6 @@ public class SceneEntityMissionPointTowerDefence : ISceneEntityMissionPoint
 				peEntity.SetInvincible(value: false);
 			}
 		}
-		_leftCntToFin = _towerData.m_Count;
 		string missionValue = "0_0_0_0_0";
 		playerMission.ModifyQuestVariable(MissionId, PlayerMission.MissionFlagTDMonster + _idxTarId, missionValue);
 		return true;

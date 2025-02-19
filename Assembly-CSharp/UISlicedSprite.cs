@@ -4,8 +4,8 @@ using UnityEngine;
 [AddComponentMenu("NGUI/UI/Sprite (Sliced)")]
 public class UISlicedSprite : UISprite
 {
-	[SerializeField]
 	[HideInInspector]
+	[SerializeField]
 	private bool mFillCenter = true;
 
 	protected Rect mInner;

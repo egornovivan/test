@@ -18,11 +18,8 @@ public class TRTrace : Trajectory
 
 	private Vector3 m_Deviation;
 
-	private bool m_CanTrace;
-
 	private void Start()
 	{
-		m_CanTrace = true;
 		m_OldCenter = GetTargetCenter();
 		m_Deviation = Random.insideUnitSphere.normalized * Random.Range(0f, deviation);
 		m_CurMoveDir = GetTargetPosition() - base.transform.position;

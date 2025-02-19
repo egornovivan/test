@@ -133,8 +133,6 @@ public class PECapsuleTrigger
 	{
 		int a = Mathf.FloorToInt(0.5f * moveDir1.magnitude / scaledRadius) + 1;
 		int b = Mathf.FloorToInt(0.5f * moveDir2.magnitude / scaledRadius) + 1;
-		Vector3 normalized = moveDir1.normalized;
-		Vector3 normalized2 = moveDir2.normalized;
 		float a2 = Vector3.Distance(m_LastCenterPos1, m_ParentCenterPos);
 		float b2 = Vector3.Distance(m_CenterPos1, m_ParentCenterPos);
 		float a3 = Vector3.Distance(m_LastCenterPos2, m_ParentCenterPos);

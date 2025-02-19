@@ -33,17 +33,7 @@ public class UIGraphControl : MonoBehaviour
 
 	public UIGraphNode rootNode;
 
-	private float mGraphItemWidth;
-
 	private float mGraphItemHeight;
-
-	private float mGraphWidth;
-
-	private float mGraphHeight;
-
-	private int mMaxLever_h;
-
-	private int mMaxLever_v;
 
 	private float nodeIndex0Pos;
 
@@ -51,8 +41,6 @@ public class UIGraphControl : MonoBehaviour
 
 	public void DrawGraph()
 	{
-		mMaxLever_h = 0;
-		mMaxLever_v = 0;
 		UpdateGraph();
 		mGraphPos_x = mWndWidth / 2f - rootNode.mTreeGrid.m_Content.transform.localPosition.x + 16f;
 		mContent.transform.localPosition = new Vector3(mGraphPos_x, 10f, 0f);
@@ -104,6 +92,10 @@ public class UIGraphControl : MonoBehaviour
 			mGraphItemList[i].bagCount = replicator.GetItemCount(mGraphItemList[i].GetItemID());
 		}
 		UpdateGraphCount();
+		if ((bool)GameUI.Instance && GameUI.Instance.mItemsTrackWnd.ContainsScript(rootNode.ms.id))
+		{
+			GameUI.Instance.mItemsTrackWnd.UpdateOrAddScript(rootNode.ms, num);
+		}
 	}
 
 	public static Replicator GetReplicator()

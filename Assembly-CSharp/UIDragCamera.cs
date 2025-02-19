@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
 [AddComponentMenu("NGUI/Interaction/Drag Camera")]
+[ExecuteInEditMode]
 public class UIDragCamera : IgnoreTimeScale
 {
 	public UIDraggableCamera draggableCamera;

@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshRenderer))]
 public class MeshGen : MonoBehaviour
 {
 	public int m_BillboardCount = 1000;
@@ -37,7 +37,6 @@ public class MeshGen : MonoBehaviour
 		Vector2[] array3 = new Vector2[m_BillboardCount * 4];
 		Vector2[] array4 = new Vector2[m_BillboardCount * 4];
 		int[] array5 = new int[m_BillboardCount * 6];
-		Color32[] array6 = new Color32[m_BillboardCount * 4];
 		Vector3 vector = new Vector3(-1f, -1f, 0f);
 		Vector3 vector2 = new Vector3(-1f, 1f, 0f);
 		Vector3 vector3 = new Vector3(1f, 1f, 0f);

@@ -110,7 +110,6 @@ public class CSEnhance : CSWorkerMachine
 	{
 		int workingCount = GetWorkingCount();
 		float num = Info.m_BaseTime * Mathf.Pow(0.82f, workingCount);
-		float workerParam = GetWorkerParam();
 		return num * GetWorkerParam();
 	}
 

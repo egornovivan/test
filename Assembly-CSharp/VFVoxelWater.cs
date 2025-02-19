@@ -564,7 +564,6 @@ public class VFVoxelWater : MonoBehaviour, ILODNodeDataMan, IVxChunkHelperProc
 	{
 		VFVoxelChunkData vFVoxelChunkData = ndata as VFVoxelChunkData;
 		byte b = vFVoxelChunkData.DataVT[0];
-		byte b2 = vFVoxelChunkData.DataVT[1];
 		if (b == 128)
 		{
 			return false;

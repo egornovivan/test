@@ -26,9 +26,9 @@ public class NetworkInterface : uLink.MonoBehaviour
 
 	protected CommonInterface runner;
 
-	public Vector3 _pos { get; protected set; }
+	public Vector3 _pos { get; set; }
 
-	public Quaternion rot { get; protected set; }
+	public Quaternion rot { get; set; }
 
 	public bool canGetAuth { get; protected set; }
 

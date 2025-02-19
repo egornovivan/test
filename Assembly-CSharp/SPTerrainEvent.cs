@@ -17,8 +17,6 @@ public class SPTerrainEvent : NetworkInterface
 
 	private Dictionary<IntVector2, SPTerrainRect> pointTable = new Dictionary<IntVector2, SPTerrainRect>();
 
-	private List<IntVector2> requestList = new List<IntVector2>();
-
 	private List<IntVector4> mMeshNodes = new List<IntVector4>();
 
 	private Transform staticPoints;

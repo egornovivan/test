@@ -14,16 +14,13 @@ public class Gun : ShootEquipment
 
 	protected int mCurrentIndex;
 
-	private int mLastIndex;
-
 	public float mRuntimeAccuracyScale = 1f;
 
 	public override void InitEquipment(SkillRunner runner, ItemObject item)
 	{
 		mCurrentIndex = 0;
-		mLastIndex = 0;
 		mCoolDownTime = new List<float>();
-		foreach (VCPGunMuzzle item2 in mGunMuzzle)
+		for (int i = 0; i < mGunMuzzle.Count; i++)
 		{
 			mCoolDownTime.Add(Time.time);
 		}

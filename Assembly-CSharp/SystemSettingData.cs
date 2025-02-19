@@ -16,7 +16,7 @@ public class SystemSettingData
 
 	public string mVersion = "0.795";
 
-	public string mLanguage = "english";
+	public string mLanguage = "chinese";
 
 	private int _bLangChinese = -1;
 
@@ -64,7 +64,11 @@ public class SystemSettingData
 
 	public float EffectVolume = 1f;
 
-	public float CameraSensitivity = 1.5f;
+	public float cameraSensitivity = 1.5f;
+
+	public float holdGunCameraSensitivity = 1.5f;
+
+	public bool holdGun;
 
 	public float CameraFov = 60f;
 
@@ -96,7 +100,7 @@ public class SystemSettingData
 
 	private bool _fastLightingMode = true;
 
-	public float CamInertia = 7.5f;
+	public float CamInertia;
 
 	public float DriveCamInertia = 50f;
 
@@ -213,6 +217,8 @@ public class SystemSettingData
 			mGrassLod = value;
 		}
 	}
+
+	public float CameraSensitivity => (!holdGun) ? cameraSensitivity : holdGunCameraSensitivity;
 
 	public float AbsEffectVolume => SoundVolume * EffectVolume;
 
@@ -624,7 +630,14 @@ public class SystemSettingData
 			xmlElement = xmlDocument.CreateElement("CameraSensitivity");
 			xmlDocument.DocumentElement.AppendChild(xmlElement);
 		}
-		xmlElement.SetAttribute("value", CameraSensitivity.ToString());
+		xmlElement.SetAttribute("value", cameraSensitivity.ToString());
+		xmlElement = (XmlElement)xmlDocument.DocumentElement.SelectSingleNode("HoldGunCameraSensitivity");
+		if (xmlElement == null)
+		{
+			xmlElement = xmlDocument.CreateElement("HoldGunCameraSensitivity");
+			xmlDocument.DocumentElement.AppendChild(xmlElement);
+		}
+		xmlElement.SetAttribute("value", holdGunCameraSensitivity.ToString());
 		xmlElement = (XmlElement)xmlDocument.DocumentElement.SelectSingleNode("CameraFov");
 		if (xmlElement == null)
 		{
@@ -924,7 +937,12 @@ public class SystemSettingData
 		xmlElement = (XmlElement)xmlDoc.DocumentElement.SelectSingleNode("CameraSensitivity");
 		if (xmlElement != null)
 		{
-			CameraSensitivity = Convert.ToSingle(xmlElement.GetAttribute("value"));
+			cameraSensitivity = Convert.ToSingle(xmlElement.GetAttribute("value"));
+		}
+		xmlElement = (XmlElement)xmlDoc.DocumentElement.SelectSingleNode("HoldGunCameraSensitivity");
+		if (xmlElement != null)
+		{
+			holdGunCameraSensitivity = Convert.ToSingle(xmlElement.GetAttribute("value"));
 		}
 		xmlElement = (XmlElement)xmlDoc.DocumentElement.SelectSingleNode("CameraFov");
 		if (xmlElement != null)

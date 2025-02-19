@@ -24,8 +24,6 @@ public class BRFollowTarget : BTNormal
 
 		private Vector3 m_Anchor;
 
-		private Vector3 m_LastAnchor;
-
 		private Vector3 m_LastPatrol;
 
 		private bool m_Reached;
@@ -34,8 +32,6 @@ public class BRFollowTarget : BTNormal
 
 		private SpeedState m_SpeedState;
 
-		private static float minWalkRadius;
-
 		private static float maxWalkRadius = 8f;
 
 		private static float minRunRadius = 8f;
@@ -43,8 +39,6 @@ public class BRFollowTarget : BTNormal
 		private static float maxRunRadius = 16f;
 
 		private static float minSprintRadius = 16f;
-
-		private static float maxSprintRadius = 32f;
 
 		public float startPralTime;
 
@@ -78,7 +72,6 @@ public class BRFollowTarget : BTNormal
 			{
 				m_Reached = false;
 				m_Calculated = true;
-				Vector3 vector = Vector3.ProjectOnPlane(pos - center, Vector3.up);
 				m_Anchor = PEUtil.GetRandomPosition(Vector3.zero, dir, firRadius, sndRadius, -90f, 90f);
 				m_Anchor = new Vector3(m_Anchor.x, 0f, m_Anchor.z);
 			}
@@ -116,7 +109,6 @@ public class BRFollowTarget : BTNormal
 		{
 			if (CheckFirst())
 			{
-				m_LastAnchor = target.position;
 			}
 			return target.position + m_Anchor;
 		}
@@ -361,39 +353,44 @@ public class BRFollowTarget : BTNormal
 		bool flag8 = base.IsOnVCCarrier || base.IsOnRail;
 		bool flag9 = m_Data.InRadius(base.position, peTrans.position, 0f, m_Data.firRadius, is3D: true);
 		bool flag10 = m_Data.InRadius(base.position, peTrans.position, m_Data.firRadius, m_Data.sndRadius, is3D: true);
-		bool flag11 = m_Data.InRadius(base.position, peTrans.position, m_Data.sndRadius, m_Data.thdRadius * 2f, is3D: true);
 		Vector3 vector = base.position - peTrans.trans.position;
 		Vector3 vector2 = ((!(avoidPos != Vector3.zero)) ? Vector3.zero : (base.position - avoidPos));
 		Vector3 vector3 = ((!(avoidPos2 != Vector3.zero)) ? Vector3.zero : (base.position - avoidPos2));
 		Vector3 vector4 = ((!(avoidPos3 != Vector3.zero)) ? Vector3.zero : (base.position - avoidPos3));
 		Vector3 vector5 = ((!(avoidPos4 != Vector3.zero)) ? Vector3.zero : (base.position - avoidPos4));
-		Vector3 vector6 = vector + vector2 + vector3 + vector4 + vector5;
-		bool flag12 = PEUtil.IsForwardBlock(base.entity, base.existent.forward, 2f) || !GetBool("OnGround");
+		Vector3 dir = vector + vector2 + vector3 + vector4 + vector5;
+		bool flag11 = PEUtil.IsForwardBlock(base.entity, base.existent.forward, 2f) || !GetBool("OnGround");
 		if (!flag8)
 		{
-			if (peEntity2 != null && (flag12 || Stucking()) && m_Data.InRadius(peEntity.position, peEntity2.position, 0f, rQFollowTarget.tgtRadiu, is3D: true))
+			if (peEntity2 != null && (flag11 || Stucking()) && m_Data.InRadius(peEntity.position, peEntity2.position, 0f, rQFollowTarget.tgtRadiu, is3D: true))
 			{
-				Vector3 vector7 = ((!flag) ? PEUtil.GetRandomPositionOnGroundForWander(peEntity2.position, 1f, 3f) : peEntity2.position);
+				Vector3 vector6 = ((!flag) ? PEUtil.GetRandomPositionOnGroundForWander(peEntity2.position, 1f, 3f) : peEntity2.position);
+				if (vector6 != Vector3.zero)
+				{
+					SetPosition(vector6);
+				}
+			}
+			if (rQFollowTarget.targetPos != Vector3.zero && (flag11 || Stucking()) && m_Data.InRadius(peEntity.position, rQFollowTarget.targetPos, 0f, rQFollowTarget.tgtRadiu, is3D: true))
+			{
+				Vector3 vector7 = ((!flag) ? PEUtil.GetRandomPositionOnGroundForWander(rQFollowTarget.targetPos, 1f, 3f) : rQFollowTarget.targetPos);
 				if (vector7 != Vector3.zero)
 				{
 					SetPosition(vector7);
-				}
-			}
-			if (rQFollowTarget.targetPos != Vector3.zero && (flag12 || Stucking()) && m_Data.InRadius(peEntity.position, rQFollowTarget.targetPos, 0f, rQFollowTarget.tgtRadiu, is3D: true))
-			{
-				Vector3 vector8 = ((!flag) ? PEUtil.GetRandomPositionOnGroundForWander(rQFollowTarget.targetPos, 1f, 3f) : rQFollowTarget.targetPos);
-				if (vector8 != Vector3.zero)
-				{
-					SetPosition(vector8);
 				}
 			}
 			if (!flag9 && !flag10)
 			{
 				if (GameConfig.IsMultiMode)
 				{
-					if (Stucking() || base.IsNpcFollowerSentry || flag12)
+					if (Stucking() || base.IsNpcFollowerSentry || flag11)
 					{
 						Vector3 fixedPosition = GetFixedPosition(PEUtil.MainCamTransform.position, -PEUtil.MainCamTransform.forward, peTrans.position, -peTrans.forward, peTrans.bound.size.y);
+						if (flag11)
+						{
+							fixedPosition = PeSingleton<MainPlayer>.Instance.entity.position;
+							Vector3 vector8 = new Vector3(0f - PEUtil.MainCamTransform.forward.x, 0f, 0f - PEUtil.MainCamTransform.forward.z);
+							fixedPosition += (Quaternion.AngleAxis(Random.Range(-90f, 90f), Vector3.up) * vector8).normalized * Random.Range(4f, 6f);
+						}
 						if (PEUtil.CheckErrorPos(fixedPosition))
 						{
 							SetPosition(fixedPosition);
@@ -407,7 +404,7 @@ public class BRFollowTarget : BTNormal
 				}
 				else
 				{
-					if (Stucking() || flag12)
+					if (Stucking() || flag11)
 					{
 						Vector3 fixedPosition2 = GetFixedPosition(PEUtil.MainCamTransform.position, -PEUtil.MainCamTransform.forward, peTrans.position, -peTrans.forward, peTrans.bound.size.y);
 						float num2 = Mathf.Abs(peTrans.position.y - fixedPosition2.y);
@@ -436,15 +433,15 @@ public class BRFollowTarget : BTNormal
 				m_Data.CalculateAnchor(base.position, PEUtil.MainCamTransform.position, -PEUtil.MainCamTransform.forward);
 				m_Data.ResetCalculatedDir();
 			}
-			bool flag13 = IsReached(base.position, peTrans.trans.position + m_Data.Anchor, Is3D: true, 2f);
-			bool flag14 = Time.time - m_Data.startPralTime < m_Data.waitPralTime && flag13 && !flag6;
+			bool flag12 = IsReached(base.position, peTrans.trans.position + m_Data.Anchor, Is3D: true, 2f);
+			bool flag13 = Time.time - m_Data.startPralTime < m_Data.waitPralTime && flag12 && !flag6;
 			if (!flag7)
 			{
 				if (!flag6)
 				{
-					if (flag14)
+					if (flag13)
 					{
-						if (flag12)
+						if (flag11)
 						{
 							m_Data.GetCanMoveDirtion(base.entity, 30f);
 							if (m_Data.GetAnchorDir() != Vector3.zero)
@@ -457,7 +454,7 @@ public class BRFollowTarget : BTNormal
 						StopMove();
 						m_Data.ResetCalculated();
 					}
-					else if (flag12 || Stucking())
+					else if (flag11 || Stucking())
 					{
 						m_Data.GetCanMoveDirtion(base.entity, 30f);
 						if (m_Data.GetAnchorDir() != Vector3.zero)
@@ -491,9 +488,8 @@ public class BRFollowTarget : BTNormal
 				else
 				{
 					m_Data.ResetCalculated();
-					m_Data.CalculateAnchor(base.position, peTrans.trans.position, vector6);
-					Vector3 vector9 = vector6 * 5f + base.position;
-					MoveDirection(vector6, SpeedState.Run);
+					m_Data.CalculateAnchor(base.position, peTrans.trans.position, dir);
+					MoveDirection(dir, SpeedState.Run);
 				}
 			}
 			else

@@ -147,7 +147,7 @@ public class UIStateMgr : MonoBehaviour
 		for (int i = 0; i < mBaseWndList.Count; i++)
 		{
 			UIBaseWnd uIBaseWnd = mBaseWndList[i];
-			if (!(uIBaseWnd is UIMissionTrackCtrl) && null != uIBaseWnd && uIBaseWnd.gameObject.activeInHierarchy)
+			if (!(uIBaseWnd is UIMissionTrackCtrl) && !(uIBaseWnd is UIItemsTrackCtrl) && null != uIBaseWnd && uIBaseWnd.gameObject.activeInHierarchy)
 			{
 				return true;
 			}

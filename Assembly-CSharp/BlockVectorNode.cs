@@ -212,7 +212,7 @@ public class BlockVectorNode : B45LODNode
 		}
 	}
 
-	public new void split()
+	public void Split()
 	{
 		children = new BlockVectorNode[8];
 		int w = pos.w;
@@ -261,7 +261,7 @@ public class BlockVectorNode : B45LODNode
 			intVector.y -= num2 * base.logicalSize;
 			intVector.z -= num3 * base.logicalSize;
 			BlockVectorNode blockVectorNode = (BlockVectorNode)(parent = new BlockVectorNode(intVector, null, 0));
-			blockVectorNode.split();
+			blockVectorNode.Split();
 			int num4 = num + (num2 << 1) + (num3 << 2);
 			blockVectorNode.children[num4] = null;
 			blockVectorNode.children[num4] = this;
@@ -284,7 +284,7 @@ public class BlockVectorNode : B45LODNode
 			num = ((atpos.x >= zero.x) ? 1 : 0) | ((atpos.y >= zero.y) ? 2 : 0) | ((atpos.z >= zero.z) ? 4 : 0);
 			if (blockVectorNode.isLeaf)
 			{
-				blockVectorNode.split();
+				blockVectorNode.Split();
 			}
 			blockVectorNode = blockVectorNode.children[num] as BlockVectorNode;
 		}

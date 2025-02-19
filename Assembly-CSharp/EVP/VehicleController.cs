@@ -47,8 +47,8 @@ public class VehicleController : MonoBehaviour
 
 	public float aeroAppPointOffset = -0.5f;
 
-	[FormerlySerializedAs("maxSpeed")]
 	[Header("Motor")]
+	[FormerlySerializedAs("maxSpeed")]
 	public float maxSpeedForward = 27.78f;
 
 	public float maxSpeedReverse = 12f;
@@ -99,8 +99,8 @@ public class VehicleController : MonoBehaviour
 	[Range(0f, 1f)]
 	public float espRatio = 0.5f;
 
-	[Range(-1f, 1f)]
 	[Header("Vehicle controls")]
+	[Range(-1f, 1f)]
 	public float steerInput;
 
 	[Range(-1f, 1f)]

@@ -36,5 +36,7 @@ public enum ELobbyMsgType
 	MasterRegister,
 	MasterUpdate,
 	CheatingCheck,
+	PlayerEnterGS,
+	Statistics,
 	Max
 }

@@ -16,8 +16,6 @@ public class TownEditGui_N : UIStaticWnd
 
 	private EditBuilding mOpBuilding;
 
-	private Vector3 mPressMousePos = Vector3.zero;
-
 	public static TownEditGui_N Instance => mInstance;
 
 	private void Awake()

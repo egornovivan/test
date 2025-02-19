@@ -43,7 +43,7 @@ public class PlayerMissionMgrData : DbRecordData
 		foreach (PlayerMissionData mMission in mMissions)
 		{
 			dbDataParameter.Value = mMission.Id;
-			dbDataParameter2.Value = 272;
+			dbDataParameter2.Value = 273;
 			dbDataParameter3.Value = mMission.Pmdata;
 			dbDataParameter4.Value = mMission.AdrmData;
 			cmd.ExecuteNonQuery();

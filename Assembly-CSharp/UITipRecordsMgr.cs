@@ -15,8 +15,6 @@ public class UITipRecordsMgr : UIBaseWnd
 	[SerializeField]
 	private UIScrollBar mScrollBar;
 
-	private bool mRePos;
-
 	public int mTipRecordsCountMax = 50;
 
 	private List<GameObject> m_WaitList = new List<GameObject>();

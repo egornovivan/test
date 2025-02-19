@@ -66,7 +66,6 @@ public class P2PManager : uLink.MonoBehaviour
 		}
 	}
 
-	[RPC]
 	private void RPC_S2C_CreateNewServer(uLink.BitStream stream, NetworkP2PMessageInfo info)
 	{
 		try

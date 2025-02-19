@@ -618,9 +618,7 @@ public class TowerCmpt : PeCmpt, ITowerOpration, IPeMsg
 		{
 			return;
 		}
-		float num = 5f;
 		int playerID = (int)base.Entity.aliveEntity.GetAttribute(91);
-		SkEntity caster2 = GetCaster(caster);
 		PeEntity component = caster.GetComponent<PeEntity>();
 		if (component == base.Entity)
 		{

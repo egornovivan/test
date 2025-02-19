@@ -5,8 +5,6 @@ namespace CameraForge;
 
 public class WaterClamp : ScriptModifier
 {
-	private float rise;
-
 	public override Slot[] slots => new Slot[2] { Name, Col };
 
 	public override PoseSlot[] poseslots => new PoseSlot[1] { Prev };

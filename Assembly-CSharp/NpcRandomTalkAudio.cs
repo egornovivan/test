@@ -5,8 +5,6 @@ using Pathea.PeEntityExt;
 
 public class NpcRandomTalkAudio
 {
-	private static AudioController mAdController = null;
-
 	private static Dictionary<int, AudioController> contrillers = new Dictionary<int, AudioController>();
 
 	private static List<int> secnarioIDs = new List<int>();

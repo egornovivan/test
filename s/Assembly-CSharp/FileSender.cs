@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public class FileSender
 {
-	private ulong m_FileHandle;
-
 	public int m_FileSize;
 
 	private byte[] m_Data;
@@ -22,7 +20,6 @@ public class FileSender
 		m_FileName = fileName;
 		m_FileSize = data.Length;
 		m_Sended = 0;
-		m_FileHandle = fileHandle;
 		m_Data = data;
 		fileSenderList[skey] = this;
 		m_IndexInList = skey;

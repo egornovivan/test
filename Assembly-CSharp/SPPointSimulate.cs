@@ -3,16 +3,6 @@ using UnityEngine;
 
 public class SPPointSimulate : SPPointMovable
 {
-	private float damage;
-
-	private float minInterval;
-
-	private float maxInterval;
-
-	private float radius;
-
-	private float mDamage;
-
 	private float mHp;
 
 	private float mMaxHp;
@@ -39,7 +29,6 @@ public class SPPointSimulate : SPPointMovable
 			AiDataBlock aIDataBase = AiDataBlock.GetAIDataBase(pathid);
 			if (aIDataBase != null)
 			{
-				mDamage = aIDataBase.damageSimulate;
 				mMaxHp = aIDataBase.maxHpSimulate;
 				mHp = mMaxHp;
 			}
@@ -49,7 +38,6 @@ public class SPPointSimulate : SPPointMovable
 			AISpawnPath spawnPath = AISpawnPath.GetSpawnPath(spid);
 			if (spawnPath != null)
 			{
-				mDamage = spawnPath.damage;
 				mMaxHp = spawnPath.maxHp;
 				mHp = mMaxHp;
 			}
@@ -77,10 +65,6 @@ public class SPPointSimulate : SPPointMovable
 
 	public void SetData(float argDamage, float argMinInterval, float argMaxInterval, float argRadius)
 	{
-		damage = argDamage;
-		minInterval = argMinInterval;
-		maxInterval = argMaxInterval;
-		radius = argRadius;
 	}
 
 	public void ApplyDamage(float value)

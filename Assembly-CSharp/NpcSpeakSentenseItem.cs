@@ -9,8 +9,6 @@ public class NpcSpeakSentenseItem : MonoBehaviour
 	[SerializeField]
 	private UISlicedSprite mSpr;
 
-	private float mInterval;
-
 	private float mDuration;
 
 	private bool ableCalculate;
@@ -44,7 +42,6 @@ public class NpcSpeakSentenseItem : MonoBehaviour
 	public void SayOneWord(string _content, float _interval)
 	{
 		mLabel.text = _content;
-		mInterval = _interval;
 		mDuration = GetDuration(_content.Length, _interval);
 		ableCalculate = true;
 		mStartCountDown = true;

@@ -86,8 +86,6 @@ public class UIHostCreateCtrl : MonoBehaviour
 
 	private bool mMonsterYes;
 
-	private bool mMonsterCanChange;
-
 	private string mGameTypeText = string.Empty;
 
 	private string mGameModeText = string.Empty;
@@ -211,7 +209,6 @@ public class UIHostCreateCtrl : MonoBehaviour
 		float num = 0.3f;
 		if (mGameTypeText == "VS" && mGameModeText == "Adventure")
 		{
-			mMonsterCanChange = true;
 			mMonsterLeftBtnBg.color = new Color(1f, 1f, 1f, 1f);
 			mMonsterRightBtnBg.color = new Color(1f, 1f, 1f, 1f);
 			BoxCollider component = mMonsterLeftBtnBg.transform.parent.gameObject.GetComponent<BoxCollider>();
@@ -220,7 +217,6 @@ public class UIHostCreateCtrl : MonoBehaviour
 			component2.enabled = true;
 			return;
 		}
-		mMonsterCanChange = false;
 		mMonsterLeftBtnBg.color = new Color(num, num, num, 1f);
 		mMonsterRightBtnBg.color = new Color(num, num, num, 1f);
 		BoxCollider component3 = mMonsterLeftBtnBg.transform.parent.gameObject.GetComponent<BoxCollider>();

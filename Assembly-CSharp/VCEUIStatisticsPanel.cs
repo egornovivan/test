@@ -45,6 +45,8 @@ public class VCEUIStatisticsPanel : MonoBehaviour
 
 	private Texture2D m_IconTex;
 
+	public UICheckbox ckItemTrack;
+
 	public UILabel m_AttrNames;
 
 	public UILabel m_AttrValues;
@@ -54,6 +56,8 @@ public class VCEUIStatisticsPanel : MonoBehaviour
 	public bool m_RefreshNow;
 
 	private string last_desc = string.Empty;
+
+	private CreationAttr _curAttr;
 
 	public void Init()
 	{
@@ -232,6 +236,7 @@ public class VCEUIStatisticsPanel : MonoBehaviour
 				m_NonEditorError = string.Empty;
 			}
 		}
+		UpdateItemsTrackState(creationAttr);
 		if (creationAttr != null)
 		{
 			if (creationAttr.m_Type == ECreation.Sword || creationAttr.m_Type == ECreation.SwordLarge || creationAttr.m_Type == ECreation.SwordDouble || creationAttr.m_Type == ECreation.Axe)
@@ -361,6 +366,41 @@ public class VCEUIStatisticsPanel : MonoBehaviour
 		if (m_IsEditor)
 		{
 			VCEditor.Instance.m_MassCenterTrans.gameObject.SetActive(value: false);
+		}
+	}
+
+	private void UpdateItemsTrackState(CreationAttr attr)
+	{
+		if ((bool)ckItemTrack)
+		{
+			_curAttr = attr;
+			string text = VCEditor.s_Scene.m_IsoData.m_HeadInfo.Name;
+			bool flag = !string.IsNullOrEmpty(text) && _curAttr != null && (bool)GameUI.Instance && (bool)GameUI.Instance.mItemsTrackWnd;
+			ckItemTrack.gameObject.SetActive(flag);
+			if (flag)
+			{
+				ckItemTrack.isChecked = GameUI.Instance.mItemsTrackWnd.ContainsIso(text);
+			}
+		}
+	}
+
+	private void OnItemTrackCk(bool isChecked)
+	{
+		if (!ckItemTrack || _curAttr == null || !GameUI.Instance || !GameUI.Instance.mItemsTrackWnd)
+		{
+			return;
+		}
+		string text = VCEditor.s_Scene.m_IsoData.m_HeadInfo.Name;
+		if (!string.IsNullOrEmpty(text))
+		{
+			if (isChecked)
+			{
+				GameUI.Instance.mItemsTrackWnd.AddIso(text, _curAttr.m_Cost);
+			}
+			else
+			{
+				GameUI.Instance.mItemsTrackWnd.RemoveIso(text);
+			}
 		}
 	}
 }

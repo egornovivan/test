@@ -16,7 +16,7 @@ internal class LoadPathFinding : PeLauncher.ILaunchable
 		if (gameObject != null)
 		{
 			AstarPath.SkipOptScanOnStartUp = true;
-			GameObject gameObject2 = Object.Instantiate(gameObject);
+			Object.Instantiate(gameObject);
 			AstarPath.SkipOptScanOnStartUp = false;
 			if (AstarPath.active != null && AstarPath.active.graphs.Length > 1)
 			{

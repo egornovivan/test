@@ -925,32 +925,10 @@ public class CSDataInst
 			cSTradeData = new CSTradeData();
 			_readCSObjectData(r, cSTradeData, version);
 		}
-		if (version >= 15091800 && version < 16102000)
+		if (version >= 16102000)
 		{
 			int num = r.ReadInt32();
 			for (int i = 0; i < num; i++)
-			{
-				IntVector2 pos = new IntVector2(r.ReadInt32(), r.ReadInt32());
-				TownTradeItemInfo townTradeItemInfo = new TownTradeItemInfo(pos);
-				townTradeItemInfo.m_CurTime = r.ReadSingle();
-				townTradeItemInfo.m_Time = r.ReadSingle();
-				townTradeItemInfo.csti = CSTradeInfoData.GetData(r.ReadInt32());
-				int num2 = r.ReadInt32();
-				for (int j = 0; j < num2; j++)
-				{
-					townTradeItemInfo.needItems.Add(new TradeObj(r.ReadInt32(), r.ReadInt32(), r.ReadInt32()));
-				}
-				int num3 = r.ReadInt32();
-				for (int k = 0; k < num3; k++)
-				{
-					townTradeItemInfo.rewardItems.Add(new TradeObj(r.ReadInt32(), r.ReadInt32(), r.ReadInt32()));
-				}
-			}
-		}
-		if (version >= 16102000)
-		{
-			int num4 = r.ReadInt32();
-			for (int l = 0; l < num4; l++)
 			{
 				int key = r.ReadInt32();
 				int itemObjId = r.ReadInt32();

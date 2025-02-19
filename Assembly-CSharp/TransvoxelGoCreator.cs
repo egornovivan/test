@@ -71,7 +71,6 @@ public class TransvoxelGoCreator
 
 	public void ClearAllTrans()
 	{
-		VFVoxelChunkGo[] componentsInChildren = VFVoxelTerrain.self.transform.GetComponentsInChildren<VFVoxelChunkGo>();
 		Transform transform = VFVoxelTerrain.self.transform;
 		foreach (Transform item in transform)
 		{

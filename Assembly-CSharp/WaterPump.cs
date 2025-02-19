@@ -22,10 +22,6 @@ public class WaterPump : Gun
 
 	public int mPumpSkillId;
 
-	private float mUnActiveTime = 0.5f;
-
-	public static event DirtyVoxelEvent onDirtyVoxel;
-
 	public override void InitEquipment(SkillRunner runner, ItemObject item)
 	{
 		base.InitEquipment(runner, item);

@@ -9,14 +9,6 @@ public class NpcBaseDoctor : BTNormal
 {
 	private Vector3 m_MoveToPostion;
 
-	private Vector3 m_DoorPostion = Vector3.zero;
-
-	private float m_StartTime;
-
-	private bool HasReached;
-
-	private float m_Roata;
-
 	private bool mChangeAction;
 
 	private static float endActionTime = 2f;
@@ -65,15 +57,8 @@ public class NpcBaseDoctor : BTNormal
 			return BehaveResult.Failure;
 		}
 		m_MoveToPostion = base.WorkEntity.workTrans[0].position;
-		m_Roata = base.WorkEntity.workTrans[0].rotation.eulerAngles.y;
-		if (base.WorkEntity.workTrans.Length == 2)
-		{
-			m_DoorPostion = base.WorkEntity.workTrans[1].position;
-		}
 		SetNpcState(ENpcState.Prepare);
-		HasReached = false;
 		mChangeAction = false;
-		m_StartTime = 0f;
 		return BehaveResult.Running;
 	}
 
@@ -108,8 +93,6 @@ public class NpcBaseDoctor : BTNormal
 		{
 			mChangeAction = true;
 			m_MoveToPostion = base.WorkEntity.workTrans[0].position;
-			m_Roata = base.WorkEntity.workTrans[0].rotation.eulerAngles.y;
-			HasReached = false;
 		}
 		if (!base.Cured.ContainsOperator(base.Operator))
 		{
@@ -133,7 +116,6 @@ public class NpcBaseDoctor : BTNormal
 				SetRotation(base.WorkEntity.workTrans[0].rotation);
 				base.Cured.StartOperate(base.Operator, EOperationMask.Cure);
 				SetNpcState(ENpcState.Work);
-				HasReached = true;
 				mChangeAction = false;
 			}
 		}

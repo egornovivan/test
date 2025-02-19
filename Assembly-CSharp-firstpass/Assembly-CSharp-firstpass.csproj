@@ -13,19 +13,19 @@
   <ItemGroup />
   <ItemGroup>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="uGameDB">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\uGameDB.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\uGameDB.dll</HintPath>
     </Reference>
     <Reference Include="Jboy">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\Jboy.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\Jboy.dll</HintPath>
     </Reference>
     <Reference Include="uLink">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\uLink.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\uLink.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\app_237870\asdsadas\PE_Client_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Planet Explorers\PE_Client_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
   </ItemGroup>

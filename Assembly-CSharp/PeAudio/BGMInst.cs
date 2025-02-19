@@ -16,8 +16,6 @@ public class BGMInst : MonoBehaviour
 
 	private float posttime;
 
-	private bool fading;
-
 	private string nextAudioPath = string.Empty;
 
 	private void Awake()

@@ -41,8 +41,8 @@ public class GenNoiseXMLParams
 		[XmlElement("TerrainHMSpec")]
 		public TerrainHMSpecCLS TerrainHMSpecValues { get; set; }
 
-		[XmlArray("CaveGroup")]
 		[XmlArrayItem("CaveSpec", typeof(CaveGroupCLS))]
+		[XmlArray("CaveGroup")]
 		public CaveGroupCLS[] CaveGroupValues { get; set; }
 	}
 
@@ -58,8 +58,8 @@ public class GenNoiseXMLParams
 		[XmlAttribute("NumOfOctaves")]
 		public int NumOfOctaves { get; set; }
 
-		[XmlArrayItem("OctaveLength", typeof(OctaveLengthArrayCLS))]
 		[XmlArray("OctaveLengthArray")]
+		[XmlArrayItem("OctaveLength", typeof(OctaveLengthArrayCLS))]
 		public OctaveLengthArrayCLS[] OctaveLengthArrayValues { get; set; }
 
 		[XmlArrayItem("OctaveMagnitude", typeof(OctaveMagnitudeArrayCLS))]
@@ -145,8 +145,8 @@ public class GenNoiseXMLParams
 		[XmlAttribute("end")]
 		public int end { get; set; }
 
-		[XmlArray("GradientDescArray")]
 		[XmlArrayItem("GradientDesc", typeof(GradientDescArrayCLS))]
+		[XmlArray("GradientDescArray")]
 		public GradientDescArrayCLS[] GradientDescArrayValues { get; set; }
 	}
 
@@ -195,8 +195,8 @@ public class GenNoiseXMLParams
 	[Serializable]
 	public class PlateauInfoCLS
 	{
-		[XmlArray("PlateauArray")]
 		[XmlArrayItem("Plateau", typeof(PlateauArrayCLS))]
+		[XmlArray("PlateauArray")]
 		public PlateauArrayCLS[] PlateauArrayValues { get; set; }
 	}
 

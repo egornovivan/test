@@ -644,7 +644,7 @@ public class MonstermountCtrl : PeCmpt
 	public override void Deserialize(BinaryReader r)
 	{
 		base.Deserialize(r);
-		int num = r.ReadInt32();
+		r.ReadInt32();
 		ctrlType = (ECtrlType)r.ReadInt32();
 	}
 

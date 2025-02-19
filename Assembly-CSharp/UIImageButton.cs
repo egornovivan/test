@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[AddComponentMenu("NGUI/UI/Image Button")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/UI/Image Button")]
 public class UIImageButton : MonoBehaviour
 {
 	public UISprite target;

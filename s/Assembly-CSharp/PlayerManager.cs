@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
 		StartCoroutine(IntervalSave30());
 		StartCoroutine(IntervalSave180());
 		StartCoroutine(IntervalSave300());
+		StartCoroutine(GameWorld.AsyncSendBlock());
 	}
 
 	private IEnumerator IntervalSave3()

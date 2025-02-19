@@ -10,8 +10,6 @@ public class VehicleController : CarrierController
 
 	private VCPVehicleWheel[] _wheels;
 
-	private VCPVehicleWheel[] _steerWheels;
-
 	private VCPVehicleWheel[] _motorWheels;
 
 	private float _inputBrake = 1f;
@@ -53,7 +51,6 @@ public class VehicleController : CarrierController
 				list2.Add(vCPVehicleWheel);
 			}
 		}
-		_steerWheels = list.ToArray();
 		_motorWheels = list2.ToArray();
 		Vector3 localPosition = _wheels[0].transform.localPosition;
 		float z = localPosition.z;

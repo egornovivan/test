@@ -43,10 +43,6 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 
 	private Dictionary<int, WeightPool> LevelPool = new Dictionary<int, WeightPool>();
 
-	private int townDistanceX;
-
-	private int townDistanceZ;
-
 	private List<int> townNamePool = new List<int>();
 
 	private VArtifactTownDesc VartifactTownXmlInfo = new VArtifactTownDesc();
@@ -62,8 +58,6 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 	public int missionStartNpcEntityId = -1;
 
 	public Vector3 playerStartPos = default(Vector3);
-
-	private int townTemplateNum;
 
 	private int minX = -19200;
 
@@ -266,8 +260,6 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 			XmlSerializer xmlSerializer = new XmlSerializer(typeof(VArtifactTownDesc));
 			VartifactTownXmlInfo = (VArtifactTownDesc)xmlSerializer.Deserialize(stringReader);
 			stringReader.Close();
-			townDistanceX = VartifactTownXmlInfo.distanceX;
-			townDistanceZ = VartifactTownXmlInfo.distanceZ;
 		}
 	}
 
@@ -316,7 +308,6 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 		System.Random random = new System.Random(RandomMapConfig.TownGenSeed);
 		startTown = VartifactTownXmlInfo.vaStartTown;
 		vatownList = VartifactTownXmlInfo.vaTown.ToList();
-		townTemplateNum = vatownList.Count;
 		for (int i = 0; i < vatownList.Count; i++)
 		{
 			VATown vATown = vatownList[i];
@@ -369,17 +360,15 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 		List<int> pickedGenLine = VATownGenerator.Instance.GetPickedGenLine();
 		int townAmountMax = VATownGenerator.Instance.GetTownAmountMax();
 		int townAmountMin = VATownGenerator.Instance.GetTownAmountMin();
-		int num = 0;
 		int townId = 0;
 		for (int n = 0; n < pickedGenLine.Count; n++)
 		{
 			int levelByLineIndex = VATownGenerator.Instance.GetLevelByLineIndex(n);
 			int generatedCount = 0;
-			int num2 = pickedGenLine[n];
+			int num = pickedGenLine[n];
 			if (n == 0)
 			{
-				IntVector2 intVector = VATownGenerator.Instance.GenTownPos(num2, random);
-				num = -1;
+				IntVector2 intVector = VATownGenerator.Instance.GenTownPos(num, random);
 				missionStartNpcID = startTown.artifactUnitArray[0].npcIdNum[0].nid;
 				missionStartBuildingID = startTown.artifactUnitArray[0].buildingIdNum[0].bid;
 				VArtifactTown vArtifactTown = new VArtifactTown(startTown, intVector);
@@ -390,31 +379,31 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 				}
 				vArtifactTown.townId = townId++;
 				vArtifactTown.townNameId = PickATownName(random);
-				vArtifactTown.areaId = num2;
+				vArtifactTown.areaId = num;
 				vArtifactTown.AllyId = 0;
 				vArtifactTown.isMainTown = true;
 				VATownGenerator.Instance.AddAllyTown(vArtifactTown);
 				InitTownData(vArtifactTown, intVector, random);
 				generatedCount++;
-				GenEmptyTown(intVector, 0, ref townId, num2, random);
+				GenEmptyTown(intVector, 0, ref townId, num, random);
 			}
 			int genCount = townAmountMax - generatedCount;
-			GenSomeTowns(genCount, levelByLineIndex, ref townId, num2, random, ref generatedCount);
-			for (int num3 = 0; num3 < 3; num3++)
+			GenSomeTowns(genCount, levelByLineIndex, ref townId, num, random, ref generatedCount);
+			for (int num2 = 0; num2 < 3; num2++)
 			{
 				if (generatedCount >= townAmountMin)
 				{
 					break;
 				}
 				genCount = townAmountMax - generatedCount;
-				GenSomeTowns(genCount, levelByLineIndex, ref townId, num2, random, ref generatedCount);
+				GenSomeTowns(genCount, levelByLineIndex, ref townId, num, random, ref generatedCount);
 			}
 		}
 		int generatedCount2 = 0;
-		for (int num4 = 0; num4 < TownGenData.AreaCount; num4++)
+		for (int num3 = 0; num3 < TownGenData.AreaCount; num3++)
 		{
-			int levelByLineIndex2 = VATownGenerator.Instance.GetLevelByLineIndex(num4);
-			int genAreaId = pickedGenLine[num4];
+			int levelByLineIndex2 = VATownGenerator.Instance.GetLevelByLineIndex(num3);
+			int genAreaId = pickedGenLine[num3];
 			GenBranchTowns(VATownGenerator.Instance.branchTownCountMax, levelByLineIndex2, ref townId, genAreaId, random, ref generatedCount2);
 		}
 		VATownGenerator.Instance.ConnectMainTowns();
@@ -1301,8 +1290,6 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 
 	public void SetTownDistance(float scale)
 	{
-		townDistanceX = (int)((float)VartifactTownXmlInfo.distanceX * scale);
-		townDistanceZ = (int)((float)VartifactTownXmlInfo.distanceZ * scale);
 	}
 
 	public void PrintTownPos()
@@ -1496,9 +1483,9 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 		}
 		MemoryStream memoryStream = new MemoryStream(buffer);
 		BinaryReader binaryReader = new BinaryReader(memoryStream);
+		binaryReader.ReadInt32();
 		int num = binaryReader.ReadInt32();
-		int num2 = binaryReader.ReadInt32();
-		for (int i = 0; i < num2; i++)
+		for (int i = 0; i < num; i++)
 		{
 			VATSaveData vATSaveData = new VATSaveData();
 			vATSaveData.townId = binaryReader.ReadInt32();
@@ -1508,13 +1495,13 @@ public class VArtifactTownManager : UnityEngine.MonoBehaviour
 			mVATSaveData.Add(vATSaveData.townId, vATSaveData);
 		}
 		InitVATData();
-		int num3 = binaryReader.ReadInt32();
-		for (int j = 0; j < num3; j++)
+		int num2 = binaryReader.ReadInt32();
+		for (int j = 0; j < num2; j++)
 		{
 			int key = binaryReader.ReadInt32();
 			mAliveBuildings.Add(key, new List<int>());
-			int num4 = binaryReader.ReadInt32();
-			for (int k = 0; k < num4; k++)
+			int num3 = binaryReader.ReadInt32();
+			for (int k = 0; k < num3; k++)
 			{
 				mAliveBuildings[key].Add(binaryReader.ReadInt32());
 			}

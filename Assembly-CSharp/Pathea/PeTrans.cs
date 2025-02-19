@@ -48,13 +48,8 @@ public class PeTrans : PeCmpt, IPeMsg
 			{
 				Debug.LogError("[ERROR]Try to set wrong pos[" + value.x + "," + value.y + "," + value.z + "] to entity " + base.name);
 			}
-			else
+			else if (base.Entity.Id != 9008 || !PeGameMgr.IsMulti || !PlayerNetwork._missionInited || !MissionManager.Instance.HadCompleteMission(18) || MissionManager.Instance.HadCompleteMission(27) || !(value != new Vector3(12246.42f, 193.1f, 6528.76f)))
 			{
-				int num = 0;
-				if (base.Entity.Id == 9016 || base.Entity.Id == 9017 || base.Entity.Id == 9205)
-				{
-					num++;
-				}
 				mTrans.position = value;
 				if (mModel != null)
 				{

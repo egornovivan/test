@@ -21,8 +21,6 @@ public class BTSelectAttackWeapon : BTNormal
 
 	private float m_LastAttackTime;
 
-	private float m_LastSightTime;
-
 	private float m_StartAttackTime;
 
 	private float m_LastRetreatTime;
@@ -304,7 +302,6 @@ public class BTSelectAttackWeapon : BTNormal
 		}
 		m_Attacked = false;
 		m_LastAttackTime = 0f;
-		m_LastSightTime = 0f;
 		m_StartAttackTime = Time.time;
 		m_StartDefenceTime = Time.time;
 		return BehaveResult.Running;
@@ -400,10 +397,6 @@ public class BTSelectAttackWeapon : BTNormal
 				{
 					if (base.entity.motionEquipment.Weapon == null || base.entity.motionEquipment.Weapon.Equals(null))
 					{
-						Vector3 from = Vector3.ProjectOnPlane(base.entity.peTrans.trans.forward, Vector3.up);
-						Vector3 to = Vector3.ProjectOnPlane(base.selectattackEnemy.Direction, Vector3.up);
-						float num = Vector3.Angle(from, to);
-						bool flag5 = (base.entity.Race != ERace.Puja && base.entity.Race != ERace.Paja) || num < 45f;
 						if (!weapon.HoldReady)
 						{
 							StopMove();
@@ -475,18 +468,18 @@ public class BTSelectAttackWeapon : BTNormal
 		float maxRange = m_Mode.maxRange;
 		float sqrDistanceLogic = base.selectattackEnemy.SqrDistanceLogic;
 		Vector3 direction = base.selectattackEnemy.Direction;
-		bool flag6 = !m_Mode.ignoreTerrain && (PEUtil.IsBlocked(base.entity, base.selectattackEnemy.entityTarget) || PEUtil.IsNpcsuperposition(base.entity, base.selectattackEnemy));
-		bool flag7 = sqrDistanceLogic <= maxRange * maxRange && sqrDistanceLogic >= minRange * minRange;
-		bool flag8 = PEUtil.IsScopeAngle(direction, base.transform.forward, Vector3.up, m_Mode.minAngle, m_Mode.maxAngle);
-		bool flag9 = flag7 && flag8 && !flag6;
-		bool flag10 = m_Mode.type == AttackType.Melee || aimWeapon == null || aimWeapon.Aimed;
-		bool flag11 = !flag6 && m_Mode.type == AttackType.Ranged && base.entity.target.beSkillTarget;
+		bool flag5 = !m_Mode.ignoreTerrain && (PEUtil.IsBlocked(base.entity, base.selectattackEnemy.entityTarget) || PEUtil.IsNpcsuperposition(base.entity, base.selectattackEnemy));
+		bool flag6 = sqrDistanceLogic <= maxRange * maxRange && sqrDistanceLogic >= minRange * minRange;
+		bool flag7 = PEUtil.IsScopeAngle(direction, base.transform.forward, Vector3.up, m_Mode.minAngle, m_Mode.maxAngle);
+		bool flag8 = flag6 && flag7 && !flag5;
+		bool flag9 = m_Mode.type == AttackType.Melee || aimWeapon == null || aimWeapon.Aimed;
+		bool flag10 = !flag5 && m_Mode.type == AttackType.Ranged && base.entity.target.beSkillTarget;
 		m_Local = GetLocalPos(base.selectattackEnemy, m_Mode);
 		m_Local = Vector3.ProjectOnPlane(m_Local, Vector3.up);
-		float num2 = minRange;
+		float num = minRange;
 		if (m_Mode.type == AttackType.Ranged)
 		{
-			num2 += Mathf.Lerp(minRange, maxRange, 0.2f);
+			num += Mathf.Lerp(minRange, maxRange, 0.2f);
 		}
 		bool beSkillTarget = base.entity.target.beSkillTarget;
 		if (Time.time - m_LastRetreatTime > 3f)
@@ -496,10 +489,10 @@ public class BTSelectAttackWeapon : BTNormal
 			m_ChangeLocal = Vector3.zero;
 			m_LastChangeTime = Time.time;
 		}
-		if (sqrDistanceLogic > maxRange * maxRange || flag6)
+		if (sqrDistanceLogic > maxRange * maxRange || flag5)
 		{
 			Vector3 movePos2 = GetMovePos(base.selectattackEnemy);
-			if (flag6)
+			if (flag5)
 			{
 				Vector3 setPos2 = base.position + base.transform.forward;
 				if (Stucking())
@@ -520,7 +513,7 @@ public class BTSelectAttackWeapon : BTNormal
 				MoveDirection(dir, state);
 			}
 		}
-		else if (sqrDistanceLogic < num2 * num2)
+		else if (sqrDistanceLogic < num * num)
 		{
 			if (Time.time - m_LastRetreatTime < 2f)
 			{
@@ -536,7 +529,7 @@ public class BTSelectAttackWeapon : BTNormal
 				StopMove();
 			}
 		}
-		else if (flag11)
+		else if (flag10)
 		{
 			if (Time.time - m_LastChangeTime < 2f)
 			{
@@ -552,9 +545,9 @@ public class BTSelectAttackWeapon : BTNormal
 		{
 			StopMove();
 		}
-		if (!flag6)
+		if (!flag5)
 		{
-			if (!flag8 || !flag10)
+			if (!flag7 || !flag9)
 			{
 				FaceDirection(direction);
 			}
@@ -569,9 +562,9 @@ public class BTSelectAttackWeapon : BTNormal
 			if (!Enemy.IsNullOrInvalid(enemy) && base.selectattackEnemy.entityTarget.IsAttacking && enemy.entityTarget == base.entity && IsInEnemyFoward(base.selectattackEnemy, base.entity) && Time.time - m_StartDefenceTime >= 3f)
 			{
 				m_StartDefenceTime = Time.time;
-				bool flag12 = CanDoAction(PEActionType.HoldShield);
-				bool flag13 = CanStep();
-				if (flag12 && flag13)
+				bool flag11 = CanDoAction(PEActionType.HoldShield);
+				bool flag12 = CanStep();
+				if (flag11 && flag12)
 				{
 					if (Random.value > 0.5f)
 					{
@@ -585,14 +578,14 @@ public class BTSelectAttackWeapon : BTNormal
 					m_StartAttackTime = Time.time;
 					return BehaveResult.Running;
 				}
-				if (flag12)
+				if (flag11)
 				{
 					DoSheid();
 					m_Attacked = false;
 					m_StartAttackTime = Time.time;
 					return BehaveResult.Running;
 				}
-				if (flag13)
+				if (flag12)
 				{
 					DoStep();
 					m_Attacked = false;
@@ -603,15 +596,15 @@ public class BTSelectAttackWeapon : BTNormal
 		}
 		if (!m_Attacked)
 		{
-			if (flag9 && flag10)
+			if (flag8 && flag9)
 			{
 				WeaponAttack(base.Weapon, base.selectattackEnemy, m_Index);
 				m_Attacked = true;
 			}
 			return BehaveResult.Running;
 		}
-		bool flag14 = m_Mode != null && m_Mode.type == AttackType.Ranged && base.Weapon.IsInCD();
-		if (flag9 && base.Weapon != null && !base.Weapon.Equals(null) && !flag14)
+		bool flag13 = m_Mode != null && m_Mode.type == AttackType.Ranged && base.Weapon.IsInCD();
+		if (flag8 && base.Weapon != null && !base.Weapon.Equals(null) && !flag13)
 		{
 			m_StartAttackTime = Time.time;
 			WeaponAttack(base.Weapon, base.selectattackEnemy, m_Index);

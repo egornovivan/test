@@ -17,8 +17,6 @@ public class CloudManager : MonoBehaviour
 
 	private List<CloudController> mClouds = new List<CloudController>();
 
-	private float mLastCheckTime;
-
 	private void Awake()
 	{
 		mUnInstantiateList.Clear();

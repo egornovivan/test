@@ -77,8 +77,6 @@ public class StroyManager : MonoBehaviour
 
 	private Dictionary<int, CurPathInfo> m_iCurPathMap;
 
-	private int m_CurPathIdx;
-
 	public bool npcLoaded;
 
 	public int maxCount;
@@ -88,12 +86,6 @@ public class StroyManager : MonoBehaviour
 	private Transform mFollowCameraTarget;
 
 	public CamMode mCamMode;
-
-	private bool m_bCamModing;
-
-	private bool m_bCamMoveModing;
-
-	private bool m_bCamRotModing;
 
 	private int m_CamIdx;
 
@@ -134,6 +126,8 @@ public class StroyManager : MonoBehaviour
 	private Queue<SkinnedMeshRenderer> changingAdd = new Queue<SkinnedMeshRenderer>();
 
 	private Queue<Material> changingMinus = new Queue<Material>();
+
+	private Vector3 gerdyPutDownPos = new Vector3(12246.42f, 193.1f, 6528.76f);
 
 	private bool recordPatrol;
 
@@ -624,23 +618,32 @@ public class StroyManager : MonoBehaviour
 					continue;
 				}
 				npc = PeSingleton<EntityMgr>.Instance.Get(npcStyle.npcid);
-				if (!(npc == null))
+				if (npc == null)
 				{
-					Instance.Translate(npc, npcStyle.pos);
-					NpcCmpt npcCmpt = npc.NpcCmpt;
-					if (null != npcCmpt)
+					continue;
+				}
+				if (PeGameMgr.IsMultiStory && npc.Id == 9033)
+				{
+					float num6 = Vector3.Distance(npcStyle.pos, new Vector3(9856f, 251.5f, 9575f));
+					if (num6 < 0.5f)
 					{
-						npcCmpt.FixedPointPos = npcStyle.pos;
-					}
-					else
-					{
-						Debug.LogError("Failed to set fixed point.");
+						npcStyle.pos = new Vector3(9876f, 251.5f, 9597f);
 					}
 				}
+				Instance.Translate(npc, npcStyle.pos);
+				NpcCmpt npcCmpt = npc.NpcCmpt;
+				if (null != npcCmpt)
+				{
+					npcCmpt.FixedPointPos = npcStyle.pos;
+				}
+				else
+				{
+					Debug.LogError("Failed to set fixed point.");
+				}
 			}
-			for (int num6 = 0; num6 < value.m_FollowPlayerList.Count; num6++)
+			for (int num7 = 0; num7 < value.m_FollowPlayerList.Count; num7++)
 			{
-				NpcOpen npcOpen = value.m_FollowPlayerList[num6];
+				NpcOpen npcOpen = value.m_FollowPlayerList[num7];
 				npc = PeSingleton<EntityMgr>.Instance.Get(npcOpen.npcid);
 				if (npc == null)
 				{
@@ -665,9 +668,9 @@ public class StroyManager : MonoBehaviour
 					cmpt4.RemoveForcedServant(component);
 				}
 			}
-			for (int num7 = 0; num7 < value.m_iColonyNoOrderNpcList.Count; num7++)
+			for (int num8 = 0; num8 < value.m_iColonyNoOrderNpcList.Count; num8++)
 			{
-				npc = PeSingleton<EntityMgr>.Instance.Get(value.m_iColonyNoOrderNpcList[num7]);
+				npc = PeSingleton<EntityMgr>.Instance.Get(value.m_iColonyNoOrderNpcList[num8]);
 				if (!(npc == null))
 				{
 					npc.NpcCmpt.FixedPointPos = npc.position;
@@ -679,41 +682,41 @@ public class StroyManager : MonoBehaviour
 			{
 				StartCoroutine(WaitPlotMissionTrigger(value.m_plotMissionTrigger));
 			}
-			int num8 = value.m_monsterHatredList.Count / 5;
+			int num9 = value.m_monsterHatredList.Count / 5;
 			List<int> list = new List<int>();
-			for (int num9 = 0; num9 < num8; num9++)
+			for (int num10 = 0; num10 < num9; num10++)
 			{
-				list = value.m_monsterHatredList.GetRange(5 * num9, 5);
+				list = value.m_monsterHatredList.GetRange(5 * num10, 5);
 				SpecialHatred.MonsterHatredAdd(list);
 			}
-			num8 = value.m_npcHatredList.Count / 4;
-			for (int num10 = 0; num10 < num8; num10++)
+			num9 = value.m_npcHatredList.Count / 4;
+			for (int num11 = 0; num11 < num9; num11++)
 			{
-				list = value.m_npcHatredList.GetRange(4 * num10, 4);
+				list = value.m_npcHatredList.GetRange(4 * num11, 4);
 				SpecialHatred.NpcHatredAdd(list);
 			}
-			num8 = value.m_harmList.Count / 3;
-			for (int num11 = 0; num11 < num8; num11++)
+			num9 = value.m_harmList.Count / 3;
+			for (int num12 = 0; num12 < num9; num12++)
 			{
-				list = value.m_harmList.GetRange(3 * num11, 3);
+				list = value.m_harmList.GetRange(3 * num12, 3);
 				SpecialHatred.HarmAdd(list);
 			}
-			num8 = value.m_doodadHarmList.Count / 3;
-			for (int num12 = 0; num12 < num8; num12++)
+			num9 = value.m_doodadHarmList.Count / 3;
+			for (int num13 = 0; num13 < num9; num13++)
 			{
-				list = value.m_doodadHarmList.GetRange(3 * num12, 3);
+				list = value.m_doodadHarmList.GetRange(3 * num13, 3);
 				PeEntity[] array = ((list[1] == 0) ? PeSingleton<EntityMgr>.Instance.GetDoodadEntitiesByProtoId(list[2]) : PeSingleton<EntityMgr>.Instance.GetDoodadEntities(list[1]));
-				for (int num13 = 0; num13 < array.Length; num13++)
+				for (int num14 = 0; num14 < array.Length; num14++)
 				{
-					if (!(array[num13].GetCmpt<SceneDoodadLodCmpt>() == null))
+					if (!(array[num14].GetCmpt<SceneDoodadLodCmpt>() == null))
 					{
 						if (list[0] == 0)
 						{
-							array[num13].GetCmpt<SceneDoodadLodCmpt>().IsDamagable = true;
+							array[num14].GetCmpt<SceneDoodadLodCmpt>().IsDamagable = true;
 						}
 						else
 						{
-							array[num13].GetCmpt<SceneDoodadLodCmpt>().IsDamagable = false;
+							array[num14].GetCmpt<SceneDoodadLodCmpt>().IsDamagable = false;
 						}
 					}
 				}
@@ -735,9 +738,9 @@ public class StroyManager : MonoBehaviour
 					}
 				});
 			}
-			for (int num14 = 0; num14 < value.cantReviveNpc.Count; num14++)
+			for (int num15 = 0; num15 < value.cantReviveNpc.Count; num15++)
 			{
-				npc = PeSingleton<EntityMgr>.Instance.Get(value.cantReviveNpc[num14]);
+				npc = PeSingleton<EntityMgr>.Instance.Get(value.cantReviveNpc[num15]);
 				if (npc != null && npc.NpcCmpt != null)
 				{
 					npc.NpcCmpt.ReviveTime = -1;
@@ -810,13 +813,12 @@ public class StroyManager : MonoBehaviour
 					});
 				}
 			}
-			num8 = value.m_killNpcList.Count / 3;
+			num9 = value.m_killNpcList.Count / 3;
 			list = new List<int>();
-			List<PeEntity> list3 = new List<PeEntity>();
-			for (int num15 = 0; num15 < num8; num15++)
+			for (int num16 = 0; num16 < num9; num16++)
 			{
-				list = value.m_killNpcList.GetRange(3 * num15, 3);
-				list3 = KillNPC.NPCBeKilled(list[0]);
+				list = value.m_killNpcList.GetRange(3 * num16, 3);
+				KillNPC.NPCBeKilled(list[0]);
 			}
 		}
 	}
@@ -1004,7 +1006,6 @@ public class StroyManager : MonoBehaviour
 			MissionCommonData missionCommonData2 = MissionManager.GetMissionCommonData(adStroyData.m_comMissionID[l]);
 			if (missionCommonData2 != null)
 			{
-				PeEntity peEntity3 = PeSingleton<EntityMgr>.Instance.Get(missionCommonData2.m_iNpc);
 				if (PeGameMgr.IsSingle)
 				{
 					MissionManager.Instance.CompleteMission(adStroyData.m_comMissionID[l]);
@@ -1060,17 +1061,49 @@ public class StroyManager : MonoBehaviour
 				}
 			}
 		}
+		if (PeGameMgr.IsMulti && PlayerNetwork._missionInited)
+		{
+			if (MissionManager.Instance.HadCompleteMission(18) && !MissionManager.Instance.HadCompleteMission(27))
+			{
+				PeEntity peEntity = PeSingleton<EntityMgr>.Instance.Get(9008);
+				PeEntity peEntity2 = PeSingleton<EntityMgr>.Instance.Get(9009);
+				if (peEntity != null)
+				{
+					if (peEntity.peTrans.rotation.eulerAngles.y != 270f)
+					{
+						peEntity.peTrans.rotation = Quaternion.Euler(0f, 270f, 0f);
+						peEntity.netCmpt.network.rot = Quaternion.Euler(0f, 270f, 0f);
+					}
+					if (Vector3.Distance(peEntity.peTrans.position, gerdyPutDownPos) > 0.5f)
+					{
+						peEntity.peTrans.position = gerdyPutDownPos;
+						peEntity.netCmpt.network._pos = gerdyPutDownPos;
+						peEntity.NpcCmpt.MountID = 0;
+						if (peEntity2 != null)
+						{
+							peEntity2.NpcCmpt.MountID = 0;
+						}
+					}
+					if (!MissionManager.Instance.HasMission(27))
+					{
+						peEntity.animCmpt.SetBool("BeCarry", value: false);
+						peEntity.animCmpt.SetBool("InjuredSit", value: false);
+						peEntity.animCmpt.SetBool("InjuredRest", value: true);
+					}
+				}
+			}
+			if (MissionManager.Instance.HadCompleteMission(27) && !MissionManager.Instance.HadCompleteMission(61))
+			{
+				PeEntity peEntity3 = PeSingleton<EntityMgr>.Instance.Get(9008);
+				if (peEntity3 != null)
+				{
+					peEntity3.animCmpt.SetBool("InjuredRest", value: false);
+				}
+			}
+		}
 		if (PeGameMgr.IsMulti && !PlayerNetwork._missionInited && PeSingleton<PeCreature>.Instance.mainPlayer == null)
 		{
 			return;
-		}
-		if (PeGameMgr.IsMulti && MissionManager.Instance.HadCompleteMission(18) && !MissionManager.Instance.HadCompleteMission(27))
-		{
-			PeEntity peEntity = PeSingleton<EntityMgr>.Instance.Get(9008);
-			if (peEntity != null && peEntity.peTrans.rotation.eulerAngles.y != 270f)
-			{
-				peEntity.peTrans.rotation = Quaternion.Euler(0f, 270f, 0f);
-			}
 		}
 		int count = checkEnterArea.Count;
 		for (int num = count - 1; num >= 0; num--)
@@ -1114,7 +1147,6 @@ public class StroyManager : MonoBehaviour
 			return;
 		}
 		int num2 = 0;
-		bool flag2 = true;
 		KeyValuePair<int, bool> ite2;
 		foreach (KeyValuePair<int, bool> story in m_StoryList)
 		{
@@ -1124,7 +1156,6 @@ public class StroyManager : MonoBehaviour
 				continue;
 			}
 			num2 = ite2.Key;
-			flag2 = ite2.Value;
 			break;
 		}
 		StoryData stroyData = StoryRepository.GetStroyData(num2);
@@ -1255,8 +1286,8 @@ public class StroyManager : MonoBehaviour
 				break;
 			case "PutDown":
 			{
-				PeEntity peEntity2 = PeSingleton<EntityMgr>.Instance.Get(9008);
-				NpcCmpt npcCmpt = peEntity2.NpcCmpt;
+				PeEntity peEntity4 = PeSingleton<EntityMgr>.Instance.Get(9008);
+				NpcCmpt npcCmpt = peEntity4.NpcCmpt;
 				npcCmpt.Req_Remove(EReqType.Salvation);
 				if (PeGameMgr.IsMultiStory)
 				{
@@ -1271,16 +1302,16 @@ public class StroyManager : MonoBehaviour
 					}
 				}
 				CarryUp(npc, 9008, bCarryUp: false);
-				BiologyViewCmpt biologyViewCmpt2 = peEntity2.biologyViewCmpt;
+				BiologyViewCmpt biologyViewCmpt2 = peEntity4.biologyViewCmpt;
 				if (null != biologyViewCmpt2)
 				{
 					biologyViewCmpt2.ActivateInjured(value: false);
 				}
-				MotionMgrCmpt motionMgr2 = peEntity2.motionMgr;
+				MotionMgrCmpt motionMgr2 = peEntity4.motionMgr;
 				if (!(motionMgr2 == null))
 				{
 					motionMgr2.FreezePhyState(GetType(), v: true);
-					SetIdle(peEntity2, "InjuredRest");
+					SetIdle(peEntity4, "InjuredRest");
 				}
 				break;
 			}
@@ -1368,23 +1399,32 @@ public class StroyManager : MonoBehaviour
 				continue;
 			}
 			npc = PeSingleton<EntityMgr>.Instance.Get(npcStyle.npcid);
-			if (!(npc == null))
+			if (npc == null)
 			{
-				Instance.Translate(npc, npcStyle.pos);
-				NpcCmpt npcCmpt2 = npc.NpcCmpt;
-				if (null != npcCmpt2)
+				continue;
+			}
+			if (PeGameMgr.IsMultiStory && npc.Id == 9033)
+			{
+				float num7 = Vector3.Distance(npcStyle.pos, new Vector3(9856f, 251.5f, 9575f));
+				if (num7 < 0.5f)
 				{
-					npcCmpt2.FixedPointPos = npcStyle.pos;
-				}
-				else
-				{
-					Debug.LogError("Failed to set fixed point.");
+					npcStyle.pos = new Vector3(9876f, 251.5f, 9597f);
 				}
 			}
+			Instance.Translate(npc, npcStyle.pos);
+			NpcCmpt npcCmpt2 = npc.NpcCmpt;
+			if (null != npcCmpt2)
+			{
+				npcCmpt2.FixedPointPos = npcStyle.pos;
+			}
+			else
+			{
+				Debug.LogError("Failed to set fixed point.");
+			}
 		}
-		for (int num7 = 0; num7 < stroyData.m_FollowPlayerList.Count; num7++)
+		for (int num8 = 0; num8 < stroyData.m_FollowPlayerList.Count; num8++)
 		{
-			NpcOpen npcOpen = stroyData.m_FollowPlayerList[num7];
+			NpcOpen npcOpen = stroyData.m_FollowPlayerList[num8];
 			npc = PeSingleton<EntityMgr>.Instance.Get(npcOpen.npcid);
 			if (npc == null)
 			{
@@ -1425,10 +1465,10 @@ public class StroyManager : MonoBehaviour
 			}
 			npcCmpt3.FixedPointPos = npc.position;
 		}
-		for (int num8 = 0; num8 < stroyData.m_MoveNpc.Count; num8++)
+		for (int num9 = 0; num9 < stroyData.m_MoveNpc.Count; num9++)
 		{
-			bool flag3 = false;
-			MoveNpcData moveNpcData = stroyData.m_MoveNpc[num8];
+			bool flag2 = false;
+			MoveNpcData moveNpcData = stroyData.m_MoveNpc[num9];
 			if (moveNpcData == null)
 			{
 				continue;
@@ -1464,7 +1504,7 @@ public class StroyManager : MonoBehaviour
 			}
 			else
 			{
-				flag3 = true;
+				flag2 = true;
 				if (!CSMain.GetAssemblyPos(out pos2))
 				{
 					if (moveNpcData.targetNpc == -99)
@@ -1479,9 +1519,9 @@ public class StroyManager : MonoBehaviour
 			}
 			List<Vector3> meetingPosition = GetMeetingPosition(pos2, moveNpcData.npcsId.Count, 2f);
 			Dictionary<PeEntity, bool> dictionary = new Dictionary<PeEntity, bool>();
-			for (int num9 = 0; num9 < moveNpcData.npcsId.Count; num9++)
+			for (int num10 = 0; num10 < moveNpcData.npcsId.Count; num10++)
 			{
-				npc = PeSingleton<EntityMgr>.Instance.Get(moveNpcData.npcsId[num9]);
+				npc = PeSingleton<EntityMgr>.Instance.Get(moveNpcData.npcsId[num10]);
 				if (npc == null)
 				{
 					continue;
@@ -1491,9 +1531,9 @@ public class StroyManager : MonoBehaviour
 					break;
 				}
 				Vector3 pos3;
-				if (!flag3)
+				if (!flag2)
 				{
-					pos3 = meetingPosition[num9];
+					pos3 = meetingPosition[num10];
 				}
 				else if (moveNpcData.targetNpc == -99)
 				{
@@ -1502,7 +1542,7 @@ public class StroyManager : MonoBehaviour
 					{
 						break;
 					}
-					int index2 = ((num9 + 2 < assemblyLogic.m_NPCTrans.Length) ? (num9 + 1) : 0);
+					int index2 = ((num10 + 2 < assemblyLogic.m_NPCTrans.Length) ? (num10 + 1) : 0);
 					if (!assemblyLogic.GetNpcPos(index2, out pos3))
 					{
 						break;
@@ -1576,9 +1616,9 @@ public class StroyManager : MonoBehaviour
 			}
 			if (vector != Vector3.zero)
 			{
-				for (int num10 = 0; num10 < stroyData.m_NpcRail.inpclist.Count; num10++)
+				for (int num11 = 0; num11 < stroyData.m_NpcRail.inpclist.Count; num11++)
 				{
-					npc = PeSingleton<EntityMgr>.Instance.Get(stroyData.m_NpcRail.inpclist[num10]);
+					npc = PeSingleton<EntityMgr>.Instance.Get(stroyData.m_NpcRail.inpclist[num11]);
 					PeSingleton<Manager>.Instance.GetTwoPointClosest(npc.ExtGetPos(), vector, out var start, out var end, out var startIndex, out var endIndex);
 					if (npc != null)
 					{
@@ -1599,9 +1639,9 @@ public class StroyManager : MonoBehaviour
 				}
 			}
 		}
-		for (int num11 = 0; num11 < stroyData.m_NpcFace.Count; num11++)
+		for (int num12 = 0; num12 < stroyData.m_NpcFace.Count; num12++)
 		{
-			NpcFace npcFace = stroyData.m_NpcFace[num11];
+			NpcFace npcFace = stroyData.m_NpcFace[num12];
 			npc = PeSingleton<EntityMgr>.Instance.Get(npcFace.npcid);
 			if (npc == null)
 			{
@@ -1617,51 +1657,51 @@ public class StroyManager : MonoBehaviour
 				SetRotation(npc, Quaternion.AngleAxis(npcFace.angle, Vector3.up));
 				continue;
 			}
-			PeEntity peEntity3 = PeSingleton<EntityMgr>.Instance.Get(npcFace.otherid);
-			if (peEntity3 != null)
+			PeEntity peEntity5 = PeSingleton<EntityMgr>.Instance.Get(npcFace.otherid);
+			if (peEntity5 != null)
 			{
-				npc.CmdFaceToPoint(peEntity3.ExtGetPos());
+				npc.CmdFaceToPoint(peEntity5.ExtGetPos());
 			}
 		}
-		for (int num12 = 0; num12 < stroyData.m_NpcCamp.Count; num12++)
+		for (int num13 = 0; num13 < stroyData.m_NpcCamp.Count; num13++)
 		{
-			NpcCamp npcCamp = stroyData.m_NpcCamp[num12];
+			NpcCamp npcCamp = stroyData.m_NpcCamp[num13];
 			npc = PeSingleton<EntityMgr>.Instance.Get(npcCamp.npcid);
 			if (!(npc == null))
 			{
 				npc.SetCamp(npcCamp.camp);
 			}
 		}
-		for (int num13 = 0; num13 < stroyData.m_SenceFace.Count; num13++)
+		for (int num14 = 0; num14 < stroyData.m_SenceFace.Count; num14++)
 		{
-			SenceFace senceFace = stroyData.m_SenceFace[num13];
+			SenceFace senceFace = stroyData.m_SenceFace[num14];
 			GameObject gameObject2 = GameObject.Find(senceFace.name);
 			if (!(gameObject2 == null))
 			{
 				gameObject2.transform.rotation = Quaternion.AngleAxis(senceFace.angle, Vector3.up);
 			}
 		}
-		for (int num14 = 0; num14 < stroyData.m_NpcAI.Count; num14++)
+		for (int num15 = 0; num15 < stroyData.m_NpcAI.Count; num15++)
 		{
-			NpcOpen npcOpen2 = stroyData.m_NpcAI[num14];
+			NpcOpen npcOpen2 = stroyData.m_NpcAI[num15];
 			npc = PeSingleton<EntityMgr>.Instance.Get(npcOpen2.npcid);
 			if (!(npc == null))
 			{
 				npc.SetAiActive(npcOpen2.bopen);
 			}
 		}
-		for (int num15 = 0; num15 < stroyData.m_NpcInvincible.Count; num15++)
+		for (int num16 = 0; num16 < stroyData.m_NpcInvincible.Count; num16++)
 		{
-			NpcOpen npcOpen3 = stroyData.m_NpcInvincible[num15];
+			NpcOpen npcOpen3 = stroyData.m_NpcInvincible[num16];
 			npc = PeSingleton<EntityMgr>.Instance.Get(npcOpen3.npcid);
 			if (!(npc == null))
 			{
 				npc.SetInvincible(npcOpen3.bopen);
 			}
 		}
-		for (int num16 = 0; num16 < stroyData.m_cantReviveNpc.Count; num16++)
+		for (int num17 = 0; num17 < stroyData.m_cantReviveNpc.Count; num17++)
 		{
-			npc = PeSingleton<EntityMgr>.Instance.Get(stroyData.m_cantReviveNpc[num16]);
+			npc = PeSingleton<EntityMgr>.Instance.Get(stroyData.m_cantReviveNpc[num17]);
 			if (npc != null && npc.NpcCmpt != null)
 			{
 				npc.NpcCmpt.ReviveTime = -1;
@@ -1670,67 +1710,67 @@ public class StroyManager : MonoBehaviour
 		if (stroyData.m_attractMons.Count >= 3)
 		{
 			List<int> list = new List<int>();
-			int num17 = stroyData.m_attractMons.FindIndex((int ite) => ite == -9999);
+			int num18 = stroyData.m_attractMons.FindIndex((int ite) => ite == -9999);
 			bool missionOrPlot = true;
-			for (int num18 = 0; num18 < stroyData.m_attractMons.Count; num18++)
+			for (int num19 = 0; num19 < stroyData.m_attractMons.Count; num19++)
 			{
-				if (num18 != num17)
+				if (num19 != num18)
 				{
-					if (num18 == num17 + 1)
+					if (num19 == num18 + 1)
 					{
-						missionOrPlot = stroyData.m_attractMons[num18] == 1;
+						missionOrPlot = stroyData.m_attractMons[num19] == 1;
 					}
-					else if (num18 > num17 + 1)
+					else if (num19 > num18 + 1)
 					{
-						list.Add(stroyData.m_attractMons[num18]);
+						list.Add(stroyData.m_attractMons[num19]);
 					}
 				}
 			}
-			StartCoroutine(CheckAttractMons(stroyData.m_attractMons.GetRange(0, num17), missionOrPlot, list));
+			StartCoroutine(CheckAttractMons(stroyData.m_attractMons.GetRange(0, num18), missionOrPlot, list));
 		}
-		int num19 = stroyData.m_killNpcList.Count / 3;
+		int num20 = stroyData.m_killNpcList.Count / 3;
 		List<int> list2 = new List<int>();
 		List<PeEntity> list3 = new List<PeEntity>();
-		for (int num20 = 0; num20 < num19; num20++)
+		for (int num21 = 0; num21 < num20; num21++)
 		{
-			list2 = stroyData.m_killNpcList.GetRange(3 * num20, 3);
+			list2 = stroyData.m_killNpcList.GetRange(3 * num21, 3);
 			list3 = KillNPC.NPCBeKilled(list2[0]);
 			KillNPC.NPCaddItem(list3, list2[1], list2[2]);
 		}
-		num19 = stroyData.m_monsterHatredList.Count / 5;
-		for (int num21 = 0; num21 < num19; num21++)
+		num20 = stroyData.m_monsterHatredList.Count / 5;
+		for (int num22 = 0; num22 < num20; num22++)
 		{
-			list2 = stroyData.m_monsterHatredList.GetRange(5 * num21, 5);
+			list2 = stroyData.m_monsterHatredList.GetRange(5 * num22, 5);
 			SpecialHatred.MonsterHatredAdd(list2);
 		}
-		num19 = stroyData.m_npcHatredList.Count / 4;
-		for (int num22 = 0; num22 < num19; num22++)
+		num20 = stroyData.m_npcHatredList.Count / 4;
+		for (int num23 = 0; num23 < num20; num23++)
 		{
-			list2 = stroyData.m_npcHatredList.GetRange(4 * num22, 4);
+			list2 = stroyData.m_npcHatredList.GetRange(4 * num23, 4);
 			SpecialHatred.NpcHatredAdd(list2);
 		}
-		num19 = stroyData.m_harmList.Count / 3;
-		for (int num23 = 0; num23 < num19; num23++)
+		num20 = stroyData.m_harmList.Count / 3;
+		for (int num24 = 0; num24 < num20; num24++)
 		{
-			list2 = stroyData.m_harmList.GetRange(3 * num23, 3);
+			list2 = stroyData.m_harmList.GetRange(3 * num24, 3);
 			SpecialHatred.HarmAdd(list2);
 		}
-		num19 = stroyData.m_doodadHarmList.Count / 3;
-		for (int num24 = 0; num24 < num19; num24++)
+		num20 = stroyData.m_doodadHarmList.Count / 3;
+		for (int num25 = 0; num25 < num20; num25++)
 		{
-			list2 = stroyData.m_doodadHarmList.GetRange(3 * num24, 3);
+			list2 = stroyData.m_doodadHarmList.GetRange(3 * num25, 3);
 			PeEntity[] array = ((list2[1] == 0) ? PeSingleton<EntityMgr>.Instance.GetDoodadEntitiesByProtoId(list2[2]) : PeSingleton<EntityMgr>.Instance.GetDoodadEntities(list2[1]));
-			for (int num25 = 0; num25 < array.Length; num25++)
+			for (int num26 = 0; num26 < array.Length; num26++)
 			{
-				if (!(array[num25].GetCmpt<SceneDoodadLodCmpt>() == null))
+				if (!(array[num26].GetCmpt<SceneDoodadLodCmpt>() == null))
 				{
 					if (list2[0] == 0)
 					{
-						array[num25].GetCmpt<SceneDoodadLodCmpt>().IsDamagable = true;
+						array[num26].GetCmpt<SceneDoodadLodCmpt>().IsDamagable = true;
 					}
 					else
 					{
-						array[num25].GetCmpt<SceneDoodadLodCmpt>().IsDamagable = false;
+						array[num26].GetCmpt<SceneDoodadLodCmpt>().IsDamagable = false;
 					}
 				}
 			}
@@ -1821,7 +1861,7 @@ public class StroyManager : MonoBehaviour
 		ChangePartrolmode item4 = default(ChangePartrolmode);
 		foreach (ChangePartrolmode item11 in stroyData.m_monPatrolMode)
 		{
-			bool flag4 = false;
+			bool flag3 = false;
 			item4.monsId = new List<int>();
 			item4.type = 0;
 			item4.radius = 0;
@@ -1852,16 +1892,16 @@ public class StroyManager : MonoBehaviour
 				}
 				else
 				{
-					if (!flag4)
+					if (!flag3)
 					{
-						flag4 = true;
+						flag3 = true;
 						item4.type = item11.type;
 						item4.radius = item11.radius;
 					}
 					item4.monsId.Add(item12);
 				}
 			}
-			if (flag4)
+			if (flag3)
 			{
 				patrolModeRecord.Add(item4);
 				if (!recordPatrol)
@@ -1928,13 +1968,13 @@ public class StroyManager : MonoBehaviour
 				}
 			}
 		}
-		for (int num26 = 0; num26 < stroyData.m_abnormalInfo.Count; num26++)
+		for (int num27 = 0; num27 < stroyData.m_abnormalInfo.Count; num27++)
 		{
-			AbnormalInfo abnormalInfo = stroyData.m_abnormalInfo[num26];
-			for (int num27 = 0; num27 < abnormalInfo.npcs.Count; num27++)
+			AbnormalInfo abnormalInfo = stroyData.m_abnormalInfo[num27];
+			for (int num28 = 0; num28 < abnormalInfo.npcs.Count; num28++)
 			{
 				AbnormalConditionCmpt cmpt5;
-				if (abnormalInfo.npcs[num27] == 30000)
+				if (abnormalInfo.npcs[num28] == 30000)
 				{
 					foreach (PeEntity item15 in PeSingleton<EntityMgr>.Instance.All)
 					{
@@ -1957,11 +1997,11 @@ public class StroyManager : MonoBehaviour
 					}
 					break;
 				}
-				if (abnormalInfo.npcs[num27] == 20000)
+				if (abnormalInfo.npcs[num28] == 20000)
 				{
 					npc = PeSingleton<MainPlayer>.Instance.entity;
 				}
-				else if (abnormalInfo.npcs[num27] == 0)
+				else if (abnormalInfo.npcs[num28] == 0)
 				{
 					if (!CSMain.HasCSAssembly() || CSMain.GetCSRandomNpc().Count <= 0)
 					{
@@ -1971,7 +2011,7 @@ public class StroyManager : MonoBehaviour
 				}
 				else
 				{
-					npc = PeSingleton<EntityMgr>.Instance.Get(abnormalInfo.npcs[num27]);
+					npc = PeSingleton<EntityMgr>.Instance.Get(abnormalInfo.npcs[num28]);
 				}
 				if (npc == null)
 				{
@@ -1994,17 +2034,17 @@ public class StroyManager : MonoBehaviour
 		if (null != PeSingleton<PeCreature>.Instance.mainPlayer)
 		{
 			int playerID = Mathf.RoundToInt(PeSingleton<PeCreature>.Instance.mainPlayer.GetAttribute(AttribType.DefaultPlayerID));
-			for (int num28 = 0; num28 < stroyData.m_reputationChange.Length; num28++)
+			for (int num29 = 0; num29 < stroyData.m_reputationChange.Length; num29++)
 			{
-				if (stroyData.m_reputationChange[num28].isEffect)
+				if (stroyData.m_reputationChange[num29].isEffect)
 				{
-					if (stroyData.m_reputationChange[num28].type == 0)
+					if (stroyData.m_reputationChange[num29].type == 0)
 					{
-						PeSingleton<ReputationSystem>.Instance.SetReputationValue(playerID, num28 + 5, stroyData.m_reputationChange[num28].valve);
+						PeSingleton<ReputationSystem>.Instance.SetReputationValue(playerID, num29 + 5, stroyData.m_reputationChange[num29].valve);
 					}
 					else
 					{
-						PeSingleton<ReputationSystem>.Instance.ChangeReputationValue(playerID, num28 + 5, stroyData.m_reputationChange[num28].type * stroyData.m_reputationChange[num28].valve);
+						PeSingleton<ReputationSystem>.Instance.ChangeReputationValue(playerID, num29 + 5, stroyData.m_reputationChange[num29].type * stroyData.m_reputationChange[num29].valve);
 					}
 				}
 			}
@@ -2054,30 +2094,30 @@ public class StroyManager : MonoBehaviour
 		}
 		if (stroyData.m_EffectPosList.Count > 0 && stroyData.m_EffectID > 0)
 		{
-			for (int num29 = 0; num29 < stroyData.m_EffectPosList.Count; num29++)
+			for (int num30 = 0; num30 < stroyData.m_EffectPosList.Count; num30++)
 			{
-				Singleton<EffectBuilder>.Instance.Register(stroyData.m_EffectID, null, stroyData.m_EffectPosList[num29], Quaternion.identity);
+				Singleton<EffectBuilder>.Instance.Register(stroyData.m_EffectID, null, stroyData.m_EffectPosList[num30], Quaternion.identity);
 			}
 		}
 		if (stroyData.m_SoundPosList.Count > 0 && stroyData.m_SoundID > 0)
 		{
-			for (int num30 = 0; num30 < stroyData.m_SoundPosList.Count; num30++)
+			for (int num31 = 0; num31 < stroyData.m_SoundPosList.Count; num31++)
 			{
-				Vector3 position = ((stroyData.m_SoundPosList[num30].type != 1) ? stroyData.m_SoundPosList[num30].pos : PeSingleton<EntityMgr>.Instance.Get(stroyData.m_SoundPosList[num30].npcID).position);
+				Vector3 position = ((stroyData.m_SoundPosList[num31].type != 1) ? stroyData.m_SoundPosList[num31].pos : PeSingleton<EntityMgr>.Instance.Get(stroyData.m_SoundPosList[num31].npcID).position);
 				AudioManager.instance.Create(position, stroyData.m_SoundID);
 			}
 		}
-		for (int num31 = 0; num31 < stroyData.m_iColonyNoOrderNpcList.Count; num31++)
+		for (int num32 = 0; num32 < stroyData.m_iColonyNoOrderNpcList.Count; num32++)
 		{
-			npc = PeSingleton<EntityMgr>.Instance.Get(stroyData.m_iColonyNoOrderNpcList[num31]);
+			npc = PeSingleton<EntityMgr>.Instance.Get(stroyData.m_iColonyNoOrderNpcList[num32]);
 			if (!(npc == null) && !(npc.NpcCmpt == null))
 			{
 				npc.NpcCmpt.BaseNpcOutMission = true;
 			}
 		}
-		for (int num32 = 0; num32 < stroyData.m_iColonyOrderNpcList.Count; num32++)
+		for (int num33 = 0; num33 < stroyData.m_iColonyOrderNpcList.Count; num33++)
 		{
-			npc = PeSingleton<EntityMgr>.Instance.Get(stroyData.m_iColonyOrderNpcList[num32]);
+			npc = PeSingleton<EntityMgr>.Instance.Get(stroyData.m_iColonyOrderNpcList[num33]);
 			if (!(npc == null) && !(npc.NpcCmpt == null))
 			{
 				npc.NpcCmpt.BaseNpcOutMission = false;
@@ -2107,12 +2147,12 @@ public class StroyManager : MonoBehaviour
 				MissionManager.Instance.CompleteMission(item19);
 			}
 		}
-		for (int num33 = 0; num33 < stroyData.m_whackedList.Count; num33++)
+		for (int num34 = 0; num34 < stroyData.m_whackedList.Count; num34++)
 		{
-			ENpcBattleInfo eNpcBattleInfo = stroyData.m_whackedList[num33];
-			for (int num34 = 0; num34 < eNpcBattleInfo.npcId.Count; num34++)
+			ENpcBattleInfo eNpcBattleInfo = stroyData.m_whackedList[num34];
+			for (int num35 = 0; num35 < eNpcBattleInfo.npcId.Count; num35++)
 			{
-				npc = PeSingleton<EntityMgr>.Instance.Get(eNpcBattleInfo.npcId[num34]);
+				npc = PeSingleton<EntityMgr>.Instance.Get(eNpcBattleInfo.npcId[num35]);
 				if (!(npc == null))
 				{
 					if (eNpcBattleInfo.type == 1)
@@ -2126,9 +2166,9 @@ public class StroyManager : MonoBehaviour
 				}
 			}
 		}
-		for (int num35 = 0; num35 < stroyData.m_getMission.Count; num35++)
+		for (int num36 = 0; num36 < stroyData.m_getMission.Count; num36++)
 		{
-			int missionID = stroyData.m_getMission[num35];
+			int missionID = stroyData.m_getMission[num36];
 			if (!MissionManager.Instance.m_PlayerMission.IsGetTakeMission(missionID))
 			{
 				continue;
@@ -2661,7 +2701,6 @@ public class StroyManager : MonoBehaviour
 		{
 			return;
 		}
-		m_bCamModing = true;
 		Vector3 vector = Vector3.zero;
 		Vector3 vector2 = Vector3.zero;
 		if (cpData.m_CamMove.npcid > 0)
@@ -2787,16 +2826,14 @@ public class StroyManager : MonoBehaviour
 			}
 			StartCoroutine(CamFollow(cpData.m_CamTrack.npcid, cpData.m_CamTrack.type, 3, 0f, Vector3.zero, Vector3.zero, cpData.m_Delay, 0f));
 		}
-		if (cpData.m_CamToPlayer)
+		if (!cpData.m_CamToPlayer)
 		{
 		}
-		m_bCamModing = false;
 	}
 
 	private IEnumerator CamFollowMove(Vector3 distpos, int delay)
 	{
 		bool bfinish = false;
-		m_bCamMoveModing = true;
 		while (!bfinish)
 		{
 			mFollowCameraTarget.position = Vector3.Lerp(mFollowCameraTarget.position, distpos, 0.03f);
@@ -2808,7 +2845,6 @@ public class StroyManager : MonoBehaviour
 			yield return new WaitForSeconds(0.01f);
 		}
 		yield return new WaitForSeconds(delay);
-		m_bCamMoveModing = false;
 	}
 
 	private IEnumerator CamFollow(int npcid, int type, int CameraType, float angle, Vector3 dir, Vector3 distpos, int delay, float angle1)
@@ -2822,7 +2858,6 @@ public class StroyManager : MonoBehaviour
 		float trueangle = angle;
 		float trueangle2 = angle1;
 		float rotateSpeed = 30f;
-		m_bCamRotModing = true;
 		switch (CameraType)
 		{
 		case 2:
@@ -2925,7 +2960,6 @@ public class StroyManager : MonoBehaviour
 			yield return new WaitForSeconds(0.01f);
 		}
 		yield return new WaitForSeconds(delay);
-		m_bCamRotModing = false;
 	}
 
 	public void PushStoryList(List<int> idlist)
@@ -3194,7 +3228,6 @@ public class StroyManager : MonoBehaviour
 	public static ItemDrop CreateLanguageSampleNet(string objName, Vector3 objPos, List<int> itemObjId = null, MapObjNetwork net = null)
 	{
 		GameObject gameObject = UnityEngine.Object.Instantiate(SampleObj) as GameObject;
-		StringBuilder stringBuilder = new StringBuilder(gameObject.name);
 		gameObject.name = objName;
 		gameObject.transform.position = objPos;
 		ItemDrop component = gameObject.GetComponent<ItemDrop>();
@@ -3507,6 +3540,7 @@ public class StroyManager : MonoBehaviour
 		{
 			yield break;
 		}
+		Vector3 startPos = Mctalk.transform.position;
 		CutsceneClip clip = Mctalk.GetComponentInChildren<CutsceneClip>();
 		if (clip != null)
 		{
@@ -3515,6 +3549,10 @@ public class StroyManager : MonoBehaviour
 		clip.transform.SetParent(null, worldPositionStays: true);
 		Transform[] trans = Mctalk.GetComponentsInChildren<Transform>(includeInactive: true);
 		trans[1].SetParent(null, worldPositionStays: true);
+		for (int i = 0; i < Mctalk.transform.childCount; i++)
+		{
+			Mctalk.transform.GetChild(i).gameObject.SetActive(value: true);
+		}
 		float dis = 0f;
 		if (PeGameMgr.IsSingle)
 		{
@@ -3539,12 +3577,15 @@ public class StroyManager : MonoBehaviour
 			dis += Time.deltaTime;
 			yield return 0;
 		}
+		mcTalk.gameObject.SetActive(value: false);
 		if (PeGameMgr.IsMulti)
 		{
+			PlayerNetwork.mainPlayer.RPCServer(EPacketType.PT_InGame_GameEnd);
 			MessageBox_N.ShowYNBox(PELocalization.GetString(8000621), null, PeSceneCtrl.Instance.GotoLobbyScene);
 		}
 		else
 		{
+			UnityEngine.Object.DestroyObject(mcTalk.gameObject);
 			Application.LoadLevel("GameED");
 		}
 	}
@@ -3617,42 +3658,21 @@ public class StroyManager : MonoBehaviour
 			{
 				return;
 			}
-			Transform[] componentsInChildren = Mctalk.GetComponentsInChildren<Transform>(includeInactive: true);
 			string[] array6 = array5;
 			foreach (string value in array6)
 			{
 				int num = Convert.ToInt32(value);
-				int[] array7 = new int[0];
-				switch (num)
+				if (num >= 0 && num < Mctalk.transform.childCount)
 				{
-				case 1:
-					array7 = new int[2] { 3, 4 };
-					break;
-				case 2:
-					array7 = new int[2] { 5, 6 };
-					break;
-				case 3:
-					array7 = new int[4] { 7, 8, 9, 10 };
-					break;
-				case 4:
-					array7 = new int[2] { 11, 12 };
-					break;
-				}
-				int[] array8 = array7;
-				foreach (int num2 in array8)
-				{
-					if (num2 < componentsInChildren.Length)
-					{
-						componentsInChildren[num2].gameObject.SetActive(value: true);
-					}
+					Mctalk.transform.GetChild(num).gameObject.SetActive(value: true);
 				}
 			}
 			return;
 		}
 		case "backpack":
 		{
-			PlayerPackageCmpt cmpt3 = PeSingleton<PeCreature>.Instance.mainPlayer.GetCmpt<PlayerPackageCmpt>();
-			if (cmpt3.package.GetCount(1332) == 0 && array.Length > 1)
+			PlayerPackageCmpt cmpt2 = PeSingleton<PeCreature>.Instance.mainPlayer.GetCmpt<PlayerPackageCmpt>();
+			if (cmpt2.package.GetCount(1332) == 0 && array.Length > 1)
 			{
 				Vector3 vector4 = Str2V3(array[1]);
 				if (vector4 == Vector3.zero)
@@ -3685,7 +3705,6 @@ public class StroyManager : MonoBehaviour
 		}
 		case "pajaLanguage":
 		{
-			PlayerPackageCmpt cmpt = PeSingleton<PeCreature>.Instance.mainPlayer.GetCmpt<PlayerPackageCmpt>();
 			if (array.Length <= 1)
 			{
 				return;
@@ -3714,8 +3733,8 @@ public class StroyManager : MonoBehaviour
 		}
 		case "probe":
 		{
-			PlayerPackageCmpt cmpt2 = PeSingleton<PeCreature>.Instance.mainPlayer.GetCmpt<PlayerPackageCmpt>();
-			if (cmpt2.package.GetCount(1340) == 0 && array.Length > 1)
+			PlayerPackageCmpt cmpt = PeSingleton<PeCreature>.Instance.mainPlayer.GetCmpt<PlayerPackageCmpt>();
+			if (cmpt.package.GetCount(1340) == 0 && array.Length > 1)
 			{
 				Vector3 vector3 = Str2V3(array[1]);
 				if (vector3 == Vector3.zero)
@@ -3884,9 +3903,9 @@ public class StroyManager : MonoBehaviour
 		}
 		case "closeviyus_22,23":
 		{
-			for (int m = 0; m < 4; m++)
+			for (int l = 0; l < 4; l++)
 			{
-				DienManager.DoorClose(DienManager.doors[m]);
+				DienManager.DoorClose(DienManager.doors[l]);
 			}
 			DienManager.doorsCanTrigger = false;
 			return;
@@ -3933,7 +3952,7 @@ public class StroyManager : MonoBehaviour
 			return;
 		case "copyisozj":
 		{
-			for (int num3 = 0; num3 < 3; num3++)
+			for (int m = 0; m < 3; m++)
 			{
 				VCEditor.CopyCretion(ECreation.Aircraft);
 			}
@@ -3942,13 +3961,13 @@ public class StroyManager : MonoBehaviour
 		case "movezj":
 			if (PeGameMgr.IsSingle)
 			{
-				for (int l = 0; l < MissionManager.Instance.m_PlayerMission.recordCreationName.Count; l++)
+				for (int k = 0; k < MissionManager.Instance.m_PlayerMission.recordCreationName.Count; k++)
 				{
-					GameObject gameObject4 = GameObject.Find(MissionManager.Instance.m_PlayerMission.recordCreationName[l]);
+					GameObject gameObject4 = GameObject.Find(MissionManager.Instance.m_PlayerMission.recordCreationName[k]);
 					if (!(gameObject4 == null))
 					{
 						MissionManager.Instance.m_PlayerMission.recordCretionPos.Add(gameObject4.transform.position);
-						UnityEngine.Object @object = Resources.Load("Cutscene Clips/PathClip" + (l + 1));
+						UnityEngine.Object @object = Resources.Load("Cutscene Clips/PathClip" + (k + 1));
 						if (!(@object == null))
 						{
 							GameObject pathObj = UnityEngine.Object.Instantiate(@object) as GameObject;
@@ -3968,14 +3987,14 @@ public class StroyManager : MonoBehaviour
 		case "returnzj":
 			if (PeGameMgr.IsSingle)
 			{
-				for (int num4 = 0; num4 < MissionManager.Instance.m_PlayerMission.recordCreationName.Count; num4++)
+				for (int num2 = 0; num2 < MissionManager.Instance.m_PlayerMission.recordCreationName.Count; num2++)
 				{
-					GameObject zj = GameObject.Find(MissionManager.Instance.m_PlayerMission.recordCreationName[num4]);
+					GameObject zj = GameObject.Find(MissionManager.Instance.m_PlayerMission.recordCreationName[num2]);
 					if (zj == null)
 					{
 						continue;
 					}
-					UnityEngine.Object object2 = Resources.Load("Cutscene Clips/PathClip" + (num4 + 5));
+					UnityEngine.Object object2 = Resources.Load("Cutscene Clips/PathClip" + (num2 + 5));
 					if (object2 == null)
 					{
 						continue;
@@ -3983,11 +4002,11 @@ public class StroyManager : MonoBehaviour
 					GameObject pathObj2 = UnityEngine.Object.Instantiate(object2) as GameObject;
 					MoveByPath moveByPath2 = zj.AddComponent<MoveByPath>();
 					moveByPath2.SetDurationDelay(15f, 0f);
-					if (num4 >= MissionManager.Instance.m_PlayerMission.recordCretionPos.Count)
+					if (num2 >= MissionManager.Instance.m_PlayerMission.recordCretionPos.Count)
 					{
 						continue;
 					}
-					Vector3 recordPos = MissionManager.Instance.m_PlayerMission.recordCretionPos[num4] + Vector3.up * 20f;
+					Vector3 recordPos = MissionManager.Instance.m_PlayerMission.recordCretionPos[num2] + Vector3.up * 20f;
 					moveByPath2.AddEndListener(delegate
 					{
 						returnZjComplete = true;
@@ -4023,6 +4042,7 @@ public class StroyManager : MonoBehaviour
 			}
 			return;
 		case "MeatToMoney":
+		{
 			if (PeGameMgr.IsMulti)
 			{
 				PlayerNetwork.mainPlayer.RPCServer(EPacketType.PT_InGame_ChangeCurrency, EMoneyType.Digital);
@@ -4032,18 +4052,21 @@ public class StroyManager : MonoBehaviour
 			{
 				if (!(item3 == null) && !(item3.gameObject == null))
 				{
-					NpcPackageCmpt cmpt4 = item3.GetCmpt<NpcPackageCmpt>();
-					if (!(cmpt4 == null))
+					NpcPackageCmpt cmpt3 = item3.GetCmpt<NpcPackageCmpt>();
+					if (!(cmpt3 == null))
 					{
-						cmpt4.money.SetCur(cmpt4.money.current * 4);
+						cmpt3.money.SetCur(cmpt3.money.current * 4);
 					}
 				}
 			}
+			int playerMoney = GameUI.Instance.playerMoney;
 			Money.Digital = true;
+			GameUI.Instance.playerMoney = playerMoney * 4;
 			GameUI.Instance.mShopWnd.mMeatSprite.gameObject.SetActive(value: false);
 			GameUI.Instance.mShopWnd.mMoneySprite.gameObject.SetActive(value: true);
 			GameUI.Instance.mItemPackageCtrl.nMoneyRoot.SetActive(value: true);
 			return;
+		}
 		}
 		if (text.Length < 6)
 		{
@@ -4055,14 +4078,14 @@ public class StroyManager : MonoBehaviour
 			{
 				string text3 = text.Substring(7, text.Length - 7);
 				List<int> list = new List<int>(Array.ConvertAll(text3.Split(','), (string s) => int.Parse(s)));
-				for (int num5 = 0; num5 < list.Count; num5++)
+				for (int num3 = 0; num3 < list.Count; num3++)
 				{
 					CSCreator creator2 = CSMain.GetCreator(0);
 					if (creator2 == null)
 					{
 						return;
 					}
-					PeEntity peEntity2 = PeSingleton<EntityMgr>.Instance.Get(list[num5]);
+					PeEntity peEntity2 = PeSingleton<EntityMgr>.Instance.Get(list[num3]);
 					if (peEntity2 != null)
 					{
 						peEntity2.NpcCmpt.FixedPointPos = PEUtil.GetRandomPosition(pos3, 10f, 30f, is3D: true);
@@ -4084,10 +4107,10 @@ public class StroyManager : MonoBehaviour
 			{
 				string text4 = text.Substring(8, text.Length - 8);
 				List<string> list2 = new List<string>(text4.Split('_', ';'));
-				int num6 = list2.Count / 3;
-				for (int num7 = 0; num7 < num6; num7++)
+				int num4 = list2.Count / 3;
+				for (int num5 = 0; num5 < num4; num5++)
 				{
-					list2.GetRange(num7 * 3, 3).ConvertAll((string n) => Convert.ToInt32(n));
+					list2.GetRange(num5 * 3, 3).ConvertAll((string n) => Convert.ToInt32(n));
 				}
 			}
 		}
@@ -4097,32 +4120,32 @@ public class StroyManager : MonoBehaviour
 			string text5 = text.Substring(8, text.Length - 8);
 			if (text5.Length <= 2)
 			{
-				int num8 = Convert.ToInt32(text5);
+				int num6 = Convert.ToInt32(text5);
 				List<int> list3 = new List<int>();
 				List<PeEntity> cSRandomNpc = CSMain.GetCSRandomNpc();
 				if (cSRandomNpc.Count != 0)
 				{
 					ServantLeaderCmpt component4 = PeSingleton<PeCreature>.Instance.mainPlayer.GetComponent<ServantLeaderCmpt>();
 					NpcCmpt[] servants = component4.GetServants();
-					for (int num9 = 0; num9 < servants.Length; num9++)
+					for (int num7 = 0; num7 < servants.Length; num7++)
 					{
-						for (int num10 = 0; num10 < cSRandomNpc.Count; num10++)
+						for (int num8 = 0; num8 < cSRandomNpc.Count; num8++)
 						{
-							if (servants[num9] == cSRandomNpc[num10].NpcCmpt)
+							if (servants[num7] == cSRandomNpc[num8].NpcCmpt)
 							{
-								cSRandomNpc.RemoveAt(num10);
+								cSRandomNpc.RemoveAt(num8);
 								break;
 							}
 						}
 					}
-					if (cSRandomNpc.Count <= num8)
+					if (cSRandomNpc.Count <= num6)
 					{
-						for (int num11 = 0; num11 < cSRandomNpc.Count; num11++)
+						for (int num9 = 0; num9 < cSRandomNpc.Count; num9++)
 						{
 							bool flag = true;
-							for (int num12 = 0; num12 < servants.Length; num12++)
+							for (int num10 = 0; num10 < servants.Length; num10++)
 							{
-								if (servants[num12] == cSRandomNpc[num11].NpcCmpt)
+								if (servants[num10] == cSRandomNpc[num9].NpcCmpt)
 								{
 									flag = false;
 									break;
@@ -4130,13 +4153,13 @@ public class StroyManager : MonoBehaviour
 							}
 							if (flag)
 							{
-								list3.Add(num11);
+								list3.Add(num9);
 							}
 						}
 					}
 					else
 					{
-						while (list3.Count < num8)
+						while (list3.Count < num6)
 						{
 							int item = UnityEngine.Random.Range(0, cSRandomNpc.Count);
 							if (!list3.Contains(item))
@@ -4145,23 +4168,23 @@ public class StroyManager : MonoBehaviour
 							}
 						}
 					}
-					for (int num13 = 0; num13 < list3.Count; num13++)
+					for (int num11 = 0; num11 < list3.Count; num11++)
 					{
-						if (!deadNpcsName.Contains(cSRandomNpc[list3[num13]].name))
+						if (!deadNpcsName.Contains(cSRandomNpc[list3[num11]].name))
 						{
-							deadNpcsName.Add(cSRandomNpc[list3[num13]].name.Substring(0, cSRandomNpc[list3[num13]].name.Length - 5));
+							deadNpcsName.Add(cSRandomNpc[list3[num11]].name.Substring(0, cSRandomNpc[list3[num11]].name.Length - 5));
 						}
-						if (cSRandomNpc[list3[num13]] != null)
+						if (cSRandomNpc[list3[num11]] != null)
 						{
-							CSMain.RemoveNpc(cSRandomNpc[list3[num13]]);
+							CSMain.RemoveNpc(cSRandomNpc[list3[num11]]);
 						}
 						if (PeGameMgr.IsMultiStory)
 						{
-							PlayerNetwork.mainPlayer.CreateSceneItem("ash_box", cSRandomNpc[list3[num13]].position, "1339,1", cSRandomNpc[list3[num13]].Id);
+							PlayerNetwork.mainPlayer.CreateSceneItem("ash_box", cSRandomNpc[list3[num11]].position, "1339,1", cSRandomNpc[list3[num11]].Id);
 						}
 						else
 						{
-							CreateAsh_box(cSRandomNpc[list3[num13]].position, cSRandomNpc[list3[num13]].Id);
+							CreateAsh_box(cSRandomNpc[list3[num11]].position, cSRandomNpc[list3[num11]].Id);
 						}
 					}
 				}
@@ -4169,9 +4192,9 @@ public class StroyManager : MonoBehaviour
 			else
 			{
 				List<int> list4 = new List<int>(Array.ConvertAll(text5.Split(','), (string s) => int.Parse(s)));
-				for (int num14 = 0; num14 < list4.Count; num14++)
+				for (int num12 = 0; num12 < list4.Count; num12++)
 				{
-					PeEntity peEntity3 = PeSingleton<EntityMgr>.Instance.Get(list4[num14]);
+					PeEntity peEntity3 = PeSingleton<EntityMgr>.Instance.Get(list4[num12]);
 					if (!(peEntity3 == null))
 					{
 						if (PeGameMgr.IsMultiStory)
@@ -4198,21 +4221,21 @@ public class StroyManager : MonoBehaviour
 		if (text.Substring(0, 8) == "special_")
 		{
 			string text6 = text.Substring(8, text.Length - 8);
-			string[] array9 = text6.Split('_');
-			if (array9.Length != 2)
+			string[] array7 = text6.Split('_');
+			if (array7.Length != 2)
 			{
 				return;
 			}
-			int[][] array10 = new int[3][]
+			int[][] array8 = new int[3][]
 			{
 				new int[3] { 603, 604, 605 },
 				new int[3] { 926, 927, 928 },
 				new int[3] { 937, 938, 939 }
 			};
-			int num15 = Convert.ToInt32(array9[0]);
-			int num16 = Convert.ToInt32(array9[1]);
-			int num17 = (CSMain.HasCSAssembly() ? ((num16 > CSMain.GetEmptyBedRoom()) ? 1 : 2) : 0);
-			int missionID = array10[num15 - 1][num17];
+			int num13 = Convert.ToInt32(array7[0]);
+			int num14 = Convert.ToInt32(array7[1]);
+			int num15 = (CSMain.HasCSAssembly() ? ((num14 > CSMain.GetEmptyBedRoom()) ? 1 : 2) : 0);
+			int missionID = array8[num13 - 1][num15];
 			MissionCommonData missionCommonData = MissionManager.GetMissionCommonData(missionID);
 			if (missionCommonData != null)
 			{
@@ -4240,9 +4263,9 @@ public class StroyManager : MonoBehaviour
 				UnityEngine.Object object3 = Resources.Load("Prefab/Item/Other/SpiderWeb");
 				if (null != object3)
 				{
-					for (int num18 = 0; num18 < list6.Count; num18++)
+					for (int num16 = 0; num16 < list6.Count; num16++)
 					{
-						if (list6[num18] == 20000)
+						if (list6[num16] == 20000)
 						{
 							if (PeSingleton<PeCreature>.Instance.mainPlayer.transform.FindChild("DummyTransform/spiderWeb") == null)
 							{
@@ -4252,10 +4275,10 @@ public class StroyManager : MonoBehaviour
 								gameObject6.name = "spiderWeb";
 							}
 						}
-						else if (PeSingleton<EntityMgr>.Instance.Get(list6[num18]).gameObject.transform.FindChild("DummyTransform/spiderWeb") == null)
+						else if (PeSingleton<EntityMgr>.Instance.Get(list6[num16]).gameObject.transform.FindChild("DummyTransform/spiderWeb") == null)
 						{
 							GameObject gameObject7 = UnityEngine.Object.Instantiate(object3) as GameObject;
-							gameObject7.transform.parent = PEUtil.GetChild(PeSingleton<EntityMgr>.Instance.Get(list6[num18]).transform, "DummyTransform");
+							gameObject7.transform.parent = PEUtil.GetChild(PeSingleton<EntityMgr>.Instance.Get(list6[num16]).transform, "DummyTransform");
 							gameObject7.transform.localPosition = Vector3.zero;
 							gameObject7.name = "spiderWeb";
 						}
@@ -4266,9 +4289,9 @@ public class StroyManager : MonoBehaviour
 			{
 				return;
 			}
-			for (int num19 = 0; num19 < list6.Count; num19++)
+			for (int num17 = 0; num17 < list6.Count; num17++)
 			{
-				if (list6[num19] == 20000)
+				if (list6[num17] == 20000)
 				{
 					Transform transform = PeSingleton<PeCreature>.Instance.mainPlayer.transform.FindChild("DummyTransform/spiderWeb");
 					if (transform != null)
@@ -4281,7 +4304,7 @@ public class StroyManager : MonoBehaviour
 					}
 					continue;
 				}
-				Transform transform2 = PeSingleton<EntityMgr>.Instance.Get(list6[num19]).gameObject.transform.FindChild("DummyTransform/spiderWeb");
+				Transform transform2 = PeSingleton<EntityMgr>.Instance.Get(list6[num17]).gameObject.transform.FindChild("DummyTransform/spiderWeb");
 				if (transform2 != null)
 				{
 					GameObject gameObject9 = transform2.gameObject;
@@ -4295,9 +4318,9 @@ public class StroyManager : MonoBehaviour
 		}
 		if (text.Substring(0, 11) == "AndheraNest")
 		{
-			for (int num20 = 0; num20 < 8; num20++)
+			for (int num18 = 0; num18 < 8; num18++)
 			{
-				CreateAndHeraNest(num20);
+				CreateAndHeraNest(num18);
 			}
 			return;
 		}
@@ -4306,40 +4329,40 @@ public class StroyManager : MonoBehaviour
 			return;
 		}
 		string text8 = text.Substring(12, text.Length - 12);
-		string[] array11 = text8.Split('_');
-		if (array11.Length != 2)
+		string[] array9 = text8.Split('_');
+		if (array9.Length != 2)
 		{
 			return;
 		}
-		bool flag2 = Convert.ToInt32(array11[0]) == 1;
-		PeEntity peEntity4 = PeSingleton<EntityMgr>.Instance.Get(Convert.ToInt32(array11[1]));
+		bool flag2 = Convert.ToInt32(array9[0]) == 1;
+		PeEntity peEntity4 = PeSingleton<EntityMgr>.Instance.Get(Convert.ToInt32(array9[1]));
 		if (!(null != peEntity4))
 		{
 			return;
 		}
 		if (flag2)
 		{
-			SkinnedMeshRenderer[] componentsInChildren2 = PeSingleton<EntityMgr>.Instance.Get(9029).GetComponentsInChildren<SkinnedMeshRenderer>();
-			if (componentsInChildren2.Length >= 2 && componentsInChildren2[1].materials[0].name != "HidingWaveMat(Clone) (Instance)")
+			SkinnedMeshRenderer[] componentsInChildren = PeSingleton<EntityMgr>.Instance.Get(9029).GetComponentsInChildren<SkinnedMeshRenderer>();
+			if (componentsInChildren.Length >= 2 && componentsInChildren[1].materials[0].name != "HidingWaveMat(Clone) (Instance)")
 			{
-				record = componentsInChildren2[1].materials;
-				Material[] array12 = new Material[componentsInChildren2[1].materials.Length];
-				for (int num21 = 0; num21 < componentsInChildren2[1].materials.Length; num21++)
+				record = componentsInChildren[1].materials;
+				Material[] array10 = new Material[componentsInChildren[1].materials.Length];
+				for (int num19 = 0; num19 < componentsInChildren[1].materials.Length; num19++)
 				{
-					Texture texture = componentsInChildren2[1].materials[num21].GetTexture(0);
-					array12[num21] = UnityEngine.Object.Instantiate(HidingMat);
-					array12[num21].SetTexture("_SrcMap", texture);
+					Texture texture = componentsInChildren[1].materials[num19].GetTexture(0);
+					array10[num19] = UnityEngine.Object.Instantiate(HidingMat);
+					array10[num19].SetTexture("_SrcMap", texture);
 				}
-				componentsInChildren2[1].materials = array12;
-				AddChangingMaterial(componentsInChildren2[1].materials);
+				componentsInChildren[1].materials = array10;
+				AddChangingMaterial(componentsInChildren[1].materials);
 			}
 		}
 		else
 		{
-			SkinnedMeshRenderer[] componentsInChildren3 = PeSingleton<EntityMgr>.Instance.Get(9029).GetComponentsInChildren<SkinnedMeshRenderer>();
-			if (componentsInChildren3.Length >= 2)
+			SkinnedMeshRenderer[] componentsInChildren2 = PeSingleton<EntityMgr>.Instance.Get(9029).GetComponentsInChildren<SkinnedMeshRenderer>();
+			if (componentsInChildren2.Length >= 2)
 			{
-				AddChangingMaterial(componentsInChildren3[1]);
+				AddChangingMaterial(componentsInChildren2[1]);
 			}
 		}
 	}
@@ -4448,7 +4471,6 @@ public class StroyManager : MonoBehaviour
 
 	public void ResetPathIdx()
 	{
-		m_CurPathIdx = 0;
 		m_iCurPathMap.Clear();
 	}
 
@@ -4498,15 +4520,6 @@ public class StroyManager : MonoBehaviour
 			result.isFinish = false;
 			result.pos = m_iCurPathMap[npc.Id].curPos;
 			return result;
-		}
-		int num = 0;
-		if (npc != null && m_iCurPathMap.ContainsKey(npc.Id))
-		{
-			num = m_iCurPathMap[npc.Id].idx;
-		}
-		else
-		{
-			num = m_CurPathIdx;
 		}
 		return result;
 	}

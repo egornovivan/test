@@ -5,8 +5,8 @@ using WhiteCat.Internal;
 
 namespace WhiteCat;
 
-[AddComponentMenu("White Cat/Tween/UI/Text Color")]
 [RequireComponent(typeof(Text))]
+[AddComponentMenu("White Cat/Tween/UI/Text Color")]
 public class TweenTextColor : TweenBase
 {
 	public Color from = Color.white;

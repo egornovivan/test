@@ -1,7 +1,6 @@
 using System;
 using uLink;
 
-[Obsolete]
 public class TradeObj
 {
 	public int protoId;

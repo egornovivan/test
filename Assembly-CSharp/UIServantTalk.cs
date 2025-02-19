@@ -29,10 +29,6 @@ public class UIServantTalk : UIBaseWidget
 
 	public void AddTalk(int id, string name = null)
 	{
-		if (Application.isEditor)
-		{
-			Debug.LogError("ServantTalk ID" + id + " Need Play");
-		}
 		TalkData talkData = TalkRespository.GetTalkData(id);
 		if (talkData == null)
 		{

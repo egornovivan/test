@@ -43,8 +43,6 @@ public class UISkillType : MonoBehaviour
 
 	private UISkillItem mSelectItem;
 
-	private bool bCreate;
-
 	public SkillTypeData data
 	{
 		get

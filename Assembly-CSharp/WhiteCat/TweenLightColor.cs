@@ -4,8 +4,8 @@ using WhiteCat.Internal;
 
 namespace WhiteCat;
 
-[AddComponentMenu("White Cat/Tween/Light/Color")]
 [RequireComponent(typeof(Light))]
+[AddComponentMenu("White Cat/Tween/Light/Color")]
 public class TweenLightColor : TweenBase
 {
 	public Color from = Color.white;

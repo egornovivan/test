@@ -70,8 +70,8 @@ public class CharacterThirdPerson : CharacterBase
 	[SerializeField]
 	private LayerMask wallRunLayers;
 
-	[SerializeField]
 	[Range(1f, 4f)]
+	[SerializeField]
 	private float gravityMultiplier = 2f;
 
 	public MoveMode moveMode;

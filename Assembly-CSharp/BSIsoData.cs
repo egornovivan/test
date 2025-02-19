@@ -320,7 +320,6 @@ public class BSIsoData
 					iso_header.zSize = intVector3.z;
 					foreach (KeyValuePair<IntVector3, B45Block> item in dictionary)
 					{
-						IntVector3 intVector4 = new IntVector3(item.Key.x + intVector3.x / 2, item.Key.y, item.Key.z + intVector3.z / 2);
 						if (iso_header.costs.ContainsKey(item.Value.materialType))
 						{
 							Dictionary<byte, uint> costs;

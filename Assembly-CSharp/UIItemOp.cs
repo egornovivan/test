@@ -72,8 +72,6 @@ public class UIItemOp : UIBaseWnd
 
 	private Action mDoGet;
 
-	private Action<float> mDoSleep;
-
 	private Func<float> m_SpeepEvent;
 
 	private PESleep m_PeSleep;
@@ -257,7 +255,6 @@ public class UIItemOp : UIBaseWnd
 		mCmdList = null;
 		mOpen = null;
 		mDoGet = null;
-		mDoSleep = null;
 		m_SpeepEvent = null;
 		m_PeSleep = null;
 		mSleepWnd.SetActive(value: false);
@@ -452,7 +449,6 @@ public class UIItemOp : UIBaseWnd
 			InitSleepTime();
 			m_PeSleep = peSleep;
 			mEntity = character;
-			mDoSleep = sleep;
 			SetOperater(operater);
 		}
 		else

@@ -13,8 +13,6 @@ public class SceneEntityAgent : PeCustomScene.SceneElement, ISceneObjAgent
 
 	private const float OneWait = 0.05f;
 
-	private bool _firstActivate = true;
-
 	private bool _firstConstruct = true;
 
 	private bool mIsProcessing;

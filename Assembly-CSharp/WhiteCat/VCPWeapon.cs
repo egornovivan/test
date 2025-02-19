@@ -65,12 +65,12 @@ public class VCPWeapon : VCPart, IProjectileData
 	[SerializeField]
 	private int _groupIndex;
 
-	[SerializeField]
 	[Header("Rotation Params")]
+	[SerializeField]
 	private bool _rotatable;
 
-	[SerializeField]
 	[Range(0f, 90f)]
+	[SerializeField]
 	private float _maxUpPitchAngle = 60f;
 
 	[Range(0f, 45f)]
@@ -80,12 +80,12 @@ public class VCPWeapon : VCPart, IProjectileData
 	[SerializeField]
 	private bool _clampHorizontalAngle;
 
-	[SerializeField]
 	[Range(0f, 75f)]
+	[SerializeField]
 	private float _maxHorizontalAngle = 30f;
 
-	[SerializeField]
 	[Range(0f, 360f)]
+	[SerializeField]
 	private float _rotateSpeed = 120f;
 
 	[SerializeField]
@@ -94,8 +94,8 @@ public class VCPWeapon : VCPart, IProjectileData
 	[SerializeField]
 	private Transform _verticalRotate;
 
-	[Header("Effects")]
 	[SerializeField]
+	[Header("Effects")]
 	private AudioClip _soundClip;
 
 	[Range(0f, 1f)]
@@ -105,8 +105,8 @@ public class VCPWeapon : VCPart, IProjectileData
 	[SerializeField]
 	private ParticlePlayer _particlePlayer;
 
-	[SerializeField]
 	[Range(0f, 1f)]
+	[SerializeField]
 	private float _cameraShakeRange;
 
 	private int _currentMuzzleIndex;

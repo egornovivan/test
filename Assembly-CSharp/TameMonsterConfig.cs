@@ -84,12 +84,12 @@ public class TameMonsterConfig : ScriptableObject
 	[Header("怪物行为列表")]
 	public List<SingleActionSeedInfo> ActionList;
 
-	[Header("玩家击落的各范围及概率")]
 	[Header("__________驯服检测相关__________")]
+	[Header("玩家击落的各范围及概率")]
 	public List<DropIfRangeInfo> IfRangeList;
 
-	[Header("使用IK后骑点的坐标校正偏移")]
 	[Header("__________IK相关__________")]
+	[Header("使用IK后骑点的坐标校正偏移")]
 	public Vector3 IkRideOffset = new Vector3(0f, 0.45f, 0f);
 
 	[Header("坐骑IK运算迭代次数")]

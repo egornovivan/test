@@ -407,7 +407,7 @@ public class CreationNetwork : SkNetworkInterface
 			}
 			return;
 		}
-		Vector3 vector = stream.Read<Vector3>(new object[0]);
+		stream.Read<Vector3>(new object[0]);
 		_bLock = true;
 		GameObject gameObject = _entity.gameObject;
 		if (gameObject == null)

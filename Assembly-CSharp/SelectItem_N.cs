@@ -37,8 +37,6 @@ public class SelectItem_N : MonoBehaviour
 
 	private bool mHasCreated;
 
-	private AssetReq mCurrenReq;
-
 	private GridMask mGridMask = GridMask.GM_Any;
 
 	public static SelectItem_N Instance => mInstance;
@@ -150,7 +148,6 @@ public class SelectItem_N : MonoBehaviour
 		UICursor.Clear();
 		mIcontex.enabled = false;
 		mIcontex.mainTexture = null;
-		mCurrenReq = null;
 		mItemSample = null;
 	}
 
@@ -195,10 +192,6 @@ public class SelectItem_N : MonoBehaviour
 			{
 				ItemObjDragging dragable = new ItemObjDragging(drag);
 				PeSingleton<DraggingMgr>.Instance.Begin(dragable);
-			}
-			else
-			{
-				mCurrenReq = null;
 			}
 			mHasCreated = true;
 		}

@@ -80,8 +80,6 @@ public class NpcOverHead : MonoBehaviour
 
 	private float mTimer;
 
-	private EEntityProto m_EntityProto;
-
 	private Bounds m_localBounds;
 
 	private bool InitBloodPos;
@@ -247,7 +245,6 @@ public class NpcOverHead : MonoBehaviour
 
 	public bool SetProto(EEntityProto Proto)
 	{
-		m_EntityProto = Proto;
 		return true;
 	}
 

@@ -15,7 +15,7 @@ public class BTMoveToTarget : BTNormal
 		[Behave]
 		public float maxRange;
 
-		public Vector3 m_Local;
+		public Vector3 m_Local = Vector3.zero;
 	}
 
 	private Data m_Data;

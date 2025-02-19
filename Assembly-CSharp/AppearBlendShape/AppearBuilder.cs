@@ -202,7 +202,6 @@ public class AppearBuilder
 
 	private static void GetPartInfos(IEnumerable<string> strPartInfos, List<CustomPartInfo> outPartInfos)
 	{
-		List<CustomPartInfo> list = new List<CustomPartInfo>();
 		foreach (string strPartInfo in strPartInfos)
 		{
 			if (!string.IsNullOrEmpty(strPartInfo))

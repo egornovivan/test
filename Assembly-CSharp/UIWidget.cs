@@ -45,8 +45,8 @@ public abstract class UIWidget : MonoBehaviour
 	[SerializeField]
 	private Pivot mPivot = Pivot.Center;
 
-	[HideInInspector]
 	[SerializeField]
+	[HideInInspector]
 	private int mDepth;
 
 	private Transform mTrans;

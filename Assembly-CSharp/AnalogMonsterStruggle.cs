@@ -101,8 +101,6 @@ public class AnalogMonsterStruggle : MonoBehaviour
 
 	private Vector3 _lastUp;
 
-	private Quaternion _lastAngularVelocity;
-
 	private Vector3 _backupOffsetRotate;
 
 	private Dictionary<MonsterAction, SingleActionSeed> _actionSeedDic;
@@ -320,7 +318,6 @@ public class AnalogMonsterStruggle : MonoBehaviour
 			_ridePosTrans = ridePosTrans;
 			_lastPosition = _ridePosTrans.position;
 			_lastUp = _ridePosTrans.up;
-			_lastAngularVelocity = Quaternion.identity;
 			IsTameSucceed = false;
 			BindAction();
 			GenerateStruggleActions();

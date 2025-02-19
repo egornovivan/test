@@ -7,8 +7,6 @@ public class LogManager
 {
 	private static NetworkLogFlags customLogFlags;
 
-	private static uLink.NetworkLogLevel customLogLevel;
-
 	public static void InitLogManager()
 	{
 		try
@@ -47,7 +45,6 @@ public class LogManager
 	public static void SetLevel(NetworkLogFlags logFlags, uLink.NetworkLogLevel logLevel)
 	{
 		customLogFlags = logFlags;
-		customLogLevel = logLevel;
 		NetworkLog.SetLevel(logFlags, logLevel);
 	}
 

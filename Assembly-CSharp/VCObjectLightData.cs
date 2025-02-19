@@ -55,7 +55,7 @@ public class VCObjectLightData : VCPartData
 		m_Color.g = binaryReader.ReadSingle();
 		m_Color.b = binaryReader.ReadSingle();
 		m_Color.a = binaryReader.ReadSingle();
-		float num2 = binaryReader.ReadSingle();
+		binaryReader.ReadSingle();
 		binaryReader.Close();
 	}
 

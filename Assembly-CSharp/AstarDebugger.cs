@@ -4,8 +4,8 @@ using Pathfinding;
 using Pathfinding.Util;
 using UnityEngine;
 
-[AddComponentMenu("Pathfinding/Debugger")]
 [ExecuteInEditMode]
+[AddComponentMenu("Pathfinding/Debugger")]
 public class AstarDebugger : MonoBehaviour
 {
 	private struct GraphPoint

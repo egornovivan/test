@@ -176,7 +176,6 @@ public class AvatarCmpt : BiologyViewCmpt
 		base.OnBoneLoadSync(modelObject);
 		_curAvatarData = AvatarData.Merge(_clothedAvatarData, _nudeAvatarData);
 		SkinnedMeshRenderer skinnedMeshRenderer = AppearBuilder.Build(modelObject, _appearData, _curAvatarData);
-		bool flag = skinnedMeshRenderer.enabled;
 		skinnedMeshRenderer.enabled = true;
 	}
 

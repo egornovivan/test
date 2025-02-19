@@ -25,13 +25,9 @@ public class NpcMedicalDiagnose : BTNormal
 
 	private CSMedicalCheck m_CSMedicalCheck;
 
-	private PEPatients m_pePatitents;
-
 	private Vector3 m_Moveposition;
 
 	private float m_Roate;
-
-	private float m_StartTime;
 
 	private float m_WaitingTime;
 
@@ -94,7 +90,6 @@ public class NpcMedicalDiagnose : BTNormal
 		}
 		m_Moveposition = m_CSMedicalCheck.resultTrans[1].position;
 		m_Roate = m_CSMedicalCheck.resultTrans[1].rotation.eulerAngles.y;
-		m_pePatitents = m_CSMedicalCheck.pePatient;
 		if (base.NpcMedicalState == ENpcMedicalState.Diagnosing)
 		{
 			if (!CSMain.TryGetCheck(base.entity))
@@ -119,7 +114,6 @@ public class NpcMedicalDiagnose : BTNormal
 			SetMedicineSate(ENpcMedicalState.WaitForDiagnos);
 		}
 		HasReached = false;
-		m_StartTime = Time.time;
 		return BehaveResult.Success;
 	}
 

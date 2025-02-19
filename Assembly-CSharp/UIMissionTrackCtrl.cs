@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class UIMissionTrackCtrl : UIBaseWnd
 {
+	private const string mainMissionColor = "[9b3df4]{0}[-]";
+
+	private const string sideMissionColor = "[37cbf4]{0}[-]";
+
+	private const string complateTitleFormat = "{0} [{1}]";
+
+	private const string complateMissionColor = "[B4B4B4]{0} {1}[-]\n";
+
+	private const string uncompletedMissionColor = "[FFFFFF]{0} {1}[-]\n";
+
+	private const string countFormat = "{0}/{1}";
+
 	public UIMissionTree mMissionTree;
 
 	[SerializeField]
@@ -16,22 +28,28 @@ public class UIMissionTrackCtrl : UIBaseWnd
 	[SerializeField]
 	private GameObject m_TutorialPrefab;
 
+	private Coroutine _coroutine;
+
 	private void Awake()
 	{
 		UIMissionMgr.Instance.e_AddMission += OnAddMissionView;
 		UIMissionMgr.Instance.e_DeleteMission += OnDelMissionView;
 		UIMissionMgr.Instance.e_CheckTagMission += OnCheckTagMission;
+		mMissionTree.mContentTable.sorted = true;
 		ReGetAllMission();
 	}
 
 	private void OnEnable()
 	{
-		StartCoroutine(UpdateMissionTrack());
+		_coroutine = StartCoroutine(UpdateMissionTrack());
 	}
 
-	private void Start()
+	private void OnDisable()
 	{
-		StartCoroutine(UpdateMissionTrack());
+		if (_coroutine != null)
+		{
+			StopCoroutine(_coroutine);
+		}
 	}
 
 	public override void Show()
@@ -87,10 +105,28 @@ public class UIMissionTrackCtrl : UIBaseWnd
 			uIMissionNode.mLbTitle.maxLineCount = 1;
 			UIMissionNode uIMissionNode2 = mMissionTree.AddMissionNode(uIMissionNode, string.Empty, enableCkTag: false, enableBtnDel: false, canSelected: false);
 			uIMissionNode2.mData = view.mTargetList;
+			uIMissionNode2.mLbTitle.maxLineCount = 0;
 			UpdateNodeText(uIMissionNode);
 			UpdateNodeText(uIMissionNode2);
+			Sort();
 			uIMissionNode.ChangeExpand();
 		}
+	}
+
+	private void Sort()
+	{
+		int num = 0;
+		int count = mMissionTree.mNodes.Count;
+		for (int i = 0; i < mMissionTree.mNodes.Count; i++)
+		{
+			UIMissionNode uIMissionNode = mMissionTree.mNodes[i];
+			if (uIMissionNode.mTablePartent == mMissionTree.mContentTable && uIMissionNode.mData is UIMissionMgr.MissionView)
+			{
+				UIMissionMgr.MissionView missionView = uIMissionNode.mData as UIMissionMgr.MissionView;
+				uIMissionNode.gameObject.name = ((missionView.mMissionType != MissionType.MissionType_Main) ? count++ : num++).ToString();
+			}
+		}
+		mMissionTree.RepositionContent();
 	}
 
 	private void OnCheckTagMission(UIMissionMgr.MissionView view)
@@ -156,12 +192,9 @@ public class UIMissionTrackCtrl : UIBaseWnd
 			if (node.mData is UIMissionMgr.MissionView)
 			{
 				UIMissionMgr.MissionView missionView = node.mData as UIMissionMgr.MissionView;
-				string text = "[C8C800]" + missionView.mMissionTitle + "[-]";
-				if (missionView.mComplete)
-				{
-					text = text + " [C8C800][" + PELocalization.GetString(8000694) + "][-]";
-				}
-				node.mLbTitle.text = text;
+				string format = ((missionView.mMissionType != MissionType.MissionType_Main) ? "[37cbf4]{0}[-]" : "[9b3df4]{0}[-]");
+				string arg = ((!missionView.mComplete) ? missionView.mMissionTitle : $"{missionView.mMissionTitle} [{PELocalization.GetString(8000694)}]");
+				node.mLbTitle.text = string.Format(format, arg);
 			}
 		}
 		else
@@ -171,26 +204,17 @@ public class UIMissionTrackCtrl : UIBaseWnd
 				return;
 			}
 			List<UIMissionMgr.TargetShow> list = node.mData as List<UIMissionMgr.TargetShow>;
-			string text2 = string.Empty;
+			string text = string.Empty;
 			foreach (UIMissionMgr.TargetShow item in list)
 			{
-				string text3 = string.Empty;
+				string arg2 = string.Empty;
 				if (item.mMaxCount > 0)
 				{
-					text3 = item.mCount + "/" + item.mMaxCount;
+					arg2 = $"{item.mCount}/{item.mMaxCount}";
 				}
-				if (item.mComplete)
-				{
-					string text4 = text2;
-					text2 = text4 + "[B4B4B4]" + item.mContent + " " + text3 + "[-]\n";
-				}
-				else
-				{
-					string text4 = text2;
-					text2 = text4 + "[FFFFFF]" + item.mContent + " " + text3 + "[-]\n";
-				}
+				text += string.Format((!item.mComplete) ? "[FFFFFF]{0} {1}[-]\n" : "[B4B4B4]{0} {1}[-]\n", item.mContent, arg2);
 			}
-			node.mLbTitle.text = text2;
+			node.mLbTitle.text = text;
 		}
 	}
 

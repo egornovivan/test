@@ -64,17 +64,11 @@ public class BTNpcCampsiteSleep : BTNormal
 
 	private Data m_Data;
 
-	private int Id = 30200055;
-
 	private bool mArrived = true;
-
-	private bool Test = true;
 
 	private SleepPostion mSleepInfo;
 
-	private Vector3 DirPos;
-
-	private new void Sleep(IOperator oper)
+	private void NpcSleep(IOperator oper)
 	{
 		PEActionParamVQNS param = PEActionParamVQNS.param;
 		param.vec = mSleepInfo._Pos;
@@ -188,7 +182,6 @@ public class BTNpcCampsiteSleep : BTNormal
 			return BehaveResult.Success;
 		}
 		FreeThePos(mSleepInfo);
-		DirPos = mSleepInfo._Doorpos;
 		return BehaveResult.Failure;
 	}
 
@@ -258,7 +251,7 @@ public class BTNpcCampsiteSleep : BTNormal
 		{
 			StopMove();
 			SetPosition(mSleepInfo._Pos);
-			Sleep(base.Operator);
+			NpcSleep(base.Operator);
 			mArrived = true;
 		}
 		if (!mArrived && !IsReached(mSleepInfo._Doorpos, base.position))

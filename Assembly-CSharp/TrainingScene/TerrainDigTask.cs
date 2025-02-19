@@ -14,10 +14,6 @@ public class TerrainDigTask : MonoBehaviour
 
 	private HoloCameraControl hcc;
 
-	private PeEntity mplayer;
-
-	private int num;
-
 	private Transform terrain;
 
 	public static TerrainDigTask Instance => s_instance;
@@ -30,7 +26,6 @@ public class TerrainDigTask : MonoBehaviour
 	private void Start()
 	{
 		hcc = HoloCameraControl.Instance;
-		mplayer = PeSingleton<PeCreature>.Instance.mainPlayer;
 	}
 
 	private void OnDestroy()

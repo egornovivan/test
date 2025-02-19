@@ -19,8 +19,6 @@ public class NewMoveTask : MonoBehaviour
 
 	private Vector3 mTarPos;
 
-	private Vector3 mBackPos;
-
 	private PlayerPackageCmpt ppc;
 
 	private ItemPackage mItemPac;
@@ -29,11 +27,7 @@ public class NewMoveTask : MonoBehaviour
 
 	private bool isMoveComplete;
 
-	private bool isBackComplete;
-
 	private bool isGetMedComplete;
-
-	private bool isFirstComplete;
 
 	private PeEntity player;
 
@@ -47,7 +41,6 @@ public class NewMoveTask : MonoBehaviour
 	{
 		mInstance = this;
 		mTarPos = new Vector3(7f, 1.5f, 12f);
-		mBackPos = new Vector3(32f, 4f, 12f);
 	}
 
 	private void Start()

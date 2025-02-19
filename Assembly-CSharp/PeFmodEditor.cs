@@ -9,8 +9,6 @@ public class PeFmodEditor : MonoBehaviour
 {
 	public static bool active;
 
-	private FMODAudioListener listener;
-
 	private MovingGizmo giz_move;
 
 	private RotatingGizmo giz_rotate;

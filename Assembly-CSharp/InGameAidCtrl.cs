@@ -48,8 +48,6 @@ public class InGameAidCtrl : MonoBehaviour
 
 	private bool m_ShowFinish;
 
-	private bool m_NeedReposition;
-
 	private List<int> m_CurShow = new List<int>();
 
 	private List<GameObject> m_CurShowLabelGos = new List<GameObject>();
@@ -86,7 +84,6 @@ public class InGameAidCtrl : MonoBehaviour
 		m_FirstShow = false;
 		m_Show = InGameAidData.ShowInGameAidCtrl;
 		m_ShowFinish = false;
-		m_NeedReposition = false;
 		m_CurShow.Clear();
 		m_CurShowLabelGos.Clear();
 		m_WaitShowQueue.Clear();

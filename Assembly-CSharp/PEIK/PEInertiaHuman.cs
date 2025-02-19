@@ -33,8 +33,6 @@ public class PEInertiaHuman : OffsetModifier
 
 		private Vector3 direction;
 
-		private Vector3 lastPosition;
-
 		private bool firstUpdate = true;
 
 		public void Reset()
@@ -42,7 +40,6 @@ public class PEInertiaHuman : OffsetModifier
 			if (!(transform == null))
 			{
 				lazyPoint = transform.position;
-				lastPosition = transform.position;
 				direction = Vector3.zero;
 			}
 		}
@@ -69,7 +66,6 @@ public class PEInertiaHuman : OffsetModifier
 				{
 					solver.GetEffector(effectorLink.effector).positionOffset += (lazyPoint - transform.position) * effectorLink.weight * weight;
 				}
-				lastPosition = transform.position;
 			}
 		}
 	}

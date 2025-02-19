@@ -60,10 +60,10 @@ public class VCIsoRemark
 					m_Attribute.m_Cost.Add(key, value2);
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				m_Attribute = null;
-				m_Error = "Reading remarks error";
+				m_Error = "Reading remarks error" + ex.ToString();
 			}
 		}
 	}

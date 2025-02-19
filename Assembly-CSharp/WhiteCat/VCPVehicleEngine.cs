@@ -24,14 +24,6 @@ public class VCPVehicleEngine : VCPart
 
 	private float _power;
 
-	private float _pitchAudioTime;
-
-	private bool _lastDirection;
-
-	private float _runningAudioVolume;
-
-	private float _standbyAudioVolume;
-
 	public float UpdateEngine(VehicleController controller, float rpm)
 	{
 		float inputY = controller.inputY;

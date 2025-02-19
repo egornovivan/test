@@ -19,8 +19,6 @@ public class Camp
 
 	private float _radius;
 
-	private List<int> _assetIds;
-
 	private List<SleepPostion> _LayDatas;
 
 	public EatDesc mEatInfo = new EatDesc();
@@ -121,7 +119,6 @@ public class Camp
 		_nameID = nameID;
 		_pos = pos;
 		_radius = radius;
-		_assetIds = assetIds;
 	}
 
 	public string GetPath(int index)

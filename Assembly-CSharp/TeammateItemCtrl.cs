@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class TeammateItemCtrl : MonoBehaviour
 {
-	private List<PlayerNetwork> mPlayerList;
-
 	[SerializeField]
 	private UIGrid mGrid;
 
@@ -13,7 +11,6 @@ public class TeammateItemCtrl : MonoBehaviour
 
 	public void SetGrid(List<PlayerNetwork> _lis)
 	{
-		mPlayerList = _lis;
 		CreatGridList(_lis);
 	}
 

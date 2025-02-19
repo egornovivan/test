@@ -37,8 +37,6 @@ public class chatCooperation : Cooperation
 
 	private PeEntity mcentor;
 
-	private float addinRadiu = 20f;
-
 	private EQuadrant mEQuadrant;
 
 	private Vector3 mCenterPos;

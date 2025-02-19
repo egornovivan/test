@@ -309,13 +309,9 @@ public class SelectItem
 			return true;
 		}
 		bool flag = HasCanEquip(npc, EeqSelect.combat, AttackType.Ranged);
-		bool flag2 = HasCanEquip(npc, EeqSelect.combat, AttackType.Melee);
 		bool isBoss = target.IsBoss;
 		float attribute = npc.GetAttribute(AttribType.Hp);
 		float attribute2 = npc.GetAttribute(AttribType.HpMax);
-		float attribute3 = npc.GetAttribute(AttribType.Atk);
-		float attribute4 = npc.GetAttribute(AttribType.Def);
-		float attribute5 = target.GetAttribute(AttribType.Atk);
 		bool result = attribute > attribute2 * 0.2f;
 		switch (target.Field)
 		{

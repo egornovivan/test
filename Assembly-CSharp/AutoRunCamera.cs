@@ -51,8 +51,6 @@ public class AutoRunCamera : MonoBehaviour
 	private void Start()
 	{
 		m_voxelEditor = GameObject.Find("Voxel Terrain").GetComponent<VoxelEditor>();
-		int num = (int)(m_terrainSize / m_moveStep);
-		int num2 = num - 1;
 	}
 
 	private void Update()

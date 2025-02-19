@@ -18,8 +18,6 @@ public class BTMoveToPoints : BTNormal
 
 		public Vector3[] Path;
 
-		public bool isLoop;
-
 		private bool mInit;
 
 		public void Init()

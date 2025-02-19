@@ -51,7 +51,7 @@ public class UGCData : DbRecordData
 		IDbDataParameter dbDataParameter2 = cmd.CreateParameter();
 		dbDataParameter2.ParameterName = "@ver";
 		dbDataParameter2.DbType = DbType.Int32;
-		dbDataParameter2.Value = 272;
+		dbDataParameter2.Value = 273;
 		cmd.Parameters.Add(dbDataParameter2);
 		IDbDataParameter dbDataParameter3 = cmd.CreateParameter();
 		dbDataParameter3.ParameterName = "@seed";
@@ -103,7 +103,7 @@ public class UGCData : DbRecordData
 		IDbDataParameter dbDataParameter2 = cmd.CreateParameter();
 		dbDataParameter2.ParameterName = "@ver";
 		dbDataParameter2.DbType = DbType.Int32;
-		dbDataParameter2.Value = 272;
+		dbDataParameter2.Value = 273;
 		cmd.Parameters.Add(dbDataParameter2);
 		IDbDataParameter dbDataParameter3 = cmd.CreateParameter();
 		dbDataParameter3.ParameterName = "@hp";

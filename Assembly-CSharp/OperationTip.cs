@@ -59,12 +59,6 @@ public class OperationTip : MonoBehaviour
 
 	private bool mIsShow;
 
-	private bool mPlayCirculation;
-
-	private float mTimer;
-
-	private float mTotalTime;
-
 	public static OperationTip Instance => mInstance;
 
 	private void Start()
@@ -76,8 +70,6 @@ public class OperationTip : MonoBehaviour
 		}
 		ch = new CursorHandler();
 		ch.Type = CursorState.EType.None;
-		mTimer = 0f;
-		mTotalTime = 0.75f;
 		m_TipScaleTween.onFinished = TipTweenFinish;
 		mBag = "mouse_get";
 		mAxe = "mouse_axe";

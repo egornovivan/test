@@ -179,13 +179,10 @@ public class MotionMgrCmpt : PeCmpt, IPeMsg
 		switch (msg)
 		{
 		case EMsg.View_Prefab_Build:
-		{
-			BiologyViewCmpt biologyViewCmpt = args[0] as BiologyViewCmpt;
 			UpdatePhy();
 			FreezeCol = m_FreezeCol;
 			Invoke("UpdateActionStateWhenBuildMode", (!PeGameMgr.IsMulti) ? 0.1f : 1f);
 			break;
-		}
 		case EMsg.View_Prefab_Destroy:
 			UpdateActionStateWhenModeDestroy();
 			break;

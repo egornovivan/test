@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Interaction/Button Keys")]
 [RequireComponent(typeof(Collider))]
+[AddComponentMenu("NGUI/Interaction/Button Keys")]
 public class UIButtonKeys : MonoBehaviour
 {
 	public bool startsSelected;

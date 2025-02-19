@@ -93,12 +93,6 @@ public class UIMinMapCtrl : UIStaticWnd
 
 	private bool mShowBigMap;
 
-	private float mUpdateSubInfoTime = 0.9f;
-
-	private float mUpdateSubInfoElapseTime = 1f;
-
-	private bool mShowMissionTrack;
-
 	private Vector3 mMapCenterPos = Vector3.zero;
 
 	private double mMapReFlashTime;
@@ -241,7 +235,6 @@ public class UIMinMapCtrl : UIStaticWnd
 		mMiniMapCam.aspect = 1f;
 		mMiniMapTex.material = UnityEngine.Object.Instantiate(mMinMapMaterial);
 		mMiniMapTex.material.SetTexture("_MainTex", renderTexture);
-		mShowMissionTrack = false;
 		mMapScale = Vector2.one;
 		UIEventListener uIEventListener2 = UIEventListener.Get(m_MinMapHideBtn.gameObject);
 		uIEventListener2.onClick = (UIEventListener.VoidDelegate)Delegate.Combine(uIEventListener2.onClick, new UIEventListener.VoidDelegate(HideMapBtnOnClick));
@@ -752,26 +745,32 @@ public class UIMinMapCtrl : UIStaticWnd
 			{
 				uIMapLabel.gameObject.SetActive(value: false);
 			}
-			if (uIMapLabel.type != ELabelType.Mission)
+			if (uIMapLabel.type == ELabelType.Mission)
 			{
-				continue;
-			}
-			MissionLabel missionLabel = (MissionLabel)uIMapLabel._ILabel;
-			if (missionLabel.m_type == MissionLabelType.misLb_target || uIMapLabel.NpcID == -1)
-			{
-				continue;
-			}
-			PeEntity peEntity = PeSingleton<EntityMgr>.Instance.Get(uIMapLabel.NpcID);
-			if (null != peEntity && null != peEntity.NpcCmpt && peEntity.NpcCmpt.IsFollower)
-			{
-				if (uIMapLabel.gameObject.activeSelf)
+				MissionLabel missionLabel = (MissionLabel)uIMapLabel._ILabel;
+				if (missionLabel.m_type != MissionLabelType.misLb_target && uIMapLabel.NpcID != -1)
 				{
-					uIMapLabel.gameObject.SetActive(value: false);
+					PeEntity peEntity = PeSingleton<EntityMgr>.Instance.Get(uIMapLabel.NpcID);
+					if (null != peEntity && null != peEntity.NpcCmpt && peEntity.NpcCmpt.IsFollower)
+					{
+						if (uIMapLabel.gameObject.activeSelf)
+						{
+							uIMapLabel.gameObject.SetActive(value: false);
+						}
+					}
+					else if (!uIMapLabel.gameObject.activeSelf)
+					{
+						uIMapLabel.gameObject.SetActive(value: true);
+					}
 				}
 			}
-			else if (!uIMapLabel.gameObject.activeSelf)
+			if (PeGameMgr.IsMulti && uIMapLabel._ILabel.GetIcon() == 11)
 			{
-				uIMapLabel.gameObject.SetActive(value: true);
+				MapCmpt mapCmpt = uIMapLabel._ILabel as MapCmpt;
+				if ((bool)mapCmpt && (bool)mapCmpt.Entity && (bool)mapCmpt.Entity.peTrans)
+				{
+					uIMapLabel.transform.rotation = Quaternion.Euler(0f, 0f, 0f - mapCmpt.Entity.peTrans.rotation.eulerAngles.y);
+				}
 			}
 		}
 	}

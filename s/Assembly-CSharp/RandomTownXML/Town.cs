@@ -24,15 +24,15 @@ public class Town
 	[XmlAttribute("weight")]
 	public int weight { get; set; }
 
-	[XmlArrayItem("NPC", typeof(NpcIdNum))]
 	[XmlArray("NPCArray")]
+	[XmlArrayItem("NPC", typeof(NpcIdNum))]
 	public NpcIdNum[] npcIdNum { get; set; }
 
-	[XmlArray("BuildingNumArray")]
 	[XmlArrayItem("BuildingNum", typeof(BuildingNum))]
+	[XmlArray("BuildingNumArray")]
 	public BuildingNum[] buildingNum { get; set; }
 
-	[XmlArrayItem("Cell", typeof(Cell))]
 	[XmlArray("CellArray")]
+	[XmlArrayItem("Cell", typeof(Cell))]
 	public Cell[] cell { get; set; }
 }

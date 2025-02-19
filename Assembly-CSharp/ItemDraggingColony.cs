@@ -24,8 +24,6 @@ public class ItemDraggingColony : ItemDraggingArticle
 
 	private bool bLimited;
 
-	private bool bPut;
-
 	private void Awake()
 	{
 		m_CEO = GetComponentInChildren<CSEntityObject>();
@@ -157,7 +155,6 @@ public class ItemDraggingColony : ItemDraggingArticle
 			}
 			m_CEO.m_BoundState = 0;
 		}
-		bPut = true;
 		return true;
 	}
 }

@@ -28,8 +28,6 @@ public class AISpawnDataAdvMulti
 
 	private AISpeciesData[] mapDataBossCave;
 
-	private AISpeciesData[] mapDataBossNight;
-
 	private AISpeciesData[] mapDataBossSky;
 
 	private static List<AISpawnDataAdvMulti> m_data = new List<AISpawnDataAdvMulti>();
@@ -70,7 +68,6 @@ public class AISpawnDataAdvMulti
 			aISpawnDataAdvMulti.mapDataSky = AISpeciesData.AnalysisSpeciesString(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("monsterSkyInfo")), sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("groupSkyInfo")));
 			aISpawnDataAdvMulti.mapDataBossLand = AISpeciesData.AnalysisSpeciesString(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("bossLandInfo")));
 			aISpawnDataAdvMulti.mapDataBossWater = AISpeciesData.AnalysisSpeciesString(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("bossWaterInfo")));
-			aISpawnDataAdvMulti.mapDataBossNight = AISpeciesData.AnalysisSpeciesString(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("bossNightInfo")));
 			aISpawnDataAdvMulti.mapDataBossCave = AISpeciesData.AnalysisSpeciesString(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("bossCaveInfo")));
 			aISpawnDataAdvMulti.mapDataBossSky = AISpeciesData.AnalysisSpeciesString(sqliteDataReader.GetString(sqliteDataReader.GetOrdinal("bossSkyInfo")));
 			m_data.Add(aISpawnDataAdvMulti);

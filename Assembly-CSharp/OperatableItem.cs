@@ -8,8 +8,6 @@ public abstract class OperatableItem : MousePickableChildCollider
 	[SerializeField]
 	protected int m_id;
 
-	private PeTrans playerTrans;
-
 	protected override string tipsText => PELocalization.GetString(8000141);
 
 	public virtual bool Operate()

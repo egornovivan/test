@@ -56,8 +56,8 @@ public class PeTipsMsgMan : MonoLikeSingleton<PeTipsMsgMan>
 			ItemProto itemProto = PeSingleton<ItemProto.Mgr>.Instance.Get(e.protoId);
 			if (itemProto != null)
 			{
-				string content = itemProto.GetName() + " X " + e.count;
-				PeTipMsg peTipMsg = new PeTipMsg(content, itemProto.icon[0], PeTipMsg.EMsgLevel.Norm);
+				string content = $"{itemProto.GetName()} X {e.count} ({cmpt.GetItemCount(e.protoId)})";
+				new PeTipMsg(content, itemProto.icon[0], PeTipMsg.EMsgLevel.Norm);
 			}
 		}
 	}

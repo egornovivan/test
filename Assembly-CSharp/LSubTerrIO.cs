@@ -26,10 +26,6 @@ public class LSubTerrIO
 
 	private byte[] _unzippedBuff;
 
-	private IntVector3 _curPosCompleted = new IntVector3(0, -1);
-
-	private IntVector3 _curPosInProcess = new IntVector3(0, -1);
-
 	private List<int> _lstNodesIdx = new List<int>();
 
 	private List<LSubTerrain> _lstNodes = new List<LSubTerrain>();

@@ -1319,7 +1319,6 @@ public class MarchingCubesSWIndexed
 		int num2 = regularCellClass[b];
 		int num3 = regularCellData[num2, 0] & 0xF;
 		int num4 = num3 * 3;
-		byte[] array = new byte[3];
 		for (int i = 0; i < num4; i++)
 		{
 			int num5 = regularCellData[num2, i + 1];

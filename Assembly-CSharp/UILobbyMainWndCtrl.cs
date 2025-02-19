@@ -85,8 +85,6 @@ public class UILobbyMainWndCtrl : UIStaticWnd
 	[HideInInspector]
 	public bool bGetRoomInfo;
 
-	private bool LockRoomList;
-
 	private bool bSortDn = true;
 
 	private SortType mSortType = SortType.mRoomNO;
@@ -168,20 +166,14 @@ public class UILobbyMainWndCtrl : UIStaticWnd
 
 	private void Start()
 	{
-		PeSteamFriendMgr.Instance.Init(mTopLeftAuthor.transform, mUICenter.transform, mUICamera);
-		if (!(GameClientLobby.Self == null))
+		BtnWorkShopsOnClick();
+		if (mTopLeftAuthor != null)
 		{
-			mRoleInfo = GameClientLobby.role;
-			SetRoleInfo();
-			mRecentRoom_M = new RecentRoomDataManager(mRoleInfo.name);
-			mRecentRoom_M.LoadFromFile();
-			StartCoroutine(UpdatePlayerInfo());
-			StartCoroutine(UpdateRoomInfo());
-			InitRoomListSort();
-			if (this.e_LobbyUIStart != null)
-			{
-				this.e_LobbyUIStart();
-			}
+			mTopLeftAuthor.transform.parent.gameObject.SetActive(value: false);
+		}
+		if (mButtomAuthor != null)
+		{
+			mButtomAuthor.SetActive(value: false);
 		}
 	}
 
@@ -225,7 +217,6 @@ public class UILobbyMainWndCtrl : UIStaticWnd
 
 	private void Update()
 	{
-		UpdateLobbyLevel();
 	}
 
 	private void UpdateLobbyLevel()
@@ -1081,18 +1072,11 @@ public class UILobbyMainWndCtrl : UIStaticWnd
 
 	private void WorkShopOnClose()
 	{
-		if (!(mWorkShopCtrl == null))
+		if (mWorkShopCtrl != null)
 		{
-			if (mLastWnd != null && mLastWnd != mWorkShopCtrl.gameObject)
-			{
-				mLastWnd.SetActive(value: true);
-			}
-			else
-			{
-				mRoomWnd.SetActive(value: true);
-			}
 			UnityEngine.Object.Destroy(mWorkShopCtrl.gameObject);
 			mWorkShopCtrl = null;
+			PeSceneCtrl.Instance.GotoMainMenuScene();
 		}
 	}
 

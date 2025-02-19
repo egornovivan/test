@@ -484,8 +484,6 @@ public class AreaBattleManager : MonoBehaviour
 
 	public int mActiveAreaRadius;
 
-	private int mAreaBattleLength;
-
 	private int mLongestLength;
 
 	public float mUpdateInterval;
@@ -548,7 +546,6 @@ public class AreaBattleManager : MonoBehaviour
 	public void InitBattle()
 	{
 		mActive = true;
-		mAreaBattleLength = mAreaNum_OneSide * mSingleAreaLength;
 		mLongestLength = (mAreaNum_OneSide - 1) * 2;
 		mFreeEnemyNum = mEnemyTotal;
 		mAreaUnitList = new AreaUnit[mAreaNum_OneSide, mAreaNum_OneSide];

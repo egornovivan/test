@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("NGUI/UI/Camera")]
 [ExecuteInEditMode]
+[AddComponentMenu("NGUI/UI/Camera")]
 [RequireComponent(typeof(Camera))]
 public class UICamera : MonoBehaviour
 {

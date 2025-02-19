@@ -2,16 +2,16 @@ using UnityEngine;
 
 namespace WhiteCat;
 
-[ExecuteInEditMode]
 [AddComponentMenu("White Cat/Path/Path Driver")]
+[ExecuteInEditMode]
 public class PathDriver : BaseBehaviour
 {
-	[GetSet("path")]
 	[SerializeField]
+	[GetSet("path")]
 	private Path _path;
 
-	[GetSet("location")]
 	[SerializeField]
+	[GetSet("location")]
 	private float _location;
 
 	public RotationMode rotationMode;

@@ -81,17 +81,17 @@ public class PlayerPackageCmpt : DataCmpt
 	{
 		base.Import(r);
 		int num = BufferHelper.ReadInt32(r);
-		int num2 = BufferHelper.ReadInt32(r);
-		int num3 = BufferHelper.ReadInt32(r);
+		BufferHelper.ReadInt32(r);
+		BufferHelper.ReadInt32(r);
 		int armorMax = BufferHelper.ReadInt32(r);
 		ExtendPackage(num, num, num, armorMax);
-		int num4 = BufferHelper.ReadInt32(r);
-		for (int i = 0; i < num4; i++)
+		int num2 = BufferHelper.ReadInt32(r);
+		for (int i = 0; i < num2; i++)
 		{
-			int num5 = BufferHelper.ReadInt32(r);
-			if (num5 != -1)
+			int num3 = BufferHelper.ReadInt32(r);
+			if (num3 != -1)
 			{
-				ItemObject itemByID = ItemManager.GetItemByID(num5);
+				ItemObject itemByID = ItemManager.GetItemByID(num3);
 				SetItem(itemByID, i, 0, ItemCategory.IC_None);
 			}
 			else
@@ -99,13 +99,13 @@ public class PlayerPackageCmpt : DataCmpt
 				SetItem(null, i, 0, ItemCategory.IC_None);
 			}
 		}
-		num4 = BufferHelper.ReadInt32(r);
-		for (int j = 0; j < num4; j++)
+		num2 = BufferHelper.ReadInt32(r);
+		for (int j = 0; j < num2; j++)
 		{
-			int num6 = BufferHelper.ReadInt32(r);
-			if (num6 != -1)
+			int num4 = BufferHelper.ReadInt32(r);
+			if (num4 != -1)
 			{
-				ItemObject itemByID2 = ItemManager.GetItemByID(num6);
+				ItemObject itemByID2 = ItemManager.GetItemByID(num4);
 				SetItem(itemByID2, j, 1, ItemCategory.IC_None);
 			}
 			else
@@ -113,13 +113,13 @@ public class PlayerPackageCmpt : DataCmpt
 				SetItem(null, j, 1, ItemCategory.IC_None);
 			}
 		}
-		num4 = BufferHelper.ReadInt32(r);
-		for (int k = 0; k < num4; k++)
+		num2 = BufferHelper.ReadInt32(r);
+		for (int k = 0; k < num2; k++)
 		{
-			int num7 = BufferHelper.ReadInt32(r);
-			if (num7 != -1)
+			int num5 = BufferHelper.ReadInt32(r);
+			if (num5 != -1)
 			{
-				ItemObject itemByID3 = ItemManager.GetItemByID(num7);
+				ItemObject itemByID3 = ItemManager.GetItemByID(num5);
 				SetItem(itemByID3, k, 2, ItemCategory.IC_None);
 			}
 			else
@@ -127,13 +127,13 @@ public class PlayerPackageCmpt : DataCmpt
 				SetItem(null, k, 2, ItemCategory.IC_None);
 			}
 		}
-		num4 = BufferHelper.ReadInt32(r);
-		for (int l = 0; l < num4; l++)
+		num2 = BufferHelper.ReadInt32(r);
+		for (int l = 0; l < num2; l++)
 		{
-			int num8 = BufferHelper.ReadInt32(r);
-			if (num8 != -1)
+			int num6 = BufferHelper.ReadInt32(r);
+			if (num6 != -1)
 			{
-				ItemObject itemByID4 = ItemManager.GetItemByID(num8);
+				ItemObject itemByID4 = ItemManager.GetItemByID(num6);
 				SetItem(itemByID4, l, 3, ItemCategory.IC_None);
 			}
 			else

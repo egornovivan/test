@@ -21,8 +21,6 @@ public class BTCsMoveAway : BTNormal
 		public Vector3 mWanderWalkPos;
 
 		public float startWanderTime;
-
-		public Vector3 mDirPos;
 	}
 
 	private Data m_Data;

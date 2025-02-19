@@ -381,6 +381,7 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		BindAction(EPacketType.PT_InGame_Railway_ResetRouteName, RPC_S2C_Railway_ResetRouteName);
 		BindAction(EPacketType.PT_InGame_Railway_ResetPointTime, RPC_S2C_Railway_ResetPointTime);
 		BindAction(EPacketType.PT_InGame_Railway_AutoCreateRoute, RPC_S2C_Railway_AutoCreateRoute);
+		BindAction(EPacketType.PT_InGame_Railway_UpdateRoute, RPC_S2C_Railway_UpdateRoute);
 		BindAction(EPacketType.PT_InGame_AccItems_CreateItem, RPC_AccItems_CreateItem);
 		BindAction(EPacketType.PT_InGame_SKTLevelUp, RPC_S2C_SKTLevelUp);
 		BindAction(EPacketType.PT_Test_PutOnEquipment, RPC_S2C_Test_PutOnEquipment);
@@ -441,6 +442,7 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		BindAction(EPacketType.PT_Mount_AddMountMonster, RPC_S2C_AddMountMonster);
 		BindAction(EPacketType.PT_Mount_DelMountMonster, RPC_S2C_DelMountMonste);
 		BindAction(EPacketType.PT_Mount_SyncPlayerRot, RPC_S2C_SyncPlayerRot);
+		BindAction(EPacketType.PT_GM_Statistics, RPC_S2C_Statistics);
 		if (base.IsOwner)
 		{
 			RequestTerrainData();
@@ -1465,14 +1467,7 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		_initOk = true;
 		if (PeGameMgr.IsMultiStory)
 		{
-			if (mainPlayerId == base.Id)
-			{
-				MissionManager.Instance.CheckEnableDienShipLight(_curSceneId);
-			}
-			if (_curSceneId != 4 && mainPlayerId == base.Id)
-			{
-				MissionManager.Instance.EnablePajaShipLight(bEnable: false);
-			}
+			MultiStorySceneObjectManager.instance.RequestChangeScene(base.Id, _curSceneId);
 		}
 	}
 
@@ -1492,17 +1487,24 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 					break;
 				}
 				Drag cmpt = itemObject.GetCmpt<Drag>();
-				if (cmpt != null)
+				if (cmpt == null)
 				{
-					if (itemObject.protoId == 1339)
-					{
-						KillNPC.ashBox_inScene++;
-					}
-					DragArticleAgent dragArticleAgent = DragArticleAgent.Create(cmpt, sceneObject.Pos, sceneObject.Scale, sceneObject.Rot, sceneObject.Id);
-					if (dragArticleAgent != null)
-					{
-						dragArticleAgent.ScenarioId = sceneObject.ScenarioId;
-					}
+					break;
+				}
+				if (itemObject.protoId == 1339)
+				{
+					KillNPC.ashBox_inScene++;
+				}
+				if (itemObject.protoId == 1529)
+				{
+					GameObject gameObject = (GameObject)UnityEngine.Object.Instantiate(Resources.Load(itemObject.protoData.resourcePath), sceneObject.Pos, sceneObject.Rot);
+					gameObject.name = "McTalk";
+					break;
+				}
+				DragArticleAgent dragArticleAgent = DragArticleAgent.Create(cmpt, sceneObject.Pos, sceneObject.Scale, sceneObject.Rot, sceneObject.Id);
+				if (dragArticleAgent != null)
+				{
+					dragArticleAgent.ScenarioId = sceneObject.ScenarioId;
 				}
 				break;
 			}
@@ -2391,6 +2393,15 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		}
 	}
 
+	private void RPC_S2C_Statistics(uLink.BitStream stream, uLink.NetworkMessageInfo info)
+	{
+		string content = stream.Read<string>(new object[0]);
+		if (null != UITalkwithctr.Instance && UITalkwithctr.Instance.isShow)
+		{
+			UITalkwithctr.Instance.AddTalk("System", content, "99C68B");
+		}
+	}
+
 	private void RPC_S2C_PlayerBattleInfo(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		_battleInfo = stream.Read<BattleInfo>(new object[0]);
@@ -2472,6 +2483,10 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 
 	public void RequestChangeScene(int sceneId)
 	{
+		if (PeGameMgr.IsMultiStory)
+		{
+			MultiStorySceneObjectManager.instance.RequestChangeScene(base.Id, sceneId);
+		}
 		RPCServer(EPacketType.PT_InGame_CurSceneId, sceneId);
 	}
 
@@ -2670,54 +2685,45 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		{
 			return;
 		}
-		PeEntity[] doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(242);
-		if (doodadEntities.Length > 0)
+		if (mainPlayerId == base.Id)
 		{
-			SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
-			if (component != null)
+			PeEntity[] doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(242);
+			if (doodadEntities.Length > 0)
 			{
-				component.IsShown = true;
+				SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
+				if (component != null)
+				{
+					component.IsShown = true;
+				}
 			}
-		}
-		doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(240);
-		if (doodadEntities.Length > 0)
-		{
-			SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
-			if (component != null)
+			doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(240);
+			if (doodadEntities.Length > 0)
 			{
-				component.IsShown = true;
+				SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
+				if (component != null)
+				{
+					component.IsShown = true;
+				}
 			}
-		}
-		doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(324);
-		if (doodadEntities.Length > 0)
-		{
-			SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
-			if (component != null)
+			doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(324);
+			if (doodadEntities.Length > 0)
 			{
-				component.IsShown = true;
+				SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
+				if (component != null)
+				{
+					component.IsShown = true;
+				}
 			}
-		}
-		doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(326);
-		if (doodadEntities.Length > 0)
-		{
-			SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
-			if (component != null)
+			doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(326);
+			if (doodadEntities.Length > 0)
 			{
-				component.IsShown = true;
+				SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
+				if (component != null)
+				{
+					component.IsShown = true;
+				}
 			}
-		}
-		doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(327);
-		if (doodadEntities.Length > 0)
-		{
-			SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
-			if (null != component)
-			{
-				component.IsShown = true;
-			}
-		}
-		for (int i = 461; i < 464; i++)
-		{
-			doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(i);
+			doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(327);
 			if (doodadEntities.Length > 0)
 			{
 				SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
@@ -2726,16 +2732,20 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 					component.IsShown = true;
 				}
 			}
-		}
-		if (mainPlayerId == base.Id)
-		{
-			MissionManager.Instance.CheckEnableDienShipLight(_curSceneId);
-			MissionManager.Instance.EnablePajaShipLight(bEnable: false);
-			if (_curSceneId == 4)
+			for (int i = 461; i < 464; i++)
 			{
-				MissionManager.Instance.EnablePajaShipLight(bEnable: true);
+				doodadEntities = PeSingleton<EntityMgr>.Instance.GetDoodadEntities(i);
+				if (doodadEntities.Length > 0)
+				{
+					SceneDoodadLodCmpt component = doodadEntities[0].GetComponent<SceneDoodadLodCmpt>();
+					if (null != component)
+					{
+						component.IsShown = true;
+					}
+				}
 			}
 		}
+		MultiStorySceneObjectManager.instance.RequestChangeScene(base.Id, _curSceneId);
 	}
 
 	private void RPC_S2C_FarmInfo(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -2944,7 +2954,6 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		cmpt.package.PutItem(itemObject, slotIndex, (ItemPackage.ESlotType)itemObject.protoData.tabIndex);
 	}
 
-	[Obsolete]
 	private void RPC_S2C_PutItem(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		int id = stream.Read<int>(new object[0]);
@@ -4113,8 +4122,7 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 
 	private void RPC_S2C_GenRandomItemRare(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		Vector3 pos = stream.Read<Vector3>(new object[0]);
-		RandomItemObj randomItemObj = RandomItemMgr.Instance.GetRandomItemObj(pos);
+		stream.Read<Vector3>(new object[0]);
 	}
 
 	private void RPC_S2C_RandomItemRareAry(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -4143,7 +4151,6 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 
 	private void RPC_S2C_GetRandomIsoCode(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
-		Vector3 vector = stream.Read<Vector3>(new object[0]);
 	}
 
 	private void RPC_S2C_RandomItemFetch(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -4344,10 +4351,7 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 	{
 		int npcid = stream.Read<int>(new object[0]);
 		int[] ids = stream.Read<int[]>(new object[0]);
-		if (GameUI.Instance.mShopWnd.InitNpcShopWhenMultiMode(npcid, ids))
-		{
-			GameUI.Instance.mShopWnd.Show();
-		}
+		GameUI.Instance.mShopWnd.InitNpcShopWhenMultiMode(npcid, ids);
 	}
 
 	private void RPC_S2C_ChangeCurrency(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -4495,7 +4499,6 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		}
 	}
 
-	[Obsolete]
 	private void RPC_S2C_Plant_FarmInfo(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		byte[] buffer = stream.Read<byte[]>(new object[0]);
@@ -4511,7 +4514,6 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		}
 	}
 
-	[Obsolete]
 	private void RPC_S2C_Plant_Water(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		int itemObjID = stream.Read<int>(new object[0]);
@@ -4524,7 +4526,6 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		}
 	}
 
-	[Obsolete]
 	private void RPC_S2C_Plant_Clean(uLink.BitStream stream, uLink.NetworkMessageInfo info)
 	{
 		int itemObjID = stream.Read<int>(new object[0]);
@@ -4584,7 +4585,14 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 	{
 		int pointId = stream.Read<int>(new object[0]);
 		string routeName = stream.Read<string>(new object[0]);
-		PeSingleton<RailwayOperate>.Instance.DoCreateRoute(pointId, routeName);
+		int moveDir = stream.Read<int>(new object[0]);
+		float timeToLeavePoint = stream.Read<float>(new object[0]);
+		Route route = PeSingleton<RailwayOperate>.Instance.DoCreateRoute(pointId, routeName);
+		if (route != null)
+		{
+			route.moveDir = moveDir;
+			route.TimeToLeavePoint = timeToLeavePoint;
+		}
 	}
 
 	private void RPC_S2C_Railway_GetOnTrain(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -4655,6 +4663,15 @@ public class PlayerNetwork : SkNetworkInterface, INetworkEvent
 		int pointID = stream.Read<int>(new object[0]);
 		int itemObjID = stream.Read<int>(new object[0]);
 		PeSingleton<RailwayOperate>.Instance.DoAutoCreateRoute(pointID, itemObjID);
+	}
+
+	private void RPC_S2C_Railway_UpdateRoute(uLink.BitStream stream, uLink.NetworkMessageInfo info)
+	{
+		int routeId = stream.Read<int>(new object[0]);
+		int moveDir = stream.Read<int>(new object[0]);
+		int nextPoint = stream.Read<int>(new object[0]);
+		float time = stream.Read<float>(new object[0]);
+		PeSingleton<RailwayOperate>.Instance.DoSyncRunState(routeId, moveDir, nextPoint, time);
 	}
 
 	public void SKTLearn(int skillType)

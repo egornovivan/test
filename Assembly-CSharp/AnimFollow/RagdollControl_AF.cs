@@ -265,7 +265,7 @@ public class RagdollControl_AF : MonoBehaviour
 		{
 			if (!falling)
 			{
-				if (anim != null && !anim.GetCurrentAnimatorStateInfo(0).nameHash.Equals(HashIDs.Idle) && !getupState)
+				if (anim != null && !anim.GetCurrentAnimatorStateInfo(0).fullPathHash.Equals(HashIDs.Idle) && !getupState)
 				{
 					animFollow.maxTorque = residualTorque;
 					animFollow.maxForce = residualForce;

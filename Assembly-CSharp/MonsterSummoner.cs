@@ -8,8 +8,6 @@ using VANativeCampXML;
 
 public class MonsterSummoner : MonoBehaviour
 {
-	private static readonly float s_rayHalfLen = 10f;
-
 	[SerializeField]
 	private int _maxCntOfMonsters;
 

@@ -38,8 +38,6 @@ public class BTFixedPatrol : BTNormal
 
 		public PEPathData PathData;
 
-		public RandIntDb PosIds;
-
 		public RandIntDb RandTriggerTimes;
 
 		public RandIntDb RandPlayTimes;
@@ -55,8 +53,6 @@ public class BTFixedPatrol : BTNormal
 		public bool IsActive;
 
 		public int curPath;
-
-		public PEActionType mType;
 
 		private bool mInit;
 

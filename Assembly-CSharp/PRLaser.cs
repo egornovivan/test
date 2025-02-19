@@ -7,7 +7,7 @@ public class PRLaser : Projectile
 
 	public float intervalTime;
 
-	private Collider collider;
+	private Collider myCollider;
 
 	private float nextStandardTime;
 
@@ -51,10 +51,10 @@ public class PRLaser : Projectile
 		yield return new WaitForSeconds(delayTime);
 		while (CheckTargetValid())
 		{
-			collider = GetDamageCollider();
-			if (collider != null)
+			myCollider = GetDamageCollider();
+			if (myCollider != null)
 			{
-				TriggerColliderInterval(collider);
+				TriggerColliderInterval(myCollider);
 				yield return new WaitForSeconds(intervalTime);
 			}
 			else

@@ -37,8 +37,6 @@ public class CSUI_NPCEquip : MonoBehaviour
 
 	private EquipmentCmpt equipmentCmpt;
 
-	private EntityInfoCmpt m_NpcInfo;
-
 	private CommonCmpt m_NpcCommonInfo;
 
 	private NpcCmpt m_NpcCmpt;
@@ -104,7 +102,6 @@ public class CSUI_NPCEquip : MonoBehaviour
 				NpcEquipment = m_RefNpc.equipmentCmpt;
 				NpcEquipment.changeEventor.Unsubscribe(EquipmentChangeEvent);
 				NpcEquipment.changeEventor.Subscribe(EquipmentChangeEvent);
-				m_NpcInfo = m_RefNpc.enityInfoCmpt;
 				m_NpcCommonInfo = m_RefNpc.commonCmpt;
 				m_NpcCmpt = m_RefNpc.NpcCmpt;
 				m_ViewCmpt = m_RefNpc.biologyViewCmpt;
@@ -112,7 +109,6 @@ public class CSUI_NPCEquip : MonoBehaviour
 			else
 			{
 				NpcEquipment = null;
-				m_NpcInfo = null;
 				m_NpcCommonInfo = null;
 				m_NpcCmpt = null;
 				m_ViewCmpt = null;
@@ -136,8 +132,6 @@ public class CSUI_NPCEquip : MonoBehaviour
 			waitingImage.SetActive(value);
 		}
 	}
-
-	public event OpStatusDel OpStatusEvent;
 
 	private void UpdateMustNotTag()
 	{

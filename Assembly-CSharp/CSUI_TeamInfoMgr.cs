@@ -102,15 +102,7 @@ public class CSUI_TeamInfoMgr : UIBaseWnd
 
 	public N_ImageButton _joinTeam;
 
-	private int mMaxListCount1 = 10;
-
-	private int mMaxListCount2 = 11;
-
 	private bool m_FreeJoin;
-
-	private List<CSUI_TeamListItem> mIntegrationItemCtrls = new List<CSUI_TeamListItem>();
-
-	private PlayerNetwork _MySelf;
 
 	private MyType mBtnType;
 
@@ -141,8 +133,6 @@ public class CSUI_TeamInfoMgr : UIBaseWnd
 	private int TroopsPerPageCount = 11;
 
 	private List<CSUI_TeamListItem> TroopsPageList;
-
-	private string m_TeamNameToJoin;
 
 	private int _currentIndex = -1;
 
@@ -244,10 +234,6 @@ public class CSUI_TeamInfoMgr : UIBaseWnd
 		}
 	}
 
-	public event ReceiveDataDel ReceiveIntegrationEvent;
-
-	public event ReceiveDataDel ReceivePlayersEvent;
-
 	public static event CreatTeamDel CreatTeamEvent;
 
 	public static event OnInvitationDel OnInvitationEvent;
@@ -263,8 +249,6 @@ public class CSUI_TeamInfoMgr : UIBaseWnd
 	public static event OnDeliverToDel OnDeliverToEvent;
 
 	public static event OnDissolveToDel OnDissolveEvent;
-
-	public static event OnQuitTeamDel OnLeaderQuitTeamEvent;
 
 	public static event OnQuitTeamDel OnMemberQuitTeamEvent;
 
@@ -443,15 +427,10 @@ public class CSUI_TeamInfoMgr : UIBaseWnd
 
 	private void SetTeamNameToJoin(MyPlayer mp)
 	{
-		if (mp.TeamName != string.Empty)
-		{
-			m_TeamNameToJoin = mp.TeamName;
-		}
 	}
 
 	public void JoinTeamList(PlayerNetwork pnet)
 	{
-		_MySelf = pnet;
 		_currentIndex++;
 	}
 

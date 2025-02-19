@@ -61,8 +61,6 @@ public class SceneMan : MonoBehaviour, Pathea.ISerializable
 
 	private bool _dirtyLstIsActive;
 
-	private bool _dirtyLstToActive;
-
 	private bool _dirtyLstInactive;
 
 	private bool _dirtyLstIdle;
@@ -421,14 +419,7 @@ public class SceneMan : MonoBehaviour, Pathea.ISerializable
 	{
 		if ((object)self != null)
 		{
-			if (bAdd)
-			{
-				self._dirtyLstToActive = true;
-			}
-			else
-			{
-				self._dirtyLstIsActive = true;
-			}
+			self._dirtyLstIsActive = true;
 		}
 	}
 
@@ -530,7 +521,6 @@ public class SceneMan : MonoBehaviour, Pathea.ISerializable
 			{
 				_lstInactive.RemoveAt(num);
 				_lstToActive.Add(sceneObjAgent);
-				_dirtyLstToActive = true;
 			}
 		}
 		count = _toDestruct.Count;
@@ -588,7 +578,6 @@ public class SceneMan : MonoBehaviour, Pathea.ISerializable
 			}
 			_toActivate.Clear();
 		}
-		_dirtyLstToActive = false;
 	}
 
 	private void UpdateIsActive()
@@ -647,7 +636,7 @@ public class SceneMan : MonoBehaviour, Pathea.ISerializable
 		}
 		catch
 		{
-			Debug.LogWarning("TerrainLodDesc not found.");
+			Debug.Log("TerrainLodDesc not found.");
 		}
 		if (TerrainLodDescPaser.terLodDesc != null)
 		{

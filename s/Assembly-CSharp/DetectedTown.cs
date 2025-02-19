@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 
-[Obsolete]
 public class DetectedTown
 {
 	public int campId;

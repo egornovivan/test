@@ -75,13 +75,9 @@ public static class PELocalization
 
 	public static string ToLocalizationString(this string origin)
 	{
-		if (gIdxLangCur != gIdxLangEng)
+		if (gIdxLangCur != gIdxLangEng && gEnIdMap.TryGetValue(origin.ToLower(), out var value))
 		{
-			string text = origin.ToLower();
-			if (gEnIdMap.TryGetValue(origin.ToLower(), out var value))
-			{
-				return gCurStrMap[value];
-			}
+			return gCurStrMap[value];
 		}
 		return origin;
 	}

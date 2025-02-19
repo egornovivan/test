@@ -287,7 +287,6 @@ public class CSRepair : CSWorkerMachine
 		}
 		if (m_Item != null)
 		{
-			float num = GetWorkingCount();
 			if (IsRepairingM)
 			{
 				m_CostsTime = m_Counter.FinalCounter - m_Counter.CurCounter;
